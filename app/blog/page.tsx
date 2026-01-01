@@ -3,6 +3,8 @@ import Image from 'next/image'
 import { client, urlFor } from '@/lib/sanity'
 import { ArrowRight, Calendar } from 'lucide-react'
 
+export const dynamic = 'force-dynamic' // Don't pre-render at build time
+
 interface Post {
   _id: string
   title: string

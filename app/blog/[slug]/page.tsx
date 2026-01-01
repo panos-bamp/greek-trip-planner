@@ -4,6 +4,7 @@ import { client, urlFor } from '@/lib/sanity'
 import { PortableText } from '@portabletext/react'
 import { ArrowLeft, Calendar, Clock } from 'lucide-react'
 
+export const dynamic = 'force-dynamic' // Don't pre-render at build time
 export const revalidate = 3600
 
 interface Post {
