@@ -1,0 +1,9 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://greektriplanner.me/sitemap.xml
+
+# Disallow admin/api routes
+Disallow: /api/
