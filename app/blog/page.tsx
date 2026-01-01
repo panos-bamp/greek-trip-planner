@@ -192,6 +192,70 @@ export default async function BlogPage() {
         </div>
       </div>
 
+      {/* Travel Resources Section */}
+      <section className="py-16 bg-gray-50 border-t border-gray-200">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-black text-primary mb-8 text-center" style={{fontFamily: 'Space Grotesk, sans-serif'}}>
+              Travel Resources
+            </h2>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* iTravelNet */}
+              <div className="bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all">
+                <a 
+                  href="https://itravelnet.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-2 hover:text-accent-blue transition">
+                    itravelnet.com
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Travel directory
+                  </p>
+                </a>
+              </div>
+
+              {/* Travel Magazine */}
+              <div className="bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all">
+                <a 
+                  href="https://travelmagazine.co" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-2 hover:text-accent-blue transition">
+                    Travel Magazine
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Latest travel news and guides
+                  </p>
+                </a>
+              </div>
+
+              {/* Travel Tourism Directory */}
+              <div className="bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all">
+                <a 
+                  href="https://traveltourismdirectory.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-2 hover:text-accent-blue transition">
+                    Travel and Tourism Directory
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Comprehensive travel resources
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <footer className="gradient-primary py-12">
         <div className="container mx-auto px-6">
