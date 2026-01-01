@@ -1,0 +1,121 @@
+/* Custom Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+
+@import "tailwindcss";
+
+@theme inline {
+  /* Main Brand Colors - EXACT from samples */
+  --color-primary-DEFAULT: #05037E;     /* Deep blue from site_sample1 */
+  --color-primary-50: #E8E7F9;
+  --color-primary-100: #D1CFF3;
+  --color-primary-200: #A39FE7;
+  --color-primary-300: #756FDB;
+  --color-primary-400: #473FCF;
+  --color-primary-500: #05037E;
+  --color-primary-600: #040265;
+  --color-primary-700: #03024C;
+  --color-primary-800: #020133;
+  --color-primary-900: #01011A;
+  
+  /* Dark Grey - from site_sample2 */
+  --color-dark-DEFAULT: #0C0D0F;
+  --color-dark-50: #E6E6E7;
+  --color-dark-100: #CDCDCF;
+  --color-dark-200: #9B9B9F;
+  --color-dark-300: #69696F;
+  --color-dark-400: #37383F;
+  --color-dark-500: #0C0D0F;
+  --color-dark-600: #0A0A0C;
+  --color-dark-700: #070809;
+  --color-dark-800: #050506;
+  --color-dark-900: #020303;
+  
+  /* Accent Colors - EXACT from samples */
+  --color-accent-pink: #FF7CE6;         /* Pink from site_sample2 */
+  --color-accent-lightblue: #DCE6FF;    /* Light blue-grey bg from site_sample3 */
+  --color-accent-green: #46F2B6;        /* Light green card from site_sample3 */
+  --color-accent-mauve: #9788FF;        /* Mauve card from site_sample3 */
+  --color-accent-blue: #2C73FF;         /* Blue card from site_sample3 */
+  --color-accent-darkgreen: #02522B;    /* Green card from site_sample3 */
+  --color-accent-cyan: #22D3EE;         /* Keep cyan for variety */
+  --color-accent-purple: #A855F7;       /* Keep purple */
+  
+  /* Background Colors */
+  --color-bg-light: #F8FAFC;
+  --color-bg-card: #FFFFFF;
+  
+  /* Text Colors */
+  --color-text-primary: #0F172A;
+  --color-text-secondary: #64748B;
+  --color-text-light: #94A3B8;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--color-bg-light);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px rgba(255, 124, 230, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(255, 124, 230, 0.6); }
+}
+
+@keyframes slide-up-fade {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-slide-up-fade {
+  animation: slide-up-fade 0.6s ease-out forwards;
+}
+
+/* Gradient backgrounds - Using exact colors */
+.gradient-primary {
+  background: linear-gradient(135deg, #05037E 0%, #2C73FF 100%);
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, #0C0D0F 0%, #37383F 100%);
+}
+
+.gradient-pink {
+  background: linear-gradient(135deg, #FF7CE6 0%, #9788FF 100%);
+}
+
+.gradient-blue {
+  background: linear-gradient(135deg, #2C73FF 0%, #05037E 100%);
+}
+
+.gradient-green {
+  background: linear-gradient(135deg, #46F2B6 0%, #02522B 100%);
+}
+
+.gradient-multicolor {
+  background: linear-gradient(135deg, #46F2B6 0%, #9788FF 50%, #FF7CE6 100%);
+}
