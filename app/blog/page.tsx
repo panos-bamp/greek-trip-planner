@@ -216,14 +216,29 @@ export default async function BlogPage() {
           <div className="mt-8 pt-8 border-t border-white/10">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-white/60 text-sm">© 2024 Greek Trip Planner. All rights reserved.</p>
-              <a 
-                href="https://traveltourismdirectory.com/" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="text-white/80 hover:text-white transition text-sm"
-              >
-                Travel and Tourism Directory
-              </a>
+              <div className="flex items-center gap-6">
+                <a 
+                  href="https://traveltourismdirectory.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-white/80 hover:text-white transition text-sm"
+                >
+                  Travel and Tourism Directory
+                </a>
+                <a 
+                  href="https://bookmarktravel.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                >
+                  <img 
+                    src="https://bookmarktravel.com/images/bookmarktravel-234.jpg" 
+                    alt="Bookmark Travel" 
+                    width="234" 
+                    height="39" 
+                    className="h-auto"
+                  />
+                </a>
+              </div>
             </div>
           </div>
         </div>
