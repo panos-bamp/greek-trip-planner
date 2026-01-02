@@ -80,16 +80,92 @@ export default defineType({
       validation: Rule => Rule.max(200),
       group: 'content',
     }),
+    
+    // ENHANCED BODY FIELD WITH RICH FORMATTING
     defineField({
       name: 'body',
       title: 'Body',
       type: 'array',
       of: [
         {
-          type: 'block'
+          type: 'block',
+          // Styles - Headings & Paragraphs
+          styles: [
+            {title: 'Normal', value: 'normal'},
+            {title: 'Heading 1', value: 'h1'},
+            {title: 'Heading 2', value: 'h2'},
+            {title: 'Heading 3', value: 'h3'},
+            {title: 'Heading 4', value: 'h4'},
+            {title: 'Quote', value: 'blockquote'},
+          ],
+          // Lists
+          lists: [
+            {title: 'Bullet', value: 'bullet'},
+            {title: 'Numbered', value: 'number'}
+          ],
+          // Marks - inline styles
+          marks: {
+            // Text decorations
+            decorators: [
+              {title: 'Strong', value: 'strong'},
+              {title: 'Emphasis', value: 'em'},
+              {title: 'Code', value: 'code'},
+              {title: 'Underline', value: 'underline'},
+              {title: 'Strike', value: 'strike-through'},
+            ],
+            // Links
+            annotations: [
+              {
+                title: 'URL',
+                name: 'link',
+                type: 'object',
+                fields: [
+                  {
+                    title: 'URL',
+                    name: 'href',
+                    type: 'url',
+                    validation: Rule => Rule.uri({
+                      scheme: ['http', 'https', 'mailto', 'tel']
+                    })
+                  },
+                  {
+                    title: 'Open in new tab',
+                    name: 'blank',
+                    type: 'boolean',
+                    initialValue: true
+                  }
+                ]
+              },
+              // Highlight text color
+              {
+                title: 'Highlight',
+                name: 'highlight',
+                type: 'object',
+                fields: [
+                  {
+                    title: 'Highlight Color',
+                    name: 'color',
+                    type: 'string',
+                    options: {
+                      list: [
+                        {title: 'Yellow', value: 'yellow'},
+                        {title: 'Green', value: 'green'},
+                        {title: 'Blue', value: 'blue'},
+                        {title: 'Pink', value: 'pink'},
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          }
         },
+        // Images in content
         {
           type: 'image',
+          options: {
+            hotspot: true
+          },
           fields: [
             {
               type: 'text',
@@ -105,6 +181,45 @@ export default defineType({
               description: 'Optional caption below image',
             }
           ]
+        },
+        // Custom callout/info boxes
+        {
+          type: 'object',
+          name: 'callout',
+          title: 'Callout Box',
+          fields: [
+            {
+              title: 'Type',
+              name: 'type',
+              type: 'string',
+              options: {
+                list: [
+                  {title: 'Info', value: 'info'},
+                  {title: 'Warning', value: 'warning'},
+                  {title: 'Tip', value: 'tip'},
+                  {title: 'Note', value: 'note'},
+                ]
+              }
+            },
+            {
+              title: 'Content',
+              name: 'content',
+              type: 'text',
+              rows: 3
+            }
+          ],
+          preview: {
+            select: {
+              type: 'type',
+              content: 'content'
+            },
+            prepare({type, content}) {
+              return {
+                title: type ? type.charAt(0).toUpperCase() + type.slice(1) : 'Callout',
+                subtitle: content
+              }
+            }
+          }
         }
       ],
       group: 'content',

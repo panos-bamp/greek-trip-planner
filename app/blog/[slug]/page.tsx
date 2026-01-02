@@ -2,9 +2,10 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { client, urlFor } from '@/lib/sanity'
 import { PortableText } from '@portabletext/react'
+import { portableTextComponents } from '@/components/portableTextComponents'
 import { ArrowLeft, Calendar, Clock } from 'lucide-react'
 
-export const dynamic = 'force-dynamic' // Don't pre-render at build time
+export const dynamic = 'force-dynamic'
 export const revalidate = 3600
 
 interface Post {
@@ -118,12 +119,12 @@ export default async function BlogPost({
         </div>
       </div>
 
-      {/* Hero Section - 2 Column Layout */}
+      {/* Hero Section */}
       <div className="pb-16 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-5 gap-16 items-start">
-              {/* Left: Title, Excerpt, Author (60%) */}
+              {/* Left: Title, Excerpt, Author */}
               <div className="md:col-span-3">
                 {/* Category */}
                 {post.categories && post.categories.length > 0 && (
@@ -148,12 +149,10 @@ export default async function BlogPost({
 
                 {/* Author Info */}
                 <div className="flex items-center space-x-4">
-                  {/* Avatar */}
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent-blue flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
                     {post.author ? post.author[0].toUpperCase() : 'G'}
                   </div>
 
-                  {/* Meta */}
                   <div>
                     <div className="font-semibold text-primary">
                       {post.author || 'Greek Trip Planner'}
@@ -174,13 +173,13 @@ export default async function BlogPost({
                 </div>
               </div>
 
-              {/* Right: Featured Image (40%) */}
+              {/* Right: Featured Image */}
               <div className="md:col-span-2">
                 {post.mainImage && (
                   <div className="relative w-full h-full min-h-[400px] rounded-2xl overflow-hidden">
                     <img
                       src={urlFor(post.mainImage).width(800).url()}
-                      alt={post.title}
+                      alt={post.mainImage.alt || post.title}
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -191,23 +190,14 @@ export default async function BlogPost({
         </div>
       </div>
 
-      {/* Content Area - NO TITLE HERE */}
+      {/* Content Area with Rich Text Components */}
       <article className="pb-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
-            <div className="prose prose-lg max-w-none
-              [&_h2]:font-black [&_h2]:text-4xl [&_h2]:text-primary [&_h2]:mt-12 [&_h2]:mb-6
-              [&_h3]:font-bold [&_h3]:text-2xl [&_h3]:text-primary [&_h3]:mt-8 [&_h3]:mb-4
-              [&_p]:text-lg [&_p]:text-gray-700 [&_p]:leading-relaxed [&_p]:mb-6
-              [&_a]:text-accent-blue [&_a]:underline [&_a]:font-semibold [&_a:hover]:text-primary
-              [&_strong]:text-primary [&_strong]:font-bold
-              [&_ul]:my-6 [&_ol]:my-6
-              [&_li]:text-lg [&_li]:mb-3 [&_li]:text-gray-700
-              [&_blockquote]:border-l-4 [&_blockquote]:border-accent-pink [&_blockquote]:pl-6 [&_blockquote]:italic [&_blockquote]:text-gray-600 [&_blockquote]:my-8
-              [&_img]:rounded-2xl [&_img]:my-8
-            ">
-              <PortableText value={post.body} />
-            </div>
+            <PortableText 
+              value={post.body} 
+              components={portableTextComponents}
+            />
           </div>
         </div>
       </article>
