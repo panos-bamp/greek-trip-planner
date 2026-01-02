@@ -22,21 +22,26 @@ interface Post {
 }
 
 async function getPost(slug: string): Promise<Post | null> {
-  const post = await client.fetch(
-    `*[_type == "post" && slug.current == $slug][0] {
-      title,
-      slug,
-      mainImage,
-      body,
-      author,
-      publishedAt,
-      categories,
-      excerpt
-    }`,
-    { slug }
-  )
-  
-  return post
+  try {
+    const post = await client.fetch(
+      `*[_type == "post" && slug.current == $slug][0] {
+        title,
+        slug,
+        mainImage,
+        body,
+        author,
+        publishedAt,
+        categories,
+        excerpt
+      }`,
+      { slug }
+    )
+    
+    return post || null
+  } catch (error) {
+    console.error('Error fetching blog post:', error)
+    return null
+  }
 }
 
 function formatDate(dateString: string) {

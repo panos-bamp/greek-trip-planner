@@ -21,19 +21,24 @@ interface Post {
 export const revalidate = 3600
 
 async function getPosts(): Promise<Post[]> {
-  const posts = await client.fetch(`
-    *[_type == "post"] | order(publishedAt desc) {
-      _id,
-      title,
-      slug,
-      mainImage,
-      excerpt,
-      publishedAt,
-      author,
-      categories
-    }
-  `)
-  return posts
+  try {
+    const posts = await client.fetch(`
+      *[_type == "post"] | order(publishedAt desc) {
+        _id,
+        title,
+        slug,
+        mainImage,
+        excerpt,
+        publishedAt,
+        author,
+        categories
+      }
+    `)
+    return posts || []
+  } catch (error) {
+    console.error('Error fetching blog posts:', error)
+    return []
+  }
 }
 
 function formatDate(dateString: string) {
