@@ -1,215 +1,192 @@
-import { notFound } from 'next/navigation';
-import { PortableText } from '@portabletext/react';
-import { client } from '@/sanity/lib/client';
-import { portableTextComponents } from '@/components/portableTextComponents';
 import Link from 'next/link';
+import { client } from '@/sanity/lib/client';
 
-// Define types
 interface Post {
   title: string;
   slug: { current: string };
   publishedAt: string;
   excerpt?: string;
-  body: any[];
-  author?: {
-    name: string;
-    image?: string;
-  };
   mainImage?: {
     asset: {
       url: string;
     };
     alt?: string;
   };
-  categories?: Array<{
-    title: string;
-    slug: { current: string };
-  }>;
+  author?: {
+    name: string;
+  };
 }
 
-// Generate static params for all blog posts
-export async function generateStaticParams() {
-  const posts = await client.fetch<Array<{ slug: { current: string } }>>(
-    `*[_type == "post"]{ slug }`
-  );
-
-  return posts.map((post) => ({
-    slug: post.slug.current,
-  }));
-}
-
-// Fetch single post
-async function getPost(slug: string): Promise<Post | null> {
+async function getPosts(): Promise<Post[]> {
   try {
-    const post = await client.fetch<Post>(
-      `*[_type == "post" && slug.current == $slug][0]{
+    const posts = await client.fetch<Post[]>(
+      `*[_type == "post"] | order(publishedAt desc) {
         title,
         slug,
         publishedAt,
         excerpt,
-        body,
-        author->{
-          name,
-          image
-        },
         mainImage{
           asset->{
             url
           },
           alt
         },
-        categories[]->{
-          title,
-          slug
+        author->{
+          name
         }
-      }`,
-      { slug }
+      }`
     );
-
-    return post;
+    return posts || [];
   } catch (error) {
-    console.error('Error fetching post:', error);
-    return null;
+    console.error('Error fetching posts:', error);
+    return [];
   }
 }
 
-// Generate metadata
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = await getPost(params.slug);
-
-  if (!post) {
-    return {
-      title: 'Post Not Found',
-    };
-  }
-
-  return {
-    title: `${post.title} | Greek Trip Planner Blog`,
-    description: post.excerpt || `Read ${post.title} on the Greek Trip Planner blog`,
-  };
-}
-
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const post = await getPost(params.slug);
-
-  if (!post) {
-    notFound();
-  }
-
-  const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+export default async function BlogPage() {
+  const posts = await getPosts();
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Hero Section with Featured Image */}
-      {post.mainImage?.asset?.url && (
-        <div className="w-full bg-gray-100">
-          <div className="max-w-[70rem] mx-auto px-6 py-12">
-            <img
-              src={post.mainImage.asset.url}
-              alt={post.mainImage.alt || post.title}
-              className="w-full h-auto max-h-[500px] object-cover rounded-2xl shadow-lg"
-            />
-          </div>
+    <div className="min-h-screen bg-gradient-to-b from-white to-gray-50">
+      {/* Hero Section */}
+      <section className="bg-primary text-white py-20">
+        <div className="max-w-[70rem] mx-auto px-6">
+          <h1 className="text-5xl font-bold mb-6">Greek Trip Planner Blog</h1>
+          <p className="text-xl text-gray-100 max-w-2xl">
+            Discover travel tips, destination guides, and insider secrets for your perfect Greek adventure.
+          </p>
         </div>
-      )}
+      </section>
 
       {/* Main Content - GetYourGuide width: 70rem (1120px) */}
-      <article className="max-w-[70rem] mx-auto px-6 py-12">
-        {/* Header */}
-        <header className="mb-12">
-          {/* Categories */}
-          {post.categories && post.categories.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-6">
-              {post.categories.map((category) => (
-                <Link
-                  key={category.slug.current}
-                  href={`/blog/category/${category.slug.current}`}
-                  className="inline-block bg-accent-pink text-white px-4 py-2 rounded-full text-sm font-semibold hover:bg-primary transition-colors"
-                >
-                  {category.title}
-                </Link>
-              ))}
-            </div>
-          )}
-
-          {/* Title - GetYourGuide uses H2 size (38px) for blog titles */}
-          <h1 className="text-[2.375rem] font-bold text-primary mb-6 leading-[1.1]">
-            {post.title}
-          </h1>
-
-          {/* Meta Info */}
-          <div className="flex items-center gap-6 text-gray-600 text-base">
-            {post.author?.name && (
-              <div className="flex items-center gap-3">
-                {post.author.image && (
-                  <img
-                    src={post.author.image}
-                    alt={post.author.name}
-                    className="w-10 h-10 rounded-full"
-                  />
-                )}
-                <span className="font-medium">{post.author.name}</span>
-              </div>
-            )}
-            <time dateTime={post.publishedAt} className="text-gray-500">
-              {formattedDate}
-            </time>
-          </div>
-
-          {/* Excerpt */}
-          {post.excerpt && (
-            <p className="mt-6 text-xl text-gray-600 leading-relaxed">
-              {post.excerpt}
+      <main className="max-w-[70rem] mx-auto px-6 py-16">
+        {posts.length === 0 ? (
+          // No posts yet
+          <div className="bg-white rounded-2xl shadow-lg p-12 text-center mb-16">
+            <div className="text-6xl mb-6">📝</div>
+            <h2 className="text-3xl font-bold text-primary mb-4">
+              Blog Posts Coming Soon!
+            </h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto mb-8">
+              We're working hard to bring you amazing travel content. 
+              In the meantime, start planning your Greek adventure with our AI Trip Planner!
             </p>
-          )}
-        </header>
+            <Link
+              href="/quiz"
+              className="inline-block bg-accent-pink text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-primary transition-all transform hover:scale-105"
+            >
+              Start Planning Your Trip →
+            </Link>
+          </div>
+        ) : (
+          // Blog posts grid
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {posts.map((post) => {
+              const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+              });
 
-        {/* Divider */}
-        <hr className="border-t-2 border-gray-200 mb-12" />
+              return (
+                <Link
+                  key={post.slug.current}
+                  href={`/blog/${post.slug.current}`}
+                  className="group bg-white rounded-xl shadow-md overflow-hidden hover:shadow-2xl transition-all transform hover:scale-105"
+                >
+                  {/* Featured Image */}
+                  {post.mainImage?.asset?.url && (
+                    <div className="relative h-48 overflow-hidden">
+                      <img
+                        src={post.mainImage.asset.url}
+                        alt={post.mainImage.alt || post.title}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
 
-        {/* Blog Content with PortableText */}
-        <div className="prose prose-lg max-w-none">
-          <PortableText value={post.body} components={portableTextComponents} />
-        </div>
+                  {/* Content */}
+                  <div className="p-6">
+                    <h2 className="text-xl font-bold text-primary mb-3 group-hover:text-accent-pink transition-colors">
+                      {post.title}
+                    </h2>
 
-        {/* Author Bio (if available) */}
-        {post.author && (
-          <div className="mt-16 pt-8 border-t-2 border-gray-200">
-            <div className="flex items-start gap-6">
-              {post.author.image && (
-                <img
-                  src={post.author.image}
-                  alt={post.author.name}
-                  className="w-20 h-20 rounded-full"
-                />
-              )}
-              <div>
-                <h3 className="text-xl font-bold text-primary mb-2">
-                  About {post.author.name}
-                </h3>
-                <p className="text-gray-600">
-                  {/* Add author bio field to Sanity schema if needed */}
-                  Travel expert and content creator at Greek Trip Planner.
-                </p>
-              </div>
-            </div>
+                    {post.excerpt && (
+                      <p className="text-gray-600 mb-4 line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                    )}
+
+                    <div className="flex items-center justify-between text-sm text-gray-500">
+                      {post.author?.name && (
+                        <span>{post.author.name}</span>
+                      )}
+                      <time dateTime={post.publishedAt}>{formattedDate}</time>
+                    </div>
+                  </div>
+                </Link>
+              );
+            })}
           </div>
         )}
 
-        {/* Back to Blog */}
-        <div className="mt-16 text-center">
-          <Link
-            href="/blog"
-            className="inline-block bg-primary text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-accent-pink transition-all transform hover:scale-105"
-          >
-            ← Back to Blog
-          </Link>
-        </div>
-      </article>
+        {/* Travel Resources Section */}
+        <section className="mb-16">
+          <h2 className="text-3xl font-bold text-primary mb-8 text-center">
+            Helpful Travel Resources
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-shadow">
+              <div className="text-4xl mb-4">🗺️</div>
+              <h3 className="text-xl font-bold text-primary mb-3">
+                Destination Guides
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Comprehensive guides to Greece's most popular destinations and hidden gems.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-shadow">
+              <div className="text-4xl mb-4">💡</div>
+              <h3 className="text-xl font-bold text-primary mb-3">
+                Travel Tips
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Expert advice on traveling in Greece, from local customs to money-saving tips.
+              </p>
+            </div>
+
+            <div className="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-shadow">
+              <div className="text-4xl mb-4">🍽️</div>
+              <h3 className="text-xl font-bold text-primary mb-3">
+                Food & Culture
+              </h3>
+              <p className="text-gray-600 mb-4">
+                Discover authentic Greek cuisine and cultural experiences you can't miss.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* External Resources */}
+        <section className="bg-gradient-to-r from-accent-blue to-primary text-white rounded-2xl p-12">
+          <h2 className="text-3xl font-bold mb-6 text-center">
+            Planning Your Greek Adventure?
+          </h2>
+          <p className="text-xl text-center mb-8 max-w-2xl mx-auto">
+            Use our AI-powered trip planner to create your perfect Greek itinerary in minutes!
+          </p>
+          <div className="text-center">
+            <Link
+              href="/quiz"
+              className="inline-block bg-white text-primary px-8 py-4 rounded-full text-lg font-semibold hover:bg-gray-100 transition-all transform hover:scale-105"
+            >
+              Start Planning Now →
+            </Link>
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
