@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { client, urlFor } from '@/lib/sanity'
 import { ArrowRight, Calendar } from 'lucide-react'
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic' // Don't pre-render at build time
 
 interface Post {
   _id: string
@@ -21,19 +21,24 @@ interface Post {
 export const revalidate = 3600
 
 async function getPosts(): Promise<Post[]> {
-  const posts = await client.fetch(`
-    *[_type == "post"] | order(publishedAt desc) {
-      _id,
-      title,
-      slug,
-      mainImage,
-      excerpt,
-      publishedAt,
-      author,
-      categories
-    }
-  `)
-  return posts
+  try {
+    const posts = await client.fetch(`
+      *[_type == "post"] | order(publishedAt desc) {
+        _id,
+        title,
+        slug,
+        mainImage,
+        excerpt,
+        publishedAt,
+        author,
+        categories
+      }
+    `)
+    return posts || []
+  } catch (error) {
+    console.error('Error fetching blog posts:', error)
+    return []
+  }
 }
 
 function formatDate(dateString: string) {
@@ -49,9 +54,9 @@ export default async function BlogPage() {
   const posts = await getPosts()
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white via-gray-50 to-white">
+    <main className="min-h-screen bg-white">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md border-b border-gray-200 z-50">
+      <nav className="fixed top-0 w-full bg-white border-b border-gray-200 z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-3">
@@ -69,37 +74,74 @@ export default async function BlogPage() {
               <Link href="/how-it-works" className="text-gray-700 hover:text-primary transition font-medium">How it Works</Link>
               <Link href="/blog" className="text-primary font-semibold">Blog</Link>
               <Link href="/about" className="text-gray-700 hover:text-primary transition font-medium">About</Link>
+              <Link 
+                href="/quiz"
+                className="px-6 py-3 gradient-pink text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all flex items-center space-x-2"
+              >
+                <span>Start Planning</span>
+                <ArrowRight className="w-4 h-4" />
+              </Link>
             </div>
           </div>
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <div className="pt-32 pb-16 bg-white">
+      {/* Hero Section - 2 Column Layout */}
+      <div className="pt-32 pb-20 bg-white">
         <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-black text-primary mb-6 leading-tight" style={{fontFamily: 'Space Grotesk, sans-serif'}}>
-              Greek Trip Planner Blog
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
-              Travel guides, destination insights, and insider tips to help you plan the perfect Greek adventure.
-            </p>
+          <div className="max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-5 gap-16 items-start">
+              {/* Left: Text (60%) */}
+              <div className="md:col-span-3">
+                <p className="text-sm font-semibold text-primary mb-4 tracking-wider uppercase">
+                  Blog
+                </p>
+                
+                <h1 className="text-6xl md:text-7xl font-black text-primary mb-8 leading-tight" style={{fontFamily: 'Space Grotesk, sans-serif'}}>
+                  Greece Travel Blog
+                </h1>
+
+                <p className="text-xl text-gray-600 leading-relaxed">
+                  Expert insights, travel tips, and insider guides from our team of Greece specialists. 
+                  Discover hidden gems, practical advice, and authentic experiences to help you plan 
+                  the perfect Greek adventure.
+                </p>
+              </div>
+
+              {/* Right: 2 Stacked Images (40%) */}
+              <div className="md:col-span-2 space-y-6">
+                <div className="relative h-64 rounded-2xl overflow-hidden">
+                  <img
+                    src="/Santorini_Sunset_View.jpg"
+                    alt="Greece"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="relative h-48 rounded-2xl overflow-hidden">
+                  <img
+                    src="/Mykonos_Architecture.jpg"
+                    alt="Greece"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Blog Posts Grid */}
-      <div className="pb-20">
+      {/* Posts Grid */}
+      <div className="py-16 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {posts.map((post) => (
-                <Link
-                  key={post._id}
+            <div className="grid md:grid-cols-3 gap-8">
+              {posts.map((post: Post) => (
+                <Link 
+                  key={post._id} 
                   href={`/blog/${post.slug.current}`}
-                  className="group bg-white rounded-2xl overflow-hidden border border-gray-200 hover:border-accent-blue transition-all hover:shadow-xl flex flex-col h-full"
+                  className="group block"
                 >
-                  <div className="flex flex-col h-full">
+                  <article className="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300 h-full flex flex-col">
                     {/* Image */}
                     <div className="relative h-52 overflow-hidden flex-shrink-0">
                       {post.mainImage ? (
@@ -147,13 +189,77 @@ export default async function BlogPage() {
                         )}
                       </div>
                     </div>
-                  </div>
+                  </article>
                 </Link>
               ))}
             </div>
           </div>
         </div>
       </div>
+
+      {/* Travel Resources Section */}
+      <section className="py-16 bg-gray-50 border-t border-gray-200">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto">
+            <h2 className="text-3xl font-black text-primary mb-8 text-center" style={{fontFamily: 'Space Grotesk, sans-serif'}}>
+              Travel Resources
+            </h2>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* iTravelNet */}
+              <div className="bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all">
+                <a 
+                  href="https://itravelnet.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-2 hover:text-accent-blue transition">
+                    itravelnet.com
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Travel directory
+                  </p>
+                </a>
+              </div>
+
+              {/* Travel Magazine */}
+              <div className="bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all">
+                <a 
+                  href="https://travelmagazine.co" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-2 hover:text-accent-blue transition">
+                    Travel Magazine
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Latest travel news and guides
+                  </p>
+                </a>
+              </div>
+
+              {/* Travel Tourism Directory */}
+              <div className="bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all">
+                <a 
+                  href="https://traveltourismdirectory.com/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <h3 className="text-xl font-bold text-primary mb-2 hover:text-accent-blue transition">
+                    Travel and Tourism Directory
+                  </h3>
+                  <p className="text-gray-600 text-sm">
+                    Comprehensive travel resources
+                  </p>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Footer */}
       <footer className="gradient-primary py-12">
