@@ -82,11 +82,22 @@ export default async function BlogPage() {
           // Blog posts grid
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {posts.map((post) => {
-              const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              });
+              // FIX: Handle invalid dates properly
+              let formattedDate = 'Recently published';
+              
+              try {
+                const date = new Date(post.publishedAt);
+                // Check if date is valid (not epoch time)
+                if (date.getFullYear() > 2000) {
+                  formattedDate = date.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  });
+                }
+              } catch (error) {
+                console.error('Error parsing date:', error);
+              }
 
               return (
                 <Link

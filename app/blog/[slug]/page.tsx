@@ -26,14 +26,20 @@ interface Post {
   }>;
 }
 
+// FIX: Make this function async and await params
 export async function generateStaticParams() {
-  const posts = await client.fetch<Array<{ slug: { current: string } }>>(
-    `*[_type == "post"]{ slug }`
-  );
+  try {
+    const posts = await client.fetch<Array<{ slug: { current: string } }>>(
+      `*[_type == "post"]{ slug }`
+    );
 
-  return posts.map((post) => ({
-    slug: post.slug.current,
-  }));
+    return posts.map((post) => ({
+      slug: post.slug.current,
+    }));
+  } catch (error) {
+    console.error('Error generating static params:', error);
+    return [];
+  }
 }
 
 async function getPost(slug: string): Promise<Post | null> {
@@ -70,8 +76,10 @@ async function getPost(slug: string): Promise<Post | null> {
   }
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = await getPost(params.slug);
+// FIX: Properly handle params as Promise in Next.js 15+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = await getPost(slug);
 
   if (!post) {
     return {
@@ -85,18 +93,31 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const post = await getPost(params.slug);
+// FIX: Properly handle params as Promise in Next.js 15+
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = await getPost(slug);
 
   if (!post) {
     notFound();
   }
 
-  const formattedDate = new Date(post.publishedAt).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
+  // FIX: Handle invalid dates properly
+  let formattedDate = 'Recently published';
+  
+  try {
+    const date = new Date(post.publishedAt);
+    // Check if date is valid (not epoch time)
+    if (date.getFullYear() > 2000) {
+      formattedDate = date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+      });
+    }
+  } catch (error) {
+    console.error('Error parsing date:', error);
+  }
 
   return (
     <div className="min-h-screen bg-white">
