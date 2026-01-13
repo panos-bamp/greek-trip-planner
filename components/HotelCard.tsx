@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * Hotel Recommendation Card Component
  * Conversion-optimized hotel card with affiliate link

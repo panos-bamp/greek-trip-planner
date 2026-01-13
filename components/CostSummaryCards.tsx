@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * Cost Summary Cards Component
  * Budget tier comparison cards

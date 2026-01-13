@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * Tour Recommendation Card Component
  * Conversion-optimized tour card with affiliate link

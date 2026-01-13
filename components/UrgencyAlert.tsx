@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * Urgency Alert Component
  * High-visibility alert box for time-sensitive information

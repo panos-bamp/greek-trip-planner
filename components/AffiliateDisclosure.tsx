@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * Affiliate Disclosure Component
  * FTC-compliant disclosure for affiliate content

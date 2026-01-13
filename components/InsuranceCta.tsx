@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * Insurance CTA Component
  * High-converting travel insurance promotion box

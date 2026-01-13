@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * Final CTA Section Component
  * Multiple pathway CTAs at the end of post

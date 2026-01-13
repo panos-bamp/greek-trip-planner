@@ -1,3 +1,5 @@
+"use client"
+
 /**
  * Pro Tip Box Component
  * Highlighted tip/callout box
