@@ -4,9 +4,8 @@ import { PortableText } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
 import { generateAllSchemas } from '@/lib/schemaMarkup'
 
-// Affiliate Components
+// Affiliate Components - Import individually
 import { AffiliateDisclosure } from '@/components/affiliate/AffiliateDisclosure'
-import { UrgencyAlert } from '@/components/affiliate/UrgencyAlert'
 import { HotelCard } from '@/components/affiliate/HotelCard'
 import { TourCard } from '@/components/affiliate/TourCard'
 import { InsuranceCta } from '@/components/affiliate/InsuranceCta'
@@ -109,8 +108,17 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         {/* Affiliate Disclosure */}
         <AffiliateDisclosure />
 
-        {/* Urgency Alert */}
-        {post.urgencyMessage && <UrgencyAlert message={post.urgencyMessage} />}
+        {/* Urgency Alert - Simple inline version */}
+        {post.urgencyMessage && (
+          <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
+            <div className="flex items-center">
+              <svg className="h-5 w-5 text-orange-500 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p className="text-orange-800 font-medium">{post.urgencyMessage}</p>
+            </div>
+          </div>
+        )}
 
         {/* Post Header */}
         <header className="mb-8">
