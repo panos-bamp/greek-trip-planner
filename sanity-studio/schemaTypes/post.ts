@@ -1,31 +1,19 @@
-/**
- * Enhanced Post Schema with Affiliate Fields
- * Location: sanity/schemas/post.ts
- * 
- * This schema extends the standard post with:
- * - Affiliate toggle and disclosure
- * - Hotel recommendations
- * - Tour recommendations
- * - Insurance CTA
- * - Custom CTA boxes
- */
-
-import { defineField, defineType } from 'sanity'
+import {defineField, defineType} from 'sanity'
 
 export default defineType({
   name: 'post',
   title: 'Blog Post',
   type: 'document',
   groups: [
-    { name: 'content', title: 'Content', default: true },
-    { name: 'affiliate', title: 'Affiliate Content' },
-    { name: 'seo', title: 'SEO' },
-    { name: 'meta', title: 'Meta' },
+    {name: 'content', title: 'Content', default: true},
+    {name: 'seo', title: 'SEO & Meta'},
+    {name: 'schema', title: 'Schema Markup'},
+    {name: 'affiliate', title: 'Affiliate & Monetization'},
   ],
   fields: [
-    // ═══════════════════════════════════════════════════════════
-    // BASIC CONTENT FIELDS
-    // ═══════════════════════════════════════════════════════════
+    // ============================================
+    // CONTENT GROUP
+    // ============================================
     defineField({
       name: 'title',
       title: 'Title',
@@ -45,16 +33,14 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'excerpt',
-      title: 'Excerpt',
-      type: 'text',
+      name: 'author',
+      title: 'Author',
+      type: 'string',
       group: 'content',
-      rows: 3,
-      description: 'Short description for previews and SEO (150-160 characters)',
     }),
     defineField({
       name: 'mainImage',
-      title: 'Main Image',
+      title: 'Main image',
       type: 'image',
       group: 'content',
       options: {
@@ -64,353 +50,820 @@ export default defineType({
         {
           name: 'alt',
           type: 'string',
-          title: 'Alt Text',
+          title: 'Alternative Text',
         },
       ],
-    }),
-    defineField({
-      name: 'body',
-      title: 'Body Content',
-      type: 'blockContent',
-      group: 'content',
-    }),
-    defineField({
-      name: 'author',
-      title: 'Author',
-      type: 'string',
-      group: 'meta',
-    }),
-    defineField({
-      name: 'publishedAt',
-      title: 'Published At',
-      type: 'datetime',
-      group: 'meta',
     }),
     defineField({
       name: 'categories',
       title: 'Categories',
       type: 'array',
-      group: 'meta',
-      of: [{ type: 'string' }],
+      group: 'content',
+      of: [{type: 'string'}],
+    }),
+    defineField({
+      name: 'publishedAt',
+      title: 'Published at',
+      type: 'datetime',
+      group: 'content',
+    }),
+    defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent',
+      group: 'content',
+    }),
+    defineField({
+      name: 'excerpt',
+      title: 'Excerpt',
+      type: 'text',
+      rows: 4,
+      group: 'content',
+      description: 'Short description for SEO and previews (150-160 characters)',
+    }),
+    
+    // ============================================
+    // SEO & META GROUP
+    // ============================================
+    defineField({
+      name: 'metaTitle',
+      title: 'Meta Title',
+      type: 'string',
+      group: 'seo',
+      description: 'SEO title (50-60 characters). Leave empty to use post title.',
+      validation: (Rule) => Rule.max(60),
+    }),
+    defineField({
+      name: 'metaDescription',
+      title: 'Meta Description',
+      type: 'text',
+      rows: 3,
+      group: 'seo',
+      description: 'SEO description (150-160 characters). Leave empty to use excerpt.',
+      validation: (Rule) => Rule.max(160),
+    }),
+    defineField({
+      name: 'focusKeyword',
+      title: 'Focus Keyword',
+      type: 'string',
+      group: 'seo',
+      description: 'Main keyword for this post (e.g., "Greece itinerary 10 days")',
+    }),
+    defineField({
+      name: 'canonicalUrl',
+      title: 'Canonical URL',
+      type: 'url',
+      group: 'seo',
+      description: 'Leave empty to use default URL. Use if republishing content.',
+    }),
+    
+    // Open Graph
+    defineField({
+      name: 'ogTitle',
+      title: 'Open Graph Title',
+      type: 'string',
+      group: 'seo',
+      description: 'Social media title. Leave empty to use Meta Title.',
+    }),
+    defineField({
+      name: 'ogDescription',
+      title: 'Open Graph Description',
+      type: 'text',
+      rows: 2,
+      group: 'seo',
+      description: 'Social media description. Leave empty to use Meta Description.',
+    }),
+    defineField({
+      name: 'ogImage',
+      title: 'Open Graph Image URL',
+      type: 'url',
+      group: 'seo',
+      description: 'Social media image (1200x630px). Leave empty to use Main Image.',
+    }),
+    
+    // Twitter Card
+    defineField({
+      name: 'twitterCard',
+      title: 'Twitter Card Type',
+      type: 'string',
+      group: 'seo',
       options: {
         list: [
-          { title: 'Destination Guide', value: 'destination-guide' },
-          { title: 'Itinerary', value: 'itinerary' },
-          { title: 'Travel Tips', value: 'travel-tips' },
-          { title: 'Hotels & Accommodation', value: 'hotels' },
-          { title: 'Island Hopping', value: 'island-hopping' },
-          { title: 'Food & Culture', value: 'food-culture' },
+          {title: 'Summary', value: 'summary'},
+          {title: 'Summary Large Image', value: 'summary_large_image'},
         ],
       },
-    }),
-
-    // ═══════════════════════════════════════════════════════════
-    // AFFILIATE SETTINGS
-    // ═══════════════════════════════════════════════════════════
-    defineField({
-      name: 'isAffiliate',
-      title: 'Enable Affiliate Content',
-      type: 'boolean',
-      group: 'affiliate',
-      initialValue: false,
-      description: 'Toggle to enable affiliate components and disclosure',
+      initialValue: 'summary_large_image',
     }),
     defineField({
-      name: 'showDisclosure',
-      title: 'Show Affiliate Disclosure',
-      type: 'boolean',
-      group: 'affiliate',
-      initialValue: true,
-      hidden: ({ document }) => !document?.isAffiliate,
-      description: 'Show FTC-compliant disclosure at top and bottom of post',
+      name: 'twitterTitle',
+      title: 'Twitter Title',
+      type: 'string',
+      group: 'seo',
+      description: 'Leave empty to use OG Title.',
     }),
     defineField({
-      name: 'disclosureText',
-      title: 'Custom Disclosure Text',
+      name: 'twitterDescription',
+      title: 'Twitter Description',
       type: 'text',
-      group: 'affiliate',
-      rows: 3,
-      hidden: ({ document }) => !document?.isAffiliate,
-      description: 'Leave empty for default disclosure',
+      rows: 2,
+      group: 'seo',
+      description: 'Leave empty to use OG Description.',
     }),
-
-    // ═══════════════════════════════════════════════════════════
-    // URGENCY ALERT (Top of Post)
-    // ═══════════════════════════════════════════════════════════
+    
+    // ============================================
+    // SCHEMA MARKUP GROUP
+    // ============================================
+    
+    // 1. ARTICLE SCHEMA (Primary)
     defineField({
-      name: 'urgencyAlert',
-      title: 'Urgency Alert Box',
+      name: 'articleSchema',
+      title: '📄 Article Schema',
       type: 'object',
-      group: 'affiliate',
-      hidden: ({ document }) => !document?.isAffiliate,
+      group: 'schema',
+      options: {
+        collapsible: true,
+        collapsed: false,
+      },
       fields: [
-        { name: 'enabled', title: 'Show Alert', type: 'boolean', initialValue: false },
-        { name: 'title', title: 'Alert Title', type: 'string' },
-        { name: 'message', title: 'Alert Message', type: 'text', rows: 2 },
-        { name: 'primaryCta', title: 'Primary Button Text', type: 'string' },
-        { name: 'primaryLink', title: 'Primary Button Link', type: 'url' },
-        { name: 'secondaryCta', title: 'Secondary Button Text', type: 'string' },
-        { name: 'secondaryLink', title: 'Secondary Button Link', type: 'url' },
-      ],
-    }),
-
-    // ═══════════════════════════════════════════════════════════
-    // COST SUMMARY CARDS
-    // ═══════════════════════════════════════════════════════════
-    defineField({
-      name: 'costSummary',
-      title: 'Cost Summary Cards',
-      type: 'object',
-      group: 'affiliate',
-      hidden: ({ document }) => !document?.isAffiliate,
-      fields: [
-        { name: 'enabled', title: 'Show Cost Summary', type: 'boolean', initialValue: false },
         {
-          name: 'budgetTier',
-          title: 'Budget Tier',
-          type: 'object',
-          fields: [
-            { name: 'priceRange', title: 'Price Range', type: 'string', placeholder: '€330-510' },
-            { name: 'includes', title: 'What\'s Included', type: 'array', of: [{ type: 'string' }] },
-            { name: 'ctaLink', title: 'CTA Link', type: 'url' },
-          ],
+          name: 'enabled',
+          title: 'Enable Article Schema',
+          type: 'boolean',
+          initialValue: true,
         },
         {
-          name: 'midRangeTier',
-          title: 'Mid-Range Tier (Featured)',
-          type: 'object',
-          fields: [
-            { name: 'priceRange', title: 'Price Range', type: 'string', placeholder: '€690-1,110' },
-            { name: 'includes', title: 'What\'s Included', type: 'array', of: [{ type: 'string' }] },
-            { name: 'ctaLink', title: 'CTA Link', type: 'url' },
-          ],
-        },
-        {
-          name: 'luxuryTier',
-          title: 'Luxury Tier',
-          type: 'object',
-          fields: [
-            { name: 'priceRange', title: 'Price Range', type: 'string', placeholder: '€1,500-3,300' },
-            { name: 'includes', title: 'What\'s Included', type: 'array', of: [{ type: 'string' }] },
-            { name: 'ctaLink', title: 'CTA Link', type: 'url' },
-          ],
-        },
-      ],
-    }),
-
-    // ═══════════════════════════════════════════════════════════
-    // HOTEL RECOMMENDATIONS
-    // ═══════════════════════════════════════════════════════════
-    defineField({
-      name: 'hotelRecommendations',
-      title: 'Hotel Recommendations',
-      type: 'array',
-      group: 'affiliate',
-      hidden: ({ document }) => !document?.isAffiliate,
-      of: [
-        {
-          type: 'object',
-          name: 'hotelCard',
-          title: 'Hotel Card',
-          fields: [
-            { name: 'name', title: 'Hotel Name', type: 'string' },
-            { name: 'tier', title: 'Tier', type: 'string', options: { list: ['budget', 'mid-range', 'luxury'] } },
-            { name: 'badge', title: 'Badge Text', type: 'string', placeholder: 'LUXURY PICK' },
-            { name: 'stars', title: 'Star Rating', type: 'number', validation: (Rule) => Rule.min(1).max(5) },
-            { name: 'image', title: 'Hotel Image', type: 'image', options: { hotspot: true } },
-            { name: 'location', title: 'Location', type: 'string' },
-            { name: 'description', title: 'Description', type: 'text', rows: 3 },
-            { name: 'priceFrom', title: 'Price From (per night)', type: 'string', placeholder: '€450' },
-            { name: 'rating', title: 'Booking Rating', type: 'string', placeholder: '9.4' },
-            { name: 'reviewCount', title: 'Review Count', type: 'string', placeholder: '1,247' },
-            { 
-              name: 'highlights', 
-              title: 'Highlights', 
-              type: 'array', 
-              of: [{ type: 'string' }],
-              description: 'Key features (e.g., "Private infinity pool", "Caldera view")'
-            },
-            { name: 'proTip', title: 'Pro Tip', type: 'text', rows: 2 },
-            { name: 'bookingUrl', title: 'Booking URL (Affiliate)', type: 'url' },
-            { name: 'ctaText', title: 'CTA Button Text', type: 'string', initialValue: 'Check Availability →' },
-          ],
-          preview: {
-            select: { title: 'name', subtitle: 'tier', media: 'image' },
+          name: 'articleType',
+          title: 'Article Type',
+          type: 'string',
+          options: {
+            list: [
+              {title: 'Blog Posting', value: 'BlogPosting'},
+              {title: 'Article', value: 'Article'},
+              {title: 'News Article', value: 'NewsArticle'},
+              {title: 'Travel Guide', value: 'TravelGuide'},
+              {title: 'Review', value: 'Review'},
+            ],
           },
+          initialValue: 'BlogPosting',
         },
-      ],
-    }),
-
-    // ═══════════════════════════════════════════════════════════
-    // TOUR RECOMMENDATIONS
-    // ═══════════════════════════════════════════════════════════
-    defineField({
-      name: 'tourRecommendations',
-      title: 'Tour Recommendations',
-      type: 'array',
-      group: 'affiliate',
-      hidden: ({ document }) => !document?.isAffiliate,
-      of: [
         {
-          type: 'object',
-          name: 'tourCard',
-          title: 'Tour Card',
-          fields: [
-            { name: 'name', title: 'Tour Name', type: 'string' },
-            { name: 'badge', title: 'Badge Text', type: 'string', placeholder: 'TOP PICK' },
-            { name: 'image', title: 'Tour Image', type: 'image', options: { hotspot: true } },
-            { name: 'duration', title: 'Duration', type: 'string', placeholder: '5 hours' },
-            { name: 'description', title: 'Description', type: 'text', rows: 3 },
-            { name: 'price', title: 'Price', type: 'string', placeholder: '€95' },
-            { name: 'rating', title: 'Rating', type: 'string', placeholder: '4.9' },
-            { name: 'reviewCount', title: 'Review Count', type: 'string', placeholder: '2,847' },
-            { 
-              name: 'includes', 
-              title: 'What\'s Included', 
-              type: 'array', 
-              of: [{ type: 'string' }] 
-            },
-            { name: 'whyBook', title: 'Why We Recommend', type: 'text', rows: 2 },
-            { name: 'bookingUrl', title: 'Booking URL (Affiliate)', type: 'url' },
-            { name: 'ctaText', title: 'CTA Button Text', type: 'string', initialValue: 'Book This Tour →' },
-          ],
-          preview: {
-            select: { title: 'name', subtitle: 'price', media: 'image' },
-          },
+          name: 'authorName',
+          title: 'Author Name',
+          type: 'string',
+          description: 'Full author name for schema markup',
+        },
+        {
+          name: 'authorUrl',
+          title: 'Author URL',
+          type: 'url',
+          description: 'Author profile or website URL',
+        },
+        {
+          name: 'publisherName',
+          title: 'Publisher Name',
+          type: 'string',
+          description: 'Your site/company name',
+          initialValue: 'Greek Trip Planner',
+        },
+        {
+          name: 'publisherLogo',
+          title: 'Publisher Logo URL',
+          type: 'url',
+          description: 'URL to your logo (min 600x60px, PNG/JPG)',
+        },
+        {
+          name: 'wordCount',
+          title: 'Word Count',
+          type: 'number',
+          description: 'Approximate word count (improves ranking signals)',
         },
       ],
     }),
-
-    // ═══════════════════════════════════════════════════════════
-    // INSURANCE CTA
-    // ═══════════════════════════════════════════════════════════
+    
+    // 2. FAQ SCHEMA
     defineField({
-      name: 'insuranceCta',
-      title: 'Travel Insurance CTA',
+      name: 'faqSchema',
+      title: '❓ FAQ Schema',
       type: 'object',
-      group: 'affiliate',
-      hidden: ({ document }) => !document?.isAffiliate,
+      group: 'schema',
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
       fields: [
-        { name: 'enabled', title: 'Show Insurance CTA', type: 'boolean', initialValue: false },
-        { name: 'title', title: 'Title', type: 'string', initialValue: "Don't Skip Travel Insurance" },
-        { name: 'description', title: 'Description', type: 'text', rows: 2 },
-        { name: 'testimonial', title: 'Testimonial Quote', type: 'text', rows: 2 },
-        { name: 'testimonialAuthor', title: 'Testimonial Author', type: 'string' },
-        { 
-          name: 'features', 
-          title: 'Features', 
-          type: 'array', 
-          of: [{ type: 'string' }],
-          initialValue: ['Ferry cancellations covered', 'Medical up to €250k', '24/7 English support', 'COVID coverage included']
-        },
-        { name: 'priceFrom', title: 'Price From', type: 'string', placeholder: '€45' },
-        { name: 'pricePeriod', title: 'Price Period', type: 'string', placeholder: 'for 1 week' },
-        { name: 'discountCode', title: 'Discount Code', type: 'string' },
-        { name: 'discountPercent', title: 'Discount Percentage', type: 'string', placeholder: '15%' },
-        { name: 'bookingUrl', title: 'Booking URL (Affiliate)', type: 'url' },
-        { name: 'ctaText', title: 'CTA Button Text', type: 'string' },
-      ],
-    }),
-
-    // ═══════════════════════════════════════════════════════════
-    // CUSTOM CTA BOXES (In-Content)
-    // ═══════════════════════════════════════════════════════════
-    defineField({
-      name: 'customCtaBoxes',
-      title: 'Custom CTA Boxes',
-      type: 'array',
-      group: 'affiliate',
-      hidden: ({ document }) => !document?.isAffiliate,
-      description: 'Create custom affiliate boxes to insert in content',
-      of: [
         {
-          type: 'object',
-          name: 'ctaBox',
-          title: 'CTA Box',
-          fields: [
-            { name: 'id', title: 'Box ID', type: 'string', description: 'Use this ID in content to place the box' },
-            { name: 'style', title: 'Style', type: 'string', options: { list: ['info', 'warning', 'success', 'promo'] } },
-            { name: 'icon', title: 'Icon Emoji', type: 'string', placeholder: '💡' },
-            { name: 'title', title: 'Title', type: 'string' },
-            { name: 'content', title: 'Content', type: 'text', rows: 3 },
-            { name: 'ctaText', title: 'CTA Button Text', type: 'string' },
-            { name: 'ctaUrl', title: 'CTA URL', type: 'url' },
-          ],
-          preview: {
-            select: { title: 'title', subtitle: 'id' },
-          },
+          name: 'enabled',
+          title: 'Enable FAQ Schema',
+          type: 'boolean',
+          initialValue: false,
         },
-      ],
-    }),
-
-    // ═══════════════════════════════════════════════════════════
-    // FINAL CTA SECTION
-    // ═══════════════════════════════════════════════════════════
-    defineField({
-      name: 'finalCta',
-      title: 'Final CTA Section',
-      type: 'object',
-      group: 'affiliate',
-      hidden: ({ document }) => !document?.isAffiliate,
-      fields: [
-        { name: 'enabled', title: 'Show Final CTA', type: 'boolean', initialValue: true },
-        { name: 'title', title: 'Section Title', type: 'string' },
-        { name: 'subtitle', title: 'Subtitle', type: 'string' },
         {
-          name: 'pathways',
-          title: 'CTA Pathways',
+          name: 'faqs',
+          title: 'FAQs',
           type: 'array',
+          description: 'Add frequently asked questions for rich snippets',
           of: [
             {
               type: 'object',
               fields: [
-                { name: 'icon', title: 'Icon Emoji', type: 'string' },
-                { name: 'title', title: 'Title', type: 'string' },
-                { name: 'description', title: 'Description', type: 'text', rows: 2 },
-                { name: 'ctaText', title: 'CTA Text', type: 'string' },
-                { name: 'ctaUrl', title: 'CTA URL', type: 'url' },
-                { name: 'isFeatured', title: 'Featured (Highlighted)', type: 'boolean' },
+                {name: 'question', type: 'string', title: 'Question'},
+                {name: 'answer', type: 'text', title: 'Answer', rows: 4},
+              ],
+              preview: {
+                select: {
+                  title: 'question',
+                  subtitle: 'answer',
+                },
+              },
+            },
+          ],
+        },
+      ],
+    }),
+    
+    // 3. HOW-TO SCHEMA
+    defineField({
+      name: 'howToSchema',
+      title: '📋 How-To Schema',
+      type: 'object',
+      group: 'schema',
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
+      fields: [
+        {
+          name: 'enabled',
+          title: 'Enable How-To Schema',
+          type: 'boolean',
+          initialValue: false,
+        },
+        {
+          name: 'name',
+          type: 'string',
+          title: 'How-To Title',
+          description: 'e.g., "How to Plan a 10-Day Greece Trip"',
+        },
+        {
+          name: 'description',
+          type: 'text',
+          title: 'Description',
+          rows: 2,
+        },
+        {
+          name: 'totalTime',
+          type: 'string',
+          title: 'Total Time (ISO 8601)',
+          description: 'e.g., "PT2H" (2 hours), "P10D" (10 days), "P3M" (3 months)',
+        },
+        {
+          name: 'estimatedCost',
+          type: 'string',
+          title: 'Estimated Cost',
+          description: 'e.g., "€2000" or "€1500-€3000"',
+        },
+        {
+          name: 'steps',
+          type: 'array',
+          title: 'Steps',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {name: 'name', type: 'string', title: 'Step Name'},
+                {name: 'text', type: 'text', title: 'Step Description', rows: 3},
+                {name: 'url', type: 'url', title: 'Step URL (optional)'},
+                {name: 'image', type: 'url', title: 'Step Image (optional)'},
+              ],
+              preview: {
+                select: {
+                  title: 'name',
+                  subtitle: 'text',
+                },
+              },
+            },
+          ],
+        },
+        {
+          name: 'supply',
+          type: 'array',
+          title: 'Supplies/Tools Needed',
+          of: [{type: 'string'}],
+          description: 'e.g., "Passport", "Travel insurance", "Credit card"',
+        },
+      ],
+    }),
+    
+    // 4. REVIEW SCHEMA (for destinations, hotels, tours)
+    defineField({
+      name: 'reviewSchema',
+      title: '⭐ Review Schema',
+      type: 'object',
+      group: 'schema',
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
+      fields: [
+        {
+          name: 'enabled',
+          title: 'Enable Review Schema',
+          type: 'boolean',
+          initialValue: false,
+        },
+        {
+          name: 'itemReviewed',
+          type: 'object',
+          title: 'Item Being Reviewed',
+          fields: [
+            {
+              name: 'type',
+              title: 'Type',
+              type: 'string',
+              options: {
+                list: [
+                  {title: 'Place/Destination', value: 'Place'},
+                  {title: 'Hotel', value: 'Hotel'},
+                  {title: 'Tour/Activity', value: 'TouristAttraction'},
+                  {title: 'Restaurant', value: 'Restaurant'},
+                  {title: 'Product', value: 'Product'},
+                ],
+              },
+            },
+            {name: 'name', type: 'string', title: 'Name'},
+            {name: 'image', type: 'url', title: 'Image URL'},
+            {name: 'address', type: 'string', title: 'Address (optional)'},
+            {name: 'priceRange', type: 'string', title: 'Price Range (e.g., "€€-€€€")'},
+          ],
+        },
+        {
+          name: 'rating',
+          type: 'object',
+          title: 'Rating',
+          fields: [
+            {
+              name: 'ratingValue',
+              type: 'number',
+              title: 'Rating Value (1-5)',
+              validation: (Rule) => Rule.min(1).max(5),
+            },
+            {
+              name: 'bestRating',
+              type: 'number',
+              title: 'Best Rating',
+              initialValue: 5,
+            },
+            {
+              name: 'worstRating',
+              type: 'number',
+              title: 'Worst Rating',
+              initialValue: 1,
+            },
+          ],
+        },
+        {
+          name: 'reviewBody',
+          type: 'text',
+          title: 'Review Summary',
+          rows: 4,
+          description: 'Brief summary of your review',
+        },
+      ],
+    }),
+    
+    // 5. EVENT SCHEMA (festivals, activities)
+    defineField({
+      name: 'eventSchema',
+      title: '🎉 Event Schema',
+      type: 'object',
+      group: 'schema',
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
+      fields: [
+        {
+          name: 'enabled',
+          title: 'Enable Event Schema',
+          type: 'boolean',
+          initialValue: false,
+        },
+        {
+          name: 'events',
+          type: 'array',
+          title: 'Events',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {name: 'name', type: 'string', title: 'Event Name'},
+                {name: 'description', type: 'text', title: 'Description', rows: 2},
+                {name: 'startDate', type: 'datetime', title: 'Start Date'},
+                {name: 'endDate', type: 'datetime', title: 'End Date (optional)'},
+                {name: 'location', type: 'string', title: 'Location'},
+                {name: 'image', type: 'url', title: 'Event Image'},
+                {name: 'organizer', type: 'string', title: 'Organizer'},
+                {name: 'url', type: 'url', title: 'Event URL'},
+                {
+                  name: 'eventStatus',
+                  type: 'string',
+                  title: 'Event Status',
+                  options: {
+                    list: [
+                      {title: 'Scheduled', value: 'EventScheduled'},
+                      {title: 'Cancelled', value: 'EventCancelled'},
+                      {title: 'Postponed', value: 'EventPostponed'},
+                    ],
+                  },
+                  initialValue: 'EventScheduled',
+                },
+              ],
+              preview: {
+                select: {
+                  title: 'name',
+                  subtitle: 'location',
+                },
+              },
+            },
+          ],
+        },
+      ],
+    }),
+    
+    // 6. PLACE SCHEMA (destinations)
+    defineField({
+      name: 'placeSchema',
+      title: '📍 Place Schema',
+      type: 'object',
+      group: 'schema',
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
+      fields: [
+        {
+          name: 'enabled',
+          title: 'Enable Place Schema',
+          type: 'boolean',
+          initialValue: false,
+        },
+        {
+          name: 'places',
+          type: 'array',
+          title: 'Places/Destinations',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {name: 'name', type: 'string', title: 'Place Name'},
+                {name: 'description', type: 'text', title: 'Description', rows: 2},
+                {name: 'address', type: 'string', title: 'Address'},
+                {name: 'latitude', type: 'number', title: 'Latitude'},
+                {name: 'longitude', type: 'number', title: 'Longitude'},
+                {name: 'image', type: 'url', title: 'Image URL'},
+                {name: 'telephone', type: 'string', title: 'Phone (optional)'},
+                {name: 'url', type: 'url', title: 'Website URL (optional)'},
+              ],
+              preview: {
+                select: {
+                  title: 'name',
+                  subtitle: 'address',
+                },
+              },
+            },
+          ],
+        },
+      ],
+    }),
+    
+    // 7. VIDEO SCHEMA
+    defineField({
+      name: 'videoSchema',
+      title: '🎥 Video Schema',
+      type: 'object',
+      group: 'schema',
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
+      fields: [
+        {
+          name: 'enabled',
+          title: 'Enable Video Schema',
+          type: 'boolean',
+          initialValue: false,
+        },
+        {
+          name: 'videos',
+          type: 'array',
+          title: 'Videos',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {name: 'name', type: 'string', title: 'Video Title'},
+                {name: 'description', type: 'text', title: 'Description', rows: 2},
+                {name: 'thumbnailUrl', type: 'url', title: 'Thumbnail URL'},
+                {name: 'contentUrl', type: 'url', title: 'Video URL'},
+                {name: 'embedUrl', type: 'url', title: 'Embed URL (YouTube/Vimeo)'},
+                {name: 'uploadDate', type: 'datetime', title: 'Upload Date'},
+                {name: 'duration', type: 'string', title: 'Duration (ISO 8601)', description: 'e.g., "PT5M30S" for 5min 30sec'},
+              ],
+              preview: {
+                select: {
+                  title: 'name',
+                },
+              },
+            },
+          ],
+        },
+      ],
+    }),
+    
+    // 8. RECIPE SCHEMA (for Greek food guides)
+    defineField({
+      name: 'recipeSchema',
+      title: '🍽️ Recipe Schema',
+      type: 'object',
+      group: 'schema',
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
+      fields: [
+        {
+          name: 'enabled',
+          title: 'Enable Recipe Schema',
+          type: 'boolean',
+          initialValue: false,
+        },
+        {
+          name: 'recipes',
+          type: 'array',
+          title: 'Recipes',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {name: 'name', type: 'string', title: 'Recipe Name'},
+                {name: 'description', type: 'text', title: 'Description', rows: 2},
+                {name: 'image', type: 'url', title: 'Image URL'},
+                {name: 'prepTime', type: 'string', title: 'Prep Time (ISO 8601)', description: 'e.g., "PT30M"'},
+                {name: 'cookTime', type: 'string', title: 'Cook Time (ISO 8601)'},
+                {name: 'totalTime', type: 'string', title: 'Total Time (ISO 8601)'},
+                {name: 'recipeYield', type: 'string', title: 'Servings', description: 'e.g., "4 servings"'},
+                {name: 'recipeCategory', type: 'string', title: 'Category', description: 'e.g., "Main course"'},
+                {name: 'recipeCuisine', type: 'string', title: 'Cuisine', description: 'e.g., "Greek"'},
+                {
+                  name: 'recipeIngredient',
+                  type: 'array',
+                  title: 'Ingredients',
+                  of: [{type: 'string'}],
+                },
+                {
+                  name: 'recipeInstructions',
+                  type: 'array',
+                  title: 'Instructions',
+                  of: [{type: 'text'}],
+                },
+              ],
+              preview: {
+                select: {
+                  title: 'name',
+                  subtitle: 'recipeCuisine',
+                },
+              },
+            },
+          ],
+        },
+      ],
+    }),
+    
+    // 9. PRODUCT SCHEMA (travel gear recommendations)
+    defineField({
+      name: 'productSchema',
+      title: '🛍️ Product Schema',
+      type: 'object',
+      group: 'schema',
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
+      fields: [
+        {
+          name: 'enabled',
+          title: 'Enable Product Schema',
+          type: 'boolean',
+          initialValue: false,
+        },
+        {
+          name: 'products',
+          type: 'array',
+          title: 'Products',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {name: 'name', type: 'string', title: 'Product Name'},
+                {name: 'description', type: 'text', title: 'Description', rows: 2},
+                {name: 'image', type: 'url', title: 'Image URL'},
+                {name: 'brand', type: 'string', title: 'Brand'},
+                {name: 'sku', type: 'string', title: 'SKU (optional)'},
+                {
+                  name: 'offers',
+                  type: 'object',
+                  title: 'Offers',
+                  fields: [
+                    {name: 'price', type: 'string', title: 'Price', description: 'e.g., "29.99"'},
+                    {name: 'priceCurrency', type: 'string', title: 'Currency', description: 'e.g., "EUR"'},
+                    {name: 'url', type: 'url', title: 'Buy URL (Affiliate Link)'},
+                    {
+                      name: 'availability',
+                      type: 'string',
+                      title: 'Availability',
+                      options: {
+                        list: [
+                          {title: 'In Stock', value: 'InStock'},
+                          {title: 'Out of Stock', value: 'OutOfStock'},
+                          {title: 'Pre-order', value: 'PreOrder'},
+                        ],
+                      },
+                    },
+                  ],
+                },
+                {
+                  name: 'aggregateRating',
+                  type: 'object',
+                  title: 'Rating (optional)',
+                  fields: [
+                    {name: 'ratingValue', type: 'number', title: 'Rating (1-5)'},
+                    {name: 'reviewCount', type: 'number', title: 'Review Count'},
+                  ],
+                },
+              ],
+              preview: {
+                select: {
+                  title: 'name',
+                  subtitle: 'brand',
+                },
+              },
+            },
+          ],
+        },
+      ],
+    }),
+    
+    // 10. BREADCRUMB SCHEMA
+    defineField({
+      name: 'breadcrumbSchema',
+      title: '🍞 Breadcrumb Schema',
+      type: 'object',
+      group: 'schema',
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
+      fields: [
+        {
+          name: 'enabled',
+          title: 'Enable Breadcrumb Schema',
+          type: 'boolean',
+          initialValue: true,
+          description: 'Auto-generated: Home > Blog > [Post Title]',
+        },
+        {
+          name: 'customBreadcrumbs',
+          type: 'array',
+          title: 'Custom Breadcrumbs (optional)',
+          description: 'Override auto-generated breadcrumbs',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {name: 'name', type: 'string', title: 'Name'},
+                {name: 'url', type: 'url', title: 'URL'},
               ],
             },
           ],
         },
       ],
     }),
-
-    // ═══════════════════════════════════════════════════════════
-    // SEO FIELDS
-    // ═══════════════════════════════════════════════════════════
+    
+    // ============================================
+    // AFFILIATE & MONETIZATION GROUP
+    // ============================================
     defineField({
-      name: 'seoTitle',
-      title: 'SEO Title',
+      name: 'urgencyMessage',
+      title: 'Urgency Alert Message',
       type: 'string',
-      group: 'seo',
-      description: 'Override the default title for SEO (50-60 characters)',
+      group: 'affiliate',
+      description: 'Optional urgency message (e.g., "Peak season approaching!")',
     }),
     defineField({
-      name: 'seoDescription',
-      title: 'SEO Description',
-      type: 'text',
-      group: 'seo',
-      rows: 3,
-      description: 'Meta description for search engines (150-160 characters)',
+      name: 'affiliateHotels',
+      title: 'Affiliate Hotels',
+      type: 'array',
+      group: 'affiliate',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {name: 'name', type: 'string', title: 'Hotel Name'},
+            {name: 'location', type: 'string', title: 'Location'},
+            {name: 'rating', type: 'number', title: 'Rating (1-10)'},
+            {name: 'price', type: 'string', title: 'Price (e.g., "€120")'},
+            {name: 'image', type: 'url', title: 'Image URL'},
+            {name: 'affiliateLink', type: 'url', title: 'Affiliate Link'},
+            {
+              name: 'features',
+              type: 'array',
+              title: 'Features',
+              of: [{type: 'string'}],
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'affiliateTours',
+      title: 'Affiliate Tours',
+      type: 'array',
+      group: 'affiliate',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {name: 'title', type: 'string', title: 'Tour Title'},
+            {name: 'description', type: 'text', title: 'Description'},
+            {name: 'duration', type: 'string', title: 'Duration (e.g., "4 hours")'},
+            {name: 'price', type: 'string', title: 'Price (e.g., "€50")'},
+            {name: 'image', type: 'url', title: 'Image URL'},
+            {name: 'affiliateLink', type: 'url', title: 'Affiliate Link'},
+            {
+              name: 'highlights',
+              type: 'array',
+              title: 'Tour Highlights',
+              of: [{type: 'string'}],
+            },
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'insuranceLink',
+      title: 'Insurance Affiliate Link',
+      type: 'url',
+      group: 'affiliate',
+    }),
+    defineField({
+      name: 'costBreakdown',
+      title: 'Cost Breakdown',
+      type: 'array',
+      group: 'affiliate',
+      of: [
+        {
+          type: 'object',
+          fields: [
+            {name: 'category', type: 'string', title: 'Category'},
+            {name: 'budget', type: 'string', title: 'Budget'},
+            {name: 'mid', type: 'string', title: 'Mid-Range'},
+            {name: 'luxury', type: 'string', title: 'Luxury'},
+          ],
+        },
+      ],
+    }),
+    defineField({
+      name: 'proTips',
+      title: 'Pro Tips',
+      type: 'array',
+      group: 'affiliate',
+      of: [{type: 'text'}],
+    }),
+    defineField({
+      name: 'finalCtaBookingLink',
+      title: 'Final CTA - Booking Link',
+      type: 'url',
+      group: 'affiliate',
+      description: 'Main hotel booking affiliate link for bottom CTA',
+    }),
+    defineField({
+      name: 'finalCtaToursLink',
+      title: 'Final CTA - Tours Link',
+      type: 'url',
+      group: 'affiliate',
+      description: 'Main tours affiliate link for bottom CTA',
     }),
   ],
-
   preview: {
     select: {
       title: 'title',
       author: 'author',
       media: 'mainImage',
-      isAffiliate: 'isAffiliate',
     },
     prepare(selection) {
-      const { title, author, media, isAffiliate } = selection
-      return {
-        title: `${isAffiliate ? '💰 ' : ''}${title}`,
-        subtitle: author ? `by ${author}` : '',
-        media,
-      }
+      const {author} = selection
+      return {...selection, subtitle: author && `by ${author}`}
     },
   },
 })

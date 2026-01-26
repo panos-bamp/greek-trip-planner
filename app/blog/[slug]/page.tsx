@@ -1,479 +1,228 @@
-/**
- * Blog Post Page with Affiliate Support
- * Conditionally renders affiliate components based on post settings
- * 
- * Location: app/blog/[slug]/page.tsx
- */
-
-import Link from 'next/link'
-import Image from 'next/image'
-import { client, urlFor } from '@/lib/sanity'
+import { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
-import { portableTextComponents } from '@/components/portableTextComponents'
-import { ArrowLeft, Calendar, Clock } from 'lucide-react'
+import { client } from '@/sanity/lib/client'
+import { generateAllSchemas } from '@/lib/schemaMarkup'
 
 // Affiliate Components
-import { AffiliateDisclosure } from '@/components/affiliate/AffiliateDisclosure'
-import { UrgencyAlert } from '@/components/affiliate/UrgencyAlert'
-import { HotelCard } from '@/components/affiliate/HotelCard'
-import { TourCard } from '@/components/affiliate/TourCard'
-import { InsuranceCta } from '@/components/affiliate/InsuranceCta'
-import { CostSummaryCards } from '@/components/affiliate/CostSummaryCards'
-import { FinalCtaSection } from '@/components/affiliate/FinalCtaSection'
+import {
+  AffiliateDisclosure,
+  UrgencyAlert,
+  HotelCard,
+  TourCard,
+  InsuranceCta,
+  CostSummaryCards,
+  FinalCtaSection,
+  ProTipBox,
+} from '@/components/affiliate'
+
+// Your site base URL
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://greektriplanner.me'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 3600
 
-interface Post {
-  title: string
-  slug: { current: string }
-  mainImage?: any
-  body: any[]
-  author?: string
-  publishedAt?: string
-  categories?: string[]
-  excerpt?: string
-  // Affiliate fields
-  isAffiliate?: boolean
-  showDisclosure?: boolean
-  disclosureText?: string
-  urgencyAlert?: {
-    enabled: boolean
-    title: string
-    message: string
-    primaryCta?: string
-    primaryLink?: string
-    secondaryCta?: string
-    secondaryLink?: string
-  }
-  costSummary?: {
-    enabled: boolean
-    budgetTier: { priceRange: string; includes: string[]; ctaLink?: string }
-    midRangeTier: { priceRange: string; includes: string[]; ctaLink?: string }
-    luxuryTier: { priceRange: string; includes: string[]; ctaLink?: string }
-  }
-  hotelRecommendations?: Array<{
-    name: string
-    tier: 'budget' | 'mid-range' | 'luxury'
-    badge?: string
-    stars: number
-    image?: any
-    location: string
-    description: string
-    priceFrom: string
-    rating?: string
-    reviewCount?: string
-    highlights?: string[]
-    proTip?: string
-    bookingUrl: string
-    ctaText?: string
-  }>
-  tourRecommendations?: Array<{
-    name: string
-    badge?: string
-    image?: any
-    duration: string
-    description: string
-    price: string
-    rating?: string
-    reviewCount?: string
-    includes?: string[]
-    whyBook?: string
-    bookingUrl: string
-    ctaText?: string
-  }>
-  insuranceCta?: {
-    enabled: boolean
-    title?: string
-    description?: string
-    testimonial?: string
-    testimonialAuthor?: string
-    features?: string[]
-    priceFrom?: string
-    pricePeriod?: string
-    discountCode?: string
-    discountPercent?: string
-    bookingUrl: string
-    ctaText?: string
-  }
-  finalCta?: {
-    enabled: boolean
-    title?: string
-    subtitle?: string
-    pathways?: Array<{
-      icon: string
-      title: string
-      description: string
-      ctaText: string
-      ctaUrl: string
-      isFeatured?: boolean
-    }>
-  }
-}
+// Fetch post from Sanity
+async function getPost(slug: string) {
+  const query = `*[_type == "post" && slug.current == $slug][0]{
+    ...,
+    mainImage{
+      asset->{
+        url
+      }
+    }
+  }`
 
-async function getPost(slug: string): Promise<Post | null> {
-  const post = await client.fetch(
-    `*[_type == "post" && slug.current == $slug][0] {
-      title,
-      slug,
-      mainImage,
-      body,
-      author,
-      publishedAt,
-      categories,
-      excerpt,
-      isAffiliate,
-      showDisclosure,
-      disclosureText,
-      urgencyAlert,
-      costSummary,
-      hotelRecommendations[] {
-        name, tier, badge, stars, image, location, description,
-        priceFrom, rating, reviewCount, highlights, proTip, bookingUrl, ctaText
-      },
-      tourRecommendations[] {
-        name, badge, image, duration, description, price,
-        rating, reviewCount, includes, whyBook, bookingUrl, ctaText
-      },
-      insuranceCta,
-      finalCta
-    }`,
-    { slug }
-  )
+  const post = await client.fetch(query, { slug })
   return post
 }
 
-function formatDate(dateString: string) {
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
-}
-
-function estimateReadingTime(body: any[]) {
-  const text = JSON.stringify(body)
-  const words = text.split(/\s+/).length
-  return Math.ceil(words / 200)
-}
-
-export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params
-  const post = await getPost(slug)
+// Generate metadata for SEO
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string }
+}): Promise<Metadata> {
+  const post = await getPost(params.slug)
 
   if (!post) {
-    return (
-      <div className="min-h-screen py-24 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-4xl font-bold text-primary mb-4">Post not found</h1>
-          <Link href="/blog" className="text-accent-blue hover:underline">← Back to Blog</Link>
-        </div>
-      </div>
-    )
+    return {
+      title: 'Post Not Found',
+    }
   }
 
-  const readingTime = estimateReadingTime(post.body)
-  const isAffiliate = post.isAffiliate === true
+  const metaTitle = post.metaTitle || post.title
+  const metaDescription = post.metaDescription || post.excerpt
+  const ogImage = post.ogImage || post.mainImage?.asset?.url
+  const canonicalUrl = post.canonicalUrl || `${BASE_URL}/blog/${params.slug}`
+
+  return {
+    title: metaTitle,
+    description: metaDescription,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: post.ogTitle || metaTitle,
+      description: post.ogDescription || metaDescription,
+      images: ogImage ? [{ url: ogImage }] : [],
+      type: 'article',
+      publishedTime: post.publishedAt,
+      modifiedTime: post._updatedAt,
+      authors: [post.author],
+    },
+    twitter: {
+      card: post.twitterCard || 'summary_large_image',
+      title: post.twitterTitle || post.ogTitle || metaTitle,
+      description: post.twitterDescription || post.ogDescription || metaDescription,
+      images: ogImage ? [ogImage] : [],
+    },
+    keywords: post.focusKeyword
+      ? [post.focusKeyword, ...(post.categories || [])]
+      : post.categories,
+  }
+}
+
+export default async function BlogPost({ params }: { params: { slug: string } }) {
+  const post = await getPost(params.slug)
+
+  if (!post) {
+    notFound()
+  }
+
+  // Generate all schema markup JSON-LD
+  const schemas = generateAllSchemas(post, BASE_URL)
 
   return (
-    <main className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white border-b border-gray-200 z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-3">
-              <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} priority />
-            </Link>
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/features" className="text-gray-700 hover:text-primary transition font-medium">Features</Link>
-              <Link href="/how-it-works" className="text-gray-700 hover:text-primary transition font-medium">How it Works</Link>
-              <Link href="/blog" className="text-primary font-semibold">Blog</Link>
-              <Link href="/about" className="text-gray-700 hover:text-primary transition font-medium">About</Link>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* Back to Blog */}
-      <div className="pt-32 pb-8 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-7xl mx-auto">
-            <Link href="/blog" className="inline-flex items-center space-x-2 text-gray-600 hover:text-primary transition font-medium">
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to Blog</span>
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* Hero Section */}
-      <div className="pb-12 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-5 gap-16 items-start">
-              {/* Left: Title, Excerpt, Author */}
-              <div className="md:col-span-3">
-                {post.categories && post.categories.length > 0 && (
-                  <div className="mb-6">
-                    <span className="inline-block px-4 py-2 bg-accent-lightblue text-primary text-sm font-bold rounded-full">
-                      {post.categories[0]}
-                    </span>
-                  </div>
-                )}
-
-                <h1 className="text-5xl md:text-6xl font-black text-primary mb-6 leading-tight" style={{fontFamily: 'Space Grotesk, sans-serif'}}>
-                  {post.title}
-                </h1>
-
-                {post.excerpt && (
-                  <p className="text-2xl text-gray-600 mb-8 leading-relaxed">{post.excerpt}</p>
-                )}
-
-                <div className="flex items-center space-x-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-accent-blue flex items-center justify-center text-white font-bold text-lg flex-shrink-0">
-                    {post.author ? post.author[0].toUpperCase() : 'G'}
-                  </div>
-                  <div>
-                    <div className="font-semibold text-primary">{post.author || 'Greek Trip Planner'}</div>
-                    <div className="flex items-center space-x-4 text-sm text-gray-500">
-                      {post.publishedAt && (
-                        <div className="flex items-center space-x-1">
-                          <Calendar className="w-3 h-3" />
-                          <span>{formatDate(post.publishedAt)}</span>
-                        </div>
-                      )}
-                      <div className="flex items-center space-x-1">
-                        <Clock className="w-3 h-3" />
-                        <span>{readingTime} min read</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Right: Featured Image */}
-              <div className="md:col-span-2">
-                {post.mainImage && (
-                  <div className="relative w-full h-full min-h-[400px] rounded-2xl overflow-hidden">
-                    <img
-                      src={urlFor(post.mainImage).width(800).url()}
-                      alt={post.mainImage.alt || post.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Content Area */}
-      <article className="pb-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto">
-            
-            {/* ═══════════════════════════════════════════════════════════
-                AFFILIATE: Top Disclosure
-                ═══════════════════════════════════════════════════════════ */}
-            {isAffiliate && post.showDisclosure !== false && (
-              <AffiliateDisclosure position="top" customText={post.disclosureText} />
-            )}
-
-            {/* ═══════════════════════════════════════════════════════════
-                AFFILIATE: Urgency Alert
-                ═══════════════════════════════════════════════════════════ */}
-            {isAffiliate && post.urgencyAlert?.enabled && (
-              <UrgencyAlert
-                title={post.urgencyAlert.title}
-                message={post.urgencyAlert.message}
-                primaryCta={post.urgencyAlert.primaryCta}
-                primaryLink={post.urgencyAlert.primaryLink}
-                secondaryCta={post.urgencyAlert.secondaryCta}
-                secondaryLink={post.urgencyAlert.secondaryLink}
-              />
-            )}
-
-            {/* ═══════════════════════════════════════════════════════════
-                AFFILIATE: Cost Summary Cards
-                ═══════════════════════════════════════════════════════════ */}
-            {isAffiliate && post.costSummary?.enabled && (
-              <CostSummaryCards
-                budgetTier={post.costSummary.budgetTier}
-                midRangeTier={post.costSummary.midRangeTier}
-                luxuryTier={post.costSummary.luxuryTier}
-              />
-            )}
-
-            {/* ═══════════════════════════════════════════════════════════
-                AFFILIATE: Insurance CTA (Early placement)
-                ═══════════════════════════════════════════════════════════ */}
-            {isAffiliate && post.insuranceCta?.enabled && (
-              <InsuranceCta
-                title={post.insuranceCta.title}
-                description={post.insuranceCta.description}
-                testimonial={post.insuranceCta.testimonial}
-                testimonialAuthor={post.insuranceCta.testimonialAuthor}
-                features={post.insuranceCta.features}
-                priceFrom={post.insuranceCta.priceFrom}
-                pricePeriod={post.insuranceCta.pricePeriod}
-                discountCode={post.insuranceCta.discountCode}
-                discountPercent={post.insuranceCta.discountPercent}
-                bookingUrl={post.insuranceCta.bookingUrl}
-                ctaText={post.insuranceCta.ctaText}
-              />
-            )}
-
-            {/* ═══════════════════════════════════════════════════════════
-                MAIN CONTENT (PortableText)
-                ═══════════════════════════════════════════════════════════ */}
-            <PortableText value={post.body} components={portableTextComponents} />
-
-            {/* ═══════════════════════════════════════════════════════════
-                AFFILIATE: Hotel Recommendations
-                ═══════════════════════════════════════════════════════════ */}
-            {isAffiliate && post.hotelRecommendations && post.hotelRecommendations.length > 0 && (
-              <section className="mt-16">
-                <h2 className="text-3xl font-bold text-primary mb-8">🏨 Where to Stay</h2>
-                {post.hotelRecommendations.map((hotel, index) => (
-                  <HotelCard
-                    key={index}
-                    name={hotel.name}
-                    tier={hotel.tier}
-                    badge={hotel.badge}
-                    stars={hotel.stars}
-                    image={hotel.image ? urlFor(hotel.image).width(600).url() : undefined}
-                    location={hotel.location}
-                    description={hotel.description}
-                    priceFrom={hotel.priceFrom}
-                    rating={hotel.rating}
-                    reviewCount={hotel.reviewCount}
-                    highlights={hotel.highlights}
-                    proTip={hotel.proTip}
-                    bookingUrl={hotel.bookingUrl}
-                    ctaText={hotel.ctaText}
-                  />
-                ))}
-              </section>
-            )}
-
-            {/* ═══════════════════════════════════════════════════════════
-                AFFILIATE: Tour Recommendations
-                ═══════════════════════════════════════════════════════════ */}
-            {isAffiliate && post.tourRecommendations && post.tourRecommendations.length > 0 && (
-              <section className="mt-16">
-                <h2 className="text-3xl font-bold text-primary mb-8">🎯 Best Tours & Experiences</h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                  {post.tourRecommendations.map((tour, index) => (
-                    <TourCard
-                      key={index}
-                      name={tour.name}
-                      badge={tour.badge}
-                      image={tour.image ? urlFor(tour.image).width(600).url() : undefined}
-                      duration={tour.duration}
-                      description={tour.description}
-                      price={tour.price}
-                      rating={tour.rating}
-                      reviewCount={tour.reviewCount}
-                      includes={tour.includes}
-                      whyBook={tour.whyBook}
-                      bookingUrl={tour.bookingUrl}
-                      ctaText={tour.ctaText}
-                    />
-                  ))}
-                </div>
-              </section>
-            )}
-
-            {/* ═══════════════════════════════════════════════════════════
-                AFFILIATE: Final CTA Section
-                ═══════════════════════════════════════════════════════════ */}
-            {isAffiliate && post.finalCta?.enabled && post.finalCta.pathways && (
-              <FinalCtaSection
-                title={post.finalCta.title}
-                subtitle={post.finalCta.subtitle}
-                pathways={post.finalCta.pathways}
-              />
-            )}
-
-            {/* ═══════════════════════════════════════════════════════════
-                AFFILIATE: Bottom Disclosure
-                ═══════════════════════════════════════════════════════════ */}
-            {isAffiliate && post.showDisclosure !== false && (
-              <AffiliateDisclosure position="bottom" customText={post.disclosureText} />
-            )}
-
-          </div>
-        </div>
-      </article>
-
-      {/* Author Box */}
-      {post.author && (
-        <div className="py-16 bg-gray-50">
-          <div className="container mx-auto px-6">
-            <div className="max-w-4xl mx-auto">
-              <div className="bg-white rounded-2xl p-8 border border-gray-200">
-                <div className="flex items-start space-x-6">
-                  <div className="w-20 h-20 rounded-full bg-gradient-to-br from-primary to-accent-blue flex items-center justify-center text-white font-bold text-3xl flex-shrink-0">
-                    {post.author[0].toUpperCase()}
-                  </div>
-                  <div>
-                    <p className="text-sm font-semibold text-gray-500 mb-2">About the author</p>
-                    <h3 className="text-2xl font-bold text-primary mb-3">{post.author}</h3>
-                    <p className="text-gray-700 leading-relaxed">
-                      Greece travel expert and local insider with years of experience exploring 
-                      the islands and mainland. Passionate about sharing authentic experiences 
-                      and hidden gems with fellow travelers.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    <>
+      {/* Schema Markup - JSON-LD for SEO */}
+      {schemas && schemas.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(schemas),
+          }}
+          key="schema-markup"
+        />
       )}
 
-      {/* CTA to Blog */}
-      <div className="py-16 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-4xl mx-auto text-center">
-            <Link 
-              href="/blog"
-              className="inline-flex items-center space-x-2 px-8 py-4 bg-primary text-white rounded-full font-bold hover:bg-accent-blue transition-all hover:scale-105"
-            >
-              <ArrowLeft className="w-5 h-5" />
-              <span>Read More Articles</span>
-            </Link>
-          </div>
-        </div>
-      </div>
+      {/* Blog Post Content */}
+      <article className="max-w-4xl mx-auto px-4 py-8">
+        {/* Affiliate Disclosure */}
+        <AffiliateDisclosure />
 
-      {/* Footer */}
-      <footer className="gradient-primary py-12">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} />
+        {/* Urgency Alert */}
+        {post.urgencyMessage && <UrgencyAlert message={post.urgencyMessage} />}
+
+        {/* Post Header */}
+        <header className="mb-8">
+          <h1 className="text-4xl font-bold mb-4">{post.title}</h1>
+          {post.author && (
+            <p className="text-gray-600">
+              By {post.author} • {new Date(post.publishedAt).toLocaleDateString()}
+            </p>
+          )}
+          {post.categories && post.categories.length > 0 && (
+            <div className="flex gap-2 mt-3">
+              {post.categories.map((category: string, index: number) => (
+                <span
+                  key={index}
+                  className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full"
+                >
+                  {category}
+                </span>
+              ))}
             </div>
-            <div className="flex items-center space-x-8">
-              <Link href="/features" className="text-white/80 hover:text-white transition text-sm">Features</Link>
-              <Link href="/how-it-works" className="text-white/80 hover:text-white transition text-sm">How it Works</Link>
-              <Link href="/blog" className="text-white font-semibold text-sm">Blog</Link>
-              <Link href="/about" className="text-white/80 hover:text-white transition text-sm">About</Link>
-            </div>
+          )}
+        </header>
+
+        {/* Featured Image */}
+        {post.mainImage?.asset?.url && (
+          <img
+            src={post.mainImage.asset.url}
+            alt={post.mainImage.alt || post.title}
+            className="w-full h-auto rounded-lg mb-8"
+          />
+        )}
+
+        {/* Excerpt */}
+        {post.excerpt && (
+          <div className="text-xl text-gray-600 mb-8 italic border-l-4 border-blue-500 pl-4">
+            {post.excerpt}
           </div>
-          <div className="mt-8 pt-8 border-t border-white/10">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <p className="text-white/60 text-sm">© 2024 Greek Trip Planner. All rights reserved.</p>
-              <div className="flex items-center gap-6">
-                <Link href="/disclosure" className="text-white/80 hover:text-white transition text-sm">
-                  Affiliate Disclosure
-                </Link>
-                <Link href="/privacy" className="text-white/80 hover:text-white transition text-sm">
-                  Privacy Policy
-                </Link>
-              </div>
-            </div>
-          </div>
+        )}
+
+        {/* Post Content (Portable Text) */}
+        <div className="prose prose-lg max-w-none mb-12">
+          <PortableText value={post.body} />
         </div>
-      </footer>
-    </main>
+
+        {/* FAQ Section - If FAQ Schema is enabled */}
+        {post.faqSchema?.enabled && post.faqSchema?.faqs && post.faqSchema.faqs.length > 0 && (
+          <section className="mb-12 bg-gray-50 rounded-lg p-8">
+            <h2 className="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
+            <div className="space-y-6">
+              {post.faqSchema.faqs.map((faq: any, index: number) => (
+                <div key={index} className="border-b border-gray-200 pb-6 last:border-0">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                    {faq.question}
+                  </h3>
+                  <p className="text-gray-700">{faq.answer}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Affiliate Hotels */}
+        {post.affiliateHotels && post.affiliateHotels.length > 0 && (
+          <section className="mb-12">
+            <h2 className="text-3xl font-bold mb-6">Recommended Hotels</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {post.affiliateHotels.map((hotel: any, index: number) => (
+                <HotelCard key={index} {...hotel} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Affiliate Tours */}
+        {post.affiliateTours && post.affiliateTours.length > 0 && (
+          <section className="mb-12">
+            <h2 className="text-3xl font-bold mb-6">Top Tours & Activities</h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              {post.affiliateTours.map((tour: any, index: number) => (
+                <TourCard key={index} {...tour} />
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Insurance CTA */}
+        {post.insuranceLink && <InsuranceCta affiliateLink={post.insuranceLink} />}
+
+        {/* Cost Breakdown */}
+        {post.costBreakdown && post.costBreakdown.length > 0 && (
+          <CostSummaryCards costs={post.costBreakdown} />
+        )}
+
+        {/* Pro Tips */}
+        {post.proTips && post.proTips.length > 0 && (
+          <section className="mb-12">
+            {post.proTips.map((tip: string, index: number) => (
+              <ProTipBox key={index} tip={tip} />
+            ))}
+          </section>
+        )}
+
+        {/* Final CTA */}
+        {post.finalCtaBookingLink && post.finalCtaToursLink && (
+          <FinalCtaSection
+            bookingLink={post.finalCtaBookingLink}
+            toursLink={post.finalCtaToursLink}
+          />
+        )}
+      </article>
+    </>
   )
 }
