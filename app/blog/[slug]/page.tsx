@@ -5,16 +5,14 @@ import { client } from '@/sanity/lib/client'
 import { generateAllSchemas } from '@/lib/schemaMarkup'
 
 // Affiliate Components
-import {
-  AffiliateDisclosure,
-  UrgencyAlert,
-  HotelCard,
-  TourCard,
-  InsuranceCta,
-  CostSummaryCards,
-  FinalCtaSection,
-  ProTipBox,
-} from '@/components/affiliate'
+import { AffiliateDisclosure } from '@/components/affiliate/AffiliateDisclosure'
+import { UrgencyAlert } from '@/components/affiliate/UrgencyAlert'
+import { HotelCard } from '@/components/affiliate/HotelCard'
+import { TourCard } from '@/components/affiliate/TourCard'
+import { InsuranceCta } from '@/components/affiliate/InsuranceCta'
+import { CostSummaryCards } from '@/components/affiliate/CostSummaryCards'
+import { FinalCtaSection } from '@/components/affiliate/FinalCtaSection'
+import { ProTipBox } from '@/components/affiliate/ProTipBox'
 
 // Your site base URL
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://greektriplanner.me'
