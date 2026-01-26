@@ -4,11 +4,10 @@ import { PortableText } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
 import { generateAllSchemas } from '@/lib/schemaMarkup'
 
-// Affiliate Components - Import individually
+// Affiliate Components - Only use the working ones
 import { AffiliateDisclosure } from '@/components/affiliate/AffiliateDisclosure'
 import { HotelCard } from '@/components/affiliate/HotelCard'
 import { TourCard } from '@/components/affiliate/TourCard'
-import { InsuranceCta } from '@/components/affiliate/InsuranceCta'
 import { CostSummaryCards } from '@/components/affiliate/CostSummaryCards'
 import { FinalCtaSection } from '@/components/affiliate/FinalCtaSection'
 import { ProTipBox } from '@/components/affiliate/ProTipBox'
@@ -108,7 +107,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         {/* Affiliate Disclosure */}
         <AffiliateDisclosure />
 
-        {/* Urgency Alert - Simple inline version */}
+        {/* Urgency Alert - Inline */}
         {post.urgencyMessage && (
           <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
             <div className="flex items-center">
@@ -204,8 +203,55 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </section>
         )}
 
-        {/* Insurance CTA */}
-        {post.insuranceLink && <InsuranceCta affiliateLink={post.insuranceLink} />}
+        {/* Insurance CTA - Inline version */}
+        {post.insuranceLink && (
+          <div className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200 rounded-lg p-6 my-8">
+            <div className="flex items-start">
+              <div className="flex-shrink-0">
+                <svg className="h-12 w-12 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <div className="ml-4 flex-1">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                  ✈️ Don't Forget Travel Insurance!
+                </h3>
+                <p className="text-gray-700 mb-4">
+                  Protect your trip with comprehensive travel insurance. Cover cancellations, medical emergencies, 
+                  lost luggage, and more. Get peace of mind for just a few euros per day.
+                </p>
+                <ul className="mb-4 space-y-2">
+                  <li className="flex items-center text-sm text-gray-700">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Trip cancellation & interruption coverage
+                  </li>
+                  <li className="flex items-center text-sm text-gray-700">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Emergency medical & dental expenses
+                  </li>
+                  <li className="flex items-center text-sm text-gray-700">
+                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    24/7 emergency assistance
+                  </li>
+                </ul>
+                <a
+                  href={post.insuranceLink}
+                  target="_blank"
+                  rel="noopener noreferrer nofollow"
+                  className="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold px-8 py-3 rounded-lg transition-colors"
+                >
+                  Get a Free Quote
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
 
         {/* Cost Breakdown */}
         {post.costBreakdown && post.costBreakdown.length > 0 && (
