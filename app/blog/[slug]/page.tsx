@@ -4,11 +4,10 @@ import { PortableText } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
 import { generateAllSchemas } from '@/lib/schemaMarkup'
 
-// Affiliate Components - Only use the working ones
+// Affiliate Components - Only the working ones
 import { AffiliateDisclosure } from '@/components/affiliate/AffiliateDisclosure'
 import { HotelCard } from '@/components/affiliate/HotelCard'
 import { TourCard } from '@/components/affiliate/TourCard'
-import { CostSummaryCards } from '@/components/affiliate/CostSummaryCards'
 import { FinalCtaSection } from '@/components/affiliate/FinalCtaSection'
 import { ProTipBox } from '@/components/affiliate/ProTipBox'
 
@@ -203,7 +202,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </section>
         )}
 
-        {/* Insurance CTA - Inline version */}
+        {/* Insurance CTA - Inline */}
         {post.insuranceLink && (
           <div className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200 rounded-lg p-6 my-8">
             <div className="flex items-start">
@@ -253,9 +252,44 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </div>
         )}
 
-        {/* Cost Breakdown */}
+        {/* Cost Breakdown - Inline */}
         {post.costBreakdown && post.costBreakdown.length > 0 && (
-          <CostSummaryCards costs={post.costBreakdown} />
+          <div className="my-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-6">💰 Trip Cost Breakdown</h3>
+            
+            <div className="overflow-x-auto">
+              <table className="w-full bg-white rounded-lg shadow-md overflow-hidden">
+                <thead className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
+                  <tr>
+                    <th className="px-6 py-4 text-left font-semibold">Category</th>
+                    <th className="px-6 py-4 text-center font-semibold">Budget</th>
+                    <th className="px-6 py-4 text-center font-semibold">Mid-Range</th>
+                    <th className="px-6 py-4 text-center font-semibold">Luxury</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {post.costBreakdown.map((cost: any, index: number) => (
+                    <tr 
+                      key={index} 
+                      className={`border-b ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-blue-50 transition-colors`}
+                    >
+                      <td className="px-6 py-4 font-medium text-gray-900">{cost.category}</td>
+                      <td className="px-6 py-4 text-center text-gray-700">{cost.budget}</td>
+                      <td className="px-6 py-4 text-center text-gray-700">{cost.mid}</td>
+                      <td className="px-6 py-4 text-center text-gray-700">{cost.luxury}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            
+            <div className="mt-4 bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+              <p className="text-sm text-blue-800">
+                <strong>💡 Pro Tip:</strong> These are estimated daily costs. Booking in advance and traveling 
+                during shoulder season (April-May, September-October) can save you 20-30% on accommodation and tours.
+              </p>
+            </div>
+          </div>
         )}
 
         {/* Pro Tips */}
