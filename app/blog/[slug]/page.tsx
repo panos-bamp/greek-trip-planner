@@ -4,11 +4,10 @@ import { PortableText } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
 import { generateAllSchemas } from '@/lib/schemaMarkup'
 
-// Affiliate Components - Only the ones that work without issues
+// Affiliate Components - Only use the ones that definitely work
 import { AffiliateDisclosure } from '@/components/affiliate/AffiliateDisclosure'
 import { HotelCard } from '@/components/affiliate/HotelCard'
 import { TourCard } from '@/components/affiliate/TourCard'
-import { FinalCtaSection } from '@/components/affiliate/FinalCtaSection'
 
 // Your site base URL
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://greektriplanner.me'
@@ -312,12 +311,56 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </section>
         )}
 
-        {/* Final CTA */}
+        {/* Final CTA - Inline */}
         {post.finalCtaBookingLink && post.finalCtaToursLink && (
-          <FinalCtaSection
-            bookingLink={post.finalCtaBookingLink}
-            toursLink={post.finalCtaToursLink}
-          />
+          <div className="bg-gradient-to-br from-blue-600 to-purple-700 text-white rounded-2xl p-8 my-12">
+            <div className="text-center max-w-3xl mx-auto">
+              <h2 className="text-3xl font-bold mb-4">🇬🇷 Ready to Start Planning Your Greek Adventure?</h2>
+              <p className="text-xl mb-8 text-blue-100">
+                Don't wait! Peak season fills up fast. Book your accommodation and tours today to secure the best rates.
+              </p>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="bg-white/10 backdrop-blur rounded-lg p-6">
+                  <div className="text-4xl mb-3">🏨</div>
+                  <h3 className="text-xl font-bold mb-2">Book Your Hotels</h3>
+                  <p className="text-blue-100 text-sm mb-4">
+                    Free cancellation on most properties. Reserve now, pay later!
+                  </p>
+                  <a
+                    href={post.finalCtaBookingLink}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="inline-block w-full bg-white text-blue-700 font-bold px-6 py-3 rounded-lg hover:bg-blue-50 transition-colors"
+                  >
+                    Find Hotels →
+                  </a>
+                </div>
+                
+                <div className="bg-white/10 backdrop-blur rounded-lg p-6">
+                  <div className="text-4xl mb-3">🎭</div>
+                  <h3 className="text-xl font-bold mb-2">Book Tours & Activities</h3>
+                  <p className="text-blue-100 text-sm mb-4">
+                    Skip-the-line tickets, guided tours, and unique experiences.
+                  </p>
+                  <a
+                    href={post.finalCtaToursLink}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="inline-block w-full bg-orange-500 text-white font-bold px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors"
+                  >
+                    Browse Tours →
+                  </a>
+                </div>
+              </div>
+              
+              <div className="mt-8 pt-6 border-t border-white/20">
+                <p className="text-sm text-blue-100">
+                  ⭐ By booking through our links, you support our free travel guides at no extra cost to you!
+                </p>
+              </div>
+            </div>
+          </div>
         )}
       </article>
     </>
