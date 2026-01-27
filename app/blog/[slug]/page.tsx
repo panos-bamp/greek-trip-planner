@@ -4,18 +4,16 @@ import { PortableText } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
 import { generateAllSchemas } from '@/lib/schemaMarkup'
 
-// Affiliate Components - Only use the ones that definitely work
+// Affiliate Components
 import { AffiliateDisclosure } from '@/components/affiliate/AffiliateDisclosure'
 import { HotelCard } from '@/components/affiliate/HotelCard'
 import { TourCard } from '@/components/affiliate/TourCard'
 
-// Your site base URL
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://greektriplanner.me'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 3600
 
-// Fetch post from Sanity
 async function getPost(slug: string) {
   const query = `*[_type == "post" && slug.current == $slug][0]{
     ...,
@@ -25,24 +23,12 @@ async function getPost(slug: string) {
       }
     }
   }`
-
-  const post = await client.fetch(query, { slug })
-  return post
+  return await client.fetch(query, { slug })
 }
 
-// Generate metadata for SEO
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string }
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const post = await getPost(params.slug)
-
-  if (!post) {
-    return {
-      title: 'Post Not Found',
-    }
-  }
+  if (!post) return { title: 'Post Not Found' }
 
   const metaTitle = post.metaTitle || post.title
   const metaDescription = post.metaDescription || post.excerpt
@@ -62,7 +48,7 @@ export async function generateMetadata({
       type: 'article',
       publishedTime: post.publishedAt,
       modifiedTime: post._updatedAt,
-      authors: [post.author],
+      authors: post.author ? [post.author] : [],
     },
     twitter: {
       card: post.twitterCard || 'summary_large_image',
@@ -72,18 +58,15 @@ export async function generateMetadata({
     },
     keywords: post.focusKeyword
       ? [post.focusKeyword, ...(post.categories || [])]
-      : post.categories,
+      : post.categories || [],
   }
 }
 
 export default async function BlogPost({ params }: { params: { slug: string } }) {
   const post = await getPost(params.slug)
+  if (!post) notFound()
 
-  if (!post) {
-    notFound()
-  }
-
-  // Generate all schema markup JSON-LD
+  // Generate schema markup
   const schemas = generateAllSchemas(post, BASE_URL)
 
   return (
@@ -99,12 +82,10 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         />
       )}
 
-      {/* Blog Post Content */}
       <article className="max-w-4xl mx-auto px-4 py-8">
-        {/* Affiliate Disclosure */}
         <AffiliateDisclosure />
 
-        {/* Urgency Alert - Inline */}
+        {/* Urgency Alert */}
         {post.urgencyMessage && (
           <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
             <div className="flex items-center">
@@ -127,10 +108,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           {post.categories && post.categories.length > 0 && (
             <div className="flex gap-2 mt-3">
               {post.categories.map((category: string, index: number) => (
-                <span
-                  key={index}
-                  className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full"
-                >
+                <span key={index} className="bg-blue-100 text-blue-800 text-sm px-3 py-1 rounded-full">
                   {category}
                 </span>
               ))}
@@ -154,21 +132,21 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </div>
         )}
 
-        {/* Post Content (Portable Text) */}
-        <div className="prose prose-lg max-w-none mb-12">
-          <PortableText value={post.body} />
-        </div>
+        {/* Post Content */}
+        {post.body && (
+          <div className="prose prose-lg max-w-none mb-12">
+            <PortableText value={post.body} />
+          </div>
+        )}
 
-        {/* FAQ Section - If FAQ Schema is enabled */}
-        {post.faqSchema?.enabled && post.faqSchema?.faqs && post.faqSchema.faqs.length > 0 && (
+        {/* FAQ Section */}
+        {post.faqSchema?.enabled && post.faqSchema?.faqs?.length > 0 && (
           <section className="mb-12 bg-gray-50 rounded-lg p-8">
             <h2 className="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
             <div className="space-y-6">
               {post.faqSchema.faqs.map((faq: any, index: number) => (
                 <div key={index} className="border-b border-gray-200 pb-6 last:border-0">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">
-                    {faq.question}
-                  </h3>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{faq.question}</h3>
                   <p className="text-gray-700">{faq.answer}</p>
                 </div>
               ))}
@@ -177,7 +155,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         )}
 
         {/* Affiliate Hotels */}
-        {post.affiliateHotels && post.affiliateHotels.length > 0 && (
+        {post.affiliateHotels?.length > 0 && (
           <section className="mb-12">
             <h2 className="text-3xl font-bold mb-6">Recommended Hotels</h2>
             <div className="grid md:grid-cols-2 gap-6">
@@ -189,7 +167,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
         )}
 
         {/* Affiliate Tours */}
-        {post.affiliateTours && post.affiliateTours.length > 0 && (
+        {post.affiliateTours?.length > 0 && (
           <section className="mb-12">
             <h2 className="text-3xl font-bold mb-6">Top Tours & Activities</h2>
             <div className="grid md:grid-cols-2 gap-6">
@@ -200,7 +178,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </section>
         )}
 
-        {/* Insurance CTA - Inline */}
+        {/* Insurance CTA */}
         {post.insuranceLink && (
           <div className="bg-gradient-to-r from-purple-50 to-blue-50 border-2 border-purple-200 rounded-lg p-6 my-8">
             <div className="flex items-start">
@@ -210,33 +188,11 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                 </svg>
               </div>
               <div className="ml-4 flex-1">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
-                  ✈️ Don't Forget Travel Insurance!
-                </h3>
+                <h3 className="text-xl font-bold text-gray-900 mb-2">✈️ Don't Forget Travel Insurance!</h3>
                 <p className="text-gray-700 mb-4">
                   Protect your trip with comprehensive travel insurance. Cover cancellations, medical emergencies, 
-                  lost luggage, and more. Get peace of mind for just a few euros per day.
+                  lost luggage, and more.
                 </p>
-                <ul className="mb-4 space-y-2">
-                  <li className="flex items-center text-sm text-gray-700">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    Trip cancellation & interruption coverage
-                  </li>
-                  <li className="flex items-center text-sm text-gray-700">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    Emergency medical & dental expenses
-                  </li>
-                  <li className="flex items-center text-sm text-gray-700">
-                    <svg className="w-5 h-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    24/7 emergency assistance
-                  </li>
-                </ul>
                 <a
                   href={post.insuranceLink}
                   target="_blank"
@@ -250,11 +206,10 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </div>
         )}
 
-        {/* Cost Breakdown - Inline */}
-        {post.costBreakdown && post.costBreakdown.length > 0 && (
+        {/* Cost Breakdown */}
+        {post.costBreakdown?.length > 0 && (
           <div className="my-8">
             <h3 className="text-2xl font-bold text-gray-900 mb-6">💰 Trip Cost Breakdown</h3>
-            
             <div className="overflow-x-auto">
               <table className="w-full bg-white rounded-lg shadow-md overflow-hidden">
                 <thead className="bg-gradient-to-r from-blue-600 to-blue-700 text-white">
@@ -267,10 +222,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                 </thead>
                 <tbody>
                   {post.costBreakdown.map((cost: any, index: number) => (
-                    <tr 
-                      key={index} 
-                      className={`border-b ${index % 2 === 0 ? 'bg-gray-50' : 'bg-white'} hover:bg-blue-50 transition-colors`}
-                    >
+                    <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : 'bg-white'}>
                       <td className="px-6 py-4 font-medium text-gray-900">{cost.category}</td>
                       <td className="px-6 py-4 text-center text-gray-700">{cost.budget}</td>
                       <td className="px-6 py-4 text-center text-gray-700">{cost.mid}</td>
@@ -280,18 +232,11 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                 </tbody>
               </table>
             </div>
-            
-            <div className="mt-4 bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
-              <p className="text-sm text-blue-800">
-                <strong>💡 Pro Tip:</strong> These are estimated daily costs. Booking in advance and traveling 
-                during shoulder season (April-May, September-October) can save you 20-30% on accommodation and tours.
-              </p>
-            </div>
           </div>
         )}
 
-        {/* Pro Tips - Inline */}
-        {post.proTips && post.proTips.length > 0 && (
+        {/* Pro Tips */}
+        {post.proTips?.length > 0 && (
           <section className="mb-12">
             {post.proTips.map((tip: string, index: number) => (
               <div key={index} className="bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-500 rounded-r-lg p-5 my-6">
@@ -311,27 +256,22 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </section>
         )}
 
-        {/* Final CTA - Inline */}
+        {/* Final CTA */}
         {post.finalCtaBookingLink && post.finalCtaToursLink && (
           <div className="bg-gradient-to-br from-blue-600 to-purple-700 text-white rounded-2xl p-8 my-12">
             <div className="text-center max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold mb-4">🇬🇷 Ready to Start Planning Your Greek Adventure?</h2>
-              <p className="text-xl mb-8 text-blue-100">
-                Don't wait! Peak season fills up fast. Book your accommodation and tours today to secure the best rates.
-              </p>
+              <h2 className="text-3xl font-bold mb-4">🇬🇷 Ready to Start Planning?</h2>
+              <p className="text-xl mb-8 text-blue-100">Book your accommodation and tours today!</p>
               
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-white/10 backdrop-blur rounded-lg p-6">
                   <div className="text-4xl mb-3">🏨</div>
-                  <h3 className="text-xl font-bold mb-2">Book Your Hotels</h3>
-                  <p className="text-blue-100 text-sm mb-4">
-                    Free cancellation on most properties. Reserve now, pay later!
-                  </p>
+                  <h3 className="text-xl font-bold mb-2">Book Hotels</h3>
                   <a
                     href={post.finalCtaBookingLink}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="inline-block w-full bg-white text-blue-700 font-bold px-6 py-3 rounded-lg hover:bg-blue-50 transition-colors"
+                    className="inline-block w-full bg-white text-blue-700 font-bold px-6 py-3 rounded-lg hover:bg-blue-50 transition-colors mt-4"
                   >
                     Find Hotels →
                   </a>
@@ -339,25 +279,16 @@ export default async function BlogPost({ params }: { params: { slug: string } })
                 
                 <div className="bg-white/10 backdrop-blur rounded-lg p-6">
                   <div className="text-4xl mb-3">🎭</div>
-                  <h3 className="text-xl font-bold mb-2">Book Tours & Activities</h3>
-                  <p className="text-blue-100 text-sm mb-4">
-                    Skip-the-line tickets, guided tours, and unique experiences.
-                  </p>
+                  <h3 className="text-xl font-bold mb-2">Book Tours</h3>
                   <a
                     href={post.finalCtaToursLink}
                     target="_blank"
                     rel="noopener noreferrer nofollow"
-                    className="inline-block w-full bg-orange-500 text-white font-bold px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors"
+                    className="inline-block w-full bg-orange-500 text-white font-bold px-6 py-3 rounded-lg hover:bg-orange-600 transition-colors mt-4"
                   >
                     Browse Tours →
                   </a>
                 </div>
-              </div>
-              
-              <div className="mt-8 pt-6 border-t border-white/20">
-                <p className="text-sm text-blue-100">
-                  ⭐ By booking through our links, you support our free travel guides at no extra cost to you!
-                </p>
               </div>
             </div>
           </div>
