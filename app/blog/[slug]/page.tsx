@@ -4,12 +4,11 @@ import { PortableText } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
 import { generateAllSchemas } from '@/lib/schemaMarkup'
 
-// Affiliate Components - Only the working ones
+// Affiliate Components - Only the ones that work without issues
 import { AffiliateDisclosure } from '@/components/affiliate/AffiliateDisclosure'
 import { HotelCard } from '@/components/affiliate/HotelCard'
 import { TourCard } from '@/components/affiliate/TourCard'
 import { FinalCtaSection } from '@/components/affiliate/FinalCtaSection'
-import { ProTipBox } from '@/components/affiliate/ProTipBox'
 
 // Your site base URL
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'https://greektriplanner.me'
@@ -292,11 +291,23 @@ export default async function BlogPost({ params }: { params: { slug: string } })
           </div>
         )}
 
-        {/* Pro Tips */}
+        {/* Pro Tips - Inline */}
         {post.proTips && post.proTips.length > 0 && (
           <section className="mb-12">
             {post.proTips.map((tip: string, index: number) => (
-              <ProTipBox key={index} tip={tip} />
+              <div key={index} className="bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-500 rounded-r-lg p-5 my-6">
+                <div className="flex items-start">
+                  <div className="flex-shrink-0">
+                    <svg className="h-6 w-6 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                    </svg>
+                  </div>
+                  <div className="ml-3">
+                    <h4 className="text-sm font-bold text-gray-900 mb-1">💡 Pro Tip</h4>
+                    <p className="text-sm text-gray-800">{tip}</p>
+                  </div>
+                </div>
+              </div>
             ))}
           </section>
         )}
