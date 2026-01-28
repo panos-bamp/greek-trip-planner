@@ -157,7 +157,7 @@ export function generateArticleSchema({
 }: ArticleSchemaProps): BaseSchema {
   return {
     '@context': 'https://schema.org',
-    '@type': articleType,
+    '@type': 'article',
     headline: title,
     description: description,
     image: image || '',
