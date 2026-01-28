@@ -114,38 +114,38 @@ export default async function BlogPost(
           />
         )}
 
-        {/* Header Navigation */}
-        <header className="fixed top-0 left-0 right-0 bg-white shadow-md z-50">
+        {/* Header - Exact match from /blog */}
+        <header className="bg-white shadow-sm">
           <nav className="container mx-auto px-6 py-4">
             <div className="flex items-center justify-between">
               {/* Logo */}
-              <Link href="/" className="flex items-center">
+              <Link href="/">
                 <Image
                   src="/logo.png"
                   alt="Greek Trip Planner"
-                  width={50}
-                  height={50}
-                  className="h-12 w-auto"
+                  width={64}
+                  height={64}
+                  className="cursor-pointer"
                 />
               </Link>
 
               {/* Navigation Links */}
               <div className="hidden md:flex items-center space-x-8">
-                <Link href="/features" className="text-gray-700 hover:text-blue-600 font-medium">
+                <Link href="/features" className="text-gray-700 hover:text-blue-600 transition-colors">
                   Features
                 </Link>
-                <Link href="/how-it-works" className="text-gray-700 hover:text-blue-600 font-medium">
+                <Link href="/how-it-works" className="text-gray-700 hover:text-blue-600 transition-colors">
                   How it Works
                 </Link>
-                <Link href="/blog" className="text-gray-700 hover:text-blue-600 font-medium">
+                <Link href="/blog" className="text-gray-700 hover:text-blue-600 transition-colors">
                   Blog
                 </Link>
-                <Link href="/about" className="text-gray-700 hover:text-blue-600 font-medium">
+                <Link href="/about" className="text-gray-700 hover:text-blue-600 transition-colors">
                   About
                 </Link>
                 <Link
                   href="/quiz"
-                  className="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                  className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
                 >
                   Start Planning
                 </Link>
@@ -161,99 +161,96 @@ export default async function BlogPost(
           </nav>
         </header>
 
-        {/* Add padding for fixed header */}
-        <div className="pt-20">
-          <article className="max-w-4xl mx-auto px-6 py-12">
-            {/* Title */}
-            <header className="mb-8">
-              <h1 className="text-5xl font-bold mb-4">{post.title}</h1>
-              {post.author && (
-                <p className="text-gray-600">
-                  By {post.author}
-                  {post.publishedAt && ` • ${new Date(post.publishedAt).toLocaleDateString()}`}
-                </p>
-              )}
-            </header>
+        {/* Main Content */}
+        <article className="max-w-4xl mx-auto px-6 py-12">
+          {/* Title */}
+          <header className="mb-8">
+            <h1 className="text-5xl font-bold mb-4">{post.title}</h1>
+            {post.author && (
+              <p className="text-gray-600">
+                By {post.author}
+                {post.publishedAt && ` • ${new Date(post.publishedAt).toLocaleDateString()}`}
+              </p>
+            )}
+          </header>
 
-            {/* Featured Image */}
-            {post.mainImage?.asset?.url && (
-              <img
-                src={post.mainImage.asset.url}
-                alt={post.title}
-                className="w-full h-auto rounded-lg mb-8"
+          {/* Featured Image */}
+          {post.mainImage?.asset?.url && (
+            <img
+              src={post.mainImage.asset.url}
+              alt={post.title}
+              className="w-full h-auto rounded-lg mb-8"
+            />
+          )}
+
+          {/* Excerpt */}
+          {post.excerpt && (
+            <div className="text-xl text-gray-600 mb-8 italic border-l-4 border-blue-500 pl-4">
+              {post.excerpt}
+            </div>
+          )}
+
+          {/* Body Content with PortableText */}
+          {post.body && (
+            <div className="prose prose-lg max-w-none">
+              <PortableText value={post.body} components={components} />
+            </div>
+          )}
+
+          {/* FAQ */}
+          {post.faqSchema?.enabled && post.faqSchema?.faqs?.length > 0 && (
+            <section className="mt-12 bg-gray-50 rounded-lg p-8">
+              <h2 className="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
+              {post.faqSchema.faqs.map((faq: any, i: number) => (
+                <div key={i} className="mb-6">
+                  <h3 className="text-xl font-semibold mb-2">{faq.question}</h3>
+                  <p className="text-gray-700">{faq.answer}</p>
+                </div>
+              ))}
+            </section>
+          )}
+        </article>
+
+        {/* Footer - Exact match from /blog */}
+        <footer className="bg-white border-t border-gray-200 mt-16">
+          <div className="container mx-auto px-6 py-12">
+            {/* Logo and Links */}
+            <div className="flex flex-col items-center">
+              <Image
+                src="/logo.png"
+                alt="Greek Trip Planner"
+                width={64}
+                height={64}
+                className="mb-6"
               />
-            )}
-
-            {/* Excerpt */}
-            {post.excerpt && (
-              <div className="text-xl text-gray-600 mb-8 italic border-l-4 border-blue-500 pl-4">
-                {post.excerpt}
-              </div>
-            )}
-
-            {/* Body Content with PortableText */}
-            {post.body && (
-              <div className="prose prose-lg max-w-none">
-                <PortableText value={post.body} components={components} />
-              </div>
-            )}
-
-            {/* FAQ */}
-            {post.faqSchema?.enabled && post.faqSchema?.faqs?.length > 0 && (
-              <section className="mt-12 bg-gray-50 rounded-lg p-8">
-                <h2 className="text-3xl font-bold mb-6">Frequently Asked Questions</h2>
-                {post.faqSchema.faqs.map((faq: any, i: number) => (
-                  <div key={i} className="mb-6">
-                    <h3 className="text-xl font-semibold mb-2">{faq.question}</h3>
-                    <p className="text-gray-700">{faq.answer}</p>
-                  </div>
-                ))}
-              </section>
-            )}
-          </article>
-        </div>
-
-        {/* Footer */}
-        <footer className="bg-gray-900 text-white py-12 mt-16">
-          <div className="container mx-auto px-6">
-            <div className="flex flex-col md:flex-row justify-between items-center">
-              {/* Logo */}
-              <div className="mb-6 md:mb-0">
-                <Image
-                  src="/logo.png"
-                  alt="Greek Trip Planner"
-                  width={50}
-                  height={50}
-                  className="h-12 w-auto"
-                />
-              </div>
-
-              {/* Footer Links */}
-              <div className="flex space-x-8 mb-6 md:mb-0">
-                <Link href="/features" className="hover:text-blue-400 transition-colors">
+              
+              <div className="flex space-x-8 mb-6">
+                <Link href="/features" className="text-gray-600 hover:text-blue-600 transition-colors">
                   Features
                 </Link>
-                <Link href="/how-it-works" className="hover:text-blue-400 transition-colors">
+                <Link href="/how-it-works" className="text-gray-600 hover:text-blue-600 transition-colors">
                   How it Works
                 </Link>
-                <Link href="/blog" className="hover:text-blue-400 transition-colors">
+                <Link href="/blog" className="text-gray-600 hover:text-blue-600 transition-colors">
                   Blog
                 </Link>
-                <Link href="/about" className="hover:text-blue-400 transition-colors">
+                <Link href="/about" className="text-gray-600 hover:text-blue-600 transition-colors">
                   About
                 </Link>
               </div>
             </div>
 
             {/* Copyright */}
-            <div className="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-              <p>© 2024 Greek Trip Planner. All rights reserved.</p>
-              <div className="mt-4 flex justify-center space-x-6">
+            <div className="text-center text-gray-600 text-sm">
+              <p className="mb-4">© 2024 Greek Trip Planner. All rights reserved.</p>
+              
+              {/* External Links */}
+              <div className="flex justify-center items-center space-x-4">
                 <a
                   href="https://traveltourismdirectory.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-blue-400 transition-colors"
+                  className="text-gray-600 hover:text-blue-600 transition-colors"
                 >
                   Travel and Tourism Directory
                 </a>
@@ -261,9 +258,12 @@ export default async function BlogPost(
                   href="https://bookmarktravel.com/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-blue-400 transition-colors"
                 >
-                  Bookmark Travel
+                  <img
+                    src="https://bookmarktravel.com/images/bookmarktravel-234.jpg"
+                    alt="Bookmark Travel"
+                    className="h-8"
+                  />
                 </a>
               </div>
             </div>
