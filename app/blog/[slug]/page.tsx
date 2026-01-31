@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
 import { generateAllSchemas } from '@/lib/schemaMarkup'
+import { portableTextComponents } from '@/components/portableTextComponents'  // ← ADD THIS!
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowRight } from 'lucide-react'
@@ -11,47 +12,6 @@ const BASE_URL = 'https://greektriplanner.me'
 
 export const dynamic = 'force-dynamic'
 export const revalidate = 3600
-
-// Simple PortableText components - inline in this file
-const components = {
-  block: {
-    h1: ({children}: any) => <h1 className="text-4xl font-bold mt-8 mb-4">{children}</h1>,
-    h2: ({children}: any) => <h2 className="text-3xl font-bold mt-8 mb-4">{children}</h2>,
-    h3: ({children}: any) => <h3 className="text-2xl font-bold mt-6 mb-3">{children}</h3>,
-    h4: ({children}: any) => <h4 className="text-xl font-bold mt-4 mb-2">{children}</h4>,
-    normal: ({children}: any) => <p className="text-lg leading-relaxed mb-4 text-gray-700">{children}</p>,
-    blockquote: ({children}: any) => (
-      <blockquote className="border-l-4 border-blue-500 pl-6 py-2 my-6 italic bg-blue-50 rounded">
-        {children}
-      </blockquote>
-    ),
-  },
-  list: {
-    bullet: ({children}: any) => <ul className="list-disc ml-6 mb-6 space-y-2">{children}</ul>,
-    number: ({children}: any) => <ol className="list-decimal ml-6 mb-6 space-y-2">{children}</ol>,
-  },
-  listItem: {
-    bullet: ({children}: any) => <li className="text-lg text-gray-700">{children}</li>,
-    number: ({children}: any) => <li className="text-lg text-gray-700">{children}</li>,
-  },
-  marks: {
-    strong: ({children}: any) => <strong className="font-bold">{children}</strong>,
-    em: ({children}: any) => <em className="italic">{children}</em>,
-    link: ({value, children}: any) => {
-      const target = value?.href?.startsWith('http') ? '_blank' : undefined
-      return (
-        <a 
-          href={value?.href} 
-          target={target}
-          rel={target === '_blank' ? 'noopener noreferrer' : undefined}
-          className="text-blue-600 hover:text-blue-800 underline font-medium"
-        >
-          {children}
-        </a>
-      )
-    },
-  },
-}
 
 async function getPost(slug: string) {
   if (!slug) return null
@@ -176,10 +136,10 @@ export default async function BlogPost(
               </div>
             )}
 
-            {/* Body Content with PortableText */}
+            {/* Body Content - NOW USING portableTextComponents! */}
             {post.body && (
               <div className="prose prose-lg max-w-none">
-                <PortableText value={post.body} components={components} />
+                <PortableText value={post.body} components={portableTextComponents} />
               </div>
             )}
 
