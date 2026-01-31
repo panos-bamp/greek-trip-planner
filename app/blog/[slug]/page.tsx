@@ -14,17 +14,17 @@ export const revalidate = 3600
 
 // Helper function to build Sanity image URLs
 function getSanityImageUrl(imageRef: string, width: number = 1200) {
-  console.log('🔍 Image Reference:', imageRef)
+  console.log('[IMAGE] Reference:', imageRef)
   
   const parts = imageRef.split('-')
-  console.log('📋 Parts:', parts)
+  console.log('[IMAGE] Parts:', parts)
   
   const assetId = parts[1]
   const dimensions = parts[2]
   const format = parts[3]
   
   const url = `https://cdn.sanity.io/images/puhk8qa7/production/${assetId}-${dimensions}.${format}?w=${width}&auto=format`
-  console.log('🌐 Built URL:', url)
+  console.log('[IMAGE] Built URL:', url)
   
   return url
 }
@@ -71,14 +71,14 @@ const components = {
   // IMAGE HANDLER with DEBUG
   types: {
     image: ({value}: any) => {
-      console.log('🖼️ Full Image Value:', JSON.stringify(value, null, 2))
+      console.log('[IMAGE] Full Image Value:', JSON.stringify(value, null, 2))
       
       if (!value?.asset) {
-        console.log('❌ No asset in value')
+        console.log('[ERROR] No asset in value')
         return (
           <div className="my-8 p-6 bg-red-100 border-2 border-red-500 rounded">
             <p className="text-red-800 font-bold">DEBUG: No asset found in image value</p>
-            <pre className="mt-2 text-xs">{JSON.stringify(value, null, 2)}</pre>
+            <pre className="mt-2 text-xs overflow-auto">{JSON.stringify(value, null, 2)}</pre>
           </div>
         )
       }
@@ -87,23 +87,23 @@ const components = {
         let imageUrl = ''
         
         if (value.asset._ref) {
-          console.log('✅ Using _ref:', value.asset._ref)
+          console.log('[SUCCESS] Using _ref:', value.asset._ref)
           imageUrl = getSanityImageUrl(value.asset._ref, 1200)
         } else if (value.asset.url) {
-          console.log('✅ Using url:', value.asset.url)
+          console.log('[SUCCESS] Using url:', value.asset.url)
           imageUrl = value.asset.url
         } else {
-          console.log('❌ No _ref or url found')
+          console.log('[ERROR] No _ref or url found')
           return (
             <div className="my-8 p-6 bg-yellow-100 border-2 border-yellow-500 rounded">
               <p className="text-yellow-800 font-bold">DEBUG: Asset has no _ref or url</p>
-              <pre className="mt-2 text-xs">{JSON.stringify(value.asset, null, 2)}</pre>
+              <pre className="mt-2 text-xs overflow-auto">{JSON.stringify(value.asset, null, 2)}</pre>
             </div>
           )
         }
         
         if (!imageUrl) {
-          console.log('❌ imageUrl is empty')
+          console.log('[ERROR] imageUrl is empty')
           return (
             <div className="my-8 p-6 bg-orange-100 border-2 border-orange-500 rounded">
               <p className="text-orange-800 font-bold">DEBUG: Image URL is empty</p>
@@ -111,12 +111,12 @@ const components = {
           )
         }
         
-        console.log('✅ Final Image URL:', imageUrl)
+        console.log('[SUCCESS] Final Image URL:', imageUrl)
         
         return (
           <figure className="my-8">
             {/* DEBUG: Show the URL being used */}
-            <div className="mb-2 p-2 bg-blue-100 rounded text-xs">
+            <div className="mb-2 p-2 bg-blue-100 rounded text-xs break-all">
               <strong>DEBUG URL:</strong> {imageUrl}
             </div>
             
@@ -128,10 +128,10 @@ const components = {
                 className="object-cover"
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
                 onError={(e) => {
-                  console.error('❌ Image failed to load:', imageUrl)
+                  console.error('[ERROR] Image failed to load:', imageUrl)
                 }}
                 onLoad={() => {
-                  console.log('✅ Image loaded successfully:', imageUrl)
+                  console.log('[SUCCESS] Image loaded successfully:', imageUrl)
                 }}
               />
             </div>
@@ -143,11 +143,11 @@ const components = {
           </figure>
         )
       } catch (error) {
-        console.error('❌ Error rendering image:', error)
+        console.error('[ERROR] Error rendering image:', error)
         return (
           <div className="my-8 p-6 bg-red-100 border-2 border-red-500 rounded">
             <p className="text-red-800 font-bold">DEBUG: Error rendering image</p>
-            <pre className="mt-2 text-xs">{String(error)}</pre>
+            <pre className="mt-2 text-xs overflow-auto">{String(error)}</pre>
           </div>
         )
       }
