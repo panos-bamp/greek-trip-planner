@@ -77,23 +77,37 @@ export default async function BlogPage() {
 
       {/* Add padding for fixed nav */}
       <div className="pt-24">
-        {/* Hero Section */}
-        <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-600">
-          <div className="absolute inset-0 bg-black/30"></div>
-          <div className="container mx-auto px-6 relative z-10 text-center text-white">
-            <p className="text-blue-200 uppercase tracking-widest text-sm mb-4 font-semibold">Our Stories</p>
-            <h1 className="text-5xl md:text-7xl font-bold mb-4">
-              Travel Blog
-            </h1>
-            <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto">
-              Stories, guides, and insider tips for exploring Greece
-            </p>
+        {/* Hero Section - Updated with custom image and left-aligned text */}
+        <section className="relative h-[70vh] min-h-[500px] flex items-center">
+          {/* Hero Image */}
+          <Image
+            src="/greece-blog.jpg"
+            alt="Greek Travel Blog"
+            fill
+            className="object-cover brightness-75"
+            priority
+          />
+          
+          {/* Overlay gradient for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
+          
+          {/* Hero Content - Full width container, left-aligned */}
+          <div className="container mx-auto px-6 relative z-10 max-w-7xl">
+            <div className="max-w-3xl">
+              <p className="text-blue-200 uppercase tracking-widest text-sm mb-4 font-semibold">Our Stories</p>
+              <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
+                Travel Blog
+              </h1>
+              <p className="text-xl md:text-2xl text-blue-100 leading-relaxed">
+                Stories, guides, and insider tips for exploring Greece
+              </p>
+            </div>
           </div>
         </section>
 
         {/* Blog Posts Grid */}
         <section className="py-20 bg-white">
-          <div className="container mx-auto px-6">
+          <div className="container mx-auto px-6 max-w-7xl">
             {posts && posts.length > 0 ? (
               <>
                 {/* Featured Post */}
