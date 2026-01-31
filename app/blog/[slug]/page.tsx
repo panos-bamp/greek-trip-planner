@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
 import { client } from '@/sanity/lib/client'
+import { urlFor } from '@/sanity/lib/image'
 import { generateAllSchemas } from '@/lib/schemaMarkup'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -12,16 +13,7 @@ const BASE_URL = 'https://greektriplanner.me'
 export const dynamic = 'force-dynamic'
 export const revalidate = 3600
 
-// Helper function to build Sanity image URLs
-function getSanityImageUrl(imageRef: string, width: number = 1200) {
-  const parts = imageRef.split('-')
-  const assetId = parts[1]
-  const dimensions = parts[2]
-  const format = parts[3]
-  return `https://cdn.sanity.io/images/puhk8qa7/production/${assetId}-${dimensions}.${format}?w=${width}&auto=format`
-}
-
-// PortableText components - with working IMAGE HANDLER
+// PortableText components - using urlFor like the working example!
 const components = {
   block: {
     h1: ({children}: any) => <h1 className="text-4xl font-bold mt-8 mb-4">{children}</h1>,
@@ -60,44 +52,29 @@ const components = {
       )
     },
   },
-  // IMAGE HANDLER - NO event handlers (onError, onLoad removed)
+  // IMAGE HANDLER - Using urlFor like the working example!
   types: {
     image: ({value}: any) => {
-      if (!value?.asset) return null
+      if (!value) return null
       
-      try {
-        let imageUrl = ''
-        
-        if (value.asset._ref) {
-          imageUrl = getSanityImageUrl(value.asset._ref, 1200)
-        } else if (value.asset.url) {
-          imageUrl = value.asset.url
-        }
-        
-        if (!imageUrl) return null
-        
-        return (
-          <figure className="my-8">
-            <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] rounded-lg overflow-hidden">
-              <Image
-                src={imageUrl}
-                alt={value.alt || 'Blog post image'}
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-              />
-            </div>
-            {value.caption && (
-              <figcaption className="mt-3 text-center text-sm text-gray-600 italic">
-                {value.caption}
-              </figcaption>
-            )}
-          </figure>
-        )
-      } catch (error) {
-        console.error('Error rendering image:', error)
-        return null
-      }
+      return (
+        <figure className="my-8">
+          <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] rounded-lg overflow-hidden">
+            <Image
+              src={urlFor(value).width(1200).url()}
+              alt={value.alt || 'Blog post image'}
+              fill
+              className="object-cover"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+            />
+          </div>
+          {value.caption && (
+            <figcaption className="mt-3 text-center text-sm text-gray-600 italic">
+              {value.caption}
+            </figcaption>
+          )}
+        </figure>
+      )
     },
   },
 }
