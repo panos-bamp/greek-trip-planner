@@ -119,3 +119,22 @@ html {
 .gradient-multicolor {
   background: linear-gradient(135deg, #46F2B6 0%, #9788FF 50%, #FF7CE6 100%);
 }
+
+/* Mindtrip-style Utilities */
+.rounded-4xl {
+  border-radius: 2rem; /* 32px */
+}
+
+.rounded-5xl {
+  border-radius: 2.5rem; /* 40px */
+}
+
+/* Hide scrollbar for horizontal scroll sections */
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
