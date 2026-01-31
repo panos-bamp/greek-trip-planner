@@ -1,62 +1,51 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { client, urlFor } from '@/lib/sanity'
-import { ArrowRight, Calendar } from 'lucide-react'
+import Link from "next/link"
+import Image from "next/image"
+import { ArrowRight, Calendar, User } from "lucide-react"
+import { Metadata } from "next"
+import { client } from '@/sanity/lib/client'
+import { urlFor } from '@/sanity/lib/image'
 
-export const dynamic = 'force-dynamic' // Don't pre-render at build time
-
-interface Post {
-  _id: string
-  title: string
-  slug: {
-    current: string
-  }
-  mainImage?: any
-  excerpt?: string
-  publishedAt?: string
-  author?: string
-  categories?: string[]
+export const metadata: Metadata = {
+  title: "Travel Blog | Greek Trip Planner",
+  description: "Discover travel tips, guides, and stories about Greece and the Greek islands.",
 }
 
-export const revalidate = 3600
+export const revalidate = 60
 
-async function getPosts(): Promise<Post[]> {
+async function getAllPosts() {
   try {
-    const posts = await client.fetch(`
-      *[_type == "post"] | order(publishedAt desc) {
-        _id,
-        title,
-        slug,
-        mainImage,
-        excerpt,
-        publishedAt,
-        author,
-        categories
-      }
-    `)
-    return posts || []
+    const query = `*[_type == "post"] | order(publishedAt desc) {
+      _id,
+      title,
+      slug,
+      publishedAt,
+      excerpt,
+      mainImage,
+      author,
+      categories
+    }`
+    return await client.fetch(query)
   } catch (error) {
-    console.error('Error fetching blog posts:', error)
+    console.error('Error fetching posts:', error)
     return []
   }
 }
 
-function formatDate(dateString: string) {
-  const date = new Date(dateString)
-  return date.toLocaleDateString('en-US', { 
-    month: 'short', 
-    day: 'numeric', 
-    year: 'numeric' 
-  })
-}
-
 export default async function BlogPage() {
-  const posts = await getPosts()
+  const posts = await getAllPosts()
+
+  // Helper function to get author name
+  const getAuthorName = (author: any) => {
+    if (!author) return null
+    if (typeof author === 'string') return author
+    if (author.name) return author.name
+    return null
+  }
 
   return (
-    <main className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white border-b border-gray-200 z-50">
+    <div className="min-h-screen flex flex-col">
+      {/* Navigation - Match home page */}
+      <nav className="fixed top-0 w-full bg-white shadow-sm z-50">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <Link href="/" className="flex items-center space-x-3">
@@ -72,7 +61,7 @@ export default async function BlogPage() {
             <div className="hidden md:flex items-center space-x-8">
               <Link href="/features" className="text-gray-700 hover:text-primary transition font-medium">Features</Link>
               <Link href="/how-it-works" className="text-gray-700 hover:text-primary transition font-medium">How it Works</Link>
-              <Link href="/blog" className="text-primary font-semibold">Blog</Link>
+              <Link href="/blog" className="text-gray-700 hover:text-primary transition font-medium">Blog</Link>
               <Link href="/about" className="text-gray-700 hover:text-primary transition font-medium">About</Link>
               <Link 
                 href="/quiz"
@@ -86,182 +75,183 @@ export default async function BlogPage() {
         </div>
       </nav>
 
-      {/* Hero Section - 2 Column Layout */}
-      <div className="pt-32 pb-20 bg-white">
-        <div className="container mx-auto px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-5 gap-16 items-start">
-              {/* Left: Text (60%) */}
-              <div className="md:col-span-3">
-                <p className="text-sm font-semibold text-primary mb-4 tracking-wider uppercase">
-                  Blog
-                </p>
-                
-                <h1 className="text-6xl md:text-7xl font-black text-primary mb-8 leading-tight" style={{fontFamily: 'Space Grotesk, sans-serif'}}>
-                  Greece Travel Blog
-                </h1>
-
-                <p className="text-xl text-gray-600 leading-relaxed">
-                  Expert insights, travel tips, and insider guides from our team of Greece specialists. 
-                  Discover hidden gems, practical advice, and authentic experiences to help you plan 
-                  the perfect Greek adventure.
-                </p>
-              </div>
-
-              {/* Right: 2 Stacked Images (40%) */}
-              <div className="md:col-span-2 space-y-6">
-                <div className="relative h-64 rounded-2xl overflow-hidden">
-                  <img
-                    src="/Santorini_Sunset_View.jpg"
-                    alt="Greece"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="relative h-48 rounded-2xl overflow-hidden">
-                  <img
-                    src="/Mykonos_Architecture.jpg"
-                    alt="Greece"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-            </div>
+      {/* Add padding for fixed nav */}
+      <div className="pt-24">
+        {/* Hero Section */}
+        <section className="relative h-[50vh] min-h-[400px] flex items-center justify-center bg-gradient-to-br from-blue-600 to-purple-600">
+          <div className="absolute inset-0 bg-black/30"></div>
+          <div className="container mx-auto px-6 relative z-10 text-center text-white">
+            <p className="text-blue-200 uppercase tracking-widest text-sm mb-4 font-semibold">Our Stories</p>
+            <h1 className="text-5xl md:text-7xl font-bold mb-4">
+              Travel Blog
+            </h1>
+            <p className="text-xl md:text-2xl text-blue-100 max-w-2xl mx-auto">
+              Stories, guides, and insider tips for exploring Greece
+            </p>
           </div>
-        </div>
-      </div>
+        </section>
 
-      {/* Posts Grid */}
-      <div className="py-16 bg-gray-50">
-        <div className="container mx-auto px-6">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8">
-              {posts.map((post: Post) => (
-                <Link 
-                  key={post._id} 
-                  href={`/blog/${post.slug.current}`}
-                  className="group block"
-                >
-                  <article className="bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg transition-all duration-300 h-full flex flex-col">
-                    {/* Image */}
-                    <div className="relative h-52 overflow-hidden flex-shrink-0">
-                      {post.mainImage ? (
-                        <img
-                          src={urlFor(post.mainImage).width(600).height(400).url()}
-                          alt={post.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-gradient-to-br from-primary to-accent-blue"></div>
-                      )}
-                    </div>
-
-                    {/* Content */}
-                    <div className="p-6 flex-1 flex flex-col">
-                      {/* Category */}
-                      {post.categories && post.categories.length > 0 && (
-                        <div className="mb-3">
-                          <span className="inline-block px-3 py-1 bg-accent-lightblue text-primary text-xs font-semibold rounded-full">
-                            {post.categories[0]}
+        {/* Blog Posts Grid */}
+        <section className="py-20 bg-white">
+          <div className="container mx-auto px-6">
+            {posts && posts.length > 0 ? (
+              <>
+                {/* Featured Post */}
+                {posts[0] && (
+                  <div className="mb-16">
+                    <Link href={`/blog/${posts[0].slug.current}`} className="group">
+                      <div className="grid md:grid-cols-2 gap-8 items-center">
+                        <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl">
+                          {posts[0].mainImage ? (
+                            <Image
+                              src={urlFor(posts[0].mainImage).width(800).height(600).url()}
+                              alt={posts[0].title}
+                              fill
+                              className="object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                          ) : (
+                            <div className="w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+                              <span className="text-gray-400">No image</span>
+                            </div>
+                          )}
+                        </div>
+                        <div>
+                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 font-bold uppercase tracking-wider text-sm">
+                            Featured Article
+                          </span>
+                          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4 group-hover:text-blue-600 transition-colors">
+                            {posts[0].title}
+                          </h2>
+                          <div className="flex items-center gap-4 text-gray-500 mb-4 text-sm">
+                            <div className="flex items-center gap-2">
+                              <Calendar className="h-4 w-4" />
+                              <time>
+                                {new Date(posts[0].publishedAt).toLocaleDateString('en-US', {
+                                  year: 'numeric',
+                                  month: 'long',
+                                  day: 'numeric'
+                                })}
+                              </time>
+                            </div>
+                            {getAuthorName(posts[0].author) && (
+                              <div className="flex items-center gap-2">
+                                <User className="h-4 w-4" />
+                                <span>{getAuthorName(posts[0].author)}</span>
+                              </div>
+                            )}
+                          </div>
+                          {posts[0].excerpt && (
+                            <p className="text-gray-600 text-lg mb-6 line-clamp-3">
+                              {posts[0].excerpt}
+                            </p>
+                          )}
+                          <span className="inline-flex items-center text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 font-bold">
+                            Read Article
+                            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform text-pink-500" />
                           </span>
                         </div>
-                      )}
-
-                      {/* Title */}
-                      <h3 className="text-2xl font-bold text-primary mb-3 line-clamp-2 group-hover:text-accent-blue transition">
-                        {post.title}
-                      </h3>
-
-                      {/* Excerpt */}
-                      {post.excerpt && (
-                        <p className="text-gray-600 mb-4 line-clamp-3 flex-1">
-                          {post.excerpt}
-                        </p>
-                      )}
-
-                      {/* Meta */}
-                      <div className="flex items-center justify-between text-sm text-gray-500 mt-auto pt-4 border-t border-gray-100">
-                        <span className="font-medium">{post.author || 'Greek Trip Planner'}</span>
-                        {post.publishedAt && (
-                          <div className="flex items-center space-x-1">
-                            <Calendar className="w-3 h-3" />
-                            <span>{formatDate(post.publishedAt)}</span>
-                          </div>
-                        )}
                       </div>
+                    </Link>
+                  </div>
+                )}
+
+                {/* Rest of Posts */}
+                {posts.length > 1 && (
+                  <>
+                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Latest Articles</h2>
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      {posts.slice(1).map((post: any) => (
+                        <article key={post._id} className="group">
+                          <Link href={`/blog/${post.slug.current}`}>
+                            <div className="relative h-56 rounded-xl overflow-hidden mb-4 shadow-lg">
+                              {post.mainImage ? (
+                                <Image
+                                  src={urlFor(post.mainImage).width(600).height(400).url()}
+                                  alt={post.title}
+                                  fill
+                                  className="object-cover group-hover:scale-110 transition-transform duration-500"
+                                />
+                              ) : (
+                                <div className="w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
+                                  <span className="text-gray-400">No image</span>
+                                </div>
+                              )}
+                            </div>
+                            
+                            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
+                              {post.title}
+                            </h3>
+                            
+                            <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                              <Calendar className="h-4 w-4" />
+                              <time>
+                                {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                                  year: 'numeric',
+                                  month: 'long',
+                                  day: 'numeric'
+                                })}
+                              </time>
+                            </div>
+                            
+                            {post.excerpt && (
+                              <p className="text-gray-600 line-clamp-2 mb-3 text-sm">
+                                {post.excerpt}
+                              </p>
+                            )}
+                            
+                            <span className="inline-flex items-center text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 font-semibold text-sm">
+                              Read More
+                              <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform text-pink-500" />
+                            </span>
+                          </Link>
+                        </article>
+                      ))}
                     </div>
-                  </article>
-                </Link>
-              ))}
+                  </>
+                )}
+              </>
+            ) : (
+              <div className="text-center py-20">
+                <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Calendar className="h-12 w-12 text-blue-600/50" />
+                </div>
+                <h2 className="text-2xl font-bold text-gray-900 mb-4">Coming Soon</h2>
+                <p className="text-gray-600 max-w-md mx-auto">
+                  We're working on exciting travel stories and guides. Check back soon!
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 gradient-primary text-white">
+          <div className="container mx-auto px-6 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Ready to Experience Greece?
+            </h2>
+            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
+              Let us help you plan your perfect Greek adventure
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link 
+                href="/quiz" 
+                className="px-8 py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-pink-50 hover:shadow-lg transition-all"
+              >
+                Start Planning Your Trip
+              </Link>
+              <Link 
+                href="/features" 
+                className="px-8 py-3 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-blue-600 transition-all"
+              >
+                Learn More
+              </Link>
             </div>
           </div>
-        </div>
+        </section>
       </div>
 
-      {/* Travel Resources Section */}
-      <section className="py-16 bg-gray-50 border-t border-gray-200">
-        <div className="container mx-auto px-6">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-black text-primary mb-8 text-center" style={{fontFamily: 'Space Grotesk, sans-serif'}}>
-              Travel Resources
-            </h2>
-            
-            <div className="grid md:grid-cols-3 gap-6">
-              {/* iTravelNet */}
-              <div className="bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all">
-                <a 
-                  href="https://itravelnet.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <h3 className="text-xl font-bold text-primary mb-2 hover:text-accent-blue transition">
-                    itravelnet.com
-                  </h3>
-                  <p className="text-gray-600 text-sm">
-                    Travel directory
-                  </p>
-                </a>
-              </div>
-
-              {/* Travel Magazine */}
-              <div className="bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all">
-                <a 
-                  href="https://travelmagazine.co" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <h3 className="text-xl font-bold text-primary mb-2 hover:text-accent-blue transition">
-                    Travel Magazine
-                  </h3>
-                  <p className="text-gray-600 text-sm">
-                    Latest travel news and guides
-                  </p>
-                </a>
-              </div>
-
-              {/* Travel Tourism Directory */}
-              <div className="bg-white p-6 rounded-xl border-2 border-gray-200 hover:border-primary hover:shadow-lg transition-all">
-                <a 
-                  href="https://traveltourismdirectory.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="block"
-                >
-                  <h3 className="text-xl font-bold text-primary mb-2 hover:text-accent-blue transition">
-                    Travel and Tourism Directory
-                  </h3>
-                  <p className="text-gray-600 text-sm">
-                    Comprehensive travel resources
-                  </p>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
+      {/* Footer - Match home page */}
       <footer className="gradient-primary py-12">
         <div className="container mx-auto px-6">
           <div className="flex flex-col md:flex-row items-center justify-between">
@@ -277,7 +267,7 @@ export default async function BlogPage() {
             <div className="flex items-center space-x-8">
               <Link href="/features" className="text-white/80 hover:text-white transition text-sm">Features</Link>
               <Link href="/how-it-works" className="text-white/80 hover:text-white transition text-sm">How it Works</Link>
-              <Link href="/blog" className="text-white font-semibold text-sm">Blog</Link>
+              <Link href="/blog" className="text-white/80 hover:text-white transition text-sm">Blog</Link>
               <Link href="/about" className="text-white/80 hover:text-white transition text-sm">About</Link>
             </div>
           </div>
@@ -302,8 +292,8 @@ export default async function BlogPage() {
                   <img 
                     src="https://bookmarktravel.com/images/bookmarktravel-234.jpg" 
                     alt="Bookmark Travel" 
-                    width="234" 
-                    height="39" 
+                    width={234}
+                    height={39}
                     className="h-auto"
                   />
                 </a>
@@ -312,6 +302,6 @@ export default async function BlogPage() {
           </div>
         </div>
       </footer>
-    </main>
+    </div>
   )
 }
