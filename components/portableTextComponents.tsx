@@ -1,36 +1,38 @@
 'use client'
 
-import { PortableTextComponents } from '@portabletext/react'
+import Image from 'next/image'
 import Link from 'next/link'
+import { PortableTextComponents } from '@portabletext/react'
+import { urlForImage } from '@/sanity/lib/image'
 
 export const portableTextComponents: PortableTextComponents = {
   block: {
-    // Headings with GetYourGuide typography
-    h2: ({ children }) => (
+    // Headings with GetYourGuide typography (preserved from original)
+    h2: ({ children }: any) => (
       <h2 className="text-[2.375rem] leading-[1.1] font-bold text-gray-900 mt-12 mb-4">
         {children}
       </h2>
     ),
-    h3: ({ children }) => (
+    h3: ({ children }: any) => (
       <h3 className="text-[1.75rem] leading-[1.2] font-bold text-gray-900 mt-12 mb-4">
         {children}
       </h3>
     ),
-    h4: ({ children }) => (
+    h4: ({ children }: any) => (
       <h4 className="text-[1.25rem] leading-[1.2] font-semibold text-gray-900 mt-6 mb-4">
         {children}
       </h4>
     ),
     
-    // Normal paragraph
-    normal: ({ children }) => (
+    // Normal paragraph (preserved)
+    normal: ({ children }: any) => (
       <p className="text-[1.125rem] leading-[1.5] text-gray-700 mb-4">
         {children}
       </p>
     ),
     
-    // Blockquote
-    blockquote: ({ children }) => (
+    // Blockquote (preserved)
+    blockquote: ({ children }: any) => (
       <blockquote className="border-l-4 border-blue-500 pl-6 py-2 my-6 italic text-gray-700 bg-blue-50 rounded-r-lg">
         {children}
       </blockquote>
@@ -38,15 +40,15 @@ export const portableTextComponents: PortableTextComponents = {
   },
   
   list: {
-    // Bullet list
-    bullet: ({ children }) => (
+    // Bullet list (preserved)
+    bullet: ({ children }: any) => (
       <ul className="list-disc list-outside ml-6 mb-6 space-y-2 text-[1.125rem] leading-[1.5] text-gray-700">
         {children}
       </ul>
     ),
     
-    // Numbered list
-    number: ({ children }) => (
+    // Numbered list (preserved)
+    number: ({ children }: any) => (
       <ol className="list-decimal list-outside ml-6 mb-6 space-y-2 text-[1.125rem] leading-[1.5] text-gray-700">
         {children}
       </ol>
@@ -54,34 +56,35 @@ export const portableTextComponents: PortableTextComponents = {
   },
   
   listItem: {
-    bullet: ({ children }) => (
+    // List items (preserved)
+    bullet: ({ children }: any) => (
       <li className="pl-2">{children}</li>
     ),
-    number: ({ children }) => (
+    number: ({ children }: any) => (
       <li className="pl-2">{children}</li>
     ),
   },
   
   marks: {
-    // Strong (bold)
-    strong: ({ children }) => (
+    // Strong (bold) - preserved
+    strong: ({ children }: any) => (
       <strong className="font-bold text-gray-900">{children}</strong>
     ),
     
-    // Emphasis (italic)
-    em: ({ children }) => (
+    // Emphasis (italic) - preserved
+    em: ({ children }: any) => (
       <em className="italic">{children}</em>
     ),
     
-    // Code
-    code: ({ children }) => (
+    // Code - preserved
+    code: ({ children }: any) => (
       <code className="bg-gray-100 text-red-600 px-2 py-1 rounded text-sm font-mono">
         {children}
       </code>
     ),
     
-    // Links
-    link: ({ value, children }) => {
+    // Links - preserved with better internal/external handling
+    link: ({ value, children }: any) => {
       const target = value?.href?.startsWith('http') ? '_blank' : undefined
       const rel = target === '_blank' ? 'noopener noreferrer' : undefined
       
@@ -110,18 +113,18 @@ export const portableTextComponents: PortableTextComponents = {
       )
     },
     
-    // Underline
-    underline: ({ children }) => (
+    // Underline - preserved
+    underline: ({ children }: any) => (
       <u className="underline">{children}</u>
     ),
     
-    // Strike-through
-    strikethrough: ({ children }) => (
+    // Strike-through - preserved
+    strikethrough: ({ children }: any) => (
       <s className="line-through text-gray-500">{children}</s>
     ),
     
-    // Highlights
-    highlight: ({ children, value }) => {
+    // Highlights - preserved
+    highlight: ({ children, value }: any) => {
       const colors: { [key: string]: string } = {
         yellow: 'bg-yellow-200',
         green: 'bg-green-200',
@@ -139,28 +142,62 @@ export const portableTextComponents: PortableTextComponents = {
   },
   
   types: {
-    // Images
-    image: ({ value }) => {
+    // Images - UPGRADED with Next.js Image + urlForImage
+    image: ({ value }: any) => {
       if (!value?.asset) return null
       
-      return (
-        <figure className="my-8">
-          <img
-            src={value.asset.url}
-            alt={value.alt || 'Image'}
-            className="w-full h-auto rounded-lg shadow-lg"
-          />
-          {value.caption && (
-            <figcaption className="mt-3 text-sm text-gray-600 text-center italic">
-              {value.caption}
-            </figcaption>
-          )}
-        </figure>
-      )
+      // If we have _ref (Sanity reference), use urlForImage
+      if (value.asset._ref) {
+        const imageUrl = urlForImage(value)
+          .width(1200)
+          .height(800)
+          .fit('max')
+          .auto('format')
+          .url()
+
+        return (
+          <figure className="my-8">
+            <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] rounded-lg overflow-hidden">
+              <Image
+                src={imageUrl}
+                alt={value.alt || 'Blog post image'}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+              />
+            </div>
+            {value.caption && (
+              <figcaption className="mt-3 text-center text-sm text-gray-600 italic">
+                {value.caption}
+              </figcaption>
+            )}
+          </figure>
+        )
+      }
+      
+      // Fallback to direct URL (backward compatibility)
+      if (value.asset.url) {
+        return (
+          <figure className="my-8">
+            <img
+              src={value.asset.url}
+              alt={value.alt || 'Image'}
+              className="w-full h-auto rounded-lg shadow-lg"
+            />
+            {value.caption && (
+              <figcaption className="mt-3 text-sm text-gray-600 text-center italic">
+                {value.caption}
+              </figcaption>
+            )}
+          </figure>
+        )
+      }
+      
+      return null
     },
     
-    // Callout boxes
-    callout: ({ value }) => {
+    // Callout boxes - preserved
+    callout: ({ value }: any) => {
       const types: { [key: string]: { bg: string; border: string; icon: string } } = {
         info: {
           bg: 'bg-blue-50',
