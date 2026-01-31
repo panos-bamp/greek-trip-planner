@@ -3,7 +3,19 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { PortableTextComponents } from '@portabletext/react'
-import { urlForImage } from '@/sanity/lib/image'
+
+// Helper function to build Sanity image URLs directly
+function getSanityImageUrl(imageRef: string, width: number = 1200) {
+  // Extract image ID, dimensions, and format from reference
+  // Format: image-<assetId>-<width>x<height>-<format>
+  const parts = imageRef.split('-')
+  const assetId = parts[1]
+  const dimensions = parts[2]
+  const format = parts[3]
+  
+  // Build CDN URL
+  return `https://cdn.sanity.io/images/puhk8qa7/production/${assetId}-${dimensions}.${format}?w=${width}&auto=format`
+}
 
 export const portableTextComponents: PortableTextComponents = {
   block: {
@@ -142,19 +154,36 @@ export const portableTextComponents: PortableTextComponents = {
   },
   
   types: {
-    // Images - UPGRADED with Next.js Image + urlForImage
+    // Images - STANDALONE VERSION (no urlForImage dependency)
     image: ({ value }: any) => {
-      if (!value?.asset) return null
+      console.log('Image block detected:', value) // Debug log
       
-      // If we have _ref (Sanity reference), use urlForImage
-      if (value.asset._ref) {
-        const imageUrl = urlForImage(value)
-          .width(1200)
-          .height(800)
-          .fit('max')
-          .auto('format')
-          .url()
-
+      if (!value?.asset) {
+        console.warn('Image block has no asset')
+        return null
+      }
+      
+      try {
+        let imageUrl = ''
+        
+        // Case 1: Sanity reference (_ref)
+        if (value.asset._ref) {
+          imageUrl = getSanityImageUrl(value.asset._ref, 1200)
+        }
+        // Case 2: Direct URL
+        else if (value.asset.url) {
+          imageUrl = value.asset.url
+        }
+        // Case 3: Already a URL string
+        else if (typeof value.asset === 'string') {
+          imageUrl = value.asset
+        }
+        
+        if (!imageUrl) {
+          console.warn('Could not generate image URL from:', value.asset)
+          return null
+        }
+        
         return (
           <figure className="my-8">
             <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] rounded-lg overflow-hidden">
@@ -173,27 +202,14 @@ export const portableTextComponents: PortableTextComponents = {
             )}
           </figure>
         )
-      }
-      
-      // Fallback to direct URL (backward compatibility)
-      if (value.asset.url) {
+      } catch (error) {
+        console.error('Error rendering image:', error, value)
         return (
-          <figure className="my-8">
-            <img
-              src={value.asset.url}
-              alt={value.alt || 'Image'}
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
-            {value.caption && (
-              <figcaption className="mt-3 text-sm text-gray-600 text-center italic">
-                {value.caption}
-              </figcaption>
-            )}
-          </figure>
+          <div className="my-8 p-4 bg-red-50 border border-red-200 rounded text-red-700">
+            Error loading image
+          </div>
         )
       }
-      
-      return null
     },
     
     // Callout boxes - preserved
