@@ -47,7 +47,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section - Mindtrip Style */}
+      {/* Hero Section - Mindtrip Style - WIDER */}
       <section className="relative min-h-[88vh] md:h-[88vh] flex items-center overflow-hidden pt-24 pb-14 md:pt-10 md:pb-0">
         {/* Background Image */}
         <div className="absolute inset-0">
@@ -58,24 +58,24 @@ export default function Home() {
           />
         </div>
 
-        {/* Hero Content */}
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-3xl">
+        {/* Hero Content - INCREASED WIDTH */}
+        <div className="container mx-auto px-6 lg:px-12 relative z-10">
+          <div className="max-w-5xl">
             <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full mb-8 border border-white/20">
               <Sparkles className="w-4 h-4 text-accent-pink" />
               <span className="text-white/90 text-sm font-semibold">AI-Powered Trip Planning</span>
             </div>
 
-            <h1 className="text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-6 leading-[1.1]">
               Plan Your<br />
               <span className="text-blue-200">Perfect</span> Greece Trip
             </h1>
 
-            <p className="text-xl md:text-2xl text-blue-100 mb-8 max-w-2xl leading-relaxed">
+            <p className="text-xl md:text-2xl text-blue-100 mb-10 max-w-3xl leading-relaxed">
               Free AI planner creates personalized itineraries for Athens, Santorini & Greek islands. Get insider tips and realistic timing in minutes.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 mb-12">
               <Link 
                 href="/quiz"
                 className="px-10 py-4 bg-white text-primary rounded-full font-bold text-lg hover:shadow-xl hover:scale-105 transition-all inline-flex items-center justify-center space-x-3"
@@ -92,20 +92,20 @@ export default function Home() {
             </div>
 
             {/* Trust Badges */}
-            <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl">
-              <div className="text-white text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl">
+              <div className="text-white text-center md:text-left">
                 <div className="text-3xl font-bold">12,000+</div>
                 <div className="text-sm text-blue-100">Itineraries Created</div>
               </div>
-              <div className="text-white text-center">
+              <div className="text-white text-center md:text-left">
                 <div className="text-3xl font-bold">4.9/5</div>
                 <div className="text-sm text-blue-100">Average Rating</div>
               </div>
-              <div className="text-white text-center">
+              <div className="text-white text-center md:text-left">
                 <div className="text-3xl font-bold">100%</div>
                 <div className="text-sm text-blue-100">Free Forever</div>
               </div>
-              <div className="text-white text-center">
+              <div className="text-white text-center md:text-left">
                 <div className="text-3xl font-bold">3 min</div>
                 <div className="text-sm text-blue-100">To Complete</div>
               </div>
@@ -178,7 +178,7 @@ export default function Home() {
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-24 items-center">
           <div className="overflow-hidden rounded-4xl">
             <img
-              src="/Navagio_Beach.jpg"
+              src="/Meteora_Sunset_View.jpg"
               alt="Realistic Planning"
               className="w-full h-auto object-cover"
             />
@@ -208,7 +208,7 @@ export default function Home() {
             {/* Destination Card 1 - Santorini */}
             <div className="flex-shrink-0 w-80 bg-pink-50 rounded-5xl p-7 sm:p-10 flex flex-col">
               <div className="aspect-square bg-gradient-to-br from-pink-200 to-purple-200 rounded-3xl mb-5 overflow-hidden">
-                <img src="/Santorini_Evening_Glow.jpg" alt="Santorini" className="w-full h-full object-cover" />
+                <img src="/Santorini_Sunset_View.jpg" alt="Santorini" className="w-full h-full object-cover" />
               </div>
               <h3 className="text-3xl sm:text-4xl font-semibold mb-3 text-primary">Santorini</h3>
               <p className="text-lg text-gray-700 mb-5 flex-grow">
@@ -233,31 +233,31 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Destination Card 3 - Navagio Beach */}
+            {/* Destination Card 3 - Meteora */}
             <div className="flex-shrink-0 w-80 bg-blue-50 rounded-5xl p-7 sm:p-10 flex flex-col">
               <div className="aspect-square bg-gradient-to-br from-blue-200 to-cyan-200 rounded-3xl mb-5 overflow-hidden">
-                <img src="/Navagio_Beach.jpg" alt="Zakynthos" className="w-full h-full object-cover" />
+                <img src="/Meteora_Mountain_Monastery.jpg" alt="Meteora" className="w-full h-full object-cover" />
               </div>
-              <h3 className="text-3xl sm:text-4xl font-semibold mb-3 text-primary">Zakynthos</h3>
+              <h3 className="text-3xl sm:text-4xl font-semibold mb-3 text-primary">Meteora</h3>
               <p className="text-lg text-gray-700 mb-5 flex-grow">
-                Famous Navagio Beach with shipwreck, turquoise waters, and dramatic cliffs. Ionian paradise.
+                Spectacular monasteries perched on towering rock pillars. A UNESCO World Heritage wonder.
               </p>
               <Link href="/blog" className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 hover:underline">
-                Explore Zakynthos →
+                Explore Meteora →
               </Link>
             </div>
 
-            {/* Destination Card 4 - Athens */}
+            {/* Destination Card 4 - Paros */}
             <div className="flex-shrink-0 w-80 bg-green-50 rounded-5xl p-7 sm:p-10 flex flex-col">
               <div className="aspect-square bg-gradient-to-br from-green-200 to-emerald-200 rounded-3xl mb-5 overflow-hidden">
-                <img src="/Athens_Ancient_Ruins.jpg" alt="Athens" className="w-full h-full object-cover" />
+                <img src="/Paros_Island_View.jpg" alt="Paros" className="w-full h-full object-cover" />
               </div>
-              <h3 className="text-3xl sm:text-4xl font-semibold mb-3 text-primary">Athens</h3>
+              <h3 className="text-3xl sm:text-4xl font-semibold mb-3 text-primary">Paros</h3>
               <p className="text-lg text-gray-700 mb-5 flex-grow">
-                Ancient Acropolis, world-class museums, and vibrant neighborhoods. Where history comes alive.
+                Authentic Cycladic charm with beautiful beaches, traditional villages, and vibrant culture.
               </p>
               <Link href="/blog" className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 hover:underline">
-                Explore Athens →
+                Explore Paros →
               </Link>
             </div>
           </div>
@@ -306,7 +306,7 @@ export default function Home() {
             <div className="bg-gray-50 rounded-4xl p-6 sm:p-10 flex flex-col">
               <div className="overflow-hidden rounded-3xl mb-6">
                 <img
-                  src="/Navagio_Beach.jpg"
+                  src="/Paros_Cyclades_Charm.jpg"
                   alt="Budget Optimization"
                   className="w-full aspect-video object-cover"
                 />
@@ -321,7 +321,7 @@ export default function Home() {
             <div className="bg-gray-50 rounded-4xl p-6 sm:p-10 flex flex-col">
               <div className="overflow-hidden rounded-3xl mb-6">
                 <img
-                  src="/Athens_Ancient_Ruins.jpg"
+                  src="/hero-acropolis.jpg"
                   alt="Historical Sites"
                   className="w-full aspect-video object-cover"
                 />
@@ -505,9 +505,9 @@ export default function Home() {
         />
 
         {/* Content */}
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-2xl">
-            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6">
+        <div className="container mx-auto px-6 lg:px-12 relative z-10">
+          <div className="max-w-3xl">
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-[1.1]">
               Your Greek<br />
               Adventure<br />
               Starts Here
