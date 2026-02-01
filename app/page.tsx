@@ -47,8 +47,8 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section - MORE TOP PADDING */}
-      <section className="relative min-h-[88vh] md:h-[88vh] flex items-center overflow-hidden pt-32 md:pt-36 lg:pt-40 pb-14 md:pb-0">
+      {/* Hero Section - 30% TALLER (88vh × 1.3 ≈ 114vh → use min-h-[115vh]) */}
+      <section className="relative min-h-[115vh] flex items-center overflow-hidden pt-32 md:pt-36 lg:pt-40 pb-14 md:pb-0">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
@@ -113,7 +113,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll Indicator - LINKS TO #how-it-works */}
+        {/* Scroll Indicator */}
         <div className="absolute bottom-5 left-1/2 -translate-x-1/2">
           <a href="#how-it-works" className="text-white text-sm flex flex-col items-center gap-2 hover:opacity-70 transition">
             <span>Learn more</span>
@@ -129,7 +129,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Step 1 - Smart AI Personalization */}
+      {/* Step 1 */}
       <div className="container mx-auto px-6 py-12 sm:py-24">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-24 items-center">
           <div className="overflow-hidden rounded-4xl">
@@ -151,7 +151,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Step 2 - Local Insider Knowledge */}
+      {/* Step 2 */}
       <div className="container mx-auto px-6 py-12 sm:py-24">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-24 items-center">
           <div className="overflow-hidden rounded-4xl lg:order-last">
@@ -173,7 +173,7 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Step 3 - Realistic Timing */}
+      {/* Step 3 */}
       <div className="container mx-auto px-6 py-12 sm:py-24">
         <div className="grid lg:grid-cols-2 gap-8 sm:gap-24 items-center">
           <div className="overflow-hidden rounded-4xl">
@@ -195,142 +195,40 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Popular Destinations - 4x2 GRID (MINDTRIP STYLE) */}
+      {/* Get Inspired - COMPACT MINDTRIP STYLE */}
       <section className="py-12 sm:py-24 bg-gray-50">
         <div className="container mx-auto px-6">
           <h2 className="text-center text-4xl sm:text-6xl font-bold tracking-tight text-primary mb-12">
             🏝️ Get Inspired
           </h2>
 
-          {/* 4-COLUMN GRID */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-7xl mx-auto">
-            {/* Destination 1 - Santorini */}
-            <Link href="/blog" className="group">
-              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
-                <img 
-                  src="/Santorini_Sunset_View.jpg" 
-                  alt="Santorini" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-1">Santorini</h3>
-                  <p className="text-sm text-white/90">Iconic sunsets & caldera views</p>
+          {/* COMPACT 4-COLUMN GRID (max-w-5xl, gap-4, smaller text) */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto">
+            {[
+              { img: '/Santorini_Sunset_View.jpg', title: 'Santorini', desc: 'Iconic sunsets & caldera views' },
+              { img: '/Mykonos_Architecture.jpg', title: 'Mykonos', desc: 'Beach clubs & nightlife' },
+              { img: '/Meteora_Mountain_Monastery.jpg', title: 'Meteora', desc: 'Monasteries in the sky' },
+              { img: '/Paros_Island_View.jpg', title: 'Paros', desc: 'Authentic Cycladic charm' },
+              { img: '/hero-acropolis.jpg', title: 'Athens', desc: 'Ancient sites & modern culture' },
+              { img: '/Crete_Knossos_Ruins.jpg', title: 'Crete', desc: 'Largest island, rich history' },
+              { img: '/Rhodes_Historic_Quarter.jpg', title: 'Rhodes', desc: 'Medieval town & beaches' },
+              { img: '/Corfu_Beach_Paradise.jpg', title: 'Corfu', desc: 'Lush island paradise' },
+            ].map((dest, i) => (
+              <Link key={i} href="/blog" className="group">
+                <div className="relative overflow-hidden rounded-2xl aspect-[3/4] bg-gray-200">
+                  <img 
+                    src={dest.img}
+                    alt={dest.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+                    <h3 className="text-xl font-bold mb-1">{dest.title}</h3>
+                    <p className="text-xs text-white/90">{dest.desc}</p>
+                  </div>
                 </div>
-              </div>
-            </Link>
-
-            {/* Destination 2 - Mykonos */}
-            <Link href="/blog" className="group">
-              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
-                <img 
-                  src="/Mykonos_Architecture.jpg" 
-                  alt="Mykonos" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-1">Mykonos</h3>
-                  <p className="text-sm text-white/90">Beach clubs & nightlife</p>
-                </div>
-              </div>
-            </Link>
-
-            {/* Destination 3 - Meteora */}
-            <Link href="/blog" className="group">
-              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
-                <img 
-                  src="/Meteora_Mountain_Monastery.jpg" 
-                  alt="Meteora" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-1">Meteora</h3>
-                  <p className="text-sm text-white/90">Monasteries in the sky</p>
-                </div>
-              </div>
-            </Link>
-
-            {/* Destination 4 - Paros */}
-            <Link href="/blog" className="group">
-              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
-                <img 
-                  src="/Paros_Island_View.jpg" 
-                  alt="Paros" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-1">Paros</h3>
-                  <p className="text-sm text-white/90">Authentic Cycladic charm</p>
-                </div>
-              </div>
-            </Link>
-
-            {/* Destination 5 - Athens */}
-            <Link href="/blog" className="group">
-              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
-                <img 
-                  src="/hero-acropolis.jpg" 
-                  alt="Athens" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-1">Athens</h3>
-                  <p className="text-sm text-white/90">Ancient sites & modern culture</p>
-                </div>
-              </div>
-            </Link>
-
-            {/* Destination 6 - Crete */}
-            <Link href="/blog" className="group">
-              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
-                <img 
-                  src="/Crete_Knossos_Ruins.jpg" 
-                  alt="Crete" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-1">Crete</h3>
-                  <p className="text-sm text-white/90">Largest island, rich history</p>
-                </div>
-              </div>
-            </Link>
-
-            {/* Destination 7 - Rhodes */}
-            <Link href="/blog" className="group">
-              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
-                <img 
-                  src="/Rhodes_Historic_Quarter.jpg" 
-                  alt="Rhodes" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-1">Rhodes</h3>
-                  <p className="text-sm text-white/90">Medieval town & beaches</p>
-                </div>
-              </div>
-            </Link>
-
-            {/* Destination 8 - Corfu */}
-            <Link href="/blog" className="group">
-              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
-                <img 
-                  src="/Corfu_Beach_Paradise.jpg" 
-                  alt="Corfu" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                  <h3 className="text-2xl font-bold mb-1">Corfu</h3>
-                  <p className="text-sm text-white/90">Lush island paradise</p>
-                </div>
-              </div>
-            </Link>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -343,7 +241,6 @@ export default function Home() {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-5 lg:gap-6 max-w-6xl mx-auto">
-            {/* Feature 1 */}
             <div className="bg-gray-50 rounded-4xl p-6 sm:p-10 flex flex-col">
               <div className="overflow-hidden rounded-3xl mb-6">
                 <img
@@ -358,7 +255,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Feature 2 */}
             <div className="bg-gray-50 rounded-4xl p-6 sm:p-10 flex flex-col">
               <div className="overflow-hidden rounded-3xl mb-6">
                 <img
@@ -373,7 +269,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Feature 3 */}
             <div className="bg-gray-50 rounded-4xl p-6 sm:p-10 flex flex-col">
               <div className="overflow-hidden rounded-3xl mb-6">
                 <img
@@ -388,7 +283,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Feature 4 */}
             <div className="bg-gray-50 rounded-4xl p-6 sm:p-10 flex flex-col">
               <div className="overflow-hidden rounded-3xl mb-6">
                 <img
@@ -414,7 +308,6 @@ export default function Home() {
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-6xl mx-auto">
-            {/* Service 1 */}
             <div className="bg-white rounded-2xl p-6 sm:p-10">
               <Hotel className="w-6 h-6 mb-4 text-primary" />
               <h3 className="text-2xl font-semibold mb-2 text-primary">Hotels & Villas</h3>
@@ -423,7 +316,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Service 2 */}
             <div className="bg-white rounded-2xl p-6 sm:p-10">
               <Plane className="w-6 h-6 mb-4 text-primary" />
               <h3 className="text-2xl font-semibold mb-2 text-primary">Flights & Ferries</h3>
@@ -432,7 +324,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Service 3 */}
             <div className="bg-white rounded-2xl p-6 sm:p-10">
               <Utensils className="w-6 h-6 mb-4 text-primary" />
               <h3 className="text-2xl font-semibold mb-2 text-primary">Tavernas & Dining</h3>
@@ -441,7 +332,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Service 4 */}
             <div className="bg-white rounded-2xl p-6 sm:p-10">
               <Compass className="w-6 h-6 mb-4 text-primary" />
               <h3 className="text-2xl font-semibold mb-2 text-primary">Tours & Activities</h3>
@@ -450,7 +340,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Service 5 */}
             <div className="bg-white rounded-2xl p-6 sm:p-10">
               <MapPin className="w-6 h-6 mb-4 text-primary" />
               <h3 className="text-2xl font-semibold mb-2 text-primary">Hidden Gems</h3>
@@ -459,7 +348,6 @@ export default function Home() {
               </p>
             </div>
 
-            {/* Service 6 */}
             <div className="bg-white rounded-2xl p-6 sm:p-10">
               <DollarSign className="w-6 h-6 mb-4 text-primary" />
               <h3 className="text-2xl font-semibold mb-2 text-primary">100% Free Forever</h3>
@@ -510,7 +398,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ */}
       <div className="py-24 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto">
@@ -565,13 +453,13 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Final CTA - greece-home.jpg */}
+      {/* Final CTA - Using Santorini sunset as background (we know this works) */}
       <section className="relative py-40 lg:py-48 overflow-hidden">
-        {/* Background Image - USING CORRECT PATH */}
+        {/* Background Image - Using working image */}
         <div className="absolute inset-0">
           <img
-            src="/greece-home.jpg"
-            alt="Start Your Greek Adventure"
+            src="/Santorini_Sunset_View.jpg"
+            alt="Greek islands sunset"
             className="w-full h-full object-cover brightness-75"
           />
         </div>
