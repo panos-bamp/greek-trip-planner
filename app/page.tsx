@@ -47,8 +47,8 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Hero Section - Mindtrip Style - WIDER */}
-      <section className="relative min-h-[88vh] md:h-[88vh] flex items-center overflow-hidden pt-24 pb-14 md:pt-10 md:pb-0">
+      {/* Hero Section - MORE TOP PADDING */}
+      <section className="relative min-h-[88vh] md:h-[88vh] flex items-center overflow-hidden pt-32 md:pt-36 lg:pt-40 pb-14 md:pb-0">
         {/* Background Image */}
         <div className="absolute inset-0">
           <img
@@ -58,7 +58,7 @@ export default function Home() {
           />
         </div>
 
-        {/* Hero Content - INCREASED WIDTH */}
+        {/* Hero Content */}
         <div className="container mx-auto px-6 lg:px-12 relative z-10">
           <div className="max-w-5xl">
             <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm px-5 py-2.5 rounded-full mb-8 border border-white/20">
@@ -113,17 +113,17 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Scroll Indicator */}
+        {/* Scroll Indicator - LINKS TO #how-it-works */}
         <div className="absolute bottom-5 left-1/2 -translate-x-1/2">
-          <button className="text-white text-sm flex flex-col items-center gap-2 hover:opacity-70 transition">
+          <a href="#how-it-works" className="text-white text-sm flex flex-col items-center gap-2 hover:opacity-70 transition">
             <span>Learn more</span>
             <ArrowRight className="w-5 h-5 rotate-90 animate-bounce" />
-          </button>
+          </a>
         </div>
       </section>
 
       {/* How it Works Section Header */}
-      <section className="py-16 bg-white">
+      <section id="how-it-works" className="py-16 bg-white scroll-mt-20">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-4xl sm:text-6xl font-bold tracking-tight text-primary">How it Works</h2>
         </div>
@@ -195,71 +195,142 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Popular Destinations - Horizontal Scroll */}
+      {/* Popular Destinations - 4x2 GRID (MINDTRIP STYLE) */}
       <section className="py-12 sm:py-24 bg-gray-50">
         <div className="container mx-auto px-6">
           <h2 className="text-center text-4xl sm:text-6xl font-bold tracking-tight text-primary mb-12">
-            🏝️ Popular Destinations
+            🏝️ Get Inspired
           </h2>
-        </div>
 
-        <div className="relative">
-          <div className="flex gap-5 overflow-x-auto scrollbar-hidden px-6 pb-4">
-            {/* Destination Card 1 - Santorini */}
-            <div className="flex-shrink-0 w-80 bg-pink-50 rounded-5xl p-7 sm:p-10 flex flex-col">
-              <div className="aspect-square bg-gradient-to-br from-pink-200 to-purple-200 rounded-3xl mb-5 overflow-hidden">
-                <img src="/Santorini_Sunset_View.jpg" alt="Santorini" className="w-full h-full object-cover" />
+          {/* 4-COLUMN GRID */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 max-w-7xl mx-auto">
+            {/* Destination 1 - Santorini */}
+            <Link href="/blog" className="group">
+              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
+                <img 
+                  src="/Santorini_Sunset_View.jpg" 
+                  alt="Santorini" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-1">Santorini</h3>
+                  <p className="text-sm text-white/90">Iconic sunsets & caldera views</p>
+                </div>
               </div>
-              <h3 className="text-3xl sm:text-4xl font-semibold mb-3 text-primary">Santorini</h3>
-              <p className="text-lg text-gray-700 mb-5 flex-grow">
-                Iconic sunsets, white-washed villages, and volcanic beaches. The crown jewel of the Cyclades.
-              </p>
-              <Link href="/blog" className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 hover:underline">
-                Explore Santorini →
-              </Link>
-            </div>
+            </Link>
 
-            {/* Destination Card 2 - Mykonos */}
-            <div className="flex-shrink-0 w-80 bg-purple-50 rounded-5xl p-7 sm:p-10 flex flex-col">
-              <div className="aspect-square bg-gradient-to-br from-purple-200 to-blue-200 rounded-3xl mb-5 overflow-hidden">
-                <img src="/Mykonos_Architecture.jpg" alt="Mykonos" className="w-full h-full object-cover" />
+            {/* Destination 2 - Mykonos */}
+            <Link href="/blog" className="group">
+              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
+                <img 
+                  src="/Mykonos_Architecture.jpg" 
+                  alt="Mykonos" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-1">Mykonos</h3>
+                  <p className="text-sm text-white/90">Beach clubs & nightlife</p>
+                </div>
               </div>
-              <h3 className="text-3xl sm:text-4xl font-semibold mb-3 text-primary">Mykonos</h3>
-              <p className="text-lg text-gray-700 mb-5 flex-grow">
-                Beach clubs, nightlife, and charming windmills. Where luxury meets island paradise.
-              </p>
-              <Link href="/blog" className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 hover:underline">
-                Explore Mykonos →
-              </Link>
-            </div>
+            </Link>
 
-            {/* Destination Card 3 - Meteora */}
-            <div className="flex-shrink-0 w-80 bg-blue-50 rounded-5xl p-7 sm:p-10 flex flex-col">
-              <div className="aspect-square bg-gradient-to-br from-blue-200 to-cyan-200 rounded-3xl mb-5 overflow-hidden">
-                <img src="/Meteora_Mountain_Monastery.jpg" alt="Meteora" className="w-full h-full object-cover" />
+            {/* Destination 3 - Meteora */}
+            <Link href="/blog" className="group">
+              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
+                <img 
+                  src="/Meteora_Mountain_Monastery.jpg" 
+                  alt="Meteora" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-1">Meteora</h3>
+                  <p className="text-sm text-white/90">Monasteries in the sky</p>
+                </div>
               </div>
-              <h3 className="text-3xl sm:text-4xl font-semibold mb-3 text-primary">Meteora</h3>
-              <p className="text-lg text-gray-700 mb-5 flex-grow">
-                Spectacular monasteries perched on towering rock pillars. A UNESCO World Heritage wonder.
-              </p>
-              <Link href="/blog" className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 hover:underline">
-                Explore Meteora →
-              </Link>
-            </div>
+            </Link>
 
-            {/* Destination Card 4 - Paros */}
-            <div className="flex-shrink-0 w-80 bg-green-50 rounded-5xl p-7 sm:p-10 flex flex-col">
-              <div className="aspect-square bg-gradient-to-br from-green-200 to-emerald-200 rounded-3xl mb-5 overflow-hidden">
-                <img src="/Paros_Island_View.jpg" alt="Paros" className="w-full h-full object-cover" />
+            {/* Destination 4 - Paros */}
+            <Link href="/blog" className="group">
+              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
+                <img 
+                  src="/Paros_Island_View.jpg" 
+                  alt="Paros" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-1">Paros</h3>
+                  <p className="text-sm text-white/90">Authentic Cycladic charm</p>
+                </div>
               </div>
-              <h3 className="text-3xl sm:text-4xl font-semibold mb-3 text-primary">Paros</h3>
-              <p className="text-lg text-gray-700 mb-5 flex-grow">
-                Authentic Cycladic charm with beautiful beaches, traditional villages, and vibrant culture.
-              </p>
-              <Link href="/blog" className="text-lg font-semibold text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 hover:underline">
-                Explore Paros →
-              </Link>
-            </div>
+            </Link>
+
+            {/* Destination 5 - Athens */}
+            <Link href="/blog" className="group">
+              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
+                <img 
+                  src="/hero-acropolis.jpg" 
+                  alt="Athens" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-1">Athens</h3>
+                  <p className="text-sm text-white/90">Ancient sites & modern culture</p>
+                </div>
+              </div>
+            </Link>
+
+            {/* Destination 6 - Crete */}
+            <Link href="/blog" className="group">
+              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
+                <img 
+                  src="/Crete_Knossos_Ruins.jpg" 
+                  alt="Crete" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-1">Crete</h3>
+                  <p className="text-sm text-white/90">Largest island, rich history</p>
+                </div>
+              </div>
+            </Link>
+
+            {/* Destination 7 - Rhodes */}
+            <Link href="/blog" className="group">
+              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
+                <img 
+                  src="/Rhodes_Historic_Quarter.jpg" 
+                  alt="Rhodes" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-1">Rhodes</h3>
+                  <p className="text-sm text-white/90">Medieval town & beaches</p>
+                </div>
+              </div>
+            </Link>
+
+            {/* Destination 8 - Corfu */}
+            <Link href="/blog" className="group">
+              <div className="relative overflow-hidden rounded-3xl aspect-[3/4] bg-gray-200">
+                <img 
+                  src="/Corfu_Beach_Paradise.jpg" 
+                  alt="Corfu" 
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                  <h3 className="text-2xl font-bold mb-1">Corfu</h3>
+                  <p className="text-sm text-white/90">Lush island paradise</p>
+                </div>
+              </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -494,15 +565,16 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Final CTA with greece-home.jpg Background */}
+      {/* Final CTA - greece-home.jpg */}
       <section className="relative py-40 lg:py-48 overflow-hidden">
-        {/* Background Image */}
-        <Image
-          src="/greece-home.jpg"
-          alt="Start Your Greek Adventure"
-          fill
-          className="object-cover brightness-75"
-        />
+        {/* Background Image - USING CORRECT PATH */}
+        <div className="absolute inset-0">
+          <img
+            src="/greece-home.jpg"
+            alt="Start Your Greek Adventure"
+            className="w-full h-full object-cover brightness-75"
+          />
+        </div>
 
         {/* Content */}
         <div className="container mx-auto px-6 lg:px-12 relative z-10">
