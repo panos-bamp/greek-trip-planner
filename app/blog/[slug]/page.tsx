@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
-import { portableTextComponents } from '@/components/portableTextComponents'
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 import { generateAllSchemas } from '@/lib/schemaMarkup'
@@ -16,6 +15,17 @@ export const revalidate = 3600
 
 // PortableText components - using urlFor like the working example!
 const components = {
+  types: {
+    htmlEmbed: ({ value }: any) => {
+      if (!value?.html) return null
+      return (
+        <div
+          className="my-8 overflow-x-auto"
+          dangerouslySetInnerHTML={{ __html: value.html }}
+        />
+      )
+    },
+  },
   block: {
     h1: ({children}: any) => <h1 className="text-4xl font-bold mt-8 mb-4">{children}</h1>,
     h2: ({children}: any) => <h2 className="text-3xl font-bold mt-8 mb-4">{children}</h2>,
@@ -206,7 +216,7 @@ export default async function BlogPost(
             {/* Body Content with PortableText */}
             {post.body && (
               <div className="prose prose-lg max-w-none">
-                <PortableText value={post.body} components={portableTextComponents} />
+                <PortableText value={post.body} components={components} />
               </div>
             )}
 
