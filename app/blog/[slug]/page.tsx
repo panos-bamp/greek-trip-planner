@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { PortableText } from '@portabletext/react'
+import { portableTextComponents } from '@/components/portableTextComponents'
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 import { generateAllSchemas } from '@/lib/schemaMarkup'
@@ -205,7 +206,7 @@ export default async function BlogPost(
             {/* Body Content with PortableText */}
             {post.body && (
               <div className="prose prose-lg max-w-none">
-                <PortableText value={post.body} components={components} />
+                <PortableText value={post.body} components={portableTextComponents} />
               </div>
             )}
 
