@@ -61,5 +61,36 @@ export default defineType({
         },
       ],
     }),
+    // ✅ HTML EMBED - Paste raw HTML (tables, embeds, custom widgets)
+    defineArrayMember({
+      name: 'htmlEmbed',
+      type: 'object',
+      title: '🧩 HTML Embed',
+      description: 'Paste raw HTML here — perfect for tables, embeds, or custom widgets',
+      fields: [
+        {
+          name: 'html',
+          title: 'HTML Code',
+          type: 'text',
+          rows: 15,
+          description: 'Paste your HTML table or embed code here. It will render exactly as written on the blog.',
+        },
+      ],
+      preview: {
+        select: {
+          html: 'html',
+        },
+        prepare({ html }: { html?: string }) {
+          const snippet = html
+            ? html.replace(/<[^>]*>/g, '').substring(0, 80) + '...'
+            : 'Empty HTML embed'
+          const isTable = html?.includes('<table')
+          return {
+            title: isTable ? '📊 HTML Table' : '🧩 HTML Embed',
+            subtitle: snippet,
+          }
+        },
+      },
+    }),
   ],
 })
