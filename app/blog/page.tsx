@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, BookOpen, Calendar, User, Sun } from 'lucide-react'
 import { client } from '@/sanity/lib/client'
-import { urlForImage } from '@/sanity/lib/image'
+import { urlFor } from '@/sanity/lib/image'
 
 export const metadata = {
   title: 'Greece Travel Blog | Guides, Tips & Island Insights',
@@ -102,7 +102,7 @@ export default async function BlogPage() {
               <div className="relative h-64 md:h-auto min-h-[280px] overflow-hidden">
                 {featuredPost.mainImage ? (
                   <Image
-                    src={urlForImage(featuredPost.mainImage).width(800).height(500).url()}
+                    src={urlFor(featuredPost.mainImage).width(800).height(500).url()}
                     alt={featuredPost.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -158,7 +158,7 @@ export default async function BlogPage() {
               <div className="relative h-48 overflow-hidden">
                 {post.mainImage ? (
                   <Image
-                    src={urlForImage(post.mainImage).width(600).height(400).url()}
+                    src={urlFor(post.mainImage).width(600).height(400).url()}
                     alt={post.title}
                     fill
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
