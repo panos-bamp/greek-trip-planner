@@ -29,10 +29,7 @@ export default function HomePage() {
             <Link href="/how-it-works" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">How it Works</Link>
             <Link href="/blog" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">Blog</Link>
             <Link href="/about" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">About</Link>
-            <Link 
-              href="/ai-trip-planner" 
-              className="btn-accent px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2"
-            >
+            <Link href="/ai-trip-planner" className="btn-accent px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2">
               Start Planning <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
@@ -48,32 +45,24 @@ export default function HomePage() {
           <Image src="/hero-acropolis.jpg" alt="Athens Acropolis" fill className="object-cover" priority quality={85} />
           <div className="gradient-hero absolute inset-0" />
         </div>
-        
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="max-w-2xl">
             <div className="animate-fade-in-up inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6">
               <Sun className="w-4 h-4 text-[#FF5635]" />
               <span className="text-white/90 text-sm font-medium">AI-Powered Trip Planning</span>
             </div>
-            
             <h1 className="animate-fade-in-up delay-100 text-5xl sm:text-6xl md:text-7xl text-white leading-[1.05] mb-6">
               Plan Your Perfect<br />
               <span className="text-[#FF5635]">Greece Trip</span>
             </h1>
-            
             <p className="animate-fade-in-up delay-200 text-lg sm:text-xl text-white/80 max-w-lg mb-10 leading-relaxed font-light">
               Free AI planner creates personalized itineraries for Athens, Santorini & Greek islands. Get insider tips and realistic timing in minutes.
             </p>
-            
             <div className="animate-fade-in-up delay-300">
-              <Link 
-                href="/ai-trip-planner" 
-                className="btn-accent px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-3 animate-pulse-glow"
-              >
+              <Link href="/ai-trip-planner" className="btn-accent px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-3 animate-pulse-glow">
                 Plan My Trip Free <ArrowRight className="w-5 h-5" />
               </Link>
             </div>
-            
             <div className="animate-fade-in-up delay-400 mt-14 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-lg">
               {[
                 { value: '12,000+', label: 'Itineraries Created' },
@@ -89,16 +78,14 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-subtle-float">
           <ChevronDown className="w-6 h-6 text-white/40" />
         </div>
       </section>
 
-      {/* ===== YOUR GREECE, YOUR WAY — Travel style cards linking to articles ===== */}
+      {/* ===== YOUR GREECE, YOUR WAY ===== */}
       <section className="section-padding bg-[#FAF6F3]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
           <div className="text-center mb-16">
             <div className="divider-accent mx-auto mb-4" />
             <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Your Greece, Your Way</h2>
@@ -106,7 +93,8 @@ export default function HomePage() {
           </div>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            
+
+            {/* ✅ LIVE — Couples */}
             <Link href="/blog/best-greek-islands-for-couples" className="group bg-white rounded-3xl overflow-hidden card-hover">
               <div className="relative h-52 overflow-hidden">
                 <Image src="/Santorini_Evening_Glow.jpg" alt="Romantic Greece trip for couples" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -125,6 +113,7 @@ export default function HomePage() {
               </div>
             </Link>
 
+            {/* ✅ LIVE — Families */}
             <Link href="/blog/best-greek-islands-for-families" className="group bg-white rounded-3xl overflow-hidden card-hover">
               <div className="relative h-52 overflow-hidden">
                 <Image src="/Paros_Island_View.jpg" alt="Family trip to Greece" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -143,9 +132,10 @@ export default function HomePage() {
               </div>
             </Link>
 
-            <Link href="/blog/solo-trip-to-greece" className="group bg-white rounded-3xl overflow-hidden card-hover">
+            {/* ❌ NOT LIVE — Solo */}
+            <div className="bg-white rounded-3xl overflow-hidden">
               <div className="relative h-52 overflow-hidden">
-                <Image src="/Meteora_Sunset_View.jpg" alt="Solo trip to Greece" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                <Image src="/Meteora_Sunset_View.jpg" alt="Solo trip to Greece" fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/50 to-transparent" />
                 <div className="absolute bottom-4 left-5 right-5">
                   <div className="flex items-center gap-2 mb-2">
@@ -156,14 +146,14 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="p-5">
-                <p className="text-[#180204]/60 text-sm leading-relaxed mb-3">Safe, welcoming, and endlessly fascinating. From the monasteries of Meteora to the trails of Ikaria — Greece rewards the solo traveler.</p>
-                <span className="text-[#FF5635] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all font-sans">Solo Travel Guide <ArrowRight className="w-4 h-4" /></span>
+                <p className="text-[#180204]/60 text-sm leading-relaxed">Safe, welcoming, and endlessly fascinating. From the monasteries of Meteora to the trails of Ikaria — Greece rewards the solo traveler.</p>
               </div>
-            </Link>
+            </div>
 
-            <Link href="/blog/luxury-trip-to-greece" className="group bg-white rounded-3xl overflow-hidden card-hover">
+            {/* ❌ NOT LIVE — Luxury */}
+            <div className="bg-white rounded-3xl overflow-hidden">
               <div className="relative h-52 overflow-hidden">
-                <Image src="/Mykonos_Architecture.jpg" alt="Luxury trip to Greece" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                <Image src="/Mykonos_Architecture.jpg" alt="Luxury trip to Greece" fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/50 to-transparent" />
                 <div className="absolute bottom-4 left-5 right-5">
                   <div className="flex items-center gap-2 mb-2">
@@ -174,14 +164,14 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="p-5">
-                <p className="text-[#180204]/60 text-sm leading-relaxed mb-3">Five-star villas with infinity pools, private yacht charters, Michelin dining. Experience Greece at its most indulgent and exclusive.</p>
-                <span className="text-[#FF5635] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all font-sans">Luxury Travel Guide <ArrowRight className="w-4 h-4" /></span>
+                <p className="text-[#180204]/60 text-sm leading-relaxed">Five-star villas with infinity pools, private yacht charters, Michelin dining. Experience Greece at its most indulgent and exclusive.</p>
               </div>
-            </Link>
+            </div>
 
-            <Link href="/blog/girls-trip-to-greece" className="group bg-white rounded-3xl overflow-hidden card-hover">
+            {/* ❌ NOT LIVE — Girls Trip */}
+            <div className="bg-white rounded-3xl overflow-hidden">
               <div className="relative h-52 overflow-hidden">
-                <Image src="/Rhodes_Historic_Quarter.jpg" alt="Girls trip to Greece" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                <Image src="/Rhodes_Historic_Quarter.jpg" alt="Girls trip to Greece" fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/50 to-transparent" />
                 <div className="absolute bottom-4 left-5 right-5">
                   <div className="flex items-center gap-2 mb-2">
@@ -192,14 +182,14 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="p-5">
-                <p className="text-[#180204]/60 text-sm leading-relaxed mb-3">Beach clubs in Mykonos, wine tasting in Santorini, shopping in Athens. The ultimate group getaway with something for everyone.</p>
-                <span className="text-[#FF5635] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all font-sans">Girls Trip Guide <ArrowRight className="w-4 h-4" /></span>
+                <p className="text-[#180204]/60 text-sm leading-relaxed">Beach clubs in Mykonos, wine tasting in Santorini, shopping in Athens. The ultimate group getaway with something for everyone.</p>
               </div>
-            </Link>
+            </div>
 
-            <Link href="/blog/greece-road-trip" className="group bg-white rounded-3xl overflow-hidden card-hover">
+            {/* ❌ NOT LIVE — Road Trip */}
+            <div className="bg-white rounded-3xl overflow-hidden">
               <div className="relative h-52 overflow-hidden">
-                <Image src="/Corfu_Beach_Paradise.jpg" alt="Greece road trip" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                <Image src="/Corfu_Beach_Paradise.jpg" alt="Greece road trip" fill className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/50 to-transparent" />
                 <div className="absolute bottom-4 left-5 right-5">
                   <div className="flex items-center gap-2 mb-2">
@@ -210,181 +200,157 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="p-5">
-                <p className="text-[#180204]/60 text-sm leading-relaxed mb-3">Wind through the Mani Peninsula, explore Zagori villages, drive coastal Crete. The best of Greece is between the destinations.</p>
-                <span className="text-[#FF5635] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all font-sans">Road Trip Guide <ArrowRight className="w-4 h-4" /></span>
+                <p className="text-[#180204]/60 text-sm leading-relaxed">Wind through the Mani Peninsula, explore Zagori villages, drive coastal Crete. The best of Greece is between the destinations.</p>
               </div>
-            </Link>
+            </div>
+
           </div>
 
-          {/* Planning guide pill links */}
+          {/* Planning guide pills — only link live ones */}
           <div className="mt-10 flex flex-wrap justify-center gap-3">
-            {[
-              { label: 'Italy + Greece Trip', href: '/blog/italy-and-greece-trip' },
-              { label: '7-Day Itinerary', href: '/blog/greece-itinerary-7-days' },
-              { label: '10-Day Itinerary', href: '/blog/greece-itinerary-10-days' },
-              { label: 'Budget Guide', href: '/blog/how-much-does-a-trip-to-greece-cost' },
-              { label: 'First Time in Greece', href: '/blog/where-to-go-in-greece-for-first-time' },
-              { label: 'All-Inclusive Guide', href: '/blog/all-inclusive-trip-to-greece' },
-            ].map((guide) => (
-              <Link key={guide.label} href={guide.href} className="bg-white border border-[#E6DAD1] text-[#180204]/70 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-4 py-2 rounded-full text-sm font-sans font-medium transition-all">
-                {guide.label}
-              </Link>
-            ))}
+            <Link href="/blog/greece-itinerary-7-days" className="bg-white border border-[#E6DAD1] text-[#180204]/70 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-4 py-2 rounded-full text-sm font-sans font-medium transition-all">7-Day Itinerary</Link>
+            <Link href="/blog/greece-itinerary-10-days" className="bg-white border border-[#E6DAD1] text-[#180204]/70 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-4 py-2 rounded-full text-sm font-sans font-medium transition-all">10-Day Itinerary</Link>
+            <Link href="/blog/how-much-does-a-trip-to-greece-cost" className="bg-white border border-[#E6DAD1] text-[#180204]/70 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-4 py-2 rounded-full text-sm font-sans font-medium transition-all">Budget Guide</Link>
+            <Link href="/blog/where-to-go-in-greece-for-first-time" className="bg-white border border-[#E6DAD1] text-[#180204]/70 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-4 py-2 rounded-full text-sm font-sans font-medium transition-all">First Time in Greece</Link>
+            <Link href="/blog/3-days-in-athens" className="bg-white border border-[#E6DAD1] text-[#180204]/70 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-4 py-2 rounded-full text-sm font-sans font-medium transition-all">3 Days in Athens</Link>
+            <Link href="/blog/3-days-in-santorini" className="bg-white border border-[#E6DAD1] text-[#180204]/70 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-4 py-2 rounded-full text-sm font-sans font-medium transition-all">3 Days in Santorini</Link>
           </div>
         </div>
       </section>
 
-      {/* ===== EXPLORE 120+ DESTINATIONS ===== */}
+      {/* ===== EXPLORE DESTINATIONS ===== */}
       <section className="section-padding bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="divider-accent mx-auto mb-4" />
             <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Explore 120+ Destinations</h2>
-            <p className="text-[#180204]/60 max-w-2xl mx-auto">Every island, ancient site, and hidden village — covered in depth by local experts. Tap any destination to read the complete guide.</p>
+            <p className="text-[#180204]/60 max-w-2xl mx-auto">Every island, ancient site, and hidden village — covered in depth by local experts. Guides are being published weekly.</p>
           </div>
           
-          {/* Featured destination image cards */}
+          {/* Featured destination cards — none of these 8 are live yet, so no links */}
           <div className="flex gap-5 overflow-x-auto pb-4 scrollbar-hidden md:grid md:grid-cols-4 md:overflow-visible">
             {[
-              { name: 'Santorini', desc: 'Iconic sunsets & caldera views', img: '/Santorini_Sunset_View.jpg', href: '/blog/trip-to-santorini-greece', color: 'bg-orange-50' },
-              { name: 'Mykonos', desc: 'Beach clubs & nightlife', img: '/Mykonos_Architecture.jpg', href: '/blog/trip-to-mykonos-greece', color: 'bg-blue-50' },
-              { name: 'Athens', desc: 'Ancient sites & modern culture', img: '/hero-acropolis.jpg', href: '/blog/trip-to-athens-greece', color: 'bg-amber-50' },
-              { name: 'Crete', desc: 'Largest island, rich history', img: '/Crete_Knossos_Ruins.jpg', href: '/blog/trip-to-crete-greece', color: 'bg-stone-50' },
-              { name: 'Meteora', desc: 'Monasteries in the sky', img: '/Meteora_Mountain_Monastery.jpg', href: '/blog/meteora-travel-guide', color: 'bg-orange-50' },
-              { name: 'Paros', desc: 'Authentic Cycladic charm', img: '/Paros_Island_View.jpg', href: '/blog/paros-travel-guide', color: 'bg-blue-50' },
-              { name: 'Rhodes', desc: 'Medieval town & beaches', img: '/Rhodes_Historic_Quarter.jpg', href: '/blog/rhodes-travel-guide', color: 'bg-amber-50' },
-              { name: 'Corfu', desc: 'Lush island paradise', img: '/Corfu_Beach_Paradise.jpg', href: '/blog/corfu-travel-guide', color: 'bg-stone-50' },
+              { name: 'Santorini', desc: 'Iconic sunsets & caldera views', img: '/Santorini_Sunset_View.jpg', color: 'bg-orange-50' },
+              { name: 'Mykonos', desc: 'Beach clubs & nightlife', img: '/Mykonos_Architecture.jpg', color: 'bg-blue-50' },
+              { name: 'Athens', desc: 'Ancient sites & modern culture', img: '/hero-acropolis.jpg', color: 'bg-amber-50' },
+              { name: 'Crete', desc: 'Largest island, rich history', img: '/Crete_Knossos_Ruins.jpg', color: 'bg-stone-50' },
+              { name: 'Meteora', desc: 'Monasteries in the sky', img: '/Meteora_Mountain_Monastery.jpg', color: 'bg-orange-50' },
+              { name: 'Paros', desc: 'Authentic Cycladic charm', img: '/Paros_Island_View.jpg', color: 'bg-blue-50' },
+              { name: 'Rhodes', desc: 'Medieval town & beaches', img: '/Rhodes_Historic_Quarter.jpg', color: 'bg-amber-50' },
+              { name: 'Corfu', desc: 'Lush island paradise', img: '/Corfu_Beach_Paradise.jpg', color: 'bg-stone-50' },
             ].map((dest) => (
-              <Link key={dest.name} href={dest.href} className={`min-w-[250px] md:min-w-0 ${dest.color} rounded-3xl overflow-hidden card-hover group`}>
+              <div key={dest.name} className={`min-w-[250px] md:min-w-0 ${dest.color} rounded-3xl overflow-hidden`}>
                 <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image src={dest.img} alt={dest.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <Image src={dest.img} alt={dest.name} fill className="object-cover" />
                 </div>
                 <div className="p-5">
                   <h3 className="text-xl text-[#180204] mb-1">{dest.name}</h3>
-                  <p className="text-[#180204]/55 text-sm mb-2">{dest.desc}</p>
-                  <span className="text-[#FF5635] text-xs font-sans font-semibold flex items-center gap-1">Read Travel Guide <ArrowRight className="w-3 h-3" /></span>
+                  <p className="text-[#180204]/55 text-sm">{dest.desc}</p>
+                  <span className="text-[#180204]/30 text-xs font-sans mt-2 inline-block">Guide coming soon</span>
                 </div>
-              </Link>
+              </div>
             ))}
           </div>
 
-          {/* All destinations organized by region */}
+          {/* Destination directory by region — only live guides get links */}
           <div className="mt-12 space-y-6">
+
+            {/* Cyclades — LIVE: Milos, Tinos, Serifos */}
             <div>
               <h3 className="text-lg text-[#180204] mb-3 font-sans font-semibold">Cyclades Islands</h3>
               <div className="flex flex-wrap gap-2">
-                {[
-                  { name: 'Naxos', href: '/blog/naxos-travel-guide' },
-                  { name: 'Milos', href: '/blog/milos-travel-guide' },
-                  { name: 'Ios', href: '/blog/ios-travel-guide' },
-                  { name: 'Folegandros', href: '/blog/folegandros-travel-guide' },
-                  { name: 'Sifnos', href: '/blog/sifnos-travel-guide' },
-                  { name: 'Tinos', href: '/blog/tinos-travel-guide' },
-                  { name: 'Syros', href: '/blog/syros-travel-guide' },
-                  { name: 'Serifos', href: '/blog/serifos-travel-guide' },
-                  { name: 'Andros', href: '/blog/andros-travel-guide' },
-                  { name: 'Amorgos', href: '/blog/amorgos-travel-guide' },
-                  { name: 'Antiparos', href: '/blog/antiparos-travel-guide' },
-                  { name: 'Koufonisia', href: '/blog/koufonisia-travel-guide' },
-                  { name: 'Kea', href: '/blog/kea-travel-guide' },
-                  { name: 'Kimolos', href: '/blog/kimolos-travel-guide' },
-                ].map((island) => (
-                  <Link key={island.name} href={island.href} className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-3 py-1.5 rounded-full text-sm font-sans transition-all">{island.name}</Link>
-                ))}
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Naxos</span>
+                <Link href="/blog/milos-travel-guide" className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-3 py-1.5 rounded-full text-sm font-sans transition-all">Milos</Link>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Ios</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Folegandros</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Sifnos</span>
+                <Link href="/blog/tinos-travel-guide" className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-3 py-1.5 rounded-full text-sm font-sans transition-all">Tinos</Link>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Syros</span>
+                <Link href="/blog/serifos-travel-guide" className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-3 py-1.5 rounded-full text-sm font-sans transition-all">Serifos</Link>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Andros</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Amorgos</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Antiparos</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Koufonisia</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Kea</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Kimolos</span>
               </div>
             </div>
 
+            {/* Dodecanese — LIVE: Kos */}
             <div>
               <h3 className="text-lg text-[#180204] mb-3 font-sans font-semibold">Dodecanese Islands</h3>
               <div className="flex flex-wrap gap-2">
-                {[
-                  { name: 'Kos', href: '/blog/kos-travel-guide' },
-                  { name: 'Patmos', href: '/blog/patmos-travel-guide' },
-                  { name: 'Symi', href: '/blog/symi-travel-guide' },
-                  { name: 'Karpathos', href: '/blog/karpathos-travel-guide' },
-                  { name: 'Leros', href: '/blog/leros-travel-guide' },
-                  { name: 'Kalymnos', href: '/blog/kalymnos-travel-guide' },
-                  { name: 'Astypalea', href: '/blog/astypalea-travel-guide' },
-                  { name: 'Kastellorizo', href: '/blog/kastellorizo-travel-guide' },
-                  { name: 'Nisyros', href: '/blog/nisyros-travel-guide' },
-                  { name: 'Lipsi', href: '/blog/lipsi-travel-guide' },
-                ].map((island) => (
-                  <Link key={island.name} href={island.href} className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-3 py-1.5 rounded-full text-sm font-sans transition-all">{island.name}</Link>
-                ))}
+                <Link href="/blog/kos-travel-guide" className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-3 py-1.5 rounded-full text-sm font-sans transition-all">Kos</Link>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Patmos</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Symi</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Karpathos</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Leros</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Kalymnos</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Astypalea</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Kastellorizo</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Nisyros</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Lipsi</span>
               </div>
             </div>
 
+            {/* Ionian — LIVE: Zakynthos, Lefkada */}
             <div>
               <h3 className="text-lg text-[#180204] mb-3 font-sans font-semibold">Ionian Islands</h3>
               <div className="flex flex-wrap gap-2">
-                {[
-                  { name: 'Zakynthos', href: '/blog/zakynthos-travel-guide' },
-                  { name: 'Kefalonia', href: '/blog/kefalonia-travel-guide' },
-                  { name: 'Lefkada', href: '/blog/lefkada-travel-guide' },
-                  { name: 'Ithaca', href: '/blog/ithaca-travel-guide' },
-                  { name: 'Paxos', href: '/blog/paxos-travel-guide' },
-                  { name: 'Kythira', href: '/blog/kythira-travel-guide' },
-                ].map((island) => (
-                  <Link key={island.name} href={island.href} className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-3 py-1.5 rounded-full text-sm font-sans transition-all">{island.name}</Link>
-                ))}
+                <Link href="/blog/zakynthos-travel-guide" className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-3 py-1.5 rounded-full text-sm font-sans transition-all">Zakynthos</Link>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Kefalonia</span>
+                <Link href="/blog/lefkada-travel-guide" className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-3 py-1.5 rounded-full text-sm font-sans transition-all">Lefkada</Link>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Ithaca</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Paxos</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Kythira</span>
               </div>
             </div>
 
+            {/* Crete — LIVE: Chania, Rethymno */}
+            <div>
+              <h3 className="text-lg text-[#180204] mb-3 font-sans font-semibold">Crete</h3>
+              <div className="flex flex-wrap gap-2">
+                <Link href="/blog/chania-travel-guide" className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-3 py-1.5 rounded-full text-sm font-sans transition-all">Chania</Link>
+                <Link href="/blog/rethymno-travel-guide" className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-3 py-1.5 rounded-full text-sm font-sans transition-all">Rethymno</Link>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Heraklion</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Agios Nikolaos</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Elounda</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Balos Beach</span>
+                <span className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">Elafonissi Beach</span>
+              </div>
+            </div>
+
+            {/* Sporades & Saronic — NONE live */}
             <div>
               <h3 className="text-lg text-[#180204] mb-3 font-sans font-semibold">Sporades & Saronic Gulf</h3>
               <div className="flex flex-wrap gap-2">
-                {[
-                  { name: 'Skopelos', href: '/blog/skopelos-travel-guide' },
-                  { name: 'Skiathos', href: '/blog/skiathos-travel-guide' },
-                  { name: 'Alonissos', href: '/blog/alonissos-travel-guide' },
-                  { name: 'Skyros', href: '/blog/skyros-travel-guide' },
-                  { name: 'Hydra', href: '/blog/hydra-travel-guide' },
-                  { name: 'Aegina', href: '/blog/aegina-travel-guide' },
-                  { name: 'Poros', href: '/blog/poros-travel-guide' },
-                  { name: 'Spetses', href: '/blog/spetses-travel-guide' },
-                  { name: 'Agistri', href: '/blog/agistri-travel-guide' },
-                ].map((island) => (
-                  <Link key={island.name} href={island.href} className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-3 py-1.5 rounded-full text-sm font-sans transition-all">{island.name}</Link>
+                {['Skopelos', 'Skiathos', 'Alonissos', 'Skyros', 'Hydra', 'Aegina', 'Poros', 'Spetses', 'Agistri'].map((name) => (
+                  <span key={name} className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">{name}</span>
                 ))}
               </div>
             </div>
 
+            {/* Mainland — NONE live */}
             <div>
               <h3 className="text-lg text-[#180204] mb-3 font-sans font-semibold">Mainland Greece</h3>
               <div className="flex flex-wrap gap-2">
-                {[
-                  { name: 'Thessaloniki', href: '/blog/thessaloniki-travel-guide' },
-                  { name: 'Delphi', href: '/blog/delphi-travel-guide' },
-                  { name: 'Nafplio', href: '/blog/nafplio-travel-guide' },
-                  { name: 'Olympia', href: '/blog/olympia-travel-guide' },
-                  { name: 'Monemvasia', href: '/blog/monemvasia-travel-guide' },
-                  { name: 'Mani Peninsula', href: '/blog/mani-peninsula-travel-guide' },
-                  { name: 'Zagori Villages', href: '/blog/zagori-villages-travel-guide' },
-                  { name: 'Halkidiki', href: '/blog/halkidiki-travel-guide' },
-                  { name: 'Pelion', href: '/blog/pelion-travel-guide' },
-                  { name: 'Parga', href: '/blog/parga-travel-guide' },
-                  { name: 'Mount Olympus', href: '/blog/mount-olympus-travel-guide' },
-                  { name: 'Cape Sounion', href: '/blog/cape-sounion-travel-guide' },
-                ].map((place) => (
-                  <Link key={place.name} href={place.href} className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-3 py-1.5 rounded-full text-sm font-sans transition-all">{place.name}</Link>
+                {['Thessaloniki', 'Delphi', 'Nafplio', 'Olympia', 'Monemvasia', 'Mani Peninsula', 'Zagori Villages', 'Halkidiki', 'Pelion', 'Parga', 'Mount Olympus', 'Cape Sounion'].map((name) => (
+                  <span key={name} className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/40 px-3 py-1.5 rounded-full text-sm font-sans">{name}</span>
                 ))}
               </div>
             </div>
 
+            {/* Popular Guides — ALL LIVE */}
             <div>
               <h3 className="text-lg text-[#180204] mb-3 font-sans font-semibold">Popular Guides</h3>
               <div className="flex flex-wrap gap-2">
-                {[
-                  { name: 'Best Beaches in Greece', href: '/blog/best-beaches-in-greece' },
-                  { name: 'Best Islands for First-Timers', href: '/blog/best-greek-islands-to-visit-for-the-first-time' },
-                  { name: 'Best Islands for Beaches', href: '/blog/best-greek-islands-for-beaches' },
-                  { name: 'Best for Nightlife', href: '/blog/best-places-to-visit-in-greece-for-young-adults' },
-                  { name: 'Best by Month', href: '/blog/best-places-to-visit-in-greece-by-month' },
-                  { name: 'Hidden Gem Islands', href: '/blog/best-unknown-and-small-greek-islands' },
-                  { name: 'Island Hopping Guide', href: '/blog/best-way-to-see-the-greek-islands' },
-                ].map((guide) => (
-                  <Link key={guide.name} href={guide.href} className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">{guide.name}</Link>
-                ))}
+                <Link href="/blog/best-beaches-in-greece" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Best Beaches in Greece</Link>
+                <Link href="/blog/best-greek-islands-to-visit-for-the-first-time" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Best Islands for First-Timers</Link>
+                <Link href="/blog/best-greek-islands-for-beaches" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Best Islands for Beaches</Link>
+                <Link href="/blog/best-places-to-visit-in-greece-for-young-adults" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Best for Nightlife</Link>
+                <Link href="/blog/best-places-to-visit-in-greece-by-month" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Best by Month</Link>
+                <Link href="/blog/best-unknown-and-small-greek-islands" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Hidden Gem Islands</Link>
+                <Link href="/blog/best-way-to-see-the-greek-islands" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Island Hopping Guide</Link>
               </div>
             </div>
           </div>
@@ -392,7 +358,7 @@ export default function HomePage() {
           <div className="mt-10 text-center">
             <Link href="/blog" className="inline-flex items-center gap-2 text-[#180204] hover:text-[#FF5635] transition-colors font-sans font-semibold">
               <BookOpen className="w-5 h-5" />
-              Browse All 120+ Travel Guides <ArrowRight className="w-4 h-4" />
+              Browse All Travel Guides <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -406,7 +372,6 @@ export default function HomePage() {
             <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Everything You Need</h2>
             <p className="text-[#180204]/60 max-w-xl mx-auto">For your perfect Greek adventure</p>
           </div>
-          
           <div className="grid md:grid-cols-2 gap-6">
             {[
               { title: 'Island Hopping Routes', desc: 'Optimized ferry schedules and routes connecting the most beautiful Greek islands. We plan the perfect island-hopping sequence so you never miss a connection.', img: '/Santorini_Evening_Glow.jpg', icon: Ship },
@@ -434,7 +399,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== SERVICES / ORGANIZE ===== */}
+      {/* ===== SERVICES ===== */}
       <section className="section-padding bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
@@ -442,7 +407,6 @@ export default function HomePage() {
             <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Organize It All</h2>
             <p className="text-[#180204]/60 max-w-xl mx-auto">In one place</p>
           </div>
-          
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               { icon: MapPin, title: 'Hotels & Villas', desc: 'From boutique hotels to luxury villas with Aegean views. Find your perfect Greek home base.' },
@@ -472,7 +436,6 @@ export default function HomePage() {
             <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Stop Wasting Time</h2>
             <p className="text-[#180204]/60">Start planning smart</p>
           </div>
-          
           <div className="bg-white rounded-4xl overflow-hidden shadow-sm border border-[#E6DAD1]">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">

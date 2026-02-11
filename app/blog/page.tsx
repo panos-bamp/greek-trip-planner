@@ -1,314 +1,232 @@
-import Link from "next/link"
-import Image from "next/image"
-import { ArrowRight, Calendar, User } from "lucide-react"
-import { Metadata } from "next"
+import Image from 'next/image'
+import Link from 'next/link'
+import { ArrowRight, BookOpen, Calendar, User, Sun } from 'lucide-react'
 import { client } from '@/sanity/lib/client'
-import { urlFor } from '@/sanity/lib/image'
+import { urlForImage } from '@/sanity/lib/image'
 
-export const metadata: Metadata = {
-  title: "Travel Blog | Greek Trip Planner",
-  description: "Discover travel tips, guides, and stories about Greece and the Greek islands.",
+export const metadata = {
+  title: 'Greece Travel Blog | Guides, Tips & Island Insights',
+  description: 'Expert Greece travel guides, island-hopping tips, and insider recommendations. Plan your perfect Greek adventure with our comprehensive blog.',
+  openGraph: {
+    title: 'Greece Travel Blog | Guides, Tips & Island Insights',
+    description: 'Expert Greece travel guides, island-hopping tips, and insider recommendations.',
+    url: 'https://greektriplanner.me/blog',
+    siteName: 'Greek Trip Planner',
+    type: 'website',
+  },
 }
 
-export const revalidate = 60
-
-async function getAllPosts() {
-  try {
-    const query = `*[_type == "post"] | order(publishedAt desc) {
-      _id,
+async function getPosts() {
+  const posts = await client.fetch(
+    `*[_type == "post"] | order(publishedAt desc) {
       title,
       slug,
       publishedAt,
       excerpt,
       mainImage,
-      author,
-      categories
-    }`
-    return await client.fetch(query)
-  } catch (error) {
-    console.error('Error fetching posts:', error)
-    return []
-  }
+      author->{name},
+      categories[]->{title}
+    }`,
+    {},
+    { next: { revalidate: 60 } }
+  )
+  return posts
+}
+
+function formatDate(dateString: string) {
+  if (!dateString || dateString === '1970-01-01') return ''
+  const date = new Date(dateString)
+  if (date.getFullYear() === 1970) return ''
+  return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
 export default async function BlogPage() {
-  const posts = await getAllPosts()
-
-  // Helper function to get author name
-  const getAuthorName = (author: any) => {
-    if (!author) return null
-    if (typeof author === 'string') return author
-    if (author.name) return author.name
-    return null
-  }
+  const posts = await getPosts()
+  const featuredPost = posts[0]
+  const latestPosts = posts.slice(1)
 
   return (
-    <div className="min-h-screen flex flex-col">
-      {/* Navigation - Match home page */}
-      <nav className="fixed top-0 w-full bg-white shadow-sm z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-3">
-              <Image 
-                src="/logo.png" 
-                alt="Greek Trip Planner" 
-                width={70} 
-                height={21}
-                priority
-              />
+    <main className="min-h-screen bg-[#FAF6F3]">
+
+      {/* ===== NAVIGATION ===== */}
+      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 border-b border-[#E6DAD1]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center">
+            <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} priority />
+          </Link>
+          <div className="hidden md:flex items-center gap-8">
+            <Link href="/how-it-works" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">How it Works</Link>
+            <Link href="/blog" className="text-[#FF5635] transition-colors text-sm font-medium">Blog</Link>
+            <Link href="/about" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">About</Link>
+            <Link href="/ai-trip-planner" className="btn-accent px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2">
+              Start Planning <ArrowRight className="w-4 h-4" />
             </Link>
-            
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/features" className="text-gray-700 hover:text-primary transition font-medium">Features</Link>
-              <Link href="/how-it-works" className="text-gray-700 hover:text-primary transition font-medium">How it Works</Link>
-              <Link href="/blog" className="text-gray-700 hover:text-primary transition font-medium">Blog</Link>
-              <Link href="/about" className="text-gray-700 hover:text-primary transition font-medium">About</Link>
-              <Link 
-                href="/quiz"
-                className="px-6 py-3 gradient-pink text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all flex items-center space-x-2"
-              >
-                <span>Start Planning</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
           </div>
+          <Link href="/ai-trip-planner" className="md:hidden btn-accent px-4 py-2 rounded-full text-sm font-semibold">
+            Start Planning
+          </Link>
         </div>
       </nav>
 
-      {/* Add padding for fixed nav */}
-      <div className="pt-24">
-        {/* Hero Section - Updated with custom image and left-aligned text */}
-        <section className="relative h-[70vh] min-h-[500px] flex items-center">
-          {/* Hero Image */}
+      {/* ===== HERO ===== */}
+      <section className="relative pt-16">
+        <div className="relative h-[340px] sm:h-[400px] overflow-hidden">
           <Image
             src="/greece-blog.jpg"
             alt="Greek Travel Blog"
             fill
-            className="object-cover brightness-75"
+            className="object-cover"
             priority
+            quality={85}
           />
-          
-          {/* Overlay gradient for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
-          
-          {/* Hero Content - Full width container, left-aligned */}
-          <div className="container mx-auto px-6 relative z-10 max-w-7xl">
-            <div className="max-w-3xl">
-              <p className="text-blue-200 uppercase tracking-widest text-sm mb-4 font-semibold">Our Stories</p>
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 text-white">
-                Travel Blog
-              </h1>
-              <p className="text-xl md:text-2xl text-blue-100 leading-relaxed">
-                Stories, guides, and insider tips for exploring Greece
-              </p>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/70 via-[#180204]/30 to-transparent" />
+          <div className="absolute inset-0 flex flex-col items-center justify-end pb-12 px-4 text-center">
+            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-4">
+              <BookOpen className="w-4 h-4 text-[#FF5635]" />
+              <span className="text-white/90 text-sm font-medium">Our Stories</span>
             </div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl text-white mb-3">Travel Blog</h1>
+            <p className="text-white/70 text-lg max-w-xl">Stories, guides, and insider tips for exploring Greece</p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Blog Posts Grid */}
-        <section className="py-20 bg-white">
-          <div className="container mx-auto px-6 max-w-7xl">
-            {posts && posts.length > 0 ? (
-              <>
-                {/* Featured Post */}
-                {posts[0] && (
-                  <div className="mb-16">
-                    <Link href={`/blog/${posts[0].slug.current}`} className="group">
-                      <div className="grid md:grid-cols-2 gap-8 items-center">
-                        <div className="relative h-[400px] rounded-2xl overflow-hidden shadow-xl">
-                          {posts[0].mainImage ? (
-                            <Image
-                              src={urlFor(posts[0].mainImage).width(800).height(600).url()}
-                              alt={posts[0].title}
-                              fill
-                              className="object-cover group-hover:scale-105 transition-transform duration-500"
-                            />
-                          ) : (
-                            <div className="w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
-                              <span className="text-gray-400">No image</span>
-                            </div>
-                          )}
-                        </div>
-                        <div>
-                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 font-bold uppercase tracking-wider text-sm">
-                            Featured Article
-                          </span>
-                          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mt-2 mb-4 group-hover:text-blue-600 transition-colors">
-                            {posts[0].title}
-                          </h2>
-                          <div className="flex items-center gap-4 text-gray-500 mb-4 text-sm">
-                            <div className="flex items-center gap-2">
-                              <Calendar className="h-4 w-4" />
-                              <time>
-                                {new Date(posts[0].publishedAt).toLocaleDateString('en-US', {
-                                  year: 'numeric',
-                                  month: 'long',
-                                  day: 'numeric'
-                                })}
-                              </time>
-                            </div>
-                            {getAuthorName(posts[0].author) && (
-                              <div className="flex items-center gap-2">
-                                <User className="h-4 w-4" />
-                                <span>{getAuthorName(posts[0].author)}</span>
-                              </div>
-                            )}
-                          </div>
-                          {posts[0].excerpt && (
-                            <p className="text-gray-600 text-lg mb-6 line-clamp-3">
-                              {posts[0].excerpt}
-                            </p>
-                          )}
-                          <span className="inline-flex items-center text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 font-bold">
-                            Read Article
-                            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform text-pink-500" />
-                          </span>
-                        </div>
-                      </div>
-                    </Link>
+      {/* ===== FEATURED ARTICLE ===== */}
+      {featuredPost && (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-10 mb-16">
+          <Link
+            href={`/blog/${featuredPost.slug?.current}`}
+            className="group block bg-white rounded-3xl overflow-hidden shadow-lg border border-[#E6DAD1]/60 card-hover"
+          >
+            <div className="grid md:grid-cols-2 gap-0">
+              <div className="relative h-64 md:h-auto min-h-[280px] overflow-hidden">
+                {featuredPost.mainImage ? (
+                  <Image
+                    src={urlForImage(featuredPost.mainImage).width(800).height(500).url()}
+                    alt={featuredPost.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-[#FAF6F3] flex items-center justify-center">
+                    <Sun className="w-12 h-12 text-[#E6DAD1]" />
                   </div>
                 )}
-
-                {/* Rest of Posts */}
-                {posts.length > 1 && (
-                  <>
-                    <h2 className="text-3xl font-bold text-gray-900 mb-8">Latest Articles</h2>
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {posts.slice(1).map((post: any) => (
-                        <article key={post._id} className="group">
-                          <Link href={`/blog/${post.slug.current}`}>
-                            <div className="relative h-56 rounded-xl overflow-hidden mb-4 shadow-lg">
-                              {post.mainImage ? (
-                                <Image
-                                  src={urlFor(post.mainImage).width(600).height(400).url()}
-                                  alt={post.title}
-                                  fill
-                                  className="object-cover group-hover:scale-110 transition-transform duration-500"
-                                />
-                              ) : (
-                                <div className="w-full h-full bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center">
-                                  <span className="text-gray-400">No image</span>
-                                </div>
-                              )}
-                            </div>
-                            
-                            <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors line-clamp-2">
-                              {post.title}
-                            </h3>
-                            
-                            <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
-                              <Calendar className="h-4 w-4" />
-                              <time>
-                                {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                                  year: 'numeric',
-                                  month: 'long',
-                                  day: 'numeric'
-                                })}
-                              </time>
-                            </div>
-                            
-                            {post.excerpt && (
-                              <p className="text-gray-600 line-clamp-2 mb-3 text-sm">
-                                {post.excerpt}
-                              </p>
-                            )}
-                            
-                            <span className="inline-flex items-center text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-600 font-semibold text-sm">
-                              Read More
-                              <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform text-pink-500" />
-                            </span>
-                          </Link>
-                        </article>
-                      ))}
-                    </div>
-                  </>
-                )}
-              </>
-            ) : (
-              <div className="text-center py-20">
-                <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <Calendar className="h-12 w-12 text-blue-600/50" />
-                </div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-4">Coming Soon</h2>
-                <p className="text-gray-600 max-w-md mx-auto">
-                  We're working on exciting travel stories and guides. Check back soon!
-                </p>
               </div>
-            )}
-          </div>
+              <div className="p-8 md:p-10 flex flex-col justify-center">
+                <div className="flex items-center gap-3 mb-4">
+                  <span className="bg-[#FF5635]/10 text-[#FF5635] text-xs font-semibold px-3 py-1 rounded-full font-sans">Featured Article</span>
+                  {formatDate(featuredPost.publishedAt) && (
+                    <span className="text-[#180204]/40 text-sm font-sans flex items-center gap-1">
+                      <Calendar className="w-3.5 h-3.5" />
+                      {formatDate(featuredPost.publishedAt)}
+                    </span>
+                  )}
+                </div>
+                <h2 className="text-2xl sm:text-3xl text-[#180204] mb-4 group-hover:text-[#FF5635] transition-colors">
+                  {featuredPost.title}
+                </h2>
+                {featuredPost.author?.name && (
+                  <div className="flex items-center gap-2 mb-4">
+                    <User className="w-4 h-4 text-[#180204]/40" />
+                    <span className="text-[#180204]/50 text-sm font-sans">{featuredPost.author.name}</span>
+                  </div>
+                )}
+                {featuredPost.excerpt && (
+                  <p className="text-[#180204]/60 leading-relaxed mb-6 line-clamp-3 font-sans">{featuredPost.excerpt}</p>
+                )}
+                <span className="text-[#FF5635] font-semibold flex items-center gap-2 group-hover:gap-3 transition-all font-sans">
+                  Read Article <ArrowRight className="w-4 h-4" />
+                </span>
+              </div>
+            </div>
+          </Link>
         </section>
+      )}
 
-        {/* CTA Section */}
-        <section className="py-20 gradient-primary text-white">
-          <div className="container mx-auto px-6 text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to Experience Greece?
-            </h2>
-            <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Let us help you plan your perfect Greek adventure
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link 
-                href="/quiz" 
-                className="px-8 py-3 bg-white text-blue-600 font-semibold rounded-full hover:bg-pink-50 hover:shadow-lg transition-all"
-              >
-                Start Planning Your Trip
-              </Link>
-              <Link 
-                href="/features" 
-                className="px-8 py-3 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-blue-600 transition-all"
-              >
-                Learn More
-              </Link>
-            </div>
-          </div>
-        </section>
-      </div>
+      {/* ===== LATEST ARTICLES ===== */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <h2 className="text-3xl sm:text-4xl text-[#180204] mb-10">Latest Articles</h2>
 
-      {/* Footer - Match home page */}
-      <footer className="gradient-primary py-12">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <Image 
-                src="/logo.png" 
-                alt="Greek Trip Planner" 
-                width={70} 
-                height={21}
-              />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {latestPosts.map((post: any) => (
+            <Link
+              key={post.slug?.current}
+              href={`/blog/${post.slug?.current}`}
+              className="group bg-white rounded-2xl overflow-hidden border border-[#E6DAD1]/60 card-hover"
+            >
+              <div className="relative h-48 overflow-hidden">
+                {post.mainImage ? (
+                  <Image
+                    src={urlForImage(post.mainImage).width(600).height(400).url()}
+                    alt={post.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-[#FAF6F3] flex items-center justify-center">
+                    <Sun className="w-10 h-10 text-[#E6DAD1]" />
+                  </div>
+                )}
+              </div>
+              <div className="p-5">
+                <h3 className="text-lg text-[#180204] mb-2 group-hover:text-[#FF5635] transition-colors line-clamp-2 font-sans font-semibold">
+                  {post.title}
+                </h3>
+                {formatDate(post.publishedAt) && (
+                  <div className="flex items-center gap-1.5 mb-3">
+                    <Calendar className="w-3.5 h-3.5 text-[#180204]/35" />
+                    <span className="text-[#180204]/40 text-xs font-sans">{formatDate(post.publishedAt)}</span>
+                  </div>
+                )}
+                {post.excerpt && (
+                  <p className="text-[#180204]/55 text-sm leading-relaxed mb-4 line-clamp-3 font-sans">{post.excerpt}</p>
+                )}
+                <span className="text-[#FF5635] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all font-sans">
+                  Read More <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ===== CTA BANNER ===== */}
+      <section className="bg-[#180204] py-16">
+        <div className="max-w-3xl mx-auto px-4 text-center">
+          <h2 className="text-3xl sm:text-4xl text-white mb-4">Ready to Plan Your Greece Trip?</h2>
+          <p className="text-white/60 mb-8 max-w-xl mx-auto">Our AI planner creates personalized itineraries based on your travel style, budget, and interests. Completely free.</p>
+          <Link
+            href="/ai-trip-planner"
+            className="btn-accent px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-3"
+          >
+            Start Planning Free <ArrowRight className="w-5 h-5" />
+          </Link>
+        </div>
+      </section>
+
+      {/* ===== FOOTER ===== */}
+      <footer className="bg-[#180204] border-t border-white/10 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center">
+            <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} className="brightness-0 invert mb-6" />
+            <div className="flex flex-wrap justify-center gap-6 mb-8">
+              <Link href="/how-it-works" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">How it Works</Link>
+              <Link href="/blog" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Blog</Link>
+              <Link href="/about" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
             </div>
-            
-            <div className="flex items-center space-x-8">
-              <Link href="/features" className="text-white/80 hover:text-white transition text-sm">Features</Link>
-              <Link href="/how-it-works" className="text-white/80 hover:text-white transition text-sm">How it Works</Link>
-              <Link href="/blog" className="text-white/80 hover:text-white transition text-sm">Blog</Link>
-              <Link href="/about" className="text-white/80 hover:text-white transition text-sm">About</Link>
-            </div>
-          </div>
-          
-          <div className="mt-8 pt-8 border-t border-white/10">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <p className="text-white/60 text-sm">© 2024 Greek Trip Planner. All rights reserved.</p>
-              <div className="flex items-center gap-6">
-                <a 
-                  href="https://traveltourismdirectory.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-white/80 hover:text-white transition text-sm"
-                >
-                  Travel and Tourism Directory
-                </a>
-                <a 
-                  href="https://bookmarktravel.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  <img 
-                    src="https://bookmarktravel.com/images/bookmarktravel-234.jpg" 
-                    alt="Bookmark Travel" 
-                    width={234}
-                    height={39}
-                    className="h-auto"
+            <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-white/40 text-sm font-sans">&copy; 2026 Greek Trip Planner. All rights reserved.</p>
+              <div className="flex items-center gap-4">
+                <a href="https://traveltourismdirectory.com/" className="text-white/40 hover:text-white/60 transition-colors text-sm font-sans" target="_blank" rel="noopener noreferrer">Travel and Tourism Directory</a>
+                <a href="https://bookmarktravel.com/" target="_blank" rel="noopener noreferrer">
+                  <Image
+                    src="https://bookmarktravel.com/images/bookmarktravel-234.jpg"
+                    alt="Bookmark Travel"
+                    width={117}
+                    height={20}
+                    className="opacity-50 hover:opacity-80 transition-opacity"
+                    unoptimized
                   />
                 </a>
               </div>
@@ -316,6 +234,6 @@ export default async function BlogPage() {
           </div>
         </div>
       </footer>
-    </div>
+    </main>
   )
 }
