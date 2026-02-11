@@ -1,81 +1,149 @@
 /* Custom Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap');
 
 @import "tailwindcss";
 
 @theme inline {
-  /* Main Brand Colors - EXACT from samples */
-  --color-primary-DEFAULT: #05037E;     /* Deep blue from site_sample1 */
-  --color-primary-50: #E8E7F9;
-  --color-primary-100: #D1CFF3;
-  --color-primary-200: #A39FE7;
-  --color-primary-300: #756FDB;
-  --color-primary-400: #473FCF;
-  --color-primary-500: #05037E;
-  --color-primary-600: #040265;
-  --color-primary-700: #03024C;
-  --color-primary-800: #020133;
-  --color-primary-900: #01011A;
+  /* ===== NEW COLOR PALETTE ===== */
   
-  /* Dark Grey - from site_sample2 */
-  --color-dark-DEFAULT: #0C0D0F;
-  --color-dark-50: #E6E6E7;
-  --color-dark-100: #CDCDCF;
-  --color-dark-200: #9B9B9F;
-  --color-dark-300: #69696F;
-  --color-dark-400: #37383F;
-  --color-dark-500: #0C0D0F;
-  --color-dark-600: #0A0A0C;
-  --color-dark-700: #070809;
-  --color-dark-800: #050506;
-  --color-dark-900: #020303;
+  /* Primary Blue (existing, kept) */
+  --color-primary-DEFAULT: #2C73FF;
+  --color-primary-50: #EBF1FF;
+  --color-primary-100: #D6E4FF;
+  --color-primary-200: #ADC8FF;
+  --color-primary-300: #85ADFF;
+  --color-primary-400: #5C91FF;
+  --color-primary-500: #2C73FF;
+  --color-primary-600: #0052E0;
+  --color-primary-700: #003DAB;
+  --color-primary-800: #002975;
+  --color-primary-900: #001440;
   
-  /* Accent Colors - EXACT from samples */
-  --color-accent-pink: #FF7CE6;         /* Pink from site_sample2 */
-  --color-accent-lightblue: #DCE6FF;    /* Light blue-grey bg from site_sample3 */
-  --color-accent-green: #46F2B6;        /* Light green card from site_sample3 */
-  --color-accent-mauve: #9788FF;        /* Mauve card from site_sample3 */
-  --color-accent-blue: #2C73FF;         /* Blue card from site_sample3 */
-  --color-accent-darkgreen: #02522B;    /* Green card from site_sample3 */
-  --color-accent-cyan: #22D3EE;         /* Keep cyan for variety */
-  --color-accent-purple: #A855F7;       /* Keep purple */
+  /* Accent Orange */
+  --color-accent-DEFAULT: #FF5635;
+  --color-accent-50: #FFF0ED;
+  --color-accent-100: #FFE0DA;
+  --color-accent-200: #FFC1B5;
+  --color-accent-300: #FFA391;
+  --color-accent-400: #FF846C;
+  --color-accent-500: #FF5635;
+  --color-accent-600: #E03A1A;
+  --color-accent-700: #AB2D14;
+  --color-accent-800: #75200E;
+  --color-accent-900: #401208;
   
-  /* Background Colors */
-  --color-bg-light: #F8FAFC;
-  --color-bg-card: #FFFFFF;
+  /* Dark Brown */
+  --color-dark-DEFAULT: #180204;
+  --color-dark-50: #F5E8E9;
+  --color-dark-100: #E8CDCF;
+  --color-dark-200: #C49A9D;
+  --color-dark-300: #9F676B;
+  --color-dark-400: #5C2A2E;
+  --color-dark-500: #180204;
+  --color-dark-600: #140203;
+  --color-dark-700: #100102;
+  --color-dark-800: #0C0102;
+  --color-dark-900: #080001;
+
+  /* Warm Grey / Cream */
+  --color-cream-DEFAULT: #FAF6F3;
+  --color-cream-50: #FFFFFF;
+  --color-cream-100: #FAF6F3;
+  --color-cream-200: #F0E8E2;
+  --color-cream-300: #E6DAD1;
+  --color-cream-400: #DCCCC0;
+  --color-cream-500: #D2BEAF;
   
-  /* Text Colors */
-  --color-text-primary: #0F172A;
-  --color-text-secondary: #64748B;
-  --color-text-light: #94A3B8;
+  /* Font families */
+  --font-serif: 'DM Serif Display', Georgia, 'Times New Roman', serif;
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-body {
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: var(--color-bg-light);
-}
+/* ===== BASE STYLES ===== */
 
 html {
   scroll-behavior: smooth;
 }
 
-/* Custom animations */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
+body {
+  font-family: var(--font-sans);
+  color: var(--color-dark-DEFAULT);
+  background-color: var(--color-cream-DEFAULT);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px rgba(255, 124, 230, 0.3); }
-  50% { box-shadow: 0 0 40px rgba(255, 124, 230, 0.6); }
+/* ===== TYPOGRAPHY ===== */
+
+/* Serif headings */
+h1, h2, h3, .font-serif {
+  font-family: var(--font-serif);
 }
 
-@keyframes slide-up-fade {
+/* ===== UTILITY CLASSES ===== */
+
+/* Accent link/button style */
+.btn-accent {
+  background-color: var(--color-accent-DEFAULT);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-accent:hover {
+  background-color: var(--color-accent-600);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 86, 53, 0.35);
+}
+
+/* Primary CTA */
+.btn-primary {
+  background-color: var(--color-primary-DEFAULT);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-600);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(44, 115, 255, 0.35);
+}
+
+/* Gradient backgrounds */
+.gradient-primary {
+  background: linear-gradient(135deg, #180204 0%, #3a1012 100%);
+}
+
+.gradient-warm {
+  background: linear-gradient(135deg, #FF5635 0%, #FF846C 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, #FF5635 0%, #2C73FF 100%);
+}
+
+.gradient-hero {
+  background: linear-gradient(180deg, rgba(24,2,4,0.55) 0%, rgba(24,2,4,0.25) 40%, rgba(24,2,4,0.45) 100%);
+}
+
+/* Keep old gradient classes for backwards compatibility */
+.gradient-pink {
+  background: linear-gradient(135deg, #FF5635 0%, #FF846C 100%);
+}
+
+.gradient-dark {
+  background: linear-gradient(135deg, #180204 0%, #3a1012 100%);
+}
+
+.gradient-blue {
+  background: linear-gradient(135deg, #2C73FF 0%, #0052E0 100%);
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes fade-in-up {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(24px);
   }
   to {
     opacity: 1;
@@ -83,53 +151,66 @@ html {
   }
 }
 
-.animate-float {
-  animation: float 3s ease-in-out infinite;
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes subtle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 86, 53, 0.3); }
+  50% { box-shadow: 0 0 20px 4px rgba(255, 86, 53, 0.15); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.7s ease-out forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+}
+
+.animate-subtle-float {
+  animation: subtle-float 4s ease-in-out infinite;
 }
 
 .animate-pulse-glow {
-  animation: pulse-glow 2s ease-in-out infinite;
+  animation: pulse-glow 2.5s ease-in-out infinite;
 }
 
-.animate-slide-up-fade {
-  animation: slide-up-fade 0.6s ease-out forwards;
+/* Stagger delays */
+.delay-100 { animation-delay: 100ms; }
+.delay-200 { animation-delay: 200ms; }
+.delay-300 { animation-delay: 300ms; }
+.delay-400 { animation-delay: 400ms; }
+.delay-500 { animation-delay: 500ms; }
+
+/* ===== CUSTOM COMPONENTS ===== */
+
+/* Card hover effects */
+.card-hover {
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-/* Gradient backgrounds - Using exact colors */
-.gradient-primary {
-  background: linear-gradient(135deg, #05037E 0%, #2C73FF 100%);
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(24, 2, 4, 0.12);
 }
 
-.gradient-dark {
-  background: linear-gradient(135deg, #0C0D0F 0%, #37383F 100%);
-}
-
-.gradient-pink {
-  background: linear-gradient(135deg, #FF7CE6 0%, #9788FF 100%);
-}
-
-.gradient-blue {
-  background: linear-gradient(135deg, #2C73FF 0%, #05037E 100%);
-}
-
-.gradient-green {
-  background: linear-gradient(135deg, #46F2B6 0%, #02522B 100%);
-}
-
-.gradient-multicolor {
-  background: linear-gradient(135deg, #46F2B6 0%, #9788FF 50%, #FF7CE6 100%);
-}
-
-/* Mindtrip-style Utilities */
+/* Rounded utilities */
 .rounded-4xl {
-  border-radius: 2rem; /* 32px */
+  border-radius: 2rem;
 }
 
 .rounded-5xl {
-  border-radius: 2.5rem; /* 40px */
+  border-radius: 2.5rem;
 }
 
-/* Hide scrollbar for horizontal scroll sections */
+/* Scrollbar hidden */
 .scrollbar-hidden {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -138,75 +219,30 @@ html {
 .scrollbar-hidden::-webkit-scrollbar {
   display: none;
 }
-/* ============================================
-   HTML EMBED TABLE STYLES
-   Add this to your globals.css file
-   (at the end of the file, after existing styles)
-   ============================================ */
 
-.html-embed-container table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.95rem;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e5e7eb;
+/* Divider accent */
+.divider-accent {
+  width: 48px;
+  height: 3px;
+  background-color: var(--color-accent-DEFAULT);
+  border-radius: 2px;
 }
 
-.html-embed-container thead tr {
-  background-color: #2563eb;
-  color: white;
+/* Section spacing */
+.section-padding {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
-.html-embed-container th {
-  padding: 12px 16px;
-  text-align: left;
-  font-weight: 600;
-  white-space: nowrap;
-  border-bottom: 2px solid #1d4ed8;
-}
-
-.html-embed-container td {
-  padding: 12px 16px;
-  color: #374151;
-  border-bottom: 1px solid #f3f4f6;
-}
-
-.html-embed-container tbody tr:nth-child(even) {
-  background-color: #f9fafb;
-}
-
-.html-embed-container tbody tr:nth-child(odd) {
-  background-color: white;
-}
-
-.html-embed-container tbody tr:hover {
-  background-color: #eff6ff;
-  transition: background-color 0.15s ease;
-}
-
-/* First column bold (island names) */
-.html-embed-container td:first-child {
-  font-weight: 600;
-  color: #111827;
-}
-
-/* Responsive: horizontal scroll on mobile */
-@media (max-width: 768px) {
-  .html-embed-container {
-    margin-left: -1rem;
-    margin-right: -1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+@media (min-width: 768px) {
+  .section-padding {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
   }
+}
 
-  .html-embed-container table {
-    font-size: 0.85rem;
-  }
-
-  .html-embed-container th,
-  .html-embed-container td {
-    padding: 8px 12px;
-  }
+/* Text selection color */
+::selection {
+  background-color: rgba(255, 86, 53, 0.15);
+  color: var(--color-dark-DEFAULT);
 }
