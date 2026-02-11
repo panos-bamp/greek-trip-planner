@@ -1,351 +1,291 @@
-import { Metadata } from 'next'
-import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, Check, Clock, Target, Zap, Users, MapPin, Heart } from 'lucide-react'
+import Link from 'next/link'
+import { ArrowRight, CheckCircle, Clock, MapPin, Star, Compass, Ship, ChevronDown, Sun, Utensils, Landmark, Heart, Gem, Shield, Sparkles, Users, Zap, Globe, Calendar, Camera } from 'lucide-react'
 
-export const metadata: Metadata = {
-  title: 'How to Plan a Greece Trip with AI | Step-by-Step Guide',
-  description: 'Learn how to plan a Greece trip in minutes with our AI planner. Simple 3-step process for creating perfect itineraries. No planning experience needed!',
+export const metadata = {
+  title: 'How It Works | Greek Trip Planner — AI-Powered Greece Itineraries',
+  description: 'Learn how our free AI trip planner creates personalized Greece itineraries in 3 minutes. Real ferry schedules, local expertise, and smart recommendations for every traveler.',
   openGraph: {
-    title: 'How to Plan a Greece Trip with AI | Step-by-Step Guide',
-    description: 'Learn how to plan a Greece trip in minutes with our AI planner.',
-    images: ['/how-it-works-og.jpg'],
+    title: 'How It Works | Greek Trip Planner',
+    description: 'Learn how our free AI trip planner creates personalized Greece itineraries in 3 minutes.',
+    url: 'https://greektriplanner.me/how-it-works',
+    siteName: 'Greek Trip Planner',
+    images: [{ url: '/hero-acropolis.jpg', width: 1200, height: 630 }],
+    type: 'website',
   },
 }
 
 export default function HowItWorksPage() {
   return (
-    <main className="min-h-screen bg-white">
-      {/* Navigation - Same as home page */}
-      <nav className="fixed top-0 w-full bg-white shadow-sm z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-3">
-              <Image 
-                src="/logo.png" 
-                alt="Greek Trip Planner" 
-                width={70} 
-                height={21}
-                priority
-              />
+    <main className="min-h-screen bg-[#FAF6F3]">
+
+      {/* ===== NAVIGATION ===== */}
+      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 border-b border-[#E6DAD1]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center">
+            <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} priority />
+          </Link>
+          <div className="hidden md:flex items-center gap-8">
+            <Link href="/how-it-works" className="text-[#FF5635] transition-colors text-sm font-semibold">How it Works</Link>
+            <Link href="/blog" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">Blog</Link>
+            <Link href="/about" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">About</Link>
+            <Link
+              href="/ai-trip-planner"
+              className="btn-accent px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2"
+            >
+              Start Planning <ArrowRight className="w-4 h-4" />
             </Link>
-            
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/features" className="text-gray-700 hover:text-primary transition font-medium">Features</Link>
-              <Link href="/how-it-works" className="text-gray-700 hover:text-primary transition font-medium">How it Works</Link>
-              <Link href="/blog" className="text-gray-700 hover:text-primary transition font-medium">Blog</Link>
-              <Link href="/about" className="text-gray-700 hover:text-primary transition font-medium">About</Link>
-              <Link 
-                href="/quiz"
-                className="px-6 py-3 gradient-pink text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all flex items-center space-x-2"
-              >
-                <span>Start Planning</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
           </div>
+          <Link href="/ai-trip-planner" className="md:hidden btn-accent px-4 py-2 rounded-full text-sm font-semibold">
+            Start Planning
+          </Link>
         </div>
       </nav>
 
-      {/* Hero Section with Background Image */}
-      <section className="pt-32 pb-20 relative overflow-hidden">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <Image
-            src="/hero-acropolis.jpg"
-            alt="Plan your Greece trip"
-            fill
-            className="object-cover"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary/60 to-transparent"></div>
-        </div>
+      {/* ===== PAGE HERO ===== */}
+      <section className="relative pt-28 pb-16 md:pt-36 md:pb-20 overflow-hidden">
+        {/* Subtle background pattern */}
+        <div className="absolute inset-0 bg-[#FAF6F3]" />
+        <div className="absolute top-0 right-0 w-96 h-96 bg-[#FF5635]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+        <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#2C73FF]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
 
-        {/* Content */}
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            How to Plan a Greece Trip in 3 Easy Steps
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2 bg-[#FF5635]/10 rounded-full px-4 py-1.5 mb-6">
+            <Sparkles className="w-4 h-4 text-[#FF5635]" />
+            <span className="text-[#FF5635] text-sm font-semibold">Simple · Smart · Free</span>
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl text-[#180204] leading-[1.08] mb-6">
+            From <span className="text-[#FF5635]">Questions</span> to<br />
+            Your Perfect Itinerary
           </h1>
-          <p className="text-xl text-white/90 leading-relaxed max-w-3xl mx-auto">
-            Planning a Greece trip used to mean hours of research, comparing ferry schedules, and second-guessing your choices. Not anymore. Our AI-powered planner makes it simple to plan a Greece trip that perfectly matches your style, budget, and timeframe—no travel expertise required.
+
+          <p className="text-lg text-[#180204]/60 leading-relaxed max-w-2xl mx-auto mb-10">
+            Our AI combines your personal preferences with 15+ years of local Greek expertise to create day-by-day itineraries that actually work. Here&apos;s how it all comes together.
           </p>
 
-          {/* Quick Stats */}
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-              <div className="text-3xl font-bold text-white mb-1">2-3</div>
-              <div className="text-sm text-white/80">minutes</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-              <div className="text-3xl font-bold text-white mb-1">100%</div>
-              <div className="text-sm text-white/80">personalized</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-              <div className="text-3xl font-bold text-white mb-1">$0</div>
-              <div className="text-sm text-white/80">completely free</div>
-            </div>
-            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20">
-              <div className="text-3xl font-bold text-white mb-1">📱</div>
-              <div className="text-sm text-white/80">any device</div>
-            </div>
-          </div>
+          <Link
+            href="/ai-trip-planner"
+            className="btn-accent px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-3"
+          >
+            Try It Now — It&apos;s Free <ArrowRight className="w-5 h-5" />
+          </Link>
         </div>
       </section>
 
-      {/* Traditional vs Our Way Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
-            Why Planning a Greece Trip Used to Be Overwhelming
-          </h2>
-          <p className="text-lg text-gray-600 mb-12 text-center max-w-3xl mx-auto leading-relaxed">
-            Most people spend their entire vacation planning time just trying to figure out logistics. We handle that for you so you can focus on getting excited about your trip.
-          </p>
+      {/* ===== THE 3-STEP PROCESS ===== */}
+      <section className="section-padding bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div className="grid md:grid-cols-2">
-              {/* Traditional Way */}
-              <div className="p-8 border-r border-gray-200">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">Traditional Planning</h3>
-                <div className="space-y-4">
-                  {[
-                    '10-20 hours of research',
-                    'Reading dozens of blog posts',
-                    'Manually checking ferry schedules',
-                    'Guessing realistic timing',
-                    'Unsure if you\'re missing something',
-                    'Generic "10 best places" lists',
-                    'No budget guidance'
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-start space-x-3">
-                      <span className="text-red-500 mt-1">✗</span>
-                      <span className="text-gray-700 leading-relaxed">{item}</span>
-                    </div>
-                  ))}
-                </div>
+          {/* STEP 1 — Tell Us */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-24 lg:mb-32">
+            {/* Image */}
+            <div className="relative">
+              <div className="rounded-4xl overflow-hidden aspect-[4/3] relative">
+                <Image
+                  src="/Santorini_Evening_Glow.jpg"
+                  alt="Smart AI personalization for your Greece trip"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/30 to-transparent" />
               </div>
-
-              {/* Our Way */}
-              <div className="p-8 bg-gradient-to-br from-blue-50 to-purple-50">
-                <h3 className="text-xl font-bold text-gray-900 mb-6">With Our AI Planner</h3>
-                <div className="space-y-4">
-                  {[
-                    '3 minutes total',
-                    'Answer 8 simple questions',
-                    'Automatic route optimization',
-                    'AI calculates actual travel times',
-                    'Comprehensive coverage guaranteed',
-                    'Personalized to YOUR interests',
-                    'Clear cost estimates'
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-start space-x-3">
-                      <Check className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700 leading-relaxed">{item}</span>
-                    </div>
-                  ))}
-                </div>
+              {/* Step badge */}
+              <div className="absolute -top-4 -left-4 w-16 h-16 bg-[#FF5635] rounded-2xl flex flex-col items-center justify-center shadow-lg">
+                <span className="text-white/60 text-[10px] font-sans font-medium uppercase tracking-wider">Step</span>
+                <span className="text-white text-2xl font-bold font-sans leading-none">1</span>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Step-by-Step Process */}
-      <section className="py-20">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
-            Our Simple 3-Step Process to Plan Your Greece Vacation
-          </h2>
-          <p className="text-lg text-gray-600 mb-16 text-center max-w-3xl mx-auto leading-relaxed">
-            From start to finish in less time than it takes to brew your morning coffee
-          </p>
-
-          {/* Step 1 */}
-          <div className="mb-20">
-            <div className="flex items-center mb-8">
-              <div className="w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xl mr-4">1</div>
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900">Tell Us About Your Dream Trip</h3>
-            </div>
-            
-            <div className="bg-gray-50 rounded-2xl p-8">
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                Takes 2 minutes. Answer questions about your travel style, interests, and preferences.
+            {/* Content */}
+            <div>
+              <h2 className="text-3xl sm:text-4xl text-[#180204] mb-5">Tell Us About Your Dream Trip</h2>
+              <p className="text-[#180204]/65 text-lg leading-relaxed mb-8">
+                Answer 11 quick questions — it takes about 3 minutes, like chatting with a friend who happens to be a Greece expert. We learn what matters to YOU, not what generic travel algorithms assume.
               </p>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              {/* What we ask */}
+              <div className="space-y-4">
                 {[
-                  { icon: <Clock className="w-5 h-5" />, title: 'Trip Duration', desc: 'How many days? (3-21 days)', why: 'Different trip lengths need different approaches' },
-                  { icon: <Users className="w-5 h-5" />, title: 'Travel Style', desc: 'Relaxed, balanced, or adventure?', why: 'Your pace determines daily activities' },
-                  { icon: <MapPin className="w-5 h-5" />, title: 'Destinations', desc: 'Athens, Santorini, Mykonos?', why: 'We optimize routes and connections' },
-                  { icon: <Target className="w-5 h-5" />, title: 'Budget Range', desc: 'Budget, mid-range, or luxury?', why: 'Affects accommodation & dining' }
-                ].map((item, i) => (
-                  <div key={i} className="bg-white rounded-xl p-6 border border-gray-200">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <div className="text-blue-500">{item.icon}</div>
-                      <h4 className="font-bold text-gray-900">{item.title}</h4>
+                  { icon: Calendar, label: 'Travel dates & trip length', desc: 'So we can account for seasonal conditions, crowds, and pricing' },
+                  { icon: Users, label: 'Who you\'re traveling with', desc: 'Solo, couple, family, or friends — each gets a different vibe' },
+                  { icon: Heart, label: 'Your interests & pace', desc: 'Beaches vs. history, fast-paced vs. relaxed, nightlife vs. quiet villages' },
+                  { icon: Star, label: 'Budget & travel style', desc: 'Backpacker to luxury — we match recommendations to your comfort level' },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-[#FF5635]/10 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <item.icon className="w-5 h-5 text-[#FF5635]" />
                     </div>
-                    <p className="text-gray-700 text-sm mb-2 leading-relaxed">{item.desc}</p>
-                    <p className="text-gray-500 text-sm leading-relaxed">💡 <em>{item.why}</em></p>
+                    <div>
+                      <div className="text-[#180204] font-sans font-semibold text-sm">{item.label}</div>
+                      <div className="text-[#180204]/50 text-sm font-sans">{item.desc}</div>
+                    </div>
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
 
-              <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-6">
-                <p className="text-gray-700 leading-relaxed">
-                  <strong>Why This Works:</strong> Our questions aren't generic. Each one directly influences your itinerary. We're not asking for information we won't use—every answer shapes your personalized Greece trip plan.
-                </p>
+          {/* STEP 2 — AI Magic */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-24 lg:mb-32">
+            {/* Content (left on desktop) */}
+            <div className="lg:order-1">
+              <h2 className="text-3xl sm:text-4xl text-[#180204] mb-5">Our AI Does the Heavy Lifting</h2>
+              <p className="text-[#180204]/65 text-lg leading-relaxed mb-8">
+                This isn&apos;t ChatGPT with a Greece prompt. Our AI is built on a proprietary knowledge base — real ferry data, vetted restaurant picks, tested island-hopping routes, and insights from 15+ years of actually living in Greece.
+              </p>
+
+              {/* What the AI does */}
+              <div className="space-y-4">
+                {[
+                  { icon: Ship, label: 'Cross-references real ferry routes', desc: 'Actual schedules, connection times, and port logistics — not guesswork' },
+                  { icon: MapPin, label: 'Optimizes geographic flow', desc: 'No backtracking or wasted travel days — the right island order matters' },
+                  { icon: Clock, label: 'Builds realistic daily timing', desc: 'Travel time, meal breaks, rest periods, and site visit durations factored in' },
+                  { icon: Utensils, label: 'Matches local knowledge to your style', desc: 'Romantic taverna for couples, family-friendly beach for kids, nightlife for friends' },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-[#2C73FF]/10 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <item.icon className="w-5 h-5 text-[#2C73FF]" />
+                    </div>
+                    <div>
+                      <div className="text-[#180204] font-sans font-semibold text-sm">{item.label}</div>
+                      <div className="text-[#180204]/50 text-sm font-sans">{item.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Image */}
+            <div className="relative lg:order-2">
+              <div className="rounded-4xl overflow-hidden aspect-[4/3] relative">
+                <Image
+                  src="/Mykonos_Architecture.jpg"
+                  alt="Local insider knowledge built into our AI"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/30 to-transparent" />
+              </div>
+              <div className="absolute -top-4 -right-4 w-16 h-16 bg-[#2C73FF] rounded-2xl flex flex-col items-center justify-center shadow-lg">
+                <span className="text-white/60 text-[10px] font-sans font-medium uppercase tracking-wider">Step</span>
+                <span className="text-white text-2xl font-bold font-sans leading-none">2</span>
               </div>
             </div>
           </div>
 
-          {/* Step 2 */}
-          <div className="mb-20">
-            <div className="flex items-center mb-8">
-              <div className="w-12 h-12 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-xl mr-4">2</div>
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900">Our AI Creates Your Perfect Itinerary</h3>
+          {/* STEP 3 — Get & Customize */}
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+            {/* Image */}
+            <div className="relative">
+              <div className="rounded-4xl overflow-hidden aspect-[4/3] relative">
+                <Image
+                  src="/Meteora_Sunset_View.jpg"
+                  alt="Get your personalized Greece itinerary"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/30 to-transparent" />
+              </div>
+              <div className="absolute -top-4 -left-4 w-16 h-16 bg-[#180204] rounded-2xl flex flex-col items-center justify-center shadow-lg">
+                <span className="text-white/60 text-[10px] font-sans font-medium uppercase tracking-wider">Step</span>
+                <span className="text-white text-2xl font-bold font-sans leading-none">3</span>
+              </div>
             </div>
-            
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8">
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                Takes 60 seconds. While you wait, our AI is working hard behind the scenes:
+
+            {/* Content */}
+            <div>
+              <h2 className="text-3xl sm:text-4xl text-[#180204] mb-5">Your Itinerary, Your Rules</h2>
+              <p className="text-[#180204]/65 text-lg leading-relaxed mb-8">
+                Receive a complete day-by-day plan — then make it yours. Swap activities, adjust timing, add your own discoveries. Think of it as the perfect starting point from someone who really knows Greece.
               </p>
 
-              <div className="grid gap-4">
+              {/* What you get */}
+              <div className="space-y-4">
                 {[
-                  { title: 'Route Optimization', desc: 'Analyzes all destination combinations, minimizes backtracking, considers ferry schedules and seasonal availability' },
-                  { title: 'Timing Calculations', desc: 'Real ferry durations, actual walking times, check-in/check-out logistics, buffer time for delays' },
-                  { title: 'Personalization Engine', desc: 'Matches attractions to your interests, filters by budget, adjusts intensity to travel style' },
-                  { title: 'Local Intelligence', desc: 'Database of 500+ restaurants, hidden gems, cultural tips, seasonal recommendations, photo spots' },
-                  { title: 'Budget Estimation', desc: 'Accommodation costs, meal expenses, transport, attractions, money-saving alternatives' }
-                ].map((item, i) => (
-                  <div key={i} className="bg-white rounded-xl p-6 border border-purple-200">
-                    <h4 className="font-bold text-gray-900 mb-2">{item.title}</h4>
-                    <p className="text-gray-700 text-sm leading-relaxed">{item.desc}</p>
+                  { icon: Calendar, label: 'Day-by-day schedule', desc: 'Morning, afternoon, evening — every part of your day thoughtfully planned' },
+                  { icon: Compass, label: 'Island-hopping route', desc: 'The optimal sequence with ferry connections that actually work' },
+                  { icon: Camera, label: 'Hidden gems & insider tips', desc: 'Secret beaches, local festivals, viewpoints tourists never find' },
+                  { icon: Zap, label: 'Fully editable', desc: 'Your plan, your trip — adjust anything and make it uniquely yours' },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-start gap-4">
+                    <div className="w-10 h-10 bg-[#180204]/8 rounded-xl flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <item.icon className="w-5 h-5 text-[#180204]" />
+                    </div>
+                    <div>
+                      <div className="text-[#180204] font-sans font-semibold text-sm">{item.label}</div>
+                      <div className="text-[#180204]/50 text-sm font-sans">{item.desc}</div>
+                    </div>
                   </div>
                 ))}
-              </div>
-
-              <div className="mt-6 bg-purple-100 border border-purple-300 rounded-xl p-6">
-                <p className="text-gray-700 leading-relaxed">
-                  <strong>The Result:</strong> A comprehensive, realistic itinerary that actually works in the real world—not a "see 5 islands in 3 days" fantasy that leaves you exhausted.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Step 3 */}
-          <div>
-            <div className="flex items-center mb-8">
-              <div className="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-xl mr-4">3</div>
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-900">Download, Customize, and Go</h3>
-            </div>
-            
-            <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-8">
-              <p className="text-lg text-gray-700 mb-6 leading-relaxed">
-                You receive a comprehensive travel guide with everything you need:
-              </p>
-
-              <div className="grid md:grid-cols-2 gap-4">
-                {[
-                  { icon: '📅', title: 'Day-by-Day Schedule', desc: 'Morning, afternoon, evening activities with specific timing and realistic pacing' },
-                  { icon: '🗺️', title: 'Interactive Maps', desc: 'All locations marked, walking routes, ferry terminals, transportation methods' },
-                  { icon: '🏨', title: 'Accommodation Guide', desc: 'Specific neighborhoods, why recommended, booking timing advice' },
-                  { icon: '🍽️', title: 'Restaurant Recommendations', desc: 'Authentic tavernas, must-try dishes, dietary options, price ranges' },
-                  { icon: '💡', title: 'Insider Tips', desc: 'What to skip, best times to visit, local customs, photography tips' },
-                  { icon: '💰', title: 'Budget Breakdown', desc: 'Daily costs, expenses by category, money-saving tips, where to splurge' }
-                ].map((item, i) => (
-                  <div key={i} className="bg-white rounded-xl p-6 border border-green-200">
-                    <div className="text-3xl mb-3">{item.icon}</div>
-                    <h4 className="font-bold text-gray-900 mb-2">{item.title}</h4>
-                    <p className="text-gray-700 text-sm leading-relaxed">{item.desc}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6 bg-green-100 border border-green-300 rounded-xl p-6">
-                <p className="text-gray-700 leading-relaxed">
-                  <strong>Customize Everything:</strong> Don't like a recommendation? Change it! Your itinerary is fully editable. Add or remove activities, adjust timing, swap restaurants, or regenerate with different parameters.
-                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Why This Method Works */}
-      <section className="py-20 bg-gray-900 text-white">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-center">
-            The Science Behind Planning a Perfect Greece Trip
-          </h2>
-          <p className="text-lg text-gray-300 mb-16 text-center max-w-3xl mx-auto leading-relaxed">
-            Our AI analyzed thousands of successful Greece trips to understand what actually works
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-              <div className="w-12 h-12 rounded-full bg-blue-500 flex items-center justify-center mb-6">
-                <Zap className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Based on Real Data</h3>
-              <p className="text-gray-300 leading-relaxed">
-                Analyzed thousands of successful Greece trips. We know how much time people actually spend at attractions, which ferry connections have delays, and which restaurants get packed.
-              </p>
-            </div>
-
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-              <div className="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center mb-6">
-                <MapPin className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Optimized for Greek Reality</h3>
-              <p className="text-gray-300 leading-relaxed">
-                Greece operates differently. Siesta culture, ferry schedules that aren't always punctual, island distances farther than they look, seasonal variations. Our AI knows these nuances.
-              </p>
-            </div>
-
-            <div className="bg-white/5 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-              <div className="w-12 h-12 rounded-full bg-green-500 flex items-center justify-center mb-6">
-                <Heart className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-4">Avoids Common Mistakes</h3>
-              <p className="text-gray-300 leading-relaxed">
-                Too many islands in too few days, not accounting for ferry time, underestimating Athens traffic, booking too far from action. Our planner prevents these automatically.
-              </p>
-            </div>
+      {/* ===== FEATURES — What's Included ===== */}
+      <section className="section-padding bg-[#FAF6F3]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="divider-accent mx-auto mb-4" />
+            <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Everything Your Trip Needs</h2>
+            <p className="text-[#180204]/60 max-w-xl mx-auto">Built-in features that replace hours of research and expensive travel agents</p>
           </div>
-        </div>
-      </section>
 
-      {/* Comparison Section */}
-      <section className="py-20">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
-            How to Plan a Greece Trip: Comparing Your Options
-          </h2>
-          <p className="text-lg text-gray-600 mb-12 text-center max-w-3xl mx-auto leading-relaxed">
-            See how different planning methods stack up
-          </p>
-
+          {/* Feature cards — 2x3 grid */}
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { name: 'DIY Manual', time: '15-20 hrs', cost: 'Free', pros: 'Complete control', cons: 'Overwhelming, likely miss tips' },
-              { name: 'Travel Agent', time: '3-5 hrs', cost: '$100-500', pros: 'Expert guidance', cons: 'Expensive, limited personalization' },
-              { name: 'Guided Tour', time: 'Minimal', cost: '$2,000+', pros: 'Everything arranged', cons: 'Expensive, fixed schedule' },
-              { name: 'Generic AI', time: '5-10 min', cost: '$10-30', pros: 'Fast, cheap', cons: 'Generic, unrealistic timing' },
-              { name: 'Our Greece AI ⭐', time: '3 min', cost: 'FREE', pros: 'Fast, personalized, expert', cons: 'Requires internet', featured: true }
-            ].map((method, i) => (
-              <div key={i} className={`rounded-2xl p-6 border-2 ${method.featured ? 'border-blue-500 bg-blue-50' : 'border-gray-200 bg-white'}`}>
-                {method.featured && (
-                  <div className="inline-block bg-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full mb-4">
-                    RECOMMENDED
+              {
+                icon: Ship,
+                title: 'Island Hopping Routes',
+                desc: 'Optimized ferry schedules and routes connecting the most beautiful Greek islands. We plan the perfect island-hopping sequence so you never miss a connection or waste a day on logistics.',
+                img: '/Santorini_Evening_Glow.jpg',
+              },
+              {
+                icon: Heart,
+                title: 'Authentic Experiences',
+                desc: 'From cooking classes to sunset sailing, discover authentic Greek experiences and hidden tavernas you won\'t find in guidebooks. Activities matched to your interests and travel style.',
+                img: '/Mykonos_Architecture.jpg',
+              },
+              {
+                icon: Star,
+                title: 'Budget Optimization',
+                desc: 'Smart recommendations for every budget level. Stretch your euros further with insider tips, seasonal deals, shoulder-season suggestions, and money-saving strategies that don\'t sacrifice quality.',
+                img: '/Paros_Cyclades_Charm.jpg',
+              },
+              {
+                icon: Landmark,
+                title: 'Historical Expertise',
+                desc: 'Skip-the-line strategies, best times to visit ancient sites, and cultural context that brings 3,000 years of history to life. Know what to prioritize and what to skip.',
+                img: '/hero-acropolis.jpg',
+              },
+              {
+                icon: Utensils,
+                title: 'Local Dining Guide',
+                desc: 'Authentic Greek cuisine from seaside tavernas to hidden mountain spots. Every restaurant is a place where locals actually eat — not tourist traps near the entrance of attractions.',
+                img: '/Crete_Knossos_Ruins.jpg',
+              },
+              {
+                icon: Gem,
+                title: 'Hidden Gems',
+                desc: 'Discover secret beaches, local festivals, and off-the-beaten-path villages that tourist guidebooks never mention. The places that make a trip unforgettable, curated from 15+ years of living here.',
+                img: '/Corfu_Beach_Paradise.jpg',
+              },
+            ].map((feature) => (
+              <div key={feature.title} className="bg-white rounded-3xl overflow-hidden card-hover group">
+                <div className="relative h-44 overflow-hidden">
+                  <Image src={feature.img} alt={feature.title} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/40 to-transparent" />
+                  <div className="absolute bottom-4 left-4">
+                    <div className="bg-[#FF5635] w-10 h-10 rounded-xl flex items-center justify-center">
+                      <feature.icon className="w-5 h-5 text-white" />
+                    </div>
                   </div>
-                )}
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{method.name}</h3>
-                <div className="space-y-2 text-sm">
-                  <p><strong>Time:</strong> <span className="text-gray-700">{method.time}</span></p>
-                  <p><strong>Cost:</strong> <span className="text-gray-700">{method.cost}</span></p>
-                  <p><strong>Pros:</strong> <span className="text-gray-700">{method.pros}</span></p>
-                  <p><strong>Cons:</strong> <span className="text-gray-700">{method.cons}</span></p>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl text-[#180204] mb-2 font-sans font-semibold">{feature.title}</h3>
+                  <p className="text-[#180204]/55 text-sm leading-relaxed">{feature.desc}</p>
                 </div>
               </div>
             ))}
@@ -353,115 +293,193 @@ export default function HowItWorksPage() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 text-center">
-            Common Questions About How to Plan a Greece Trip
-          </h2>
-          
-          <div className="mt-12 space-y-6">
+      {/* ===== SERVICES — Organize It All ===== */}
+      <section className="section-padding bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="divider-accent mx-auto mb-4" />
+            <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">All Your Travel Logistics</h2>
+            <p className="text-[#180204]/60 max-w-xl mx-auto">Organized in one place — no more 47 browser tabs</p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { q: 'Do I need to know anything about Greece before starting?', a: 'Nope! Our questions will guide you. If you know "I want to see Santorini" and "I have 10 days," we can work with that.' },
-              { q: 'What if I don\'t know which islands to visit?', a: 'Tell us your interests (beaches, history, nightlife, etc.) and we\'ll recommend the best islands for you. You can always accept or reject suggestions.' },
-              { q: 'Can I plan a trip if I\'m still deciding dates?', a: 'Absolutely! Plan first, book later. Use the itinerary to help decide if 7 or 10 days works better for what you want to see.' },
-              { q: 'How accurate are your ferry times?', a: 'We use typical ferry schedules, but they change seasonally and year-to-year. Always verify with ferry booking sites closer to your trip.' },
-              { q: 'What if I want to change my itinerary after generating it?', a: 'Easily edit anything in your itinerary or regenerate with different answers. It\'s a starting point you control.' },
-              { q: 'Is this really free?', a: 'Yes! 100% free, no credit card, no catch. We\'re passionate about Greece travel and built this to help people.' }
-            ].map((faq, i) => (
-              <div key={i} className="bg-white rounded-xl p-6 border border-gray-200">
-                <h3 className="text-lg font-bold text-gray-900 mb-3">{faq.q}</h3>
-                <p className="text-gray-700 leading-relaxed">{faq.a}</p>
+              { icon: MapPin, title: 'Hotels & Villas', desc: 'From boutique hotels to luxury villas with Aegean views. We recommend the best areas to stay in each destination, matched to your budget and travel style.' },
+              { icon: Ship, title: 'Flights & Ferries', desc: 'Real ferry schedules, flight connections, and inter-island transportation timing. All the logistics handled so you don\'t miss connections or waste travel days.' },
+              { icon: Utensils, title: 'Tavernas & Dining', desc: 'Authentic Greek cuisine from seaside tavernas to hidden local spots. Every recommendation is a place where Greeks actually eat — not tourist-trap restaurants.' },
+              { icon: Compass, title: 'Tours & Activities', desc: 'Archaeological tours, sailing trips, cooking classes, and adventure activities curated by locals. Matched to your interests and pace preference.' },
+              { icon: Gem, title: 'Hidden Gems', desc: 'Discover secret beaches, local festivals, and off-the-beaten-path villages tourists never find. The experiences that turn a good trip into an unforgettable one.' },
+              { icon: Shield, title: '100% Free Forever', desc: 'No hidden fees, no premium tiers, no credit card required. We believe great travel planning should be accessible to every traveler, regardless of budget.' },
+            ].map((service) => (
+              <div key={service.title} className="bg-[#FAF6F3] rounded-2xl p-7 card-hover group">
+                <div className="w-12 h-12 bg-[#FF5635]/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-[#FF5635] transition-colors duration-300">
+                  <service.icon className="w-6 h-6 text-[#FF5635] group-hover:text-white transition-colors duration-300" />
+                </div>
+                <h3 className="text-lg text-[#180204] mb-2 font-sans font-semibold">{service.title}</h3>
+                <p className="text-[#180204]/55 text-sm leading-relaxed">{service.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 gradient-primary">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Start Planning Your Perfect Greece Vacation Now
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-            You're 3 minutes away from a comprehensive Greece trip plan customized exactly for you. No more reading dozens of contradicting blog posts or stressing about logistics.
-          </p>
-          
-          <Link
-            href="/quiz"
-            className="inline-flex items-center space-x-3 px-10 py-5 bg-white text-primary rounded-full font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all"
-          >
-            <span>Start Planning My Greece Trip</span>
-            <ArrowRight className="w-5 h-5" />
-          </Link>
+      {/* ===== COMPARISON TABLE ===== */}
+      <section className="section-padding bg-[#FAF6F3]">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div className="divider-accent mx-auto mb-4" />
+            <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Stop Wasting Time</h2>
+            <p className="text-[#180204]/60">See how we compare to the alternatives</p>
+          </div>
 
-          {/* Trust Indicators */}
-          <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
-            <div className="text-white/90">
-              <Check className="w-5 h-5 mx-auto mb-2" />
-              <div className="text-sm">Used by 12,000+ travelers</div>
-            </div>
-            <div className="text-white/90">
-              <Check className="w-5 h-5 mx-auto mb-2" />
-              <div className="text-sm">4.9/5 rating</div>
-            </div>
-            <div className="text-white/90">
-              <Check className="w-5 h-5 mx-auto mb-2" />
-              <div className="text-sm">100% free forever</div>
-            </div>
-            <div className="text-white/90">
-              <Check className="w-5 h-5 mx-auto mb-2" />
-              <div className="text-sm">No account required</div>
+          <div className="bg-white rounded-4xl overflow-hidden shadow-sm border border-[#E6DAD1]">
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-[#E6DAD1]">
+                    <th className="text-left p-4 text-[#180204]/50 font-medium font-sans">Feature</th>
+                    <th className="p-4 text-center font-sans">
+                      <span className="text-[#FF5635] font-bold">Greek Trip Planner</span>
+                    </th>
+                    <th className="p-4 text-center text-[#180204]/70 font-medium font-sans">Travel Agencies</th>
+                    <th className="p-4 text-center text-[#180204]/70 font-medium font-sans">Manual Research</th>
+                  </tr>
+                </thead>
+                <tbody className="font-sans">
+                  {[
+                    ['Cost', '100% Free', '€500-2000', 'Free (but...)'],
+                    ['Time to Create', '3 Minutes', '1-2 Weeks', '40+ Hours'],
+                    ['Personalization', 'AI-Customized', 'Generic Packages', 'DIY Effort'],
+                    ['Real Ferry Times', '✓ Included', 'Sometimes', 'Manual Research'],
+                    ['Local Knowledge', '15+ Years', 'Varies', 'Reddit/TripAdvisor'],
+                    ['Instant Results', '✓ Yes', '✗ No', '✗ No'],
+                    ['Editable Plan', '✓ Fully', 'Limited Changes', 'N/A'],
+                    ['Hidden Gems', '✓ Insider Picks', 'Rarely', 'If You\'re Lucky'],
+                  ].map((row, i) => (
+                    <tr key={i} className={i < 7 ? 'border-b border-[#E6DAD1]/60' : ''}>
+                      <td className="p-4 text-[#180204]/70 font-medium">{row[0]}</td>
+                      <td className="p-4 text-center font-semibold text-[#FF5635]">{row[1]}</td>
+                      <td className="p-4 text-center text-[#180204]/50">{row[2]}</td>
+                      <td className="p-4 text-center text-[#180204]/50">{row[3]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="gradient-primary py-12">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <Image 
-                src="/logo.png" 
-                alt="Greek Trip Planner" 
-                width={70} 
-                height={21}
-              />
-            </div>
-            
-            <div className="flex items-center space-x-8">
-              <Link href="/features" className="text-white/80 hover:text-white transition text-sm">Features</Link>
-              <Link href="/how-it-works" className="text-white/80 hover:text-white transition text-sm">How it Works</Link>
-              <Link href="/blog" className="text-white/80 hover:text-white transition text-sm">Blog</Link>
-              <Link href="/about" className="text-white/80 hover:text-white transition text-sm">About</Link>
-            </div>
+      {/* ===== FAQ ===== */}
+      <section className="section-padding bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div className="divider-accent mx-auto mb-4" />
+            <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Questions & Answers</h2>
           </div>
-          
-          <div className="mt-8 pt-8 border-t border-white/10">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <p className="text-white/60 text-sm">© 2024 Greek Trip Planner. All rights reserved.</p>
-              <div className="flex items-center gap-6">
-                <a 
-                  href="https://traveltourismdirectory.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-white/80 hover:text-white transition text-sm"
-                >
+
+          <div className="space-y-4">
+            {[
+              {
+                q: 'Is the Greece itinerary planner really free?',
+                a: 'Yes! 100% free, forever. No hidden fees, no premium tiers, no credit card required. No account to create. Just answer questions and get your itinerary instantly.',
+              },
+              {
+                q: 'How is this different from ChatGPT or other AI tools?',
+                a: 'Generic AI tools scrape the internet and produce cookie-cutter suggestions. Our AI is built on a proprietary database of 15+ years of local Greek expertise — real ferry data, vetted restaurants, tested routes, and insights you can\'t Google.',
+              },
+              {
+                q: 'How accurate are the ferry times?',
+                a: 'We use real ferry schedule data, but times can change seasonally. We always recommend double-checking with official ferry websites (like ferries.gr) closer to your travel dates, especially for shoulder season trips.',
+              },
+              {
+                q: 'Can I modify the itinerary after it\'s generated?',
+                a: 'Absolutely! Your itinerary is completely editable. Think of it as a smart starting point you can customize. Swap days, change activities, add your own discoveries — it\'s your trip.',
+              },
+              {
+                q: 'What time of year is best to visit Greece?',
+                a: 'Shoulder season (April-May, September-October) offers perfect weather, fewer crowds, and better prices. Peak season (June-August) is hot and crowded but all islands operate fully. The AI adjusts recommendations based on your travel dates.',
+              },
+              {
+                q: 'How many days do I need for Greece?',
+                a: 'Minimum 5-7 days for Athens + 1 island. The ideal first trip is 10-14 days for Athens + 2-3 islands. For a comprehensive trip, plan 14-21 days. Our AI optimizes any duration you choose.',
+              },
+              {
+                q: 'Do I need to create an account?',
+                a: 'Nope! No sign-up, no email, no account needed. Just answer 11 questions and get your personalized itinerary instantly. We value your privacy and your time.',
+              },
+            ].map((faq, i) => (
+              <details key={i} className="group bg-[#FAF6F3] rounded-2xl border border-[#E6DAD1]/60">
+                <summary className="flex items-center justify-between cursor-pointer p-6 text-[#180204] font-sans font-semibold text-lg list-none">
+                  {faq.q}
+                  <ChevronDown className="w-5 h-5 text-[#FF5635] group-open:rotate-180 transition-transform flex-shrink-0 ml-4" />
+                </summary>
+                <div className="px-6 pb-6 text-[#180204]/65 leading-relaxed font-sans">
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== FINAL CTA ===== */}
+      <section className="relative py-20 md:py-28">
+        <div className="absolute inset-0">
+          <Image
+            src="/Santorini_Sunset_View.jpg"
+            alt="Start planning your Greece trip"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-[#180204]/70" />
+        </div>
+        <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
+          <h2 className="text-4xl sm:text-5xl md:text-6xl text-white mb-6">
+            Ready to See It<br />in Action?
+          </h2>
+          <p className="text-white/70 text-lg mb-10 max-w-xl mx-auto">
+            3 minutes. 11 questions. One perfectly personalized Greek itinerary — completely free.
+          </p>
+          <Link
+            href="/ai-trip-planner"
+            className="btn-accent px-10 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-3"
+          >
+            Start Planning My Trip <ArrowRight className="w-5 h-5" />
+          </Link>
+          <div className="flex flex-wrap justify-center gap-6 mt-8 text-white/50 text-sm font-sans">
+            <span>100% Free Forever</span>
+            <span>No Credit Card</span>
+            <span>No Account Needed</span>
+            <span>Instant Results</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== FOOTER ===== */}
+      <footer className="bg-[#180204] py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center">
+            <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} className="brightness-0 invert mb-6" />
+            <div className="flex flex-wrap justify-center gap-6 mb-8">
+              <Link href="/how-it-works" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">How it Works</Link>
+              <Link href="/blog" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Blog</Link>
+              <Link href="/about" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
+            </div>
+            <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-white/40 text-sm font-sans">&copy; 2026 Greek Trip Planner. All rights reserved.</p>
+              <div className="flex items-center gap-4">
+                <a href="https://traveltourismdirectory.com/" className="text-white/40 hover:text-white/60 transition-colors text-sm font-sans" target="_blank" rel="noopener noreferrer">
                   Travel and Tourism Directory
                 </a>
-                <a 
-                  href="https://bookmarktravel.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  <img 
-                    src="https://bookmarktravel.com/images/bookmarktravel-234.jpg" 
-                    alt="Bookmark Travel" 
-                    width="234" 
-                    height="39" 
-                    className="h-auto"
+                <a href="https://bookmarktravel.com/" target="_blank" rel="noopener noreferrer">
+                  <Image
+                    src="https://bookmarktravel.com/images/bookmarktravel-234.jpg"
+                    alt="Bookmark Travel"
+                    width={117}
+                    height={20}
+                    className="opacity-50 hover:opacity-80 transition-opacity"
+                    unoptimized
                   />
                 </a>
               </div>
@@ -470,37 +488,81 @@ export default function HowItWorksPage() {
         </div>
       </footer>
 
-      {/* Schema Markup */}
+      {/* ===== SCHEMA MARKUP ===== */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "HowTo",
-            "name": "How to Plan a Greece Trip with AI",
-            "description": "Learn how to plan a perfect Greece trip in 3 easy steps using our AI-powered planner",
-            "totalTime": "PT3M",
-            "step": [
-              {
-                "@type": "HowToStep",
-                "name": "Tell us about your dream trip",
-                "text": "Answer 8 quick questions about your travel preferences, budget, interests, and travel style",
-                "position": 1
-              },
-              {
-                "@type": "HowToStep",
-                "name": "AI creates your itinerary",
-                "text": "Our AI analyzes your preferences and creates an optimized, personalized Greece itinerary with realistic timing and local insights",
-                "position": 2
-              },
-              {
-                "@type": "HowToStep",
-                "name": "Download and customize",
-                "text": "Receive your comprehensive day-by-day plan with maps, restaurants, accommodation suggestions, and insider tips",
-                "position": 3
-              }
-            ]
-          })
+          __html: JSON.stringify([
+            {
+              "@context": "https://schema.org",
+              "@type": "WebPage",
+              "name": "How It Works - Greek Trip Planner",
+              "description": "Learn how our free AI trip planner creates personalized Greece itineraries in 3 minutes.",
+              "url": "https://greektriplanner.me/how-it-works"
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+              "mainEntity": [
+                {
+                  "@type": "Question",
+                  "name": "Is the Greece itinerary planner really free?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Yes! 100% free, forever. No hidden fees, no premium tiers, no credit card required."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How is this different from ChatGPT or other AI tools?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Our AI is built on a proprietary database of 15+ years of local Greek expertise — real ferry data, vetted restaurants, tested routes."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How accurate are the ferry times?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "We use real ferry schedule data, but times can change seasonally. Double-check with official ferry websites closer to your travel dates."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Can I modify the itinerary after it's generated?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Absolutely! Your itinerary is completely editable. Think of it as a smart starting point you can customize."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "What time of year is best to visit Greece?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Shoulder season (April-May, Sept-Oct) offers perfect weather, fewer crowds, and better prices. Peak season (June-Aug) is hot and crowded but all islands operate."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "How many days do I need for Greece?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Minimum 5-7 days (Athens + 1 island). Ideal first trip is 10-14 days (Athens + 2-3 islands). Comprehensive trip: 14-21 days."
+                  }
+                },
+                {
+                  "@type": "Question",
+                  "name": "Do I need to create an account?",
+                  "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "Nope! No sign-up, no email, no account needed. Just answer 11 questions and get your personalized itinerary instantly."
+                  }
+                }
+              ]
+            }
+          ])
         }}
       />
     </main>

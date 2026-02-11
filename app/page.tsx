@@ -26,19 +26,18 @@ export default function HomePage() {
             <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} priority />
           </Link>
           <div className="hidden md:flex items-center gap-8">
-            <Link href="/features" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">Features</Link>
             <Link href="/how-it-works" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">How it Works</Link>
             <Link href="/blog" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">Blog</Link>
             <Link href="/about" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">About</Link>
             <Link 
-              href="/quiz" 
+              href="/ai-trip-planner" 
               className="btn-accent px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2"
             >
               Start Planning <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
           {/* Mobile menu button */}
-          <Link href="/quiz" className="md:hidden btn-accent px-4 py-2 rounded-full text-sm font-semibold">
+          <Link href="/ai-trip-planner" className="md:hidden btn-accent px-4 py-2 rounded-full text-sm font-semibold">
             Start Planning
           </Link>
         </div>
@@ -81,7 +80,7 @@ export default function HomePage() {
           {/* CTA */}
           <div className="animate-fade-in-up delay-300 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link 
-              href="/quiz" 
+              href="/ai-trip-planner" 
               className="btn-accent px-8 py-4 rounded-full text-lg font-semibold flex items-center gap-3 animate-pulse-glow"
             >
               Plan My Trip Free <ArrowRight className="w-5 h-5" />
@@ -493,7 +492,7 @@ export default function HomePage() {
             Join 12,000+ travelers who created their dream Greece itinerary in minutes. Completely free, no credit card required.
           </p>
           <Link 
-            href="/quiz" 
+            href="/ai-trip-planner" 
             className="btn-accent px-10 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-3"
           >
             Start Planning My Greece Trip <ArrowRight className="w-5 h-5" />
@@ -513,7 +512,6 @@ export default function HomePage() {
           <div className="flex flex-col items-center">
             <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} className="brightness-0 invert mb-6" />
             <div className="flex flex-wrap justify-center gap-6 mb-8">
-              <Link href="/features" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Features</Link>
               <Link href="/how-it-works" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">How it Works</Link>
               <Link href="/blog" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Blog</Link>
               <Link href="/about" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
