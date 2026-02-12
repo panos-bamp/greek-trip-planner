@@ -1,381 +1,245 @@
-import { Metadata } from 'next'
-import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, Check, MapPin, Users, Heart, Shield, Award, Star } from 'lucide-react'
+import Link from 'next/link'
+import { ArrowRight, MapPin, Compass, Heart, Star, Ship, Utensils, Camera, BookOpen, Shield, Clock, ChevronDown } from 'lucide-react'
 
-export const metadata: Metadata = {
-  title: 'About Us | Greece Travel Experts Behind the AI Planner',
-  description: 'Meet the Greece travel experts behind our AI trip planner. 15+ years combined experience living in and exploring Greece. Trusted by 12,000+ travelers.',
+export const metadata = {
+  title: 'About Us | The Story Behind Greek Trip Planner',
+  description: 'Meet the Greece travel experts behind Greek Trip Planner. 15+ years of local experience, 500+ vetted restaurants, and a passion for helping travelers discover the real Greece.',
   openGraph: {
-    title: 'About Us | Greece Travel Experts Behind the AI Planner',
-    description: 'Meet the Greece travel experts behind our AI trip planner.',
-    images: ['/about-og.jpg'],
+    title: 'About Us | The Story Behind Greek Trip Planner',
+    description: 'Meet the Greece travel experts behind Greek Trip Planner.',
+    url: 'https://greektriplanner.me/about',
+    siteName: 'Greek Trip Planner',
+    type: 'website',
   },
 }
 
 export default function AboutPage() {
   return (
-    <main className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="fixed top-0 w-full bg-white shadow-sm z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center space-x-3">
-              <Image 
-                src="/logo.png" 
-                alt="Greek Trip Planner" 
-                width={70} 
-                height={21}
-                priority
-              />
+    <main className="min-h-screen bg-[#FAF6F3]">
+
+      {/* ===== NAVIGATION ===== */}
+      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 border-b border-[#E6DAD1]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+          <Link href="/" className="flex items-center">
+            <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} priority />
+          </Link>
+          <div className="hidden md:flex items-center gap-8">
+            <Link href="/how-it-works" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">How it Works</Link>
+            <Link href="/blog" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">Blog</Link>
+            <Link href="/about" className="text-[#FF5635] transition-colors text-sm font-medium">About</Link>
+            <Link href="/ai-trip-planner" className="btn-accent px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2">
+              Start Planning <ArrowRight className="w-4 h-4" />
             </Link>
-            
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/features" className="text-gray-700 hover:text-primary transition font-medium">Features</Link>
-              <Link href="/how-it-works" className="text-gray-700 hover:text-primary transition font-medium">How it Works</Link>
-              <Link href="/blog" className="text-gray-700 hover:text-primary transition font-medium">Blog</Link>
-              <Link href="/about" className="text-gray-700 hover:text-primary transition font-medium">About</Link>
-              <Link 
-                href="/quiz"
-                className="px-6 py-3 gradient-pink text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all flex items-center space-x-2"
-              >
-                <span>Start Planning</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
           </div>
+          <Link href="/ai-trip-planner" className="md:hidden btn-accent px-4 py-2 rounded-full text-sm font-semibold">
+            Start Planning
+          </Link>
         </div>
       </nav>
 
-      {/* Hero */}
-      <section className="pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 z-0">
+      {/* ===== HERO ===== */}
+      <section className="relative pt-16">
+        <div className="relative h-[380px] sm:h-[440px] overflow-hidden">
           <Image
             src="/hero-acropolis.jpg"
             alt="About Greek Trip Planner"
             fill
             className="object-cover"
             priority
+            quality={85}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/80 via-primary/60 to-transparent"></div>
-        </div>
-
-        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-            Built by Greece Travel Experts Who Actually Live This
-          </h1>
-          <p className="text-xl text-white/90 leading-relaxed">
-            We're not another faceless tech startup using generic travel data. We're Greece travel professionals, expats, and locals who've collectively spent decades exploring every corner of these ancient islands and mainland.
-          </p>
+          <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/75 via-[#180204]/35 to-transparent" />
+          <div className="absolute inset-0 flex flex-col items-center justify-end pb-14 px-4 text-center">
+            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-4">
+              <Heart className="w-4 h-4 text-[#FF5635]" />
+              <span className="text-white/90 text-sm font-medium">Our Story</span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl text-white mb-3">Built by People Who<br /><span className="text-[#FF5635]">Actually Live This</span></h1>
+            <p className="text-white/70 text-lg max-w-2xl">Not another faceless travel app. We&apos;re Greece locals, expats, and obsessive travelers who&apos;ve spent decades exploring every corner of these islands.</p>
+          </div>
         </div>
       </section>
 
-      {/* Our Story */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-            Why We Created This Greece Trip Planner
-          </h2>
+      {/* ===== THE STORY ===== */}
+      <section className="py-16 md:py-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="divider-accent mb-8" />
+          <h2 className="text-3xl sm:text-4xl text-[#180204] mb-8">How This Started</h2>
           
-          <div className="prose prose-lg max-w-none">
-            <p className="text-lg text-gray-700 leading-relaxed mb-6">
-              After years of working in Greece tourism—leading tours, running accommodations, and helping thousands of visitors—we noticed the same frustrations repeating:
+          <div className="prose-custom space-y-6 text-[#180204]/70 text-lg leading-relaxed font-sans">
+            <p>
+              I moved to Greece over 15 years ago, originally for &ldquo;a summer.&rdquo; That summer turned into a decade and a half of island-hopping, guiding tours, running accommodations, and falling deeper in love with this country every year. I&apos;ve seen thousands of travelers arrive in Athens excited and leave frustrated because their itinerary was completely unrealistic.
             </p>
-
-            <div className="bg-red-50 border border-red-200 rounded-xl p-6 mb-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Travelers kept making the same mistakes:</h3>
-              <ul className="space-y-2">
-                <li className="text-gray-700">Following generic "10-day Greece itinerary" blog posts written by people who spent 5 days here</li>
-                <li className="text-gray-700">Booking 4 islands in 6 days (then spending half their vacation on ferries)</li>
-                <li className="text-gray-700">Missing incredible local restaurants because TripAdvisor only shows tourist traps</li>
-                <li className="text-gray-700">Getting stressed by unrealistic Pinterest-perfect itineraries</li>
-              </ul>
-            </div>
-
-            <div className="bg-green-50 border border-green-200 rounded-xl p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-4">Our Solution:</h3>
-              <p className="text-gray-700 leading-relaxed">
-                We asked ourselves: "What if we could combine our on-the-ground Greece expertise with AI technology to create something that actually helps people?"
-              </p>
-              <p className="text-gray-700 leading-relaxed mt-4">
-                This planner is built on <strong>15+ years</strong> of combined Greece travel experience, <strong>500+</strong> personally vetted restaurants, and <strong>1,000+</strong> hours of route testing and optimization.
-              </p>
-            </div>
+            <p>
+              The pattern was always the same. Someone would Google &ldquo;10-day Greece itinerary,&rdquo; find a blog post written by someone who spent five days here, and try to cram four islands into six days. They&apos;d spend half their vacation on ferries, miss the quiet beach that&apos;s actually better than the famous one, and eat at whatever TripAdvisor put in front of them &mdash; usually a tourist trap with a view and a markup.
+            </p>
+            <p>
+              I&apos;d watch this happen and think: <em>if they&apos;d just asked a local, their entire trip would have been different.</em>
+            </p>
+            <p>
+              That frustration became this project. What if we could take everything we know &mdash; the real ferry schedules, the tavernas where <em>Greeks</em> actually eat, the timing that makes a day work instead of exhausting you &mdash; and make it accessible to everyone? Not as a consulting service for a few hundred people a year, but as something anyone could use, for free, in three minutes.
+            </p>
+            <p>
+              Greek Trip Planner is that idea, built by a small team of people who live and breathe Greece. We&apos;re not trying to cover the entire world. Greece is complex enough &mdash; 6,000 islands, millennia of history, ferry systems that change with the wind &mdash; that doing it justice requires real specialization.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Team Experience */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-            Meet the Team Behind Your Greece Itinerary
-          </h2>
-          
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            <div className="bg-white rounded-xl p-8 text-center">
-              <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mx-auto mb-4">
-                <MapPin className="w-8 h-8 text-blue-600" />
-              </div>
-              <h3 className="font-bold text-gray-900 mb-2">Where We're Based</h3>
-              <p className="text-gray-700 text-sm leading-relaxed">Athens, Santorini, Crete, and Thessaloniki. Mix of Greek locals and long-term expats.</p>
-            </div>
-
-            <div className="bg-white rounded-xl p-8 text-center">
-              <div className="w-16 h-16 rounded-full bg-purple-100 flex items-center justify-center mx-auto mb-4">
-                <Users className="w-8 h-8 text-purple-600" />
-              </div>
-              <h3 className="font-bold text-gray-900 mb-2">Our Backgrounds</h3>
-              <p className="text-gray-700 text-sm leading-relaxed">Tour guides, hotel operators, travel writers, ferry specialists, licensed Greek tour operators.</p>
-            </div>
-
-            <div className="bg-white rounded-xl p-8 text-center">
-              <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-4">
-                <Award className="w-8 h-8 text-green-600" />
-              </div>
-              <h3 className="font-bold text-gray-900 mb-2">Combined Experience</h3>
-              <p className="text-gray-700 text-sm leading-relaxed">50+ years living in Greece. Every destination personally visited multiple times.</p>
-            </div>
+      {/* ===== WHAT WE ACTUALLY KNOW ===== */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <div className="divider-accent mx-auto mb-4" />
+            <h2 className="text-3xl sm:text-4xl text-[#180204] mb-4">What We Actually Know</h2>
+            <p className="text-[#180204]/60 max-w-xl mx-auto">Not marketing claims &mdash; actual expertise built over years of living, working, and traveling across Greece</p>
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 rounded-xl p-8">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">What Makes Us Different</h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <h4 className="font-bold text-gray-900 mb-2">✓ We Live Here</h4>
-                <p className="text-gray-700 text-sm leading-relaxed">Not travel bloggers who visited once. We see how islands change between seasons, know which ferry companies are reliable.</p>
-              </div>
-              <div>
-                <h4 className="font-bold text-gray-900 mb-2">✓ Greece Specialists</h4>
-                <p className="text-gray-700 text-sm leading-relaxed">Not trying to be everything to everyone. Greece is complex enough that specialization matters.</p>
-              </div>
-              <div>
-                <h4 className="font-bold text-gray-900 mb-2">✓ Local Connections</h4>
-                <p className="text-gray-700 text-sm leading-relaxed">When we recommend a taverna, we know the owner. This isn't aggregated review data—it's personal knowledge.</p>
-              </div>
-              <div>
-                <h4 className="font-bold text-gray-900 mb-2">✓ We Actually Care</h4>
-                <p className="text-gray-700 text-sm leading-relaxed">Started from frustration with bad advice. We want you to experience the Greece we love.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Expertise Areas */}
-      <section className="py-20">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-            The Knowledge Behind Our AI Trip Planner
-          </h2>
-          
-          <div className="grid md:grid-cols-2 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: '🏛️', title: 'Archaeological & Historical Sites', desc: 'Team members with backgrounds in classical archaeology, Byzantine history, licensed tour guiding' },
-              { icon: '⛴️', title: 'Island Logistics & Ferry Systems', desc: 'Real expertise in ferry route optimization, seasonal schedules, which companies to trust' },
-              { icon: '🍽️', title: 'Greek Cuisine & Dining Culture', desc: 'Years of living and eating in Greece, relationships with restaurant owners, regional specialties' },
-              { icon: '🏨', title: 'Accommodation Strategy', desc: 'Operating accommodations ourselves, neighborhood characteristics, seasonal pricing patterns' },
-              { icon: '💰', title: 'Realistic Budgeting', desc: 'Actually living on various budgets in Greece, current local prices, where to save/splurge' },
-              { icon: '📸', title: 'Photography & Hidden Gems', desc: 'Best photo spots beyond the obvious, optimal times for lighting, less-crowded viewpoints' }
-            ].map((area, i) => (
-              <div key={i} className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition">
-                <div className="text-3xl mb-3">{area.icon}</div>
-                <h3 className="font-bold text-gray-900 mb-2">{area.title}</h3>
-                <p className="text-sm text-gray-700 leading-relaxed">{area.desc}</p>
+              { icon: Ship, title: 'Island Logistics & Ferries', desc: 'We\'ve taken hundreds of ferries across the Aegean and Ionian. We know which companies are reliable, which routes get cancelled in wind, and how to build island-hopping sequences that actually work.' },
+              { icon: Utensils, title: 'Where Greeks Actually Eat', desc: 'We know restaurant owners by name. When we recommend a taverna, it\'s because we\'ve eaten there dozens of times — not because it has good reviews from tourists who visited once.' },
+              { icon: MapPin, title: 'Every Season, Every Island', desc: 'Greece in August and Greece in October are two completely different countries. We\'ve experienced both, across dozens of islands, and our recommendations account for seasonal realities.' },
+              { icon: Clock, title: 'Realistic Timing', desc: 'The difference between a stressful day and a perfect one is usually about two hours of buffer. We factor in actual walking times, ferry delays, meal durations, and the Greek concept of \"siga siga\" (slowly, slowly).' },
+              { icon: Camera, title: 'Beyond the Obvious', desc: 'Yes, Oia sunset is beautiful. But the view from Imerovigli is better, with a fraction of the crowd. We\'ve spent years finding the spots that don\'t show up on Instagram.' },
+              { icon: Compass, title: 'Mainland Expertise Too', desc: 'Meteora, Nafplio, the Peloponnese, Zagori villages — Greece isn\'t just islands. Some of our favorite recommendations are on the mainland, where most tourists never go.' },
+            ].map((item) => (
+              <div key={item.title} className="bg-[#FAF6F3] rounded-2xl p-7 group">
+                <div className="w-12 h-12 bg-[#FF5635]/10 rounded-xl flex items-center justify-center mb-5">
+                  <item.icon className="w-6 h-6 text-[#FF5635]" />
+                </div>
+                <h3 className="text-lg text-[#180204] mb-2 font-sans font-semibold">{item.title}</h3>
+                <p className="text-[#180204]/55 text-sm leading-relaxed font-sans">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Trust & Transparency */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-5xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-12 text-center">
-            Why You Can Trust Our Recommendations
-          </h2>
+      {/* ===== NUMBERS ===== */}
+      <section className="py-16 bg-[#FAF6F3]">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {[
+              { value: '15+', label: 'Years Living in Greece', color: 'text-[#FF5635]' },
+              { value: '12,000+', label: 'Itineraries Created', color: 'text-[#2C73FF]' },
+              { value: '500+', label: 'Restaurants Personally Vetted', color: 'text-[#FF5635]' },
+              { value: '4.9/5', label: 'Average Traveler Rating', color: 'text-[#2C73FF]' },
+            ].map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className={`text-3xl sm:text-4xl font-bold ${stat.color}`}>{stat.value}</div>
+                <div className="text-[#180204]/50 text-sm mt-2 font-sans">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== TRUST & TRANSPARENCY ===== */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="divider-accent mb-8" />
+          <h2 className="text-3xl sm:text-4xl text-[#180204] mb-8">How We Stay Honest</h2>
           
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
-            <div className="bg-white rounded-xl p-8">
-              <div className="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center mb-4">
-                <Shield className="w-6 h-6 text-red-600" />
-              </div>
-              <h3 className="font-bold text-gray-900 mb-3">No Paid Placements</h3>
-              <p className="text-gray-700 leading-relaxed">We don't accept payment from hotels, restaurants, or tour operators to appear in our planner. Recommendations based purely on quality.</p>
-            </div>
-
-            <div className="bg-white rounded-xl p-8">
-              <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mb-4">
-                <Heart className="w-6 h-6 text-blue-600" />
-              </div>
-              <h3 className="font-bold text-gray-900 mb-3">Regular Updates</h3>
-              <p className="text-gray-700 leading-relaxed">Team reviews and updates recommendations monthly. If a restaurant declines or attraction changes, we update it.</p>
-            </div>
-
-            <div className="bg-white rounded-xl p-8">
-              <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mb-4">
-                <Check className="w-6 h-6 text-green-600" />
-              </div>
-              <h3 className="font-bold text-gray-900 mb-3">Full Transparency</h3>
-              <p className="text-gray-700 leading-relaxed">We use some affiliate links for ferry bookings. We clearly disclose this, and it never influences recommendations.</p>
-            </div>
-
-            <div className="bg-white rounded-xl p-8">
-              <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mb-4">
-                <Star className="w-6 h-6 text-purple-600" />
-              </div>
-              <h3 className="font-bold text-gray-900 mb-3">Real Results</h3>
-              <p className="text-gray-700 leading-relaxed">12,000+ itineraries generated. 4.9/5 average rating from post-trip surveys. "Felt like having a local friend plan our trip."</p>
-            </div>
+          <div className="space-y-6 text-[#180204]/70 text-lg leading-relaxed font-sans">
+            <p>
+              In an era of sponsored content and hidden advertising, we think transparency matters. Here&apos;s how we operate:
+            </p>
           </div>
 
-          <div className="bg-blue-100 border border-blue-200 rounded-xl p-8 text-center">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Our Promise to You</h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div>
-                <p className="font-bold text-gray-900 mb-2">🎯 Expert Recommendations</p>
-                <p className="text-sm text-gray-700">Every suggestion backed by real experience</p>
-              </div>
-              <div>
-                <p className="font-bold text-gray-900 mb-2">📍 Accurate Information</p>
-                <p className="text-sm text-gray-700">Verified and updated regularly</p>
-              </div>
-              <div>
-                <p className="font-bold text-gray-900 mb-2">💙 Genuine Care</p>
-                <p className="text-sm text-gray-700">Want your Greece trip to be amazing</p>
-              </div>
+          <div className="mt-10 space-y-6">
+            <div className="bg-[#FAF6F3] rounded-2xl p-6 border border-[#E6DAD1]/60">
+              <h3 className="text-lg text-[#180204] font-sans font-semibold mb-2">No Paid Placements</h3>
+              <p className="text-[#180204]/60 font-sans leading-relaxed">No hotel, restaurant, or tour operator has ever paid to appear in our planner or blog. Recommendations are based purely on personal experience and quality. If a place declines, we remove it.</p>
+            </div>
+            <div className="bg-[#FAF6F3] rounded-2xl p-6 border border-[#E6DAD1]/60">
+              <h3 className="text-lg text-[#180204] font-sans font-semibold mb-2">Affiliate Links &mdash; Fully Disclosed</h3>
+              <p className="text-[#180204]/60 font-sans leading-relaxed">Some links in our blog earn us a small commission if you book through them &mdash; primarily for accommodations, tours, and ferry tickets. This never influences what we recommend. We&apos;d suggest the same places to our own family. Full details in our <Link href="/editorial-policy" className="text-[#FF5635] hover:underline">editorial policy</Link>.</p>
+            </div>
+            <div className="bg-[#FAF6F3] rounded-2xl p-6 border border-[#E6DAD1]/60">
+              <h3 className="text-lg text-[#180204] font-sans font-semibold mb-2">Content We&apos;d Want to Read</h3>
+              <p className="text-[#180204]/60 font-sans leading-relaxed">Every guide is written from real experience. We write the kind of travel advice we&apos;d want to find ourselves &mdash; practical, honest, and occasionally opinionated. If a popular island is overhyped, we&apos;ll tell you. If a little-known beach is extraordinary, we&apos;ll share it (reluctantly).</p>
+            </div>
+            <div className="bg-[#FAF6F3] rounded-2xl p-6 border border-[#E6DAD1]/60">
+              <h3 className="text-lg text-[#180204] font-sans font-semibold mb-2">Regular Updates</h3>
+              <p className="text-[#180204]/60 font-sans leading-relaxed">Greece changes. Restaurants close, ferries reroute, new gems open. We review and update our guides regularly &mdash; not annually, but as things change. If you notice something outdated, please let us know.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Why Free */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 text-center">
-            Why We Offer This Free
-          </h2>
+      {/* ===== WHY FREE ===== */}
+      <section className="py-16 md:py-24 bg-[#FAF6F3]">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="divider-accent mb-8" />
+          <h2 className="text-3xl sm:text-4xl text-[#180204] mb-8">&ldquo;If It&apos;s Good, Why Is It Free?&rdquo;</h2>
           
-          <div className="bg-gradient-to-br from-green-50 to-blue-50 rounded-2xl p-8">
-            <p className="text-lg text-gray-900 font-bold mb-4">"If this is so good, why is it free?"</p>
-            <p className="text-gray-700 leading-relaxed mb-4">Fair question. Here's our honest answer:</p>
-            
-            <div className="space-y-4">
-              <div>
-                <strong className="text-gray-900">1. We Love Greece.</strong>
-                <p className="text-gray-700">This started as passion, not business. We want more people to experience the real Greece.</p>
-              </div>
-              <div>
-                <strong className="text-gray-900">2. Sustainable Revenue Model.</strong>
-                <p className="text-gray-700">We use affiliate partnerships (transparently disclosed) for ferry bookings and some accommodations.</p>
-              </div>
-              <div>
-                <strong className="text-gray-900">3. Scalable Impact.</strong>
-                <p className="text-gray-700">We can help 12,000 travelers with AI more efficiently than 100 through personalized consulting.</p>
-              </div>
-            </div>
-
-            <div className="mt-6 bg-white rounded-xl p-6">
-              <p className="text-gray-700 leading-relaxed">
-                <strong>The Bottom Line:</strong> We make enough from ethical affiliate partnerships to sustain this. Keeping it free maximizes positive impact, which matters more to us than maximizing profit.
-              </p>
-            </div>
+          <div className="space-y-6 text-[#180204]/70 text-lg leading-relaxed font-sans">
+            <p>
+              Fair question. We get it a lot.
+            </p>
+            <p>
+              The honest answer is that this started as a passion project, not a business plan. We were already helping friends, family, and friends-of-friends plan their Greece trips for free. The AI planner just lets us do that at scale.
+            </p>
+            <p>
+              We earn enough through transparent affiliate partnerships to keep the lights on and the content fresh. That model means we never need to charge you, upsell you, or put the best recommendations behind a paywall.
+            </p>
+            <p>
+              Keeping it free also means more people experience the real Greece &mdash; the kind we fell in love with. That matters more to us than maximizing revenue.
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 gradient-primary">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
-            Let Our Expertise Guide Your Greece Adventure
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-            You're not just getting an AI tool—you're getting decades of Greece expertise distilled into personalized recommendations.
-          </p>
-          
-          <Link
-            href="/quiz"
-            className="inline-flex items-center space-x-3 px-10 py-5 bg-white text-primary rounded-full font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all"
-          >
-            <span>Start Planning with Expert Guidance</span>
-            <ArrowRight className="w-5 h-5" />
+      {/* ===== EDITORIAL LINK ===== */}
+      <section className="py-12 bg-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-[#180204]/60 font-sans mb-4">Curious about how we create content and handle commercial relationships?</p>
+          <Link href="/editorial-policy" className="text-[#FF5635] font-semibold font-sans hover:underline inline-flex items-center gap-2">
+            Read Our Editorial Policy & Disclosure <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="gradient-primary py-12">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center space-x-3 mb-4 md:mb-0">
-              <Image 
-                src="/logo.png" 
-                alt="Greek Trip Planner" 
-                width={70} 
-                height={21}
-              />
+      {/* ===== FINAL CTA ===== */}
+      <section className="relative py-24 md:py-32">
+        <div className="absolute inset-0">
+          <Image src="/Santorini_Sunset_View.jpg" alt="Greek islands sunset" fill className="object-cover" />
+          <div className="absolute inset-0 bg-[#180204]/65" />
+        </div>
+        <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
+          <h2 className="text-4xl sm:text-5xl text-white mb-6">Let Our Expertise<br />Guide Your Trip</h2>
+          <p className="text-white/70 text-lg mb-10 max-w-xl mx-auto">You&apos;re not just getting an AI tool &mdash; you&apos;re getting decades of Greece expertise distilled into personalized recommendations.</p>
+          <Link href="/ai-trip-planner" className="btn-accent px-10 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-3">
+            Start Planning Free <ArrowRight className="w-5 h-5" />
+          </Link>
+        </div>
+      </section>
+
+      {/* ===== FOOTER ===== */}
+      <footer className="bg-[#180204] py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col items-center">
+            <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} className="brightness-0 invert mb-6" />
+            <div className="flex flex-wrap justify-center gap-6 mb-8">
+              <Link href="/how-it-works" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">How it Works</Link>
+              <Link href="/blog" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Blog</Link>
+              <Link href="/about" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
+              <Link href="/editorial-policy" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Editorial Policy</Link>
             </div>
-            
-            <div className="flex items-center space-x-8">
-              <Link href="/features" className="text-white/80 hover:text-white transition text-sm">Features</Link>
-              <Link href="/how-it-works" className="text-white/80 hover:text-white transition text-sm">How it Works</Link>
-              <Link href="/blog" className="text-white/80 hover:text-white transition text-sm">Blog</Link>
-              <Link href="/about" className="text-white/80 hover:text-white transition text-sm">About</Link>
-            </div>
-          </div>
-          
-          <div className="mt-8 pt-8 border-t border-white/10">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <p className="text-white/60 text-sm">© 2024 Greek Trip Planner. All rights reserved.</p>
-              <div className="flex items-center gap-6">
-                <a 
-                  href="https://traveltourismdirectory.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-white/80 hover:text-white transition text-sm"
-                >
-                  Travel and Tourism Directory
-                </a>
-                <a 
-                  href="https://bookmarktravel.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  <img 
-                    src="https://bookmarktravel.com/images/bookmarktravel-234.jpg" 
-                    alt="Bookmark Travel" 
-                    width="234" 
-                    height="39" 
-                    className="h-auto"
-                  />
+            <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-white/40 text-sm font-sans">&copy; 2026 Greek Trip Planner. All rights reserved.</p>
+              <div className="flex items-center gap-4">
+                <a href="https://traveltourismdirectory.com/" className="text-white/40 hover:text-white/60 transition-colors text-sm font-sans" target="_blank" rel="noopener noreferrer">Travel and Tourism Directory</a>
+                <a href="https://bookmarktravel.com/" target="_blank" rel="noopener noreferrer">
+                  <Image src="https://bookmarktravel.com/images/bookmarktravel-234.jpg" alt="Bookmark Travel" width={117} height={20} className="opacity-50 hover:opacity-80 transition-opacity" unoptimized />
                 </a>
               </div>
             </div>
           </div>
         </div>
       </footer>
-
-      {/* Schema Markup */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "Greek Trip Planner",
-            "description": "Greece trip planning tool built by travel experts with 15+ years combined experience living in Greece",
-            "url": "https://greek-trip-planner-ghm1.vercel.app",
-            "foundingDate": "2024",
-            "knowsAbout": [
-              "Greece Travel",
-              "Greek Islands",
-              "Greek Tourism",
-              "Travel Planning"
-            ]
-          })
-        }}
-      />
     </main>
   )
 }
