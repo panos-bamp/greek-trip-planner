@@ -141,34 +141,23 @@ export default async function BlogPost(
           />
         )}
 
-        {/* Navigation - Exact match from home page */}
-        <nav className="fixed top-0 w-full bg-white shadow-sm z-50">
-          <div className="container mx-auto px-6 py-4">
-            <div className="flex items-center justify-between">
-              <Link href="/" className="flex items-center space-x-3">
-                <Image 
-                  src="/logo.png" 
-                  alt="Greek Trip Planner" 
-                  width={70} 
-                  height={21}
-                  priority
-                />
+        {/* Navigation */}
+        <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 border-b border-[#E6DAD1]">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <Link href="/" className="flex items-center">
+              <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} priority />
+            </Link>
+            <div className="hidden md:flex items-center gap-8">
+              <Link href="/how-it-works" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">How it Works</Link>
+              <Link href="/blog" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">Blog</Link>
+              <Link href="/about" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">About</Link>
+              <Link href="/ai-trip-planner" className="bg-[#FF5635] hover:bg-[#e64d2e] text-white px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2 transition-colors">
+                Start Planning <ArrowRight className="w-4 h-4" />
               </Link>
-              
-              <div className="hidden md:flex items-center space-x-8">
-                <Link href="/features" className="text-gray-700 hover:text-primary transition font-medium">Features</Link>
-                <Link href="/how-it-works" className="text-gray-700 hover:text-primary transition font-medium">How it Works</Link>
-                <Link href="/blog" className="text-gray-700 hover:text-primary transition font-medium">Blog</Link>
-                <Link href="/about" className="text-gray-700 hover:text-primary transition font-medium">About</Link>
-                <Link 
-                  href="/quiz"
-                  className="px-6 py-3 gradient-pink text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all flex items-center space-x-2"
-                >
-                  <span>Start Planning</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </div>
             </div>
+            <Link href="/ai-trip-planner" className="md:hidden bg-[#FF5635] text-white px-4 py-2 rounded-full text-sm font-semibold">
+              Start Planning
+            </Link>
           </div>
         </nav>
 
@@ -224,51 +213,23 @@ export default async function BlogPost(
           </article>
         </div>
 
-        {/* Footer - Exact match from home page */}
-        <footer className="gradient-primary py-12">
-          <div className="container mx-auto px-6">
-            <div className="flex flex-col md:flex-row items-center justify-between">
-              <div className="flex items-center space-x-3 mb-4 md:mb-0">
-                <Image 
-                  src="/logo.png" 
-                  alt="Greek Trip Planner" 
-                  width={70} 
-                  height={21}
-                />
+        {/* Footer */}
+        <footer className="bg-[#180204] py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col items-center">
+              <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} className="brightness-0 invert mb-6" />
+              <div className="flex flex-wrap justify-center gap-6 mb-8">
+                <Link href="/how-it-works" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm">How it Works</Link>
+                <Link href="/blog" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm">Blog</Link>
+                <Link href="/about" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm">About</Link>
+                <Link href="/editorial-policy" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm">Editorial Policy</Link>
               </div>
-              
-              <div className="flex items-center space-x-8">
-                <Link href="/features" className="text-white/80 hover:text-white transition text-sm">Features</Link>
-                <Link href="/how-it-works" className="text-white/80 hover:text-white transition text-sm">How it Works</Link>
-                <Link href="/blog" className="text-white/80 hover:text-white transition text-sm">Blog</Link>
-                <Link href="/about" className="text-white/80 hover:text-white transition text-sm">About</Link>
-              </div>
-            </div>
-            
-            <div className="mt-8 pt-8 border-t border-white/10">
-              <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                <p className="text-white/60 text-sm">© 2024 Greek Trip Planner. All rights reserved.</p>
-                <div className="flex items-center gap-6">
-                  <a 
-                    href="https://traveltourismdirectory.com/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-white/80 hover:text-white transition text-sm"
-                  >
-                    Travel and Tourism Directory
-                  </a>
-                  <a 
-                    href="https://bookmarktravel.com/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                  >
-                    <img 
-                      src="https://bookmarktravel.com/images/bookmarktravel-234.jpg" 
-                      alt="Bookmark Travel" 
-                      width={234}
-                      height={39}
-                      className="h-auto"
-                    />
+              <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p className="text-white/40 text-sm">&copy; 2026 Greek Trip Planner. All rights reserved.</p>
+                <div className="flex items-center gap-4">
+                  <a href="https://traveltourismdirectory.com/" className="text-white/40 hover:text-white/60 transition-colors text-sm" target="_blank" rel="noopener noreferrer">Travel and Tourism Directory</a>
+                  <a href="https://bookmarktravel.com/" target="_blank" rel="noopener noreferrer">
+                    <Image src="https://bookmarktravel.com/images/bookmarktravel-234.jpg" alt="Bookmark Travel" width={117} height={20} className="opacity-50 hover:opacity-80 transition-opacity" unoptimized />
                   </a>
                 </div>
               </div>
