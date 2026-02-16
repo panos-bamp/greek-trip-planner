@@ -4,7 +4,8 @@ import { ArrowRight, ArrowLeft, Clock, Calendar, TrendingUp, TrendingDown, Minus
 import { Metadata } from 'next'
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
-import { InsightBody } from '@/components/InsightBody'
+import { PortableText } from '@portabletext/react'
+import { portableTextComponents } from '@/components/portableTextComponents'
 import { generateInsightSchemas } from '@/lib/insightSchemaMarkup'
 import { notFound } from 'next/navigation'
 
@@ -341,7 +342,7 @@ export default async function InsightArticlePage({ params }: { params: Promise<{
               {/* Article body */}
               <div className="prose-insight">
                 {post.body && (
-                  <InsightBody body={post.body} />
+                  <PortableText value={post.body} components={portableTextComponents} />
                 )}
               </div>
 
