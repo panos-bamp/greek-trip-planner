@@ -20,15 +20,14 @@ export const portableTextComponents: PortableTextComponents = {
 
       return (
         <figure className="my-8">
-          <div className="relative w-full h-[400px] md:h-[500px] lg:h-[600px] rounded-lg overflow-hidden">
-            <Image
-              src={imageUrl}
-              alt={value.alt || 'Blog post image'}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
-            />
-          </div>
+          <Image
+            src={imageUrl}
+            alt={value.alt || 'Blog post image'}
+            width={1200}
+            height={800}
+            className="w-full h-auto rounded-lg"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+          />
           {value.caption && (
             <figcaption className="mt-3 text-center text-sm text-gray-600 italic">
               {value.caption}
