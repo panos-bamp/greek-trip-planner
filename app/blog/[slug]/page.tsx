@@ -4,9 +4,8 @@ import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { PortableText } from '@portabletext/react'
 import {
-  ArrowRight, ArrowLeft, Clock, Calendar, ChevronRight, ChevronDown,
-  BookOpen, Star, Shield, MapPin, ExternalLink, AlertTriangle,
-  Lightbulb, DollarSign, Plane, User
+  ArrowRight, ArrowLeft, Clock, Calendar, ChevronRight,
+  BookOpen, Lightbulb, User
 } from 'lucide-react'
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
@@ -405,174 +404,40 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 )}
               </div>
 
-              {/* ─── AFFILIATE SECTIONS ─── */}
-
-              {/* Hotel Cards */}
-              {post.hotelRecommendations && post.hotelRecommendations.length > 0 && (
-                <section className="mt-12">
-                  <h2 className="text-3xl text-[#180204] mb-6">Where to Stay</h2>
-                  <div className="space-y-6">
-                    {post.hotelRecommendations.map((hotel: any, i: number) => (
-                      <HotelCard key={i} {...hotel} />
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Tour Cards */}
-              {post.tourRecommendations && post.tourRecommendations.length > 0 && (
-                <section className="mt-12">
-                  <h2 className="text-3xl text-[#180204] mb-6">Top Tours & Experiences</h2>
-                  <div className="space-y-6">
-                    {post.tourRecommendations.map((tour: any, i: number) => (
-                      <TourCard key={i} {...tour} />
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Insurance CTA (inline) */}
-              {post.insuranceCtaLink && (
-                <section className="mt-12">
-                  <div className="bg-violet-50 border border-violet-200 rounded-2xl p-6 md:p-8">
-                    <div className="flex items-start gap-4">
-                      <Shield className="w-8 h-8 text-violet-600 flex-shrink-0 mt-1" />
-                      <div>
-                        <h3 className="text-xl text-[#180204] mb-2 font-sans font-semibold">Travel Insurance</h3>
-                        <p className="text-[#180204]/60 font-sans mb-4">
-                          {post.insuranceCtaText || 'Don\'t travel without coverage. Protect your trip with comprehensive travel insurance.'}
-                        </p>
-                        <a
-                          href={post.insuranceCtaLink}
-                          target="_blank"
-                          rel="noopener noreferrer sponsored"
-                          className="btn-accent px-6 py-3 rounded-full text-sm font-semibold inline-flex items-center gap-2"
-                        >
-                          Get a Quote <ExternalLink className="w-4 h-4" />
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-              )}
-
-              {/* Cost Summary Table (inline) */}
-              {post.costSummary && post.costSummary.length > 0 && (
-                <section className="mt-12">
-                  <h2 className="text-3xl text-[#180204] mb-6">Cost Breakdown</h2>
-                  <div className="bg-white border border-[#E6DAD1]/60 rounded-2xl overflow-hidden">
-                    <div className="grid grid-cols-3 bg-[#180204] text-white text-sm font-sans font-semibold">
-                      <div className="p-4">Item</div>
-                      <div className="p-4 text-center">Budget</div>
-                      <div className="p-4 text-center">Mid-Range</div>
-                    </div>
-                    {post.costSummary.map((item: any, i: number) => (
-                      <div key={i} className={`grid grid-cols-3 text-sm font-sans ${i % 2 === 0 ? 'bg-white' : 'bg-[#FAF6F3]'}`}>
-                        <div className="p-4 text-[#180204] font-medium">{item.item}</div>
-                        <div className="p-4 text-center text-[#180204]/60">{item.budget}</div>
-                        <div className="p-4 text-center text-[#180204]/60">{item.midRange}</div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Pro Tips (inline) */}
-              {post.proTips && post.proTips.length > 0 && (
-                <section className="mt-12">
-                  <h2 className="text-3xl text-[#180204] mb-6">Pro Tips</h2>
-                  <div className="space-y-4">
-                    {post.proTips.map((tip: string, i: number) => (
-                      <div key={i} className="flex gap-4 bg-amber-50 border border-amber-200 rounded-2xl p-5">
-                        <Lightbulb className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                        <p className="text-[#180204]/70 font-sans text-sm leading-relaxed">{tip}</p>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-              {/* Urgency Alert (inline) */}
-              {post.urgencyAlert && post.urgencyAlert.enabled && post.urgencyAlert.message && (
-                <div className="mt-8 bg-orange-50 border border-orange-200 rounded-2xl p-5">
-                  {post.urgencyAlert.title && (
-                    <div className="flex items-center gap-2 mb-2">
-                      <AlertTriangle className="w-5 h-5 text-orange-600 flex-shrink-0" />
-                      <h4 className="text-[#180204] font-sans font-semibold text-base">{post.urgencyAlert.title}</h4>
-                    </div>
-                  )}
-                  <p className="text-[#180204]/70 font-sans text-sm leading-relaxed ml-7">{post.urgencyAlert.message}</p>
-                  {post.urgencyAlert.primaryCta && post.urgencyAlert.primaryLink && (
-                    <div className="mt-4 ml-7">
-                      <a
-                        href={post.urgencyAlert.primaryLink}
-                        target="_blank"
-                        rel="noopener noreferrer sponsored"
-                        className="btn-accent px-5 py-2.5 rounded-full text-sm font-semibold inline-flex items-center gap-2"
-                      >
-                        {post.urgencyAlert.primaryCta} <ArrowRight className="w-4 h-4" />
-                      </a>
-                      {post.urgencyAlert.secondaryCta && (
-                        <span className="ml-3 text-[#180204]/50 text-sm font-sans">{post.urgencyAlert.secondaryCta}</span>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
-
               {/* ═══════════════════════════════════════════
                   4. FAQ SECTION (same format as insights)
                   ═══════════════════════════════════════════ */}
-              {post.enableFaqSchema && post.faqItems && post.faqItems.length > 0 && (
-                <div className="mt-12">
-                  <h2 className="text-3xl text-[#180204] mb-6">Frequently Asked Questions</h2>
-                  <div className="space-y-4">
-                    {post.faqItems.map((faq: any, i: number) => (
-                      <details key={i} className="group bg-white rounded-2xl border border-[#E6DAD1]/60">
-                        <summary className="flex items-center justify-between cursor-pointer p-6 text-[#180204] font-sans font-semibold text-base list-none">
-                          {faq.question}
-                          <ChevronRight className="w-5 h-5 text-[#FF5635] group-open:rotate-90 transition-transform flex-shrink-0 ml-4" />
-                        </summary>
-                        <div className="px-6 pb-6 text-[#180204]/60 leading-relaxed font-sans text-sm">
-                          {faq.answer}
-                        </div>
-                      </details>
-                    ))}
+              {(() => {
+                const faqData = post.faqItems || post.faqs || post.faqQuestions || []
+                if (!Array.isArray(faqData) || faqData.length === 0) return null
+                return (
+                  <div className="mt-12">
+                    <h2 className="text-3xl text-[#180204] mb-6">Frequently Asked Questions</h2>
+                    <div className="space-y-4">
+                      {faqData.map((faq: any, i: number) => {
+                        const question = faq.question || faq.q || ''
+                        const answer = faq.answer || faq.a || ''
+                        if (!question || !answer) return null
+                        return (
+                          <details key={i} className="group bg-white rounded-2xl border border-[#E6DAD1]/60">
+                            <summary className="flex items-center justify-between cursor-pointer p-6 text-[#180204] font-sans font-semibold text-base list-none">
+                              {question}
+                              <ChevronRight className="w-5 h-5 text-[#FF5635] group-open:rotate-90 transition-transform flex-shrink-0 ml-4" />
+                            </summary>
+                            <div className="px-6 pb-6 text-[#180204]/60 leading-relaxed font-sans text-sm">
+                              {answer}
+                            </div>
+                          </details>
+                        )
+                      })}
+                    </div>
                   </div>
-                </div>
-              )}
+                )
+              })()}
             </article>
           </div>
         </div>
       </section>
-
-      {/* ===== FINAL CTA ===== */}
-      {post.finalCtaBookingLink && post.finalCtaToursLink && (
-        <section className="bg-[#180204] py-16 md:py-20">
-          <div className="max-w-3xl mx-auto px-4 text-center">
-            <h2 className="text-3xl text-white mb-4">Ready to Plan Your Trip?</h2>
-            <p className="text-white/50 font-sans mb-8">Book your perfect Greek adventure with our recommended partners.</p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a
-                href={post.finalCtaBookingLink}
-                target="_blank"
-                rel="noopener noreferrer sponsored"
-                className="btn-accent px-8 py-4 rounded-full text-base font-semibold inline-flex items-center gap-2"
-              >
-                Book Hotels <ArrowRight className="w-5 h-5" />
-              </a>
-              <a
-                href={post.finalCtaToursLink}
-                target="_blank"
-                rel="noopener noreferrer sponsored"
-                className="bg-white/10 border border-white/20 text-white hover:bg-white/20 px-8 py-4 rounded-full text-base font-semibold inline-flex items-center gap-2 transition-colors"
-              >
-                Browse Tours <ArrowRight className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* ===== BACK TO BLOG ===== */}
       <section className="bg-[#FAF6F3] border-t border-[#E6DAD1] py-8">
