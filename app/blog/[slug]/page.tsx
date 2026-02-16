@@ -124,6 +124,12 @@ const portableTextComponents = {
       if (!value) return null
       return <TourCard {...value} />
     },
+    htmlEmbed: ({ value }: any) => {
+      if (!value?.code) return null
+      return (
+        <div className="my-8" dangerouslySetInnerHTML={{ __html: value.code }} />
+      )
+    },
   },
   block: {
     h2: ({ children, value }: any) => {
@@ -134,6 +140,8 @@ const portableTextComponents = {
     h3: ({ children }: any) => <h3 className="text-2xl text-[#180204] mt-8 mb-3">{children}</h3>,
     h4: ({ children }: any) => <h4 className="text-xl text-[#180204] mt-6 mb-2 font-sans font-semibold">{children}</h4>,
     normal: ({ children }: any) => <p className="text-[#180204]/70 leading-relaxed mb-5 font-sans text-base">{children}</p>,
+    bullet: ({ children }: any) => <li className="list-disc ml-6 text-[#180204]/70 leading-relaxed font-sans text-base mb-1">{children}</li>,
+    number: ({ children }: any) => <li className="list-decimal ml-6 text-[#180204]/70 leading-relaxed font-sans text-base mb-1">{children}</li>,
     blockquote: ({ children }: any) => (
       <blockquote className="border-l-4 border-[#FF5635] pl-5 my-6 italic text-[#180204]/60 font-sans">
         {children}
@@ -485,10 +493,30 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
               )}
 
               {/* Urgency Alert (inline) */}
-              {post.urgencyAlert && (
-                <div className="mt-8 flex gap-4 bg-orange-50 border border-orange-200 rounded-2xl p-5">
-                  <AlertTriangle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-[#180204]/70 font-sans text-sm leading-relaxed">{post.urgencyAlert}</p>
+              {post.urgencyAlert && post.urgencyAlert.enabled && post.urgencyAlert.message && (
+                <div className="mt-8 bg-orange-50 border border-orange-200 rounded-2xl p-5">
+                  {post.urgencyAlert.title && (
+                    <div className="flex items-center gap-2 mb-2">
+                      <AlertTriangle className="w-5 h-5 text-orange-600 flex-shrink-0" />
+                      <h4 className="text-[#180204] font-sans font-semibold text-base">{post.urgencyAlert.title}</h4>
+                    </div>
+                  )}
+                  <p className="text-[#180204]/70 font-sans text-sm leading-relaxed ml-7">{post.urgencyAlert.message}</p>
+                  {post.urgencyAlert.primaryCta && post.urgencyAlert.primaryLink && (
+                    <div className="mt-4 ml-7">
+                      <a
+                        href={post.urgencyAlert.primaryLink}
+                        target="_blank"
+                        rel="noopener noreferrer sponsored"
+                        className="btn-accent px-5 py-2.5 rounded-full text-sm font-semibold inline-flex items-center gap-2"
+                      >
+                        {post.urgencyAlert.primaryCta} <ArrowRight className="w-4 h-4" />
+                      </a>
+                      {post.urgencyAlert.secondaryCta && (
+                        <span className="ml-3 text-[#180204]/50 text-sm font-sans">{post.urgencyAlert.secondaryCta}</span>
+                      )}
+                    </div>
+                  )}
                 </div>
               )}
 
