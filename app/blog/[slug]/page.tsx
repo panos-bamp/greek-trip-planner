@@ -21,6 +21,8 @@ const BASE_URL = 'https://greektriplanner.me'
 // GROQ query
 const postQuery = `*[_type == "post" && slug.current == $slug][0] {
   ...,
+  enableFaqSchema,
+  faqItems,
   mainImage {
     ...,
     asset-> { url, metadata { dimensions } }
@@ -98,13 +100,17 @@ const portableTextComponents = {
   types: {
     image: ({ value }: any) => {
       if (!value?.asset) return null
+      const dimensions = value?.asset?.metadata?.dimensions
+      const aspectRatio = dimensions ? dimensions.width / dimensions.height : 16 / 9
+      const displayWidth = 1200
+      const displayHeight = Math.round(displayWidth / aspectRatio)
       return (
         <figure className="my-8 rounded-2xl overflow-hidden">
           <Image
-            src={urlFor(value).width(1200).height(600).url()}
+            src={urlFor(value).width(displayWidth).url()}
             alt={value.alt || ''}
-            width={1200}
-            height={600}
+            width={displayWidth}
+            height={displayHeight}
             className="w-full h-auto"
           />
           {value.caption && (
@@ -404,36 +410,23 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 )}
               </div>
 
-              {/* ═══════════════════════════════════════════
-                  4. FAQ SECTION (same format as insights)
-                  ═══════════════════════════════════════════ */}
-              {(() => {
-                const faqData = post.faqItems || post.faqs || post.faqQuestions || []
-                if (!Array.isArray(faqData) || faqData.length === 0) return null
-                return (
-                  <div className="mt-12">
-                    <h2 className="text-3xl text-[#180204] mb-6">Frequently Asked Questions</h2>
-                    <div className="space-y-4">
-                      {faqData.map((faq: any, i: number) => {
-                        const question = faq.question || faq.q || ''
-                        const answer = faq.answer || faq.a || ''
-                        if (!question || !answer) return null
-                        return (
-                          <details key={i} className="group bg-white rounded-2xl border border-[#E6DAD1]/60">
-                            <summary className="flex items-center justify-between cursor-pointer p-6 text-[#180204] font-sans font-semibold text-base list-none">
-                              {question}
-                              <ChevronRight className="w-5 h-5 text-[#FF5635] group-open:rotate-90 transition-transform flex-shrink-0 ml-4" />
-                            </summary>
-                            <div className="px-6 pb-6 text-[#180204]/60 leading-relaxed font-sans text-sm">
-                              {answer}
-                            </div>
-                          </details>
-                        )
-                      })}
-                    </div>
+              {/* ===== FAQ SECTION (matching insights page) ===== */}
+              {post.enableFaqSchema && post.faqItems && post.faqItems.length > 0 && (
+                <div className="mt-12">
+                  <h3 className="text-2xl text-[#180204] mb-6">Frequently Asked Questions</h3>
+                  <div className="space-y-4">
+                    {post.faqItems.map((faq: any, i: number) => (
+                      <details key={i} className="group bg-white rounded-2xl border border-[#E6DAD1]/60">
+                        <summary className="flex items-center justify-between cursor-pointer p-6 text-[#180204] font-sans font-semibold text-base list-none">
+                          {faq.question}
+                          <ChevronRight className="w-5 h-5 text-[#FF5635] group-open:rotate-90 transition-transform flex-shrink-0 ml-4" />
+                        </summary>
+                        <div className="px-6 pb-6 text-[#180204]/60 leading-relaxed font-sans text-sm">{faq.answer}</div>
+                      </details>
+                    ))}
                   </div>
-                )
-              })()}
+                </div>
+              )}
             </article>
           </div>
         </div>
