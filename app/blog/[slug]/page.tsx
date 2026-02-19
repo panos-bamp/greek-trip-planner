@@ -21,8 +21,7 @@ const BASE_URL = 'https://greektriplanner.me'
 // GROQ query
 const postQuery = `*[_type == "post" && slug.current == $slug][0] {
   ...,
-  enableFaqSchema,
-  faqItems,
+  faqSchema,
   mainImage {
     ...,
     asset-> { url, metadata { dimensions } }
@@ -410,12 +409,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 )}
               </div>
 
-              {/* ===== FAQ SECTION (matching insights page) ===== */}
-              {post.enableFaqSchema && post.faqItems && post.faqItems.length > 0 && (
+              {/* ===== FAQ SECTION (matching insights page format) ===== */}
+              {post.faqSchema?.enabled && post.faqSchema?.faqs && post.faqSchema.faqs.length > 0 && (
                 <div className="mt-12">
                   <h3 className="text-2xl text-[#180204] mb-6">Frequently Asked Questions</h3>
                   <div className="space-y-4">
-                    {post.faqItems.map((faq: any, i: number) => (
+                    {post.faqSchema.faqs.map((faq: any, i: number) => (
                       <details key={i} className="group bg-white rounded-2xl border border-[#E6DAD1]/60">
                         <summary className="flex items-center justify-between cursor-pointer p-6 text-[#180204] font-sans font-semibold text-base list-none">
                           {faq.question}
