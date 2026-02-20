@@ -129,9 +129,9 @@ const portableTextComponents = {
       return <TourCard {...value} />
     },
     htmlEmbed: ({ value }: any) => {
-      if (!value?.code) return null
-      return (
-        <div className="my-8" dangerouslySetInnerHTML={{ __html: value.code }} />
+     if (!value?.html) return null
+       return (
+         <div className="my-8 html-embed-container overflow-x-auto" dangerouslySetInnerHTML={{ __html: value.html }} />
       )
     },
   },
