@@ -28,6 +28,7 @@ export default function HowItWorksPage() {
           <div className="hidden md:flex items-center gap-8">
             <Link href="/how-it-works" className="text-[#FF5635] transition-colors text-sm font-semibold">How it Works</Link>
             <Link href="/blog" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">Blog</Link>
+            <Link href="/insights" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">Insights</Link>
             <Link href="/about" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">About</Link>
             <Link
               href="/ai-trip-planner"
@@ -464,6 +465,7 @@ export default function HowItWorksPage() {
             <div className="flex flex-wrap justify-center gap-6 mb-8">
               <Link href="/how-it-works" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">How it Works</Link>
               <Link href="/blog" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Blog</Link>
+              <Link href="/insights" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Insights</Link>
               <Link href="/about" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
             </div>
             <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">

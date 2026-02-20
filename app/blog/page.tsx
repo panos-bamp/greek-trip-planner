@@ -57,6 +57,7 @@ export default async function BlogPage() {
           <div className="hidden md:flex items-center gap-8">
             <Link href="/how-it-works" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">How it Works</Link>
             <Link href="/blog" className="text-[#FF5635] transition-colors text-sm font-medium">Blog</Link>
+            <Link href="/insights" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">Insights</Link>
             <Link href="/about" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">About</Link>
             <Link href="/ai-trip-planner" className="btn-accent px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2">
               Start Planning <ArrowRight className="w-4 h-4" />
@@ -213,6 +214,7 @@ export default async function BlogPage() {
             <div className="flex flex-wrap justify-center gap-6 mb-8">
               <Link href="/how-it-works" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">How it Works</Link>
               <Link href="/blog" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Blog</Link>
+              <Link href="/insights" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Insights</Link>
               <Link href="/about" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
             </div>
             <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
