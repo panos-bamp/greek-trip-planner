@@ -19,7 +19,7 @@
  *   1. Set environment variables (or edit the config below):
  *      SANITY_PROJECT_ID=puhk8qa7
  *      SANITY_DATASET=production
- *      SANITY_TOKEN=skjgjIHxvPYVKQD4I5EUiBBoRassU7bOJFgUiE7dj2UAF1Md3drX3qY2Tn9RSvVPvPyRHR4COK2xa6UzhxtA0mtDogDBtgeuF0KfzHoBNXnYUNziBvWirOEbcOE84ehDk9z9UdEz5GN6dmw5aGNKeSohWlrprcekg8DmcT5X85s3fUzXj07U
+ *      SANITY_TOKEN=
  *   
  *   2. Get a write token from: https://www.sanity.io/manage
  *      → Project → API → Tokens → Add API token (Editor role)
@@ -49,7 +49,7 @@ import { randomUUID } from 'crypto';
 const CONFIG = {
   projectId: process.env.SANITY_PROJECT_ID || 'puhk8qa7',
   dataset: process.env.SANITY_DATASET || 'production',
-  token: process.env.SANITY_TOKEN || 'skjgjIHxvPYVKQD4I5EUiBBoRassU7bOJFgUiE7dj2UAF1Md3drX3qY2Tn9RSvVPvPyRHR4COK2xa6UzhxtA0mtDogDBtgeuF0KfzHoBNXnYUNziBvWirOEbcOE84ehDk9z9UdEz5GN6dmw5aGNKeSohWlrprcekg8DmcT5X85s3fUzXj07U',
+  token: process.env.SANITY_TOKEN || '',
   apiVersion: '2024-01-01',
 };
 
