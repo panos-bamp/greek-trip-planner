@@ -111,6 +111,48 @@ export default function ResultsPage() {
     )
   }
 
+  /* ─── Parse inline markdown links [text](url) ─── */
+  const renderInlineLinks = (text: string) => {
+    const parts = text.split(/(\[.*?\]\(.*?\))/g)
+    return parts.map((part, i) => {
+      const linkMatch = part.match(/\[(.*?)\]\((.*?)\)/)
+      if (linkMatch) {
+        const [, linkText, url] = linkMatch
+        const isBooking = url.includes('booking.com')
+        const isGYG = url.includes('getyourguide.com')
+
+        if (isBooking) {
+          return (
+            <a key={i} href={url} target="_blank" rel="noopener noreferrer nofollow"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#003580]/8 text-[#003580] rounded-lg text-xs font-semibold hover:bg-[#003580]/15 transition-colors mt-1.5">
+              <span>🏨</span>
+              <span>{linkText}</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          )
+        }
+        if (isGYG) {
+          return (
+            <a key={i} href={url} target="_blank" rel="noopener noreferrer nofollow"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FF5533]/8 text-[#FF5533] rounded-lg text-xs font-semibold hover:bg-[#FF5533]/15 transition-colors mt-1.5">
+              <span>🎟️</span>
+              <span>{linkText}</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          )
+        }
+        // Travel guide or generic link
+        return (
+          <a key={i} href={url} target="_blank" rel="noopener noreferrer"
+            className="text-[#2C73FF] font-medium hover:text-[#FF5635] underline underline-offset-2 decoration-[#2C73FF]/30 hover:decoration-[#FF5635]/50 transition-colors">
+            {linkText}
+          </a>
+        )
+      }
+      return <span key={i}>{part}</span>
+    })
+  }
+
   /* ─── Render a line of the itinerary ─── */
   const renderLine = (line: string, index: number) => {
     const isDayHeader = line.match(/### Day (\d+)/)
@@ -155,7 +197,7 @@ export default function ResultsPage() {
           <span className="text-xl flex-shrink-0 mt-0.5">🌅</span>
           <div className="flex-1">
             <span className="text-xs font-bold text-amber-700 uppercase tracking-wider">Morning</span>
-            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed">{line.replace('**Morning:**', '').trim()}</p>
+            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed">{renderInlineLinks(line.replace('**Morning:**', '').trim())}</p>
           </div>
         </div>
       )
@@ -166,7 +208,7 @@ export default function ResultsPage() {
           <span className="text-xl flex-shrink-0 mt-0.5">☀️</span>
           <div className="flex-1">
             <span className="text-xs font-bold text-sky-700 uppercase tracking-wider">Afternoon</span>
-            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed">{line.replace('**Afternoon:**', '').trim()}</p>
+            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed">{renderInlineLinks(line.replace('**Afternoon:**', '').trim())}</p>
           </div>
         </div>
       )
@@ -177,35 +219,39 @@ export default function ResultsPage() {
           <span className="text-xl flex-shrink-0 mt-0.5">🌙</span>
           <div className="flex-1">
             <span className="text-xs font-bold text-violet-700 uppercase tracking-wider">Evening</span>
-            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed">{line.replace('**Evening:**', '').trim()}</p>
+            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed">{renderInlineLinks(line.replace('**Evening:**', '').trim())}</p>
           </div>
         </div>
       )
     }
 
-    // Special blocks
+    // Where to Stay — with Booking.com link
     if (line.startsWith('**Where to Stay:**')) {
       return (
-        <div key={index} className="flex items-start gap-3 p-3.5 bg-emerald-50/60 rounded-xl border border-emerald-200">
+        <div key={index} className="flex items-start gap-3 p-4 bg-emerald-50/60 rounded-xl border border-emerald-200">
           <span className="text-xl flex-shrink-0">🏨</span>
           <div className="flex-1">
             <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Where to Stay</span>
-            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed">{line.replace('**Where to Stay:**', '').trim()}</p>
+            <p className="text-sm text-[#180204]/80 mt-1 leading-relaxed">{renderInlineLinks(line.replace('**Where to Stay:**', '').trim())}</p>
           </div>
         </div>
       )
     }
+
+    // Insider Tip
     if (line.startsWith('**Insider Tip:**')) {
       return (
         <div key={index} className="flex items-start gap-3 p-3.5 bg-[#FF5635]/5 rounded-xl border border-[#FF5635]/15">
           <span className="text-xl flex-shrink-0">💡</span>
           <div className="flex-1">
             <span className="text-xs font-bold text-[#FF5635] uppercase tracking-wider">Insider Tip</span>
-            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed">{line.replace('**Insider Tip:**', '').trim()}</p>
+            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed">{renderInlineLinks(line.replace('**Insider Tip:**', '').trim())}</p>
           </div>
         </div>
       )
     }
+
+    // Daily Budget
     if (line.startsWith('**Daily Budget:**')) {
       return (
         <div key={index} className="flex items-start gap-3 p-3.5 bg-[#2C73FF]/5 rounded-xl border border-[#2C73FF]/15">
@@ -218,22 +264,14 @@ export default function ResultsPage() {
       )
     }
 
-    // Travel guide links
-    if (line.includes('📖') && line.includes('travel guide:')) {
-      const urlMatch = line.match(/(https:\/\/greektriplanner\.me\/blog\/[^\s)]+)/)
-      const titleMatch = line.match(/Read our (.+?) travel guide/)
-      if (urlMatch) {
-        return (
-          <Link key={index} href={urlMatch[1]} target="_blank"
-            className="flex items-center gap-2 p-3 rounded-xl bg-[#FAF6F3] border border-[#E6DAD1] hover:border-[#FF5635]/30 transition-colors group">
-            <span className="text-lg">📖</span>
-            <span className="text-sm text-[#2C73FF] font-medium group-hover:text-[#FF5635] transition-colors">
-              Read our {titleMatch ? titleMatch[1] : ''} travel guide
-            </span>
-            <ExternalLink className="w-3.5 h-3.5 text-[#180204]/30 ml-auto" />
-          </Link>
-        )
-      }
+    // Travel guide lines with 📖
+    if (line.includes('📖')) {
+      return (
+        <div key={index} className="flex items-center gap-2 p-3 rounded-xl bg-[#FAF6F3] border border-[#E6DAD1]">
+          <span className="text-lg">📖</span>
+          <span className="text-sm text-[#180204]/70">{renderInlineLinks(line.replace('📖', '').trim())}</span>
+        </div>
+      )
     }
 
     // Bullet points
@@ -241,7 +279,7 @@ export default function ResultsPage() {
       return (
         <div key={index} className="flex items-start gap-2.5 ml-1 text-sm text-[#180204]/70 leading-relaxed">
           <span className="w-1.5 h-1.5 rounded-full bg-[#FF5635] mt-2 flex-shrink-0" />
-          <span>{line.replace('- ', '')}</span>
+          <span>{renderInlineLinks(line.replace('- ', ''))}</span>
         </div>
       )
     }
@@ -254,15 +292,15 @@ export default function ResultsPage() {
           {parts.map((part, i) =>
             part.startsWith('**') && part.endsWith('**')
               ? <strong key={i} className="text-[#180204] font-semibold">{part.replace(/\*\*/g, '')}</strong>
-              : <span key={i}>{part}</span>
+              : <span key={i}>{renderInlineLinks(part)}</span>
           )}
         </p>
       )
     }
 
-    // Regular paragraph
+    // Regular paragraph — also parse for inline links
     if (line.trim()) {
-      return <p key={index} className="text-sm text-[#180204]/70 leading-relaxed">{line}</p>
+      return <p key={index} className="text-sm text-[#180204]/70 leading-relaxed">{renderInlineLinks(line)}</p>
     }
 
     return null

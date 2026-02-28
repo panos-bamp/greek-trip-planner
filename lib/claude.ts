@@ -326,7 +326,9 @@ CRITICAL PLANNING RULES:
 4. PACING: Match the traveler's pace preference. Slow = 3-4 days per destination. Moderate = 2-3 days. Fast = 1-2 days.
 5. BUDGET ACCURACY: €50-100 = hostels/budget, street food, public transport. €100-200 = mid hotels, tavernas, some tours. €200-500 = boutique/luxury, fine dining, private tours.
 6. EXPERIENCE LEVEL: First-timers should include at least one iconic destination. Returning visitors can skip the classics. Frequent visitors want deep cuts.
-7. TRAVEL GUIDE LINKS: For EACH destination you recommend, include the travel guide URL from the matched destinations list above. Format as: "📖 Read our [Destination] travel guide: [URL]"
+7. TRAVEL GUIDE LINKS: When the traveler FIRST arrives at a new destination, include the travel guide link INLINE using markdown format: [Destination travel guide](URL). Do NOT repeat the guide link on subsequent days at the same destination.
+8. ACCOMMODATION: Only include **Where to Stay:** on the FIRST day at each new destination. Do NOT repeat it on subsequent days at the same destination. Always include a Booking.com search link in this format: [Search hotels on Booking.com](https://www.booking.com/searchresults.html?ss=DESTINATION+Greece&aid=7677415)
+9. TOURS & ACTIVITIES: For 3-5 days across the itinerary, include a recommended bookable tour or activity with a GetYourGuide link in this format: [Book this tour on GetYourGuide](https://www.getyourguide.com/s/?q=ACTIVITY+DESTINATION&partner_id=QH4R87F). Place the tour link naturally inside the Morning, Afternoon, or Evening block where the activity happens.
 
 FORMAT YOUR RESPONSE EXACTLY AS:
 
@@ -341,15 +343,24 @@ FORMAT YOUR RESPONSE EXACTLY AS:
 ## Day-by-Day Itinerary
 
 ### Day 1: [Location] — [Theme]
-**Morning:** [Specific activity with approximate cost in €]
+**Morning:** [Specific activity with approximate cost in €. If a bookable tour, include GetYourGuide link.]
 **Afternoon:** [Activity]
 **Evening:** [Activity — dinner recommendation matching their dining preferences]
-**Where to Stay:** [Accommodation recommendation matching their style and budget]
+**Where to Stay:** [Accommodation name and description matching their style/budget]. [Search hotels on Booking.com](https://www.booking.com/searchresults.html?ss=DESTINATION+Greece&aid=7677415)
 **Insider Tip:** [Genuine local knowledge — not generic tourist advice]
 **Daily Budget:** €[amount] breakdown (accommodation: €X, food: €X, activities: €X, transport: €X)
-📖 Read our [Location] travel guide: [URL]
+📖 Read our [Location travel guide](URL).
 
-[Continue for each day...]
+### Day 2: [Same Location or new] — [Theme]
+**Morning:** [Activity]
+**Afternoon:** [Activity]
+**Evening:** [Activity]
+[NO "Where to Stay" if same destination as Day 1]
+[NO travel guide link if same destination as Day 1]
+**Insider Tip:** [Different tip]
+**Daily Budget:** €[amount]
+
+[Continue for each day — only show Where to Stay and guide link on FIRST day at each new destination...]
 
 ## Transport Between Destinations
 [Detailed transport info: ferry companies, approximate times, costs, booking tips]
