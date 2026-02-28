@@ -62,7 +62,7 @@ export default async function BlogPage() {
             quality={85}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/70 via-[#180204]/30 to-transparent" />
-          <div className="absolute inset-0 flex flex-col items-center justify-end pb-12 px-4 text-center">
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
             <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-4">
               <BookOpen className="w-4 h-4 text-[#FF5635]" />
               <span className="text-white/90 text-sm font-medium">Our Stories</span>

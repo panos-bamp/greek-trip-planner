@@ -162,7 +162,7 @@ export default function HomePage() {
       <Navbar />
 
       {/* ===== HERO ===== */}
-      <section className="relative min-h-[92vh] flex items-center pt-16">
+      <section className="relative min-h-[92vh] flex items-center pt-24 pb-12">
         <div className="absolute inset-0">
           <Image src="/hero-acropolis.jpg" alt="Athens Acropolis" fill className="object-cover" priority quality={85} />
           <div className="gradient-hero absolute inset-0" />
