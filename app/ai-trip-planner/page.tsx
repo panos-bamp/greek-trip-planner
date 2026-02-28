@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Clock, MapPin, Star, CheckCircle, Sparkles, Users, Calendar, Compass, Ship, ChevronDown, Sun, Utensils, Camera } from 'lucide-react'
+import { ArrowRight, Clock, MapPin, Star, CheckCircle, Sparkles, Calendar, Compass, Ship, ChevronDown, Sun, Utensils, Camera } from 'lucide-react'
 
 export const metadata = {
   title: 'AI Greece Trip Planner Tool | Free Personalized Itinerary Generator',
@@ -61,15 +61,15 @@ export default function PlannerPage() {
               </h1>
 
               <p className="text-lg text-[#180204]/65 leading-relaxed mb-8 max-w-lg">
-                Answer 11 quick questions about your travel style, interests, and budget. Our AI — powered by 15+ years of local expertise — builds a day-by-day itinerary customized to you.
+                Answer 13 quick questions about your travel style, regions, and budget. Our AI — powered by 133 destinations and decades of local expertise from 5 Greek tourism professionals — builds a day-by-day itinerary customized to you.
               </p>
 
               {/* Quick trust badges */}
               <div className="flex flex-wrap gap-4 mb-10">
                 {[
                   { icon: Clock, text: '3 min to complete' },
+                  { icon: MapPin, text: '133 destinations covered' },
                   { icon: CheckCircle, text: '100% free forever' },
-                  { icon: Users, text: '12,000+ itineraries created' },
                 ].map((badge) => (
                   <div key={badge.text} className="flex items-center gap-2 text-[#180204]/60 text-sm">
                     <badge.icon className="w-4 h-4 text-[#2C73FF]" />
@@ -225,7 +225,7 @@ export default function PlannerPage() {
               {
                 icon: Camera,
                 title: 'Hidden Gems & Tips',
-                desc: 'Secret beaches, lesser-known viewpoints, and local festivals most tourists miss. 15+ years of living in Greece distilled into insider recommendations.',
+                desc: 'Secret beaches, lesser-known viewpoints, and local festivals most tourists miss. 133 destinations across all of Greece — from famous islands to villages only locals know.',
                 color: '#2C73FF',
               },
               {
@@ -270,15 +270,15 @@ export default function PlannerPage() {
               {
                 step: '01',
                 title: 'Tell Us About Your Trip',
-                desc: 'Answer 11 quick questions: when you\'re traveling, who you\'re with, your interests, budget, and travel style. Takes about 3 minutes — like chatting with a friend who knows Greece inside out.',
-                detail: 'Questions cover: travel dates, group type, budget range, interests (beaches, history, nightlife, food), pace preference, and must-see destinations.',
+                desc: 'Answer 13 quick questions: when you\'re traveling, who you\'re with, which Greek regions excite you, your interests, budget, and travel pace. Takes about 3 minutes — like chatting with a friend who knows Greece inside out.',
+                detail: 'Questions cover: experience level, travel dates, group type, region preference (islands/mainland/both), specific regions, pace, interests, accommodation style, dining, budget, and daily rhythm.',
                 color: '#FF5635',
               },
               {
                 step: '02',
                 title: 'AI Builds Your Itinerary',
-                desc: 'Our AI combines your answers with our local knowledge database — real ferry schedules, seasonal tips, authentic restaurant picks, and 15+ years of on-the-ground expertise in Greece.',
-                detail: 'The AI cross-references over 100 destinations, thousands of activities, and real-time logistics to create something uniquely yours.',
+                desc: 'Our AI combines your answers with a database of 133 Greek destinations — real ferry schedules, seasonal tips, authentic restaurant picks, and decades of on-the-ground expertise from our team of 5 Greek tourism professionals.',
+                detail: 'The AI cross-references 133 destinations across 11 regions, matches them to your preferences, and builds logistically sound routes that respect real travel times and seasonal availability.',
                 color: '#2C73FF',
               },
               {
@@ -356,11 +356,11 @@ export default function PlannerPage() {
               <h3 className="text-xl font-sans font-semibold mb-6 text-[#FF5635]">Greek Trip Planner</h3>
               <ul className="space-y-4">
                 {[
-                  'AI trained on 15+ years of local expertise',
+                  'AI built on 133 destinations across 11 regions',
                   'Realistic timing with actual travel distances',
                   'Real ferry schedules and connection data',
                   'Tavernas where Greeks actually eat',
-                  'Hidden gems only locals know about',
+                  'Hidden gems from 5 local tourism experts',
                   'Personalized to YOUR style and budget',
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-white/80 text-sm font-sans">
@@ -491,7 +491,7 @@ export default function PlannerPage() {
             Ready to Plan Your<br /><span className="text-[#FF5635]">Greek Adventure?</span>
           </h2>
           <p className="text-white/70 text-lg mb-10 max-w-xl mx-auto">
-            11 questions. 3 minutes. One perfectly personalized itinerary.
+            13 questions. 3 minutes. One perfectly personalized itinerary across 133 destinations.
           </p>
           <Link
             href="/quiz"
