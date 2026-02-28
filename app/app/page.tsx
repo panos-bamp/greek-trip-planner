@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Sparkles, MapPin, Calendar, Compass, ArrowRight, Check, Star } from 'lucide-react'
 import { Metadata } from 'next'
+import Navbar from '@/components/Navbar'
 
 export const metadata: Metadata = {
   title: 'AI Greece Trip Planner | Free Itinerary Generator 2025',
@@ -17,34 +18,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       {/* Navigation - White background with logo */}
-      <nav className="fixed top-0 w-full bg-white shadow-sm z-50">
-        <div className="container mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <Image 
-                src="/logo.png" 
-                alt="Greek Trip Planner" 
-                width={70} 
-                height={21}
-                priority
-              />
-            </div>
-            
-            <div className="hidden md:flex items-center space-x-8">
-              <Link href="/features" className="text-gray-700 hover:text-primary transition font-medium">Features</Link>
-              <Link href="/how-it-works" className="text-gray-700 hover:text-primary transition font-medium">How it Works</Link>
-              <Link href="/about" className="text-gray-700 hover:text-primary transition font-medium">About</Link>
-              <Link 
-                href="/quiz"
-                className="px-6 py-3 gradient-pink text-white rounded-full font-semibold hover:shadow-lg hover:scale-105 transition-all flex items-center space-x-2"
-              >
-                <span>Start Planning</span>
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section - Acropolis background image */}
       <div className="pt-32 pb-20 relative overflow-hidden min-h-[600px] flex items-center">

@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, MapPin, Utensils, Compass, Star, ChevronDown, Ship, Landmark, Sun, Shield, Gem, Heart, Users, Sparkles, BookOpen, Map, BarChart3, TrendingUp, Globe, Zap } from 'lucide-react'
+import Navbar from '@/components/Navbar'
 
 export const metadata = {
   title: 'AI Greece Trip Planner | 133 Destinations · Free Itinerary Generator 2026',
@@ -158,27 +159,7 @@ export default function HomePage() {
 
   return (
     <main className="min-h-screen bg-[#FAF6F3]">
-
-      {/* ===== NAVIGATION ===== */}
-      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 border-b border-[#E6DAD1]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center">
-            <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} priority />
-          </Link>
-          <div className="hidden md:flex items-center gap-8">
-            <Link href="/how-it-works" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">How it Works</Link>
-            <Link href="/blog" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">Blog</Link>
-            <Link href="/insights" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">Insights</Link>
-            <Link href="/about" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">About</Link>
-            <Link href="/ai-trip-planner" className="btn-accent px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2">
-              Start Planning <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-          <Link href="/ai-trip-planner" className="md:hidden btn-accent px-4 py-2 rounded-full text-sm font-semibold">
-            Start Planning
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* ===== HERO ===== */}
       <section className="relative min-h-[92vh] flex items-center pt-16">

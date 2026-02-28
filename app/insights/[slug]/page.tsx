@@ -7,6 +7,7 @@ import { urlFor } from '@/sanity/lib/image'
 import { InsightBody } from '@/components/InsightBody'
 import { generateInsightSchemas } from '@/lib/insightSchemaMarkup'
 import { notFound } from 'next/navigation'
+import Navbar from '@/components/Navbar'
 
 // Insight type labels
 const typeConfig: Record<string, { label: string; color: string; bg: string }> = {
@@ -132,27 +133,7 @@ export default async function InsightArticlePage({ params }: { params: Promise<{
           suppressHydrationWarning
         />
       )}
-
-      {/* ===== NAVIGATION ===== */}
-      <nav className="fixed top-0 w-full bg-white/90 backdrop-blur-md shadow-sm z-50 border-b border-[#E6DAD1]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center">
-            <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} priority />
-          </Link>
-          <div className="hidden md:flex items-center gap-8">
-            <Link href="/how-it-works" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">How it Works</Link>
-            <Link href="/blog" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">Blog</Link>
-            <Link href="/insights" className="text-[#FF5635] transition-colors text-sm font-medium">Insights</Link>
-            <Link href="/about" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">About</Link>
-            <Link href="/ai-trip-planner" className="btn-accent px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2">
-              Start Planning <ArrowRight className="w-4 h-4" />
-            </Link>
-          </div>
-          <Link href="/ai-trip-planner" className="md:hidden btn-accent px-4 py-2 rounded-full text-sm font-semibold">
-            Start Planning
-          </Link>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* ===== ARTICLE HEADER ===== */}
       <section className="pt-16">
