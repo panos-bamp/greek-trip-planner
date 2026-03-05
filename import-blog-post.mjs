@@ -28,7 +28,7 @@ import { randomUUID } from 'crypto';
 const CONFIG = {
   projectId: process.env.SANITY_PROJECT_ID || 'puhk8qa7',
   dataset: process.env.SANITY_DATASET || 'production',
-  token: process.env.SANITY_TOKEN || '',
+  token: process.env.SANITY_TOKEN || 'skjgjIHxvPYVKQD4I5EUiBBoRassU7bOJFgUiE7dj2UAF1Md3drX3qY2Tn9RSvVPvPyRHR4COK2xa6UzhxtA0mtDogDBtgeuF0KfzHoBNXnYUNziBvWirOEbcOE84ehDk9z9UdEz5GN6dmw5aGNKeSohWlrprcekg8DmcT5X85s3fUzXj07U',
   apiVersion: '2024-01-01',
 };
 

@@ -1,1987 +1,2703 @@
 {
   "_type": "insight",
-  "title": "Where Do Greece's Tourists Come From? Source Market Analysis 2024–2025",
+  "title": "Greece vs Mediterranean Rivals: How It Competes Against Spain, Turkey, Italy & Croatia",
   "slug": {
     "_type": "slug",
-    "current": "greece-tourism-source-markets"
+    "current": "greece-vs-spain-turkey-italy-tourism"
   },
-  "subtitle": "Germany sends the most visitors, but the UK is closing the revenue gap. Americans spend 59% above average. And 10 million Balkan arrivals barely register in strategy. A country-by-country breakdown of who's traveling to Greece — and what they spend when they get there.",
-  "excerpt": "Greece earned €22.38 billion from tourism through October 2025, but the money isn't coming from where most people assume. Non-EU receipts grew 12.2% — more than double the EU rate — while the Balkans quietly generated a third of all arrivals. This analysis unpacks every major source market: from Germany's spending stagnation to the UK's breakout year, from American high-rollers to India's 14 new weekly flights, and the 10 million Balkan visitors that conventional analysis overlooks.",
+  "subtitle": "Spain attracts 2.5 times more visitors. Turkey claims 64 million arrivals — but 11 million are diaspora. Italy generates €60 billion in tourism revenue. Croatia just lost 745,000 overnight stays in a single summer. And Portugal quietly outearns Greece per visitor with half the tax rate. Here is every number behind the Mediterranean's most competitive tourism landscape — and what it means for where you should travel.",
+  "excerpt": "Greece welcomed 37.98 million visitors and generated €23.6 billion in tourism revenue in 2025 — both records. But how does that compare to the rest of the Mediterranean? Spain hit 96.8 million arrivals and €134.7 billion in spending. Turkey reported 64 million visitors (though 17.5% were returning diaspora). Italy surpassed €60 billion in tourism receipts. Croatia set annual records while losing €140 million in a single summer due to pricing backlash. And Portugal earned 61% more per visitor than Greece with an accommodation VAT less than half as high. This analysis benchmarks Greece against five Mediterranean rivals across arrivals, revenue, spending per visitor, tax burden, seasonality, and competitive positioning — using 2025 official data from INE, TUIK, ISTAT, HTZ, and the Bank of Greece.",
   "insightType": "statistics",
   "topics": [
-    "greece tourism",
-    "source markets",
-    "tourism by country",
-    "german tourists greece",
-    "uk tourists greece",
-    "american tourists greece",
-    "india tourism greece",
-    "balkan tourism greece",
-    "tourism revenue",
-    "visitor spending"
+    "mediterranean tourism statistics",
+    "greece vs spain tourism",
+    "greece vs turkey tourism",
+    "greece vs italy vacation",
+    "best mediterranean destination",
+    "tourism comparison",
+    "greece competitiveness",
+    "tourism tax comparison",
+    "tourism revenue per visitor",
+    "mediterranean travel"
   ],
   "author": "Greek Trip Planner Research",
-  "authorBio": "Data-driven analysis of Greek tourism trends, drawing on Bank of Greece statistics, INSETE reports, and industry data to help travelers and businesses understand the forces shaping travel to Greece.",
-  "publishedAt": "2026-02-23T18:14:04.350Z",
-  "readingTime": 32,
+  "authorBio": "Data-driven analysis of Greek tourism trends, drawing on official statistics from INE, TUIK, ISTAT, HTZ, Bank of Greece, and Bank of Portugal to benchmark Greece against Mediterranean competitors.",
+  "publishedAt": "2026-03-02T18:32:49.921Z",
+  "readingTime": 28,
   "showTableOfContents": true,
   "keyMetrics": [
     {
-      "_key": "bff335e276b3",
+      "_key": "b0dc42a5d676",
       "_type": "metric",
-      "value": "€22.38B",
-      "label": "Total Tourism Revenue (Jan–Oct 2025)",
+      "value": "38.0M",
+      "label": "Greece 2025 Arrivals",
       "trend": "up",
-      "context": "+8.9% year-over-year"
+      "context": "Record year — +4.4% vs 2024, surpassing 2019 by 14%"
     },
     {
-      "_key": "68da364ff28d",
+      "_key": "7e952b82c0fd",
       "_type": "metric",
-      "value": "5.65M",
-      "label": "German Arrivals (Jan–Oct 2025)",
+      "value": "96.8M",
+      "label": "Spain 2025 Arrivals",
       "trend": "up",
-      "context": "#1 market by volume, but revenue +0.5%"
+      "context": "2.5× Greece's volume — the Mediterranean's undisputed leader"
     },
     {
-      "_key": "641bf7fab540",
+      "_key": "cdbfe4cb4911",
       "_type": "metric",
-      "value": "€3.55B",
-      "label": "UK Tourism Revenue (Jan–Oct 2025)",
-      "trend": "up",
-      "context": "+15.1% — fastest-growing major market"
+      "value": "€602",
+      "label": "Greece Revenue per Visitor",
+      "trend": "neutral",
+      "context": "Lowest among all six Mediterranean competitors benchmarked"
     },
     {
-      "_key": "cdf23d9c4fb1",
+      "_key": "7eeacbeec44a",
       "_type": "metric",
-      "value": "€958.66",
-      "label": "US Average Spend Per Trip",
-      "trend": "up",
-      "context": "59% above national average"
+      "value": "6% vs 13%",
+      "label": "Portugal vs Greece Accommodation VAT",
+      "trend": "neutral",
+      "context": "Greece's highest-in-class VAT rate creates a €9–10/night structural disadvantage"
     }
   ],
   "body": [
     {
-      "_key": "0fed1286d2c8",
+      "_key": "a8caca50bbea",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "95de8f55ffcd",
+          "_key": "2a20a412685e",
           "_type": "span",
-          "text": "Where do Greece's tourists come from? The conventional answer — Germany, the UK, France — captures the top of the table but misses most of the story.",
+          "text": "Which Mediterranean country delivers the best tourism product? The question drives millions of vacation decisions every year — and in the travel industry, it shapes billions of euros in investment, marketing, and infrastructure spending.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "86ac9ac4304c",
+      "_key": "1774ac051d61",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "821aee78a7e1",
+          "_key": "509fbd15e1cc",
           "_type": "span",
-          "text": "Greece earned €22.38 billion in tourism receipts through October 2025, generated by 35.26 million international visitors. Those figures, impressive on their own, become more revealing when disaggregated. Germany's 5.65 million arrivals contributed €3.61 billion — but that revenue barely grew at all, up just 0.5% year-over-year. The United Kingdom's roughly 4.2 million visitors generated €3.55 billion, surging 15.1% and narrowing the gap with Germany to less than €60 million. American travelers, numbering perhaps 1.3 million, contributed €1.54 billion — which means each American visitor generated roughly as much tourism revenue as 2.5 Germans.",
+          "text": "The answer depends on what you measure. Spain dominates on scale. Turkey wins on growth momentum. Italy leads on cultural depth. Portugal outperforms on revenue yield. Croatia offers a warning about what happens when prices outrun value. And Greece — with its record-setting 37.98 million visitors and €23.6 billion in 2025 revenue — occupies a distinctive position: strong enough to set records, yet generating the lowest revenue per visitor of any major Mediterranean destination.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "b5ffb7364ee3",
+      "_key": "d158b1f784f4",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "ae216c5ebc10",
+          "_key": "523944944278",
           "_type": "span",
-          "text": "And then there are the markets that rarely appear in strategic analysis at all. Bulgaria, Romania, North Macedonia, Turkey, Albania, and Serbia collectively sent an estimated 10–11 million visitors to Greece in 2024 — accounting for roughly a third of all international arrivals. Their spending per capita is far lower, but their volume is enormous. India, which sent perhaps 50,000 visitors in 2023, saw the launch of the first-ever direct flights to Athens in January 2026. Israel's air capacity to Greece surged 41% in 2025. China surpassed pre-pandemic visitor levels by 30%.",
+          "text": "This analysis benchmarks Greece against five rivals using 2025 official data. It is designed for two audiences: travelers comparing Mediterranean destinations with actual numbers rather than Instagram impressions, and tourism professionals who need a data-driven competitive landscape. The numbers reveal both where Greece excels and where structural gaps — particularly in taxation and revenue yield — leave money on the table.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "372d9f8149ce",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "5c767b151a9b",
-          "_type": "span",
-          "text": "This analysis examines every major source market — and several emerging ones — using Bank of Greece receipts data, INSETE statistical bulletins, airport traffic records, and airline capacity filings. The goal is not merely to list who comes to Greece but to understand the spending dynamics, growth trajectories, and structural forces that are reshaping the country's tourism geography. For a broader view of Greece's overall tourism performance, the companion ",
-          "marks": []
-        },
-        {
-          "_key": "92dbe06d635c",
-          "_type": "span",
-          "text": "Greece Tourism Statistics 2025",
-          "marks": [
-            "56562d423511"
-          ]
-        },
-        {
-          "_key": "86229446ece2",
-          "_type": "span",
-          "text": " analysis provides the full macroeconomic picture.",
-          "marks": []
-        }
-      ],
-      "markDefs": [
-        {
-          "_key": "56562d423511",
-          "_type": "link",
-          "href": "/insights/greece-tourism-statistics-2025",
-          "blank": false
-        }
-      ]
-    },
-    {
-      "_key": "e1b3bcc2189b",
+      "_key": "5aa1a30b1cbd",
       "_type": "block",
       "style": "h2",
       "children": [
         {
-          "_key": "e404df081c66",
+          "_key": "7def0cc96a96",
           "_type": "span",
-          "text": "The big picture: €22.38 billion and who generates it",
+          "text": "The scoreboard: six countries side by side",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "c68fbb541e57",
+      "_key": "197b1fdd7187",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "1c4d26d3bbd9",
+          "_key": "f7c8425e8f9f",
           "_type": "span",
-          "text": "The Bank of Greece divides tourism receipts into two broad categories: EU-27 sources and non-EU sources. Through October 2025, EU visitors contributed €12.12 billion (54.2% of total receipts), growing 5.8% year-over-year. Non-EU visitors contributed €9.11 billion (40.7%), growing 12.2%. The remaining 5.1% comes from cruise receipts and unallocated categories.",
+          "text": "Before examining each competitor individually, the headline comparison tells you which country leads on what — and where Greece ranks.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "5c6210598e6e",
+      "_key": "b043ce6fc3c2",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "1b59e7e60255",
+          "_key": "7e59b3970e46",
           "_type": "span",
-          "text": "That divergence — non-EU receipts growing more than twice as fast as EU receipts — marks a structural shift, not a seasonal fluctuation. It persisted across quarters and reflects three compounding dynamics: long-haul visitors spend substantially more per trip, new air routes are expanding capacity from markets like India and China faster than from saturated European corridors, and the softening of eurozone consumer confidence in 2024–2025 weighed on spending from Germany, France, and other euro-denominated economies.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "93bcf9c7e724",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "41a0ebf553da",
-          "_type": "span",
-          "text": "How many tourists visited Greece in 2024? The Bank of Greece reported ",
+          "text": "In 2025, ",
           "marks": []
         },
         {
-          "_key": "cefdb837d471",
+          "_key": "aaa0d838b21b",
           "_type": "span",
-          "text": "40.69 million total visitors",
+          "text": "Spain",
           "marks": [
-            "615df88c7bcb"
+            "strong"
           ]
         },
         {
-          "_key": "623bd43db6c7",
+          "_key": "a0669d31370e",
           "_type": "span",
-          "text": " — 35.95 million inbound travelers plus 4.74 million cruise passengers — representing a 12.8% increase over 2023. Full-year 2024 tourism receipts totaled €21.59 billion, with average expenditure per overnight stay reaching €89.70. By any historical measure, 2024 was Greece's best tourism year ever — and 2025 was already running ahead of it through the first ten months.",
+          "text": " welcomed 96.8 million international tourists who spent €134.7 billion. ",
           "marks": []
-        }
-      ],
-      "markDefs": [
+        },
         {
-          "_key": "615df88c7bcb",
-          "_type": "link",
-          "href": "/insights/greece-tourism-statistics-2020-2025",
-          "blank": false
-        }
-      ]
-    },
-    {
-      "_key": "d632c2d767a9",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "531b7ffca3be",
+          "_key": "41b7f4ce584d",
           "_type": "span",
-          "text": "But the more revealing question is not how many visitors arrive, but which visitors generate the most value. That question has a definitive answer: non-European long-haul travelers, particularly Americans, Israelis, and Gulf nationals, deliver per-capita spending that is 50–75% above the European average. The fastest-growing market categories by air capacity in 2025 were Israel (+52.1%), Saudi Arabia (+45%), Georgia (+113%), and Armenia (+68.5%), according to Mabrian Travel Intelligence data.",
+          "text": "Turkey",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "a2de5325757d",
+          "_type": "span",
+          "text": " reported 63.9 million total visitors (of which 52.8 million were foreign tourists) generating $65.2 billion (approximately €60 billion). ",
+          "marks": []
+        },
+        {
+          "_key": "8ac40814969e",
+          "_type": "span",
+          "text": "Italy",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "9fc374fc8271",
+          "_type": "span",
+          "text": " received roughly 60 million international visitors with tourism receipts approaching €60.4 billion. ",
+          "marks": []
+        },
+        {
+          "_key": "606034cc343a",
+          "_type": "span",
+          "text": "Greece",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "e7fcf41eec1f",
+          "_type": "span",
+          "text": " attracted 37.98 million visitors spending €23.6 billion. ",
+          "marks": []
+        },
+        {
+          "_key": "152621d32c46",
+          "_type": "span",
+          "text": "Portugal",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "7cc18751da98",
+          "_type": "span",
+          "text": " hosted approximately 30–31 million tourists generating €29.1 billion. And ",
+          "marks": []
+        },
+        {
+          "_key": "3a93acabf7a5",
+          "_type": "span",
+          "text": "Croatia",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "c2616b467aff",
+          "_type": "span",
+          "text": " welcomed 21.8 million visitors producing an estimated €15.5 billion.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "3d0d3ef1fc8f",
+      "_key": "24132c345893",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "73bc00c564b9",
+          "_key": "40d81cca94ac",
           "_type": "span",
-          "text": "Greece's source market composition is being redrawn — and the implications run from ",
-          "marks": []
-        },
-        {
-          "_key": "07087bca1d67",
-          "_type": "span",
-          "text": "how travelers plan trips",
-          "marks": [
-            "93078f467f55"
-          ]
-        },
-        {
-          "_key": "471546481a45",
-          "_type": "span",
-          "text": " to which islands and regions capture the economic benefit.",
+          "text": "Every country set records. The Mediterranean as a whole has never been more popular. But the distribution of that popularity — and more importantly, the revenue extracted from each visitor — varies enormously. Spain's €1,392 per visitor is more than double Greece's €602. Portugal's €970 is 61% higher. Even Turkey, long perceived as the budget option, generates more per visitor than Greece when diaspora and border-crossing visitors are excluded from the calculation.",
           "marks": []
         }
       ],
-      "markDefs": [
-        {
-          "_key": "93078f467f55",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/how-to-plan-a-trip-to-greece",
-          "blank": false
-        }
-      ]
+      "markDefs": []
     },
     {
-      "_key": "96a4cb27caba",
+      "_key": "dde6ef677e72",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "e282c952e6c2",
+          "_type": "span",
+          "text": "The tax structure partially explains this gap. Greece and Croatia share the Mediterranean's highest accommodation VAT at 13%. Portugal charges 6%. Spain and Italy charge 10%. Turkey charges 8% plus a 2% accommodation tax. On a €150 hotel night, Greece's tax burden runs €23–26 — roughly €10 more than Portugal's €13–15. Across millions of room-nights, this structural difference adds up to billions.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "26ce3d7f5b10",
       "_type": "block",
       "style": "h2",
       "children": [
         {
-          "_key": "a33bff67458c",
+          "_key": "7ab18974b84c",
           "_type": "span",
-          "text": "Germany: the volume leader with a spending problem",
+          "text": "Spain: the 97-million-visitor juggernaut",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "c8140ac1b409",
+      "_key": "56e97203ff72",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "f10ca4198b45",
+          "_key": "4db6f0b132cd",
           "_type": "span",
-          "text": "Germany is, and has been for decades, the single largest source of tourists to Greece. In 2024, 5.40 million German visitors arrived — a 13.4% increase year-over-year — generating €3,702 million in receipts with an average spend of €691 per person. Through October 2025, arrivals grew a further 8.3% to reach 5.65 million, but receipts growth stalled at just 0.5%, reaching €3.61 billion.",
+          "text": "Spain is not Greece's competitor in the conventional sense — it operates at a fundamentally different scale. But understanding Spain's model reveals both what mass-market tourism looks like at its apex and why raw visitor numbers do not tell the full competitive story.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "91d6c15afed8",
+      "_key": "8777e10adfe3",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "41882c07e03b",
+          "_key": "86d6c44e1a5d",
           "_type": "span",
-          "text": "That disparity — strong volume growth paired with near-zero revenue growth — tells an important story. German tourists are arriving in greater numbers but spending less per visit. The September 2025 data was particularly striking: German receipts fell 28.3% in a single month, even as overall Greek tourism revenue continued to rise. This suggests increasing price sensitivity among German travelers, likely driven by the broader European economic slowdown, rising domestic costs, and the eurozone's flat economic performance through mid-2025.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "77ac1b543143",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "d1f775d99a73",
-          "_type": "span",
-          "text": "German tourism to Greece is overwhelmingly sun-and-beach oriented. ",
+          "text": "Spain welcomed ",
           "marks": []
         },
         {
-          "_key": "8844a6a6175f",
+          "_key": "b200918408aa",
           "_type": "span",
-          "text": "Crete",
+          "text": "96.77 million international tourists",
           "marks": [
-            "852e0443d12a"
+            "strong"
           ]
         },
         {
-          "_key": "0a4444cb90bc",
+          "_key": "8ea8179fb4b8",
           "_type": "span",
-          "text": ", ",
+          "text": " in 2025, a third consecutive annual record confirmed by INE's Frontur provisional data published in February 2026. Revenue reached ",
           "marks": []
         },
         {
-          "_key": "7917b15060ef",
+          "_key": "043cd75c5893",
           "_type": "span",
-          "text": "Rhodes",
+          "text": "€134.7 billion",
           "marks": [
-            "a88174b1f1f9"
+            "strong"
           ]
         },
         {
-          "_key": "313351ce0ddd",
+          "_key": "555a77de0baf",
           "_type": "span",
-          "text": ", ",
-          "marks": []
-        },
-        {
-          "_key": "e0af32af7cb2",
-          "_type": "span",
-          "text": "Corfu",
-          "marks": [
-            "ee500c118695"
-          ]
-        },
-        {
-          "_key": "005324ee9f36",
-          "_type": "span",
-          "text": ", and ",
-          "marks": []
-        },
-        {
-          "_key": "533cd3b0def4",
-          "_type": "span",
-          "text": "Kos",
-          "marks": [
-            "e6f3c0eb7404"
-          ]
-        },
-        {
-          "_key": "ecfb7884a13f",
-          "_type": "span",
-          "text": " are the primary destinations, with substantial volumes also flowing to Halkidiki and the Peloponnese. The market is heavily intermediated by tour operators — TUI, DER Touristik, and FTI (prior to its 2024 insolvency) — and German travelers tend toward package holidays booked 3–6 months in advance. Average stay length for German visitors runs approximately 7–8 nights, among the longest of any European source market, which helps explain why per-trip spending (€691) exceeds per-night spending despite relatively modest daily budgets.",
-          "marks": []
-        }
-      ],
-      "markDefs": [
-        {
-          "_key": "852e0443d12a",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/trip-to-crete-greece",
-          "blank": false
-        },
-        {
-          "_key": "a88174b1f1f9",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/rhodes-travel-guide",
-          "blank": false
-        },
-        {
-          "_key": "ee500c118695",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/corfu-travel-guide",
-          "blank": false
-        },
-        {
-          "_key": "e6f3c0eb7404",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/kos-travel-guide",
-          "blank": false
-        }
-      ]
-    },
-    {
-      "_key": "62aa7a788e76",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "f5c579487003",
-          "_type": "span",
-          "text": "The structural challenge for Greece is that Germany's 15% share of total arrivals and 17% share of receipts creates enormous concentration risk. A German recession — or even the kind of consumer confidence erosion observed in late 2025 — directly impacts a sixth of Greece's tourism revenue. The market's maturity also means growth potential is limited: Germany is already deeply penetrated, with Greece ranking as the third-most-popular outbound destination for German travelers after Spain and Turkey.",
+          "text": ", growing 6.8% year-on-year — more than double the 3.2% growth rate in arrivals. This divergence between revenue growth and volume growth reflects Spain's deliberate strategic pivot: extracting more value from each visitor rather than simply pursuing more arrivals.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "853eb1d9968f",
+      "_key": "de1a43c11d3c",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "41a58077dc61",
+          "_key": "e9a26c066ed2",
           "_type": "span",
-          "text": "For the Greek tourism industry, Germany is the bedrock — indispensable for volume, particularly at mid-range properties and island package destinations — but it is no longer the growth engine.",
+          "text": "The spending numbers bear this out. Average tourist expenditure hit ",
+          "marks": []
+        },
+        {
+          "_key": "cf39356150da",
+          "_type": "span",
+          "text": "€1,392 per visit",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "7861d1e82b9c",
+          "_type": "span",
+          "text": " — €188 per day in spring, rising to €210 per day during July and August. Hotel daily rates reached €127.70 by year-end, up 25% from 2019. Spain's tourism price inflation has been aggressive — ",
+          "marks": []
+        },
+        {
+          "_key": "52789b3214e1",
+          "_type": "span",
+          "text": "49% higher than 2021",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "f1a4bf46eec4",
+          "_type": "span",
+          "text": " — yet arrivals continue to grow, suggesting the market has absorbed price increases without meaningful demand destruction.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "cb3aaf2ecea8",
+      "_key": "605d4434fdf3",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "82c9729335e4",
+          "_type": "span",
+          "text": "Three source markets drive nearly half of Spain's tourism. The UK leads with ",
+          "marks": []
+        },
+        {
+          "_key": "e80260204907",
+          "_type": "span",
+          "text": "19.1 million visitors",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "a6c94aa7ed09",
+          "_type": "span",
+          "text": " (+3.7%), followed by France at 12.8 million and Germany at 12.0 million. The US market reached 4.5 million, growing 4.3%. Spain's source market diversification — drawing heavily from northern Europe, North America, and increasingly Latin America — gives it resilience that Greece's more concentrated German-UK dependency cannot match.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "16cb7e2f3d2b",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "b605c1477b7b",
+          "_type": "span",
+          "text": "Spain's structural advantages over Greece are formidable. The ",
+          "marks": []
+        },
+        {
+          "_key": "3b9d2cd94a94",
+          "_type": "span",
+          "text": "Canary Islands alone generated €24.4 billion",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "eedf1f161d9b",
+          "_type": "span",
+          "text": " in visitor spending from 15.7 million arrivals — more than Greece's entire national tourism revenue. The Canaries provide genuine year-round demand that eliminates Spain's seasonality trap in a way Greece cannot replicate. High-speed rail connects major cities efficiently. Airport capacity and connectivity dwarf Greece's network. And Spain's scale creates self-reinforcing network effects: more routes, more hotel chains, more package-tour distribution, more media coverage.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "55814c27304f",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "f8bb3d8406fa",
+          "_type": "span",
+          "text": "Yet Spain's success carries its own burden. The ",
+          "marks": []
+        },
+        {
+          "_key": "5e81a3d2fa27",
+          "_type": "span",
+          "text": "overtourism backlash",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "d4c2d976d8c2",
+          "_type": "span",
+          "text": " has become Spain's defining tourism challenge. June 2025 saw coordinated anti-tourism protests across Barcelona, Mallorca, Granada, and San Sebastián as part of a pan-Southern European movement. Barcelona now charges ",
+          "marks": []
+        },
+        {
+          "_key": "8d78e15541ef",
+          "_type": "span",
+          "text": "€7.40–€11.00 per person per night",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "6683c15957e1",
+          "_type": "span",
+          "text": " in combined tourist taxes — doubled in May 2025 — and will eliminate all 10,000 short-term rental licenses by 2028. The city plans to close two of its seven cruise terminals from 2026. Nationally, the government ordered removal of approximately 65,000 unlicensed Airbnb listings and proposed 21% VAT on short-term tourist rentals.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "ab94231df852",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "4e8f07e73461",
+          "_type": "span",
+          "text": "Despite these measures, arrivals keep rising. Barcelona's search demand dipped 13% in June 2025, but Spain's national search interest increased 18% simultaneously — travelers are redistributing within Spain rather than choosing different countries. Hotel occupancy reached 74.6% nationally in 2024, with RevPAR at €118.30. The CaixaBank Research team forecasts continued but moderated growth for 2026, with the industry shifting from volume expansion to quality upgrading.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "914b82638f28",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "fea49ef5cd94",
+          "_type": "span",
+          "text": "For Greece, Spain's experience confirms two insights. First, tourism taxes at current global levels do not reduce demand — they generate revenue. Barcelona's aggressive tax increases have not prevented Spain from reaching 97 million visitors. Second, Spain's protest movement has not yet diverted meaningful tourist flows to competing Mediterranean destinations. Travelers inconvenienced by Barcelona's restrictions choose Seville or Valencia, not Thessaloniki or Crete. Greece's opportunity from Spain's overtourism struggles is more narrative than numerical — at least so far.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "6102850022f8",
       "_type": "block",
       "style": "h2",
       "children": [
         {
-          "_key": "8482f666e805",
+          "_key": "8e631c929f98",
           "_type": "span",
-          "text": "The United Kingdom: Greece's breakout market of 2025",
+          "text": "Turkey: 64 million visitors, but the headline demands scrutiny",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "cd50e61f6ab7",
+      "_key": "4953545a9ca8",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "7086023ffc1e",
+          "_key": "819909db2bcd",
           "_type": "span",
-          "text": "If Germany is the volume story, the United Kingdom is the revenue story. UK visitors delivered €3.55 billion in tourism receipts through October 2025, a 15.1% surge that dramatically narrowed the gap with Germany to just €60 million. At 2025's growth trajectory, the UK is on pace to overtake Germany as Greece's single largest revenue source within 12–18 months.",
+          "text": "Turkey's tourism statistics require more careful interpretation than any other Mediterranean competitor's. The headline — 63.94 million total visitors generating $65.23 billion in revenue — places Turkey squarely as the Mediterranean's second-largest tourism economy. But the composition of those numbers tells a more complex story.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "db49272fb4ce",
+      "_key": "4df23f51650b",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "04ec263f5c32",
+          "_key": "1aa05dbeef66",
           "_type": "span",
-          "text": "The 2024 baseline already showed promise. Britain sent 4.55 million visitors to Greece that year — a slight 1% decline in volume — but generated €3,159.8 million in receipts, with average spending of €731 per person. That per-visitor figure, 6% higher than Germany's, reflected the British market's tilt toward premium properties and longer-haul island destinations.",
+          "text": "Of the 63.94 million, ",
+          "marks": []
+        },
+        {
+          "_key": "a934370acea6",
+          "_type": "span",
+          "text": "only 52.78 million were classified as foreign tourists",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "d4f81765fbf7",
+          "_type": "span",
+          "text": ". The remaining ",
+          "marks": []
+        },
+        {
+          "_key": "d92f7382d157",
+          "_type": "span",
+          "text": "11.16 million — 17.5% of the total — were Turkish diaspora",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "11bc2f581c50",
+          "_type": "span",
+          "text": " returning to visit family. Turkey's counting methodology also captures millions of Bulgarian, Georgian, and Iranian border-crossing day-trippers. ",
+          "marks": []
+        },
+        {
+          "_key": "a769062a64f5",
+          "_type": "span",
+          "text": "Edirne province",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "597cfd6eeb06",
+          "_type": "span",
+          "text": ", on the Bulgarian border, ranks as Turkey's second most-visited destination ahead of Antalya — driven almost entirely by Bulgarians crossing for shopping. When these structural inflators are stripped out, Turkey's leisure tourism volume is significantly closer to Greece's than the headline suggests.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "65b3c481ebb0",
+      "_key": "8038f1c01a7d",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "d46682562662",
+          "_key": "764d791c7e98",
           "_type": "span",
-          "text": "In 2025, the dynamic accelerated. October was especially striking: UK spending surged 42.9% year-over-year, an outlier driven by strong late-season demand for ",
+          "text": "The more revealing metric: ",
           "marks": []
         },
         {
-          "_key": "539603c644ae",
+          "_key": "2ea727e727de",
           "_type": "span",
-          "text": "Greek islands",
+          "text": "foreign tourist arrivals grew just 0.28%",
           "marks": [
-            "d74d2eedc800"
+            "strong"
           ]
         },
         {
-          "_key": "953ae8a3a2ee",
+          "_key": "f00093da9d3f",
           "_type": "span",
-          "text": " and an increasingly favorable Sterling-to-Euro exchange rate. The pound's relative strength against the euro throughout 2025 made Greece measurably cheaper for British visitors compared with 2023–2024, coinciding with reduced competition from Turkey where the lira's collapse has made the tourism experience less predictable for quality-conscious travelers.",
-          "marks": []
-        }
-      ],
-      "markDefs": [
-        {
-          "_key": "d74d2eedc800",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/best-greek-islands-to-visit",
-          "blank": false
-        }
-      ]
-    },
-    {
-      "_key": "80a2eafa75d9",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "925f5bf777da",
-          "_type": "span",
-          "text": "British visitors to Greece show distinct behavioral patterns. They skew toward the islands rather than the mainland, with ",
+          "text": " in 2025, while total revenue grew 6.8%. Growth was almost entirely price-driven, not volume-driven. July 2025 saw a ",
           "marks": []
         },
         {
-          "_key": "e2a70b678460",
+          "_key": "cc7a108081e0",
           "_type": "span",
-          "text": "Rhodes",
+          "text": "5% year-on-year drop",
           "marks": [
-            "98ee56f00d83"
+            "strong"
           ]
         },
         {
-          "_key": "85da919a35b5",
+          "_key": "33cebccabdb7",
           "_type": "span",
-          "text": ", Crete, Corfu, ",
-          "marks": []
-        },
-        {
-          "_key": "b5b77ff55c81",
-          "_type": "span",
-          "text": "Zakynthos",
-          "marks": [
-            "b8238cd1674e"
-          ]
-        },
-        {
-          "_key": "fe5fa75e3dd1",
-          "_type": "span",
-          "text": ", and ",
-          "marks": []
-        },
-        {
-          "_key": "22730e671e81",
-          "_type": "span",
-          "text": "Kefalonia",
-          "marks": [
-            "7c064f266207"
-          ]
-        },
-        {
-          "_key": "a444c96b0a06",
-          "_type": "span",
-          "text": " accounting for the majority of UK arrivals. They book heavily through online travel agencies but increasingly through direct hotel channels as well. And critically, British demand extends well into the shoulder seasons — the October surge is not a one-year anomaly but reflects a durable pattern of UK visitors seeking September–October travel as the ",
-          "marks": []
-        },
-        {
-          "_key": "11354665253b",
-          "_type": "span",
-          "text": "best time to visit Greece",
-          "marks": [
-            "e9f4f5ecdc4e"
-          ]
-        },
-        {
-          "_key": "ce72bd95f16a",
-          "_type": "span",
-          "text": " for favorable weather and reduced crowds.",
-          "marks": []
-        }
-      ],
-      "markDefs": [
-        {
-          "_key": "98ee56f00d83",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/rhodes-travel-guide",
-          "blank": false
-        },
-        {
-          "_key": "b8238cd1674e",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/zakynthos-travel-guide",
-          "blank": false
-        },
-        {
-          "_key": "7c064f266207",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/kefalonia-travel-guide",
-          "blank": false
-        },
-        {
-          "_key": "e9f4f5ecdc4e",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/best-time-to-travel-to-greece",
-          "blank": false
-        }
-      ]
-    },
-    {
-      "_key": "0292877affc5",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "8224251c478d",
-          "_type": "span",
-          "text": "Post-Brexit, UK visitors require a valid passport (previously EU ID cards sufficed), but this administrative change has not materially impacted flows. The more consequential Brexit effect may be the psychological reorientation of British holidaymakers away from default Mediterranean packages toward more considered destination choices — a dynamic that has arguably benefited Greece, whose diverse island geography and cultural depth reward precisely this kind of intentional travel planning.",
+          "text": " in foreign arrivals, with German visitors falling 8% and British visitors declining 10% that month. Industry insiders told Balkan Insight that official statistics mask falling occupancy rates, shrinking profits, and the impact of inflation running at 35–44% annually.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "403ed4420af8",
+      "_key": "d6a437fe8baf",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "77171dc37e30",
+          "_type": "span",
+          "text": "Turkey's legendary price advantage has eroded substantially. The Turkish lira depreciated 21.7% against the dollar in the year to January 2026, but domestic inflation has pushed tourism prices up faster than the currency has fallen. A five-day family trip to Antalya or Bodrum now costs ",
+          "marks": []
+        },
+        {
+          "_key": "1e3be9b4b6b6",
+          "_type": "span",
+          "text": "€4,000–5,000",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "a48bbfa92a16",
+          "_type": "span",
+          "text": " — approaching Dubai pricing levels, according to TravelMole analysis. First-half 2025 arrivals dipped significantly enough that Turkey's Tourism Minister publicly acknowledged the pricing challenge before a strong second half recovered the annual numbers.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "307e932fbc3d",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "8cda6db23cc3",
+          "_type": "span",
+          "text": "Despite these pressures, Turkey's competitive strengths against Greece remain formidable. ",
+          "marks": []
+        },
+        {
+          "_key": "298167a456e9",
+          "_type": "span",
+          "text": "Istanbul functions as a genuine year-round hub",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "8684f8536704",
+          "_type": "span",
+          "text": ", attracting 16 million foreign visitors through October 2025 alone and operating from Europe's busiest airport (121.9 million passengers in 2024). Turkey's medical tourism sector generates ",
+          "marks": []
+        },
+        {
+          "_key": "84c5215f955c",
+          "_type": "span",
+          "text": "$3–4 billion annually",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "00e120b41432",
+          "_type": "span",
+          "text": " from roughly 2 million health visitors, with procedures priced 50–70% below Western European equivalents. Istanbul's MICE (meetings, incentives, conferences, exhibitions) sector produced $1.2 billion in 2025 revenue, growing 18%. These diversified tourism segments — medical, MICE, cultural, transit hub — give Turkey year-round revenue streams that Greece's beach-and-island model cannot match.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "afb4633ab9cb",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "487a80e99223",
+          "_type": "span",
+          "text": "Turkey's top source markets in 2025 were Russia (6.9 million), Germany (6.75 million), the UK (4.27 million), and Iran (approximately 3 million). The Russian market — absent from most Western Mediterranean destinations due to sanctions and flight restrictions — gives Turkey a massive captive source market with limited competitive alternatives.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "b76efbb90c19",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "ee0be0694201",
+          "_type": "span",
+          "text": "Turkey's tax burden on tourists is lighter than Greece's. Accommodation VAT runs at ",
+          "marks": []
+        },
+        {
+          "_key": "abbbffbdfbfe",
+          "_type": "span",
+          "text": "8%",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "ffb593818545",
+          "_type": "span",
+          "text": " plus a 2% accommodation tax on the room rate, with an additional $1 per night levy at 4–5 star hotels introduced in June 2025. The total effective tax on a €150 hotel night comes to approximately €17–19, versus Greece's €23–26.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "67205a6bf6cd",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "0f84e20b2a3a",
+          "_type": "span",
+          "text": "For travelers weighing Greece against Turkey, the comparison has shifted. Turkey is no longer the overwhelmingly cheaper option it was five years ago. Its price competitiveness has narrowed considerably. Greece retains advantages in EU membership (regulatory certainty, Schengen access, consumer protections), political stability, higher-quality perception for Western European source markets, and an island product Turkey cannot match. But Turkey's Istanbul gateway, medical tourism infrastructure, and Russian market access give it diversification Greece lacks.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "a270e5eb3131",
       "_type": "block",
       "style": "h2",
       "children": [
         {
-          "_key": "e8459040878a",
+          "_key": "744d277951f4",
           "_type": "span",
-          "text": "The United States: spending 59% above average, and growing",
+          "text": "Italy: cultural depth meets a recovery puzzle",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "af01feead48a",
+      "_key": "216427cdb40a",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "5f2c8426964a",
+          "_key": "c8cc1f524105",
           "_type": "span",
-          "text": "American visitors to Greece represent the country's highest-value major source market by a substantial margin. In 2024, 1.55 million US visitors contributed €1,583.8 million in receipts — a 15.3% increase and the strongest growth rate among top-five markets. Per-trip spending averaged €1,022, a figure 78% above the national average of €573.",
+          "text": "Italy presents Greece's most direct competitive overlap. Both countries trade on historical heritage, Mediterranean cuisine, coastal beauty, and a romantic cultural brand. Both attract similar source markets — Germany, the US, the UK, France. Both charge comparable tax rates. And both face overtourism challenges concentrated in a handful of iconic destinations.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "91d7d0c96446",
+      "_key": "1b25464f092f",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "d336ba4a7cd3",
+          "_key": "2eaa55c23bf8",
           "_type": "span",
-          "text": "Through October 2025, the trajectory continued: US receipts reached €1.54 billion (+8.4%), with per-trip spending of €958.66 — still 59% above the overall average of €602.20 and 53% higher than the German average of €625. The arithmetic is clear: one American visitor generates roughly the same economic contribution as 2.5 visitors from Germany or 1.6 from the UK.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "0771d1ae4ed9",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "f5e899e4b9dc",
-          "_type": "span",
-          "text": "Air connectivity is expanding to serve this demand. In 2025, American Airlines launched Charlotte–Athens (its fourth US gateway after Philadelphia, New York-JFK, and Chicago), Norse Atlantic added a new Los Angeles–Athens route with 155% capacity growth, and United Airlines and Delta maintained strong daily service from Newark and Atlanta respectively. Athens now offers direct connections to at least seven US airports during peak season, up from three in 2019.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "58e30648d95d",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "7e4afaabc33d",
-          "_type": "span",
-          "text": "American visitors exhibit distinctive patterns. They concentrate in ",
+          "text": "Italy's 2025 tourism numbers tell two stories. Revenue has convincingly surpassed 2019 levels — the Bank of Italy reported approximately ",
           "marks": []
         },
         {
-          "_key": "930d3201ae3e",
+          "_key": "a78c648b7d63",
           "_type": "span",
-          "text": "Athens",
+          "text": "€60.4 billion in international tourism receipts",
           "marks": [
-            "b6dcb35a71cd"
+            "strong"
           ]
         },
         {
-          "_key": "0881ca684dac",
+          "_key": "39719f7d9daf",
           "_type": "span",
-          "text": " and the Cyclades — particularly ",
+          "text": ", well above 2019's $49.5 billion. But international overnight arrivals in 2024 stood at roughly 57.7 million, still approximately ",
           "marks": []
         },
         {
-          "_key": "7b5910b8061e",
+          "_key": "e3b06fa2aa2a",
           "_type": "span",
-          "text": "Santorini",
+          "text": "10% below the 64.5 million recorded in 2019",
           "marks": [
-            "4f3302675673"
+            "strong"
           ]
         },
         {
-          "_key": "c765cc7977c4",
+          "_key": "666823243f97",
+          "_type": "span",
+          "text": ". The gap between revenue recovery and volume recovery tells you that Italy, like Spain, is generating more money from fewer visitors — through higher prices, longer stays, and premium positioning.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "da668d7c6a94",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "fa6f0b38e15f",
+          "_type": "span",
+          "text": "Italy's revenue per visitor reaches approximately ",
+          "marks": []
+        },
+        {
+          "_key": "97deca7d7638",
+          "_type": "span",
+          "text": "€930",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "e2268dd5fbc1",
+          "_type": "span",
+          "text": " — 54% higher than Greece's €602. The spending breakdown reveals the difference: 42% goes to accommodation, 26% to food and beverage, and 18% to shopping and culture. Italy's retail, fashion, and wine tourism capture spending categories where Greece underperforms. A visitor to Florence or Milan spends substantially on shopping; a visitor to Mykonos or Santorini spends primarily on accommodation and dining.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "7bf233a0948b",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "a700641e09a0",
+          "_type": "span",
+          "text": "Germany leads Italy's source markets with ",
+          "marks": []
+        },
+        {
+          "_key": "f1a56d411e9b",
+          "_type": "span",
+          "text": "13.5 million visitors",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "a632e179dec6",
+          "_type": "span",
+          "text": " (19% share), followed by the US at 7.5 million (10.5%), France at 5.6 million, and the UK at 5.0 million. The strength of Italy's US market is a key differentiator — American tourists spend significantly above average, and Italy captures 50% more US visitors than Greece in absolute terms.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "1bad2b0409c8",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "20fc7f89a554",
+          "_type": "span",
+          "text": "Italy's competitive advantages over Greece center on ",
+          "marks": []
+        },
+        {
+          "_key": "6b137f420cda",
+          "_type": "span",
+          "text": "product diversity and cultural infrastructure",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "9fbb1f002cbc",
+          "_type": "span",
+          "text": ". With ",
+          "marks": []
+        },
+        {
+          "_key": "ac9cdce60d70",
+          "_type": "span",
+          "text": "61 UNESCO World Heritage Sites",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "468cbd8ca13c",
+          "_type": "span",
+          "text": " — the most of any country globally — Italy offers unmatched cultural tourism. The product range is extraordinary: fashion in Milan, wine in Tuscany, skiing in the Dolomites, culinary tourism everywhere, high-speed rail connecting cities that Greece cannot reach by train. Multi-city itineraries (Rome–Florence–Venice, Naples–Amalfi–Puglia) are seamlessly accessible by Trenitalia's high-speed network. Greece's island-focused geography makes comparable multi-destination trips dependent on domestic flights and ferries.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "660beeeffab8",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "88a5f3db35b7",
+          "_type": "span",
+          "text": "The tax comparison between Greece and Italy is close but instructive. Italy charges ",
+          "marks": []
+        },
+        {
+          "_key": "0764b8e970ff",
+          "_type": "span",
+          "text": "10% VAT on accommodation",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "f3296c965675",
+          "_type": "span",
+          "text": " — 3 percentage points below Greece's 13%. City tourist taxes have escalated: Rome charges €4–10 per person per night, Venice expanded its day-tripper entry fee to 54 designated days in 2025 (up from 29 in 2024) at €5–10 per entry, Florence charges up to €8, and Milan introduced rates reaching €7 for 4-star hotels in 2025. Italy's 2025 budget law doubled the maximum allowed city tax to €10 nationwide and added a €5 option for non-overnight visitors. Despite these increases, Italy's per-person tax structure benefits solo travelers more than Greece's per-room model, while couples and families pay more in Italian cities than under Greece's flat per-room fee.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "3335f0037513",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "9752db5d83bd",
+          "_type": "span",
+          "text": "For travelers choosing between ",
+          "marks": []
+        },
+        {
+          "_key": "b459ee18a84e",
+          "_type": "span",
+          "text": "an Italy and Greece trip",
+          "marks": [
+            "dfecddba74c2"
+          ]
+        },
+        {
+          "_key": "736dd2f606af",
+          "_type": "span",
+          "text": " and a single-country vacation, the data suggests a clear positioning difference. Italy wins on cultural variety, rail connectivity, and shopping. Greece wins on island diversity, beach quality, and — despite its higher VAT — a lower total trip cost thanks to generally lower accommodation base rates outside of Mykonos and Santorini. A mid-range week in the Greek islands typically costs 15–25% less than an equivalent week on Italy's Amalfi Coast or in Tuscany, even after accounting for Greece's higher tax rate.",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "dfecddba74c2",
+          "_type": "link",
+          "href": "https://greektriplanner.me/blog/italy-and-greece-trip",
+          "blank": false
+        }
+      ]
+    },
+    {
+      "_key": "f8cd956be900",
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_key": "7a3a34fa4b61",
+          "_type": "span",
+          "text": "Croatia: the Mediterranean's most important cautionary tale",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "dc34a6e56a26",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "9970de4e820d",
+          "_type": "span",
+          "text": "Every Mediterranean tourism ministry should study Croatia's 2025 results. They demonstrate, with painful clarity, what happens when a destination raises prices faster than it raises quality — and they carry direct implications for Greece's own pricing trajectory.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "047d5bf9857f",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "30951b6aec53",
+          "_type": "span",
+          "text": "Croatia's annual numbers look excellent. The country welcomed ",
+          "marks": []
+        },
+        {
+          "_key": "9d035e9045cd",
+          "_type": "span",
+          "text": "21.8 million arrivals",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "93186c90021f",
+          "_type": "span",
+          "text": " (+2.2%) and recorded ",
+          "marks": []
+        },
+        {
+          "_key": "2cb674b9840f",
+          "_type": "span",
+          "text": "110.1 million overnight stays",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "b975c76a4ab2",
+          "_type": "span",
+          "text": " — the first time above 110 million. Both are records. But beneath these annual headlines, the critical July–August peak season experienced ",
+          "marks": []
+        },
+        {
+          "_key": "4073a5d862f7",
+          "_type": "span",
+          "text": "745,000 fewer overnight stays",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "3590e5aa9419",
+          "_type": "span",
+          "text": " than 2024, translating to an estimated ",
+          "marks": []
+        },
+        {
+          "_key": "bcd5830ce1a0",
+          "_type": "span",
+          "text": "€140 million in lost summer revenue",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "4a3e4a27c796",
+          "_type": "span",
+          "text": ". Third-quarter foreign tourist revenue actually declined 0.2%. Both the Tourism Minister and the Croatian Tourist Board's Director publicly sounded the alarm at the December 2025 Hoteliers' Congress.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "b5b25f8f324b",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "ed8ae3ed5ac8",
+          "_type": "span",
+          "text": "The cause is unambiguous: ",
+          "marks": []
+        },
+        {
+          "_key": "fd127e166d00",
+          "_type": "span",
+          "text": "pricing",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "9bfc7fc322b2",
+          "_type": "span",
+          "text": ". Tourism and accommodation prices in Croatia rose approximately ",
+          "marks": []
+        },
+        {
+          "_key": "11c45b34bf0b",
+          "_type": "span",
+          "text": "50% in three years",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "d96021bb552a",
+          "_type": "span",
+          "text": " following Euro adoption in January 2023. In 2016, Croatian prices sat 64% below France and 46% below Italy. By 2023, the gap had narrowed to just 20% below France. Croatian Tourist Board flash analysis confirmed that by Easter 2025, minimum accommodation prices in Croatia exceeded Greek equivalents, and first-week-of-August prices surpassed all Mediterranean competitors except France.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "d2f40ae0b4d9",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "af311e7c6d5f",
+          "_type": "span",
+          "text": "The European Travel Commission flagged Croatia as one of only two European countries (alongside Iceland) experiencing tourist declines in 2025. May arrivals fell 5% and overnight stays plummeted 14%. German visitors — Croatia's largest market at 22.3 million overnight stays annually — dropped from 30% of May 2024 guests to just 16.5% in May 2025. Finance Minister Primorac offered a blunt assessment: Croatia's tourism offering is not so superior as to justify prices higher than Greece, Spain, or Portugal.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "21fa8b917992",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "ed161d7c874d",
+          "_type": "span",
+          "text": "Croatia's structural vulnerabilities compound the pricing problem. Tourism dependency reaches ",
+          "marks": []
+        },
+        {
+          "_key": "9bd97e2af98a",
+          "_type": "span",
+          "text": "26.4% of GDP",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "027d9d89867c",
+          "_type": "span",
+          "text": " — the highest in the EU — with a population of just 3.87 million producing a tourism intensity of 5.6 tourists per resident annually. Dubrovnik experiences 27 tourists per resident at peak times. Seasonality is extreme: approximately ",
+          "marks": []
+        },
+        {
+          "_key": "54de13d4e851",
+          "_type": "span",
+          "text": "75% of overnight stays occur June–September",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "581785eb4744",
+          "_type": "span",
+          "text": ", with July–August alone accounting for 58%. This concentration means a single bad summer — whether from pricing backlash, weather events, or geopolitical disruption — threatens an outsized share of national income.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "e067ba88c8da",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "e950e26bf5a3",
+          "_type": "span",
+          "text": "The government responded with structural reforms: 10,000 tourist beds removed from the market in 2025, new flat-rate taxes on short-term rentals (€20–300 per bed annually), an 80% co-owner consent requirement for apartment tourism, and a 40% increase in the 2026 promotional budget to €53 million. Croatia's accommodation VAT matches Greece's at 13%, with additional sojourn taxes of €1–2.65 per night.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "5f74cc74f88a",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "e91b9ccf9b77",
+          "_type": "span",
+          "text": "For Greece, Croatia's experience delivers a clear warning. The countries share the Mediterranean's highest accommodation VAT. Both face seasonality challenges (though Greece's are less extreme). Both depend on German visitors as their largest source market. And both have seen prices rise substantially since 2019. Croatia's summer collapse shows that the tipping point — where price increases outrun perceived value and drive away core markets — can arrive suddenly. The hotel industry does not receive a warning before German families start booking Peloponnese instead of Dalmatia. Greece is currently the beneficiary of Croatia's pricing overshoot, but the lesson applies equally in reverse.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "5f13a5cf00a7",
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_key": "4e206c75c96d",
+          "_type": "span",
+          "text": "Portugal: the quiet disruptor Greece should watch most closely",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "6d810d437b9d",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "b4d52391ad63",
+          "_type": "span",
+          "text": "If Spain represents the scale Greece cannot match and Turkey represents the counting methodology Greece should not emulate, Portugal represents something more strategically relevant: a similarly sized Mediterranean destination that generates dramatically more revenue per visitor.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "288ec5964085",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "94b9ecffe97a",
+          "_type": "span",
+          "text": "Portugal hosted approximately ",
+          "marks": []
+        },
+        {
+          "_key": "2f32d8b68632",
+          "_type": "span",
+          "text": "30–31 million international visitors",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "ac91940c5893",
+          "_type": "span",
+          "text": " in 2025, generating ",
+          "marks": []
+        },
+        {
+          "_key": "385f1ff37975",
+          "_type": "span",
+          "text": "€29.1 billion in tourism revenue",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "1dabac5ff2d5",
+          "_type": "span",
+          "text": " — both records. The travel and tourism trade surplus reached ",
+          "marks": []
+        },
+        {
+          "_key": "e83ead51e450",
+          "_type": "span",
+          "text": "€22 billion",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "39cbc9eeb19f",
+          "_type": "span",
+          "text": ", a record since records began in 1948. On a per-visitor basis, Portugal extracts approximately ",
+          "marks": []
+        },
+        {
+          "_key": "67a37004caab",
+          "_type": "span",
+          "text": "€970",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "5919a991f576",
+          "_type": "span",
+          "text": " — 61% more than Greece's €602. Turismo de Portugal's president captured the country's strategic philosophy: fewer tourists are coming, but those who do are spending more.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "b16f3c799ccb",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "44b18e277d31",
+          "_type": "span",
+          "text": "The structural driver of Portugal's revenue advantage is tax policy. Portugal's mainland accommodation VAT is ",
+          "marks": []
+        },
+        {
+          "_key": "d88df7b73846",
+          "_type": "span",
+          "text": "6%",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "b2ab6d70ac1e",
+          "_type": "span",
+          "text": " — less than half Greece's 13%. Madeira charges 5%. The Azores charge 4%. On a €150 hotel night, Portugal's lower VAT saves approximately €9.50 versus Greece. This is not a marginal difference. Across Portugal's roughly 80 million annual guest nights, it represents a competitive advantage worth billions in total cost positioning. Hotels can offer lower sticker prices while maintaining higher margins, or match competitors' prices while delivering more value.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "af780ccb8884",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "d7b92a52bf9d",
+          "_type": "span",
+          "text": "Revenue growth is outpacing volume growth by a wide margin. Accommodation revenue rose ",
+          "marks": []
+        },
+        {
+          "_key": "6d53920d2fff",
+          "_type": "span",
+          "text": "7.2%",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "326b88e83bbc",
+          "_type": "span",
+          "text": " in 2025 while overnight stays grew just 2.2%. This is the signature of a maturing tourism economy: extracting more value per guest-night through quality improvements, premium positioning, and longer stays rather than simply adding more visitors.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "ec9b6dcfa0c8",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "78c55748aa26",
+          "_type": "span",
+          "text": "The UK dominates as Portugal's top revenue source at ",
+          "marks": []
+        },
+        {
+          "_key": "4ee5c9c68ca8",
+          "_type": "span",
+          "text": "€4.3 billion",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "d8d82a6222d7",
+          "_type": "span",
+          "text": ", followed by Germany (€3.4 billion) and France (€3.2 billion). The US market grew 12.3% in July 2025 and now leads arrivals in both Greater Lisbon and the Azores. The American market's strength in Portugal mirrors its importance in Italy and highlights a segment where Greece has room to grow.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "036316ddd540",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "8b06b5d607c9",
+          "_type": "span",
+          "text": "Portugal's year-round product competes directly with Greece's seasonal offering. The ",
+          "marks": []
+        },
+        {
+          "_key": "441764857694",
+          "_type": "span",
+          "text": "Algarve's 300+ sunshine days and 31 golf courses",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "7f5b91ae315c",
+          "_type": "span",
+          "text": " — several ranked among the world's top 100 — create genuine winter demand. Over 300,000 foreign golf visitors annually contribute 14% of regional tourism GDP. Madeira maintains the highest international guest share (82.5%) of any Portuguese region, operating effectively year-round. The ",
+          "marks": []
+        },
+        {
+          "_key": "f65b83ca542a",
+          "_type": "span",
+          "text": "digital nomad visa (D8)",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "e3258a4a5eff",
+          "_type": "span",
+          "text": " had processed 9,322 applications with 7,664 approvals by September 2025, building a community of long-stay, high-spending remote workers — exactly the segment Greece's own digital nomad program targets.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "c03a0becafae",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "f4d88e6ce3e0",
+          "_type": "span",
+          "text": "Portugal's vulnerabilities partially mirror Greece's. Lisbon rents have risen ",
+          "marks": []
+        },
+        {
+          "_key": "5446667af28c",
+          "_type": "span",
+          "text": "94% since 2015",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "7bdec5244c46",
+          "_type": "span",
+          "text": ", and the tourist-to-resident ratio in Albufeira reaches 39:1. Tourist taxes expanded from 18 to 43 municipalities in 2025, with Lisbon doubling its levy to €4 per night in September 2024. But Portugal's beach season is constrained by cold Atlantic waters — a significant limitation that gives Greece's warm Aegean and Ionian seas a meaningful summer advantage. And Portugal's island product (only the Azores and Madeira) cannot compete with Greece's 227 inhabited islands.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "73428e920091",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "c9930ed9e33b",
+          "_type": "span",
+          "text": "For travelers choosing between Portugal and Greece, the data suggests complementary rather than substitutable destinations. Portugal offers better value in winter (Algarve golf, Lisbon city breaks, Madeira hiking), while Greece dominates summer island tourism. For the tourism industry, Portugal's lesson is strategic: lower taxes, premium positioning, and disciplined growth can generate more revenue from fewer visitors. Greece generates 61% less per visitor while taxing hotels at more than double the rate — a structural inversion that deserves serious policy attention.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "b10a9016582d",
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_key": "e3124e25791e",
+          "_type": "span",
+          "text": "How taxes and fees stack up across six markets",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "186145604021",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "5367edb03f27",
+          "_type": "span",
+          "text": "The tax burden on a tourist staying in a 4-star hotel varies enormously across Mediterranean competitors. This comparison estimates the total tax impact on a €150 per night hotel room — the approximate average for a 4-star property across these markets during peak season.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "48ae8b445a74",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "e3dd43c8ce0b",
+          "_type": "span",
+          "text": "Greece and Croatia sit at the top at approximately ",
+          "marks": []
+        },
+        {
+          "_key": "9f167f89211d",
+          "_type": "span",
+          "text": "€23–26 per €150 night",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "4c522598a317",
+          "_type": "span",
+          "text": ", driven by their shared 13% accommodation VAT plus the Climate Resilience Fee (Greece) or sojourn tax (Croatia). Spain and Italy fall in the middle at ",
+          "marks": []
+        },
+        {
+          "_key": "2b5aa19b319c",
+          "_type": "span",
+          "text": "€18–23",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "3a08bb5b2cde",
+          "_type": "span",
+          "text": ", combining 10% VAT with variable city tourist taxes that can be significant in major cities (Barcelona, Rome, Venice) but are absent in smaller destinations. Turkey comes in at ",
+          "marks": []
+        },
+        {
+          "_key": "e8062cf77359",
+          "_type": "span",
+          "text": "€17–19",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "9b01eec7aa22",
+          "_type": "span",
+          "text": " with its 8% VAT plus 2% accommodation tax. Portugal offers the lightest burden at ",
+          "marks": []
+        },
+        {
+          "_key": "4542161f43f7",
+          "_type": "span",
+          "text": "€13–15",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "80ad2fe4112e",
+          "_type": "span",
+          "text": ", thanks to its 6% mainland VAT.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "df129fcf466d",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "7b08f2aaa195",
+          "_type": "span",
+          "text": "The practical impact for travelers is substantial. A couple spending ten nights at 4-star hotels — a common ",
+          "marks": []
+        },
+        {
+          "_key": "90fcff025702",
+          "_type": "span",
+          "text": "Greece vacation",
+          "marks": [
+            "f110d1e8ea3e"
+          ]
+        },
+        {
+          "_key": "3a3cdba946f2",
+          "_type": "span",
+          "text": " duration — pays roughly ",
+          "marks": []
+        },
+        {
+          "_key": "88cb9d4230b9",
+          "_type": "span",
+          "text": "€100 more in taxes in Greece than in Portugal",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "4f6c9a3f3839",
+          "_type": "span",
+          "text": ". For families booking two rooms, the differential doubles. Over a year, this structural gap influences where price-sensitive travelers book — and where tour operators steer their packages.",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "f110d1e8ea3e",
+          "_type": "link",
+          "href": "https://greektriplanner.me/blog/how-much-does-a-trip-to-greece-cost",
+          "blank": false
+        }
+      ]
+    },
+    {
+      "_key": "f85cc5ef1be8",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "3b0a03bfb928",
+          "_type": "span",
+          "text": "For Greece's hotel industry, the tax burden creates a competitiveness squeeze documented by INSETE and PwC's October 2025 study. Greek hotels' total tax burden reaches ",
+          "marks": []
+        },
+        {
+          "_key": "e1d48a0a60de",
+          "_type": "span",
+          "text": "29.8% of gross room revenue",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "ba507d980d41",
+          "_type": "span",
+          "text": " — nearly double Cyprus's 16.1% and significantly above Spain's and Italy's levels. Greek hotels consequently record the ",
+          "marks": []
+        },
+        {
+          "_key": "277b97924af4",
+          "_type": "span",
+          "text": "lowest EBITDA margins",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "9eee1ec4e822",
+          "_type": "span",
+          "text": " among Mediterranean competitors. To match Cypriot profitability, Greek room rates would need to increase approximately 46% — an impossible proposition in a market where Croatia's 50% price increase just triggered a summer collapse.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "d1a0cd5ac820",
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_key": "662090757378",
+          "_type": "span",
+          "text": "The recovery race: who bounced back fastest",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "bbccfba6d9c4",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "71ebe4f4393a",
+          "_type": "span",
+          "text": "The speed and completeness of post-pandemic recovery reveals which tourism economies are structurally strongest. Using 2019 as the baseline — the last pre-COVID reference year — the recovery trajectories diverge significantly.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "437d0dd2c008",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "92ac37b167e2",
+          "_type": "span",
+          "text": "Turkey",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "db5133bc68d1",
+          "_type": "span",
+          "text": " leads on volume recovery, with 2025 total arrivals reaching approximately ",
+          "marks": []
+        },
+        {
+          "_key": "461bbbbe3f80",
+          "_type": "span",
+          "text": "123% of 2019 levels",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "39a47cb51527",
+          "_type": "span",
+          "text": " (63.9M versus 51.7M). However, this overstates genuine recovery because Turkey's 2019 baseline was itself depressed by the 2016 coup attempt aftermath and security concerns that had suppressed Turkish tourism for several years. The rebound reflects normalization as much as growth.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "5afae1cc07d2",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "18ceabdf023a",
+          "_type": "span",
+          "text": "Spain",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "203c68bc0d01",
+          "_type": "span",
+          "text": " has exceeded 2019 by ",
+          "marks": []
+        },
+        {
+          "_key": "6b7f77c59bbd",
+          "_type": "span",
+          "text": "15.9%",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "60e620b1cc1c",
+          "_type": "span",
+          "text": " on arrivals (96.8M versus 83.5M) and significantly more on revenue, having added approximately €40 billion in annual tourism spending above 2019 levels. Spain's recovery is the most impressive among large destinations because its 2019 baseline was already a record.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "9cff30c408a0",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "8f3aa2a4bab3",
+          "_type": "span",
+          "text": "Greece",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "2b751bf7ac02",
+          "_type": "span",
+          "text": " surpassed 2019 arrivals by approximately ",
+          "marks": []
+        },
+        {
+          "_key": "0dc6d397359e",
+          "_type": "span",
+          "text": "14%",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "be6c44ad4327",
+          "_type": "span",
+          "text": " (38.0M versus 33.3M), with revenue growing even faster — €23.6 billion versus approximately €18.2 billion in 2019, a ",
+          "marks": []
+        },
+        {
+          "_key": "75c589f48213",
+          "_type": "span",
+          "text": "30% increase",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "f92e9559f975",
+          "_type": "span",
+          "text": " in nominal terms. Greece's revenue recovery outpaces its arrivals recovery, suggesting an improving visitor spending profile, though the €602 per visitor still lags competitors.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "c13aef6d1b97",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "a4ce8b5baede",
+          "_type": "span",
+          "text": "Croatia",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "8ad5a0596f7e",
+          "_type": "span",
+          "text": " exceeded 2019 arrivals by ",
+          "marks": []
+        },
+        {
+          "_key": "676e726dd7fa",
+          "_type": "span",
+          "text": "11.4%",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "dfb70aba455d",
+          "_type": "span",
+          "text": " (21.8M versus 19.6M) and overnight stays by a similar margin. But as documented above, the annual record masks a summer decline that may signal the beginning of a correction.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "9dfa88bc30aa",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "7e79b3c3b889",
+          "_type": "span",
+          "text": "Portugal",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "e96d62c3d205",
+          "_type": "span",
+          "text": " surpassed 2019 by approximately ",
+          "marks": []
+        },
+        {
+          "_key": "e52aa35f858a",
+          "_type": "span",
+          "text": "7–11%",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "a9a8f7202c46",
+          "_type": "span",
+          "text": " on arrivals, with revenue growth substantially higher as the country has aggressively moved upmarket.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "f3882e1e26e7",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "f29884322a9f",
+          "_type": "span",
+          "text": "Italy",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "85b890481df1",
+          "_type": "span",
+          "text": " presents the most puzzling recovery. Revenue has convincingly exceeded 2019 — by roughly 18–20% in nominal terms — but international overnight arrivals in 2024 remained approximately 10% below 2019's 64.5 million. Italy is generating more money from fewer visitors, the most extreme version of the quality-over-quantity shift visible across the Mediterranean.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "77bc1bd85f20",
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_key": "a238af4f3363",
+          "_type": "span",
+          "text": "Seasonality: the calendar concentration problem",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "078146b1c136",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "7583d6951167",
+          "_type": "span",
+          "text": "How evenly a country distributes tourism across the calendar year determines its vulnerability to disruption, its infrastructure efficiency, and its quality of life for residents. The Eurostat seasonality data reveals stark differences among Mediterranean competitors.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "2fcaff8e5197",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "ae675b2a33b1",
+          "_type": "span",
+          "text": "Croatia",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "1c9d1b33737e",
+          "_type": "span",
+          "text": " is the most seasonal tourism economy in the EU, with approximately ",
+          "marks": []
+        },
+        {
+          "_key": "fc628b9a0659",
+          "_type": "span",
+          "text": "58% of annual overnight stays concentrated in July and August",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "e27b4e0c0f03",
+          "_type": "span",
+          "text": " alone and 75% in the June–September window. Zakynthos — Greece's most seasonal NUTS-3 region — records 149,887 overnight stays per 1,000 residents, the highest tourism intensity of any European region. But Greece nationally is less concentrated than Croatia, with an estimated ",
+          "marks": []
+        },
+        {
+          "_key": "7b7cd8157b22",
+          "_type": "span",
+          "text": "42% of overnight stays in July–August",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "bd7c3ed565ec",
+          "_type": "span",
+          "text": " at the national level.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "44d6cc529eb2",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "71b63c9937de",
+          "_type": "span",
+          "text": "Spain",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "981c90b4d92b",
+          "_type": "span",
+          "text": " achieves the best seasonal distribution among large Mediterranean destinations, with July–August accounting for roughly ",
+          "marks": []
+        },
+        {
+          "_key": "1f1ddae6d2a6",
+          "_type": "span",
+          "text": "30–35%",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "78458e748966",
+          "_type": "span",
+          "text": " of annual stays. The Canary Islands — receiving 15.7 million visitors year-round — are the structural reason: they provide genuine winter demand that no other Mediterranean archipelago can match.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "c9018d0c18a0",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "65e78d439b19",
+          "_type": "span",
+          "text": "Portugal",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "5d92e06a9d06",
           "_type": "span",
           "text": " and ",
           "marks": []
         },
         {
-          "_key": "a688c172ff01",
+          "_key": "3cc9fc95af1c",
           "_type": "span",
-          "text": "Mykonos",
-          "marks": [
-            "fcd8ecd57e34"
-          ]
-        },
-        {
-          "_key": "82dfc5b6f7e0",
-          "_type": "span",
-          "text": " — and they favor upscale accommodation. They're more likely to book boutique hotels and luxury villas than package deals, and they disproportionately purchase tours, activities, and premium dining experiences. The expansion of international luxury brands — JW Marriott opening in Crete, One&Only on Kéa Island, Conrad Athens — is explicitly targeted at this segment.",
-          "marks": []
-        }
-      ],
-      "markDefs": [
-        {
-          "_key": "b6dcb35a71cd",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/trip-to-athens-greece",
-          "blank": false
-        },
-        {
-          "_key": "4f3302675673",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/trip-to-santorini-greece",
-          "blank": false
-        },
-        {
-          "_key": "fcd8ecd57e34",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/trip-to-mykonos-greece",
-          "blank": false
-        }
-      ]
-    },
-    {
-      "_key": "45e4c66f8c59",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "732bcf2754e2",
-          "_type": "span",
-          "text": "The US market's potential remains enormous. Greece currently captures just 1.55 million of the approximately 50 million Americans who travel internationally each year — a 3.1% share. For context, Italy attracted roughly 6 million American visitors in 2024. If Greece captured even 5% of US outbound travel, arrivals would increase to 2.5 million, representing roughly €2.5 billion in additional revenue at current per-trip spending rates.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "7d459f917541",
-      "_type": "block",
-      "style": "h2",
-      "children": [
-        {
-          "_key": "fc38778702c1",
-          "_type": "span",
-          "text": "Italy and France: steady contributors with diverging trends",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "cc7d249fb48b",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "51784af24300",
-          "_type": "span",
-          "text": "Italy and France round out the top five source markets, and their combined analysis reveals an instructive divergence.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "75f8f97a51ea",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "b8f2643b6646",
-          "_type": "span",
-          "text": "Italy contributed approximately 2.2 million arrivals and €1.27 billion in receipts through October 2025 (+8.1%). In 2024, Italian tourism spending in Greece totaled €1,225.5 million, surging 13.6% — the strongest percentage growth among established European markets. Italian visitors benefit from proximity, shared Mediterranean culture, and extensive low-cost carrier connectivity. Ryanair, Volotea, and easyJet operate high-frequency routes between Italian cities and Greek islands, making weekend and short-break travel viable in a way that longer-haul connections cannot replicate.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "c7e659657679",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "8d5434fc4c9b",
-          "_type": "span",
-          "text": "France tells a more complex story. Receipts reached €1.02 billion through October 2025 (+5.5%), but arrivals actually declined 2.0% — making France the only top-five market to show a volume contraction. In 2024, French spending had already dropped 11.6% to €1,259.6 million. The sustained softness suggests that French travelers are either substituting alternative Mediterranean destinations — notably Portugal and Morocco, both aggressively targeting the French market — or shifting their spending mix within Greece toward lower-cost options.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "f1da709e42a8",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "a18b8b7c72b4",
-          "_type": "span",
-          "text": "These two markets share a characteristic that distinguishes them from the UK and US: both Italy and France are euro-denominated, meaning their travelers face no currency benefit when visiting Greece. When eurozone consumer confidence weakens — as it did through much of 2024–2025 — euro-to-euro spending tightens in ways that Sterling or Dollar visitors do not experience.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "5dbbbb3a07ec",
-      "_type": "block",
-      "style": "h2",
-      "children": [
-        {
-          "_key": "66f5d73e026d",
-          "_type": "span",
-          "text": "The Balkans: 10 million visitors that barely register in strategy",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "ae4031d3dc42",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "a7e0088b659a",
-          "_type": "span",
-          "text": "Perhaps the most consequential finding in Greece's source market data is the sheer scale of Balkan arrivals and their near-total absence from strategic tourism discourse. Bulgaria, Romania, North Macedonia, Albania, Serbia, and Turkey collectively sent an estimated 10–11 million visitors to Greece in 2024, representing roughly 28–31% of all international arrivals. Land border crossings alone totaled 11.4 million, up 8.9% year-over-year.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "e9347b9fa481",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "cb56befbad9e",
-          "_type": "span",
-          "text": "These numbers mean that nearly one in three international visitors to Greece arrives from a neighboring Balkan country. Yet this third of the visitor base attracts almost no marketing investment, minimal strategic analysis, and limited product development — in part because per-visitor spending is structurally lower than for Western European or long-haul markets.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "48ba131a4be5",
-      "_type": "block",
-      "style": "h3",
-      "children": [
-        {
-          "_key": "eb62978726e1",
-          "_type": "span",
-          "text": "Bulgaria: Greece's third-largest source market",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "b117008734ce",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "01fdb59523f8",
-          "_type": "span",
-          "text": "Bulgaria is Greece's third-largest source market overall and the single largest for land arrivals, sending approximately 3 million visitors in 2024. The INSETE X-Ray for 2023–2024 shows modest arrival growth of 2% but significant deepening: overnight stays rose 9% and receipts surged 27%, indicating longer stays and meaningfully higher spending per visit.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "c39776f56537",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "20cd5224cd82",
-          "_type": "span",
-          "text": "Central Macedonia is the primary destination, absorbing 1.82 million Bulgarian visits in 2023. The concentration in Halkidiki, Kavala, Thassos, and the Eastern Macedonia coastline reflects geographic proximity — the Bulgaria-Greece border is closer to ",
-          "marks": []
-        },
-        {
-          "_key": "a65b87d0dfdd",
-          "_type": "span",
-          "text": "Thessaloniki",
-          "marks": [
-            "2f8de64a247c"
-          ]
-        },
-        {
-          "_key": "ff0341b6814f",
-          "_type": "span",
-          "text": " and its surrounding beaches than to Sofia. Six border crossing points facilitate the flow, with Kulata-Promachonas as the main artery. Bulgaria's accession to the Schengen land border zone on January 1, 2025 — eliminating passport controls — is expected to further accelerate traffic in 2025–2026 by removing the last friction point for a drive-to-beach trip.",
-          "marks": []
-        }
-      ],
-      "markDefs": [
-        {
-          "_key": "2f8de64a247c",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/thessaloniki-travel-guide",
-          "blank": false
-        }
-      ]
-    },
-    {
-      "_key": "49f6f18ddb84",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "0249df77aa9c",
-          "_type": "span",
-          "text": "The 27% receipts growth against just 2% more arrivals is the most important data point. It signals that Bulgarian visitors are spending substantially more per trip — upgrading accommodation, extending stays, and diversifying beyond northern Greek beach resorts. Halkidiki's hotel association notes that Balkan road tourists sustain the region for approximately 110 days per year.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "fd8923335041",
-      "_type": "block",
-      "style": "h3",
-      "children": [
-        {
-          "_key": "34b0b6baeb5f",
-          "_type": "span",
-          "text": "Romania: spending more, even as volume dips",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "49bcf0a36a71",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "5f29172615c0",
-          "_type": "span",
-          "text": "Romania ranks seventh among Greece's source markets, sending an estimated 2.5–2.7 million visitors in 2024. The revenue dynamics mirror Bulgaria's pattern in an even more pronounced way: while arrivals dipped 1% and overnight stays fell 11%, receipts climbed 17% — implying an approximately 18% increase in per-trip spending.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "472c5fe45e79",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "aa20c63b37fb",
-          "_type": "span",
-          "text": "Romanian visitors overwhelmingly drive through Bulgaria to northern Greece, concentrating in Halkidiki, Pieria, Thassos, and Kavala. The transit route through the E85 and E75 corridors is one of Europe's most heavily trafficked summer tourism corridors, with hours-long border delays common in July and August — delays that Schengen land integration for Bulgaria has now substantially reduced.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "9fdc175df9ae",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "dfb4c01fe6e3",
-          "_type": "span",
-          "text": "There are signs of geographic diversification. Growing Romanian interest in ",
-          "marks": []
-        },
-        {
-          "_key": "7f7b62f72269",
-          "_type": "span",
-          "text": "Crete",
-          "marks": [
-            "76161442cfc6"
-          ]
-        },
-        {
-          "_key": "41cbda7c8921",
-          "_type": "span",
-          "text": ", ",
-          "marks": []
-        },
-        {
-          "_key": "6d813b11af4e",
-          "_type": "span",
-          "text": "Rhodes",
-          "marks": [
-            "2f59c83d75b9"
-          ]
-        },
-        {
-          "_key": "be832939971a",
-          "_type": "span",
-          "text": ", and the Ionian islands is being supported by expanding seasonal air connections from Bucharest and regional Romanian airports. This shift toward air travel tends to correlate with higher spending, as it moves Romanian visitors beyond the cost-optimized road-trip model.",
-          "marks": []
-        }
-      ],
-      "markDefs": [
-        {
-          "_key": "76161442cfc6",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/trip-to-crete-greece",
-          "blank": false
-        },
-        {
-          "_key": "2f59c83d75b9",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/rhodes-travel-guide",
-          "blank": false
-        }
-      ]
-    },
-    {
-      "_key": "b8b28f660099",
-      "_type": "block",
-      "style": "h3",
-      "children": [
-        {
-          "_key": "cb56a5d8acde",
-          "_type": "span",
-          "text": "Turkey's island ferry phenomenon",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "437474d7034b",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "404f63dc2bcd",
-          "_type": "span",
-          "text": "The most remarkable Balkan-adjacent story is Turkey's explosion as a source market for Greek islands. In 2024, 1,153,727 Turkish tourists traveled to Greek islands via ferry — a 93% increase over 2023 and nearly triple 2022's figure. The top destinations were Kos (342,796 visitors from Bodrum), Rhodes (235,089 from Marmaris and Fethiye), Chios (195,618 from Çeşme), Lesvos (155,959 from Ayvalık), and Samos (154,139 from Kuşadası).",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "ae69fd3de6ab",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "0ef5679e709e",
-          "_type": "span",
-          "text": "Greece's visa-on-arrival program, reintroduced April 1, 2024, for twelve Aegean and Dodecanese islands, was central to this surge. Over 100,000 express visas were issued between April and November 2024, at €60 each, valid for seven days. Critically, 82% of visa holders stayed three or more days, indicating meaningful economic engagement rather than simple day-tripping.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "bb7b06e8293f",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "4a186c51da1f",
-          "_type": "span",
-          "text": "The INSETE X-Ray confirmed Turkey as Greece's strongest-growing source market in 2024: arrivals up 38%, overnight stays up 40%, and receipts up 47%. A forecast of 1.4 million Turkish visitors in 2025 appeared achievable, though new Greek accommodation taxes — €15 per night for five-star hotels, up from €7 — created headwinds, with some islands reporting 35–40% drops in June 2025 Turkish arrivals.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "51f8dbb43ebf",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "02471f2f10e4",
-          "_type": "span",
-          "text": "The program was extended through April 2026, and its economic significance extends beyond tourism receipts. Turkish visitors to Greek islands spend primarily in cash on food, shopping, and accommodation — injecting liquidity directly into small island economies that have historically depended on Western European package tourism.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "5f24bd4b6f55",
-      "_type": "block",
-      "style": "h3",
-      "children": [
-        {
-          "_key": "5376c72e31a3",
-          "_type": "span",
-          "text": "North Macedonia and the day-tripper paradox",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "665db82f929d",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "098eccddcbee",
-          "_type": "span",
-          "text": "North Macedonia illustrates the analytical challenges of Balkan tourism data. Arrivals surged 41% in 2024 to an estimated 1.58 million, making it one of Greece's fastest-growing markets by volume. But overnight stays simultaneously fell 14% and receipts collapsed 33%. The arithmetic is stark: per-tourist spending dropped roughly 52%, consistent with a surge in day-trippers and short shopping visits to Thessaloniki rather than traditional holiday tourism.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "026660c8c8b9",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "b4d6d2bee0e0",
-          "_type": "span",
-          "text": "North Macedonia is the second-largest source market for the Central Macedonia region, sending approximately 1 million visitors to that region alone. With an average net salary of roughly €740 per month, spending capacity is structurally constrained. The market's value lies in volume-driven revenue for retailers, fuel stations, and food outlets along the border corridor — substantial in aggregate but low per visitor.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "51a26452fdc5",
-      "_type": "block",
-      "style": "h3",
-      "children": [
-        {
-          "_key": "1dd95257807b",
-          "_type": "span",
-          "text": "How Greece counts its Balkan visitors — and why the numbers are complicated",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "85e73bac337b",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "a965c94755d5",
-          "_type": "span",
-          "text": "The Bank of Greece Border Survey conducts approximately 58,000 questionnaires annually at exit points including airports, road border crossings, and seaports. For road travel, sampling is determined by estimated traffic patterns, with totals extrapolated from departure data. Several methodological issues affect Balkan market data specifically.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "279f5ea531f7",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "d6563d25031d",
-          "_type": "span",
-          "text": "Each same-day visit is counted as one overnight stay regardless of actual duration — a convention that inflates overnight statistics for neighboring-country day-trippers. Road border traffic is estimated from samples rather than exhaustively tallied, creating potential undercounting during peak periods. Repeat crossings by border-area residents — each counted as a new arrival — inflate headline numbers while generating minimal spending. And Albania's statistical office has documented that during tourist season, not all incoming citizens are properly registered at borders.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "75d5a53b921e",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "cd3e78821563",
-          "_type": "span",
-          "text": "The spending gap is quantifiable. INSETE explicitly categorizes Bulgaria, North Macedonia, Serbia, Albania, and Romania as neighboring Balkan markets with average stays of 1–4 nights, compared to 6–8 nights for Western European visitors. Derived per-trip spending for Balkan tourists falls in the €150–350 range, compared with approximately €685 for Germans, €695 for British visitors, and over €1,024 for Americans. Non-euro EU countries — predominantly Bulgaria, Romania, Poland, and Czech Republic — generated €2.49 billion in receipts (12.1% of total) despite accounting for roughly 20.3% of arrivals.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "16b9370af753",
-      "_type": "block",
-      "style": "h2",
-      "children": [
-        {
-          "_key": "68db07f5b2a6",
-          "_type": "span",
-          "text": "Israel, the Gulf, and China: high-value, fast-growing, volatile",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "1975d1ff02ba",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "277516eaa347",
-          "_type": "span",
-          "text": "Several non-European markets are already delivering outsized revenue impact, united by high per-visitor spending that disproportionately benefits Greece's luxury infrastructure and extends operating seasons beyond the traditional June–September window.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "1269f7185d5d",
-      "_type": "block",
-      "style": "h3",
-      "children": [
-        {
-          "_key": "984c78cf04d2",
-          "_type": "span",
-          "text": "Israel: 621,000 visitors and Greece's fastest-growing air market",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "5edffb0f61c4",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "b4ad51f1f1fd",
-          "_type": "span",
-          "text": "Israel sent 621,000 visitors to Greece in 2024, generating 3.93 million overnight stays and €419 million in travel receipts — roughly 2% of total tourism revenue. The 2025 trajectory is what commands attention: INSETE data shows over 1 million scheduled air seats from Israel for March–October 2025, up 41% from 755,000 in 2024 — the highest capacity growth of any international market serving Greece.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "c21cdbfd7fe8",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "e5b34a92277a",
-          "_type": "span",
-          "text": "Israeli carrier ISRAIR alone projected carrying 600,000 passengers to Greece in 2025, up from 350,000 the prior year. At peak summer, over 60 flights per day operated between Israel and Greece. Athens emerged as the number-one route from Ben Gurion Airport in the first half of 2025, with 563,000 passengers in just six months. Total Israel-Greece air passengers reached 2.2 million in 2025 across five Israeli airlines — El Al, ISRAIR, Arkia, Blue Bird, and Air Haifa — plus Wizz Air and Aegean.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "2d586ccecdfd",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "46a2e0d6f705",
-          "_type": "span",
-          "text": "Israeli hotel groups including Fattal Hotels, Isrotel, and Israel Canada Hotels have made significant property investments across Greece. The market's vulnerability lies in geopolitical disruption: mid-2025 saw seven carriers suspend flights to Israel due to airspace concerns, stranding several thousand Israeli tourists in Crete during one episode. The Israel market delivers high value but carries higher volatility than any other major source.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "e2a5fe1e234f",
-      "_type": "block",
-      "style": "h3",
-      "children": [
-        {
-          "_key": "847ec19219e0",
-          "_type": "span",
-          "text": "Gulf states: low volume, luxury impact, season extension",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "0b6f1bba9835",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "c4babcbaf519",
-          "_type": "span",
-          "text": "The Gulf markets — Saudi Arabia, UAE, Qatar, and Kuwait — are high-value, low-volume contributors whose influence exceeds their arrival numbers. Air seat capacity from Saudi Arabia to Greece grew approximately 40% between 2024 and 2025, reaching more than 65,000 seats. Greece's tourism receipts from Saudi Arabia were up 98% versus 2019 in early 2024 data, while Qatar receipts showed an extraordinary 177% increase over the same baseline.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "d7dbc673ac32",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "63e9fb89da8c",
-          "_type": "span",
-          "text": "Qatar Airways operates 14 weekly flights from Doha to Athens plus seasonal Santorini service. Emirates runs daily Dubai–Athens service, occasionally deploying the A380. Flydubai operates seasonal routes to ",
-          "marks": []
-        },
-        {
-          "_key": "736832c6dc9a",
-          "_type": "span",
-          "text": "Santorini",
-          "marks": [
-            "27d6d7ea238f"
-          ]
-        },
-        {
-          "_key": "ba408300205e",
-          "_type": "span",
-          "text": " and ",
-          "marks": []
-        },
-        {
-          "_key": "a52ca971a163",
-          "_type": "span",
-          "text": "Mykonos",
-          "marks": [
-            "5ae9fbf82c67"
-          ]
-        },
-        {
-          "_key": "988131221501",
-          "_type": "span",
-          "text": " three times weekly. UAE visitors peaked at 235,332 in 2018 and remain a significant market.",
-          "marks": []
-        }
-      ],
-      "markDefs": [
-        {
-          "_key": "27d6d7ea238f",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/trip-to-santorini-greece",
-          "blank": false
-        },
-        {
-          "_key": "5ae9fbf82c67",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/trip-to-mykonos-greece",
-          "blank": false
-        }
-      ]
-    },
-    {
-      "_key": "c8b594c66d46",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "356a25fdd9dc",
-          "_type": "span",
-          "text": "The most consequential impact is seasonal. Gulf visitors' preference for Mykonos and Santorini during extended shoulder seasons is driving hotels and businesses to stay open past October, gradually transforming these islands from strictly seasonal to near-year-round destinations. For context on ",
-          "marks": []
-        },
-        {
-          "_key": "8402249fe270",
-          "_type": "span",
-          "text": "Santorini's evolving tourism dynamics",
-          "marks": [
-            "aaf5627bd593"
-          ]
-        },
-        {
-          "_key": "a176b53313d6",
-          "_type": "span",
-          "text": ", the companion analysis on cruise caps explores how regulatory changes are reshaping the island's visitor mix.",
-          "marks": []
-        }
-      ],
-      "markDefs": [
-        {
-          "_key": "aaf5627bd593",
-          "_type": "link",
-          "href": "/insights/santorini-cruise-cap-impact",
-          "blank": false
-        }
-      ]
-    },
-    {
-      "_key": "63423b5dbefd",
-      "_type": "block",
-      "style": "h3",
-      "children": [
-        {
-          "_key": "dc4010cb9a23",
-          "_type": "span",
-          "text": "China: 138,600 visitors, 47.9% of Golden Visas, and growing fast",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "356d0d616918",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "9c45fb3d60e0",
-          "_type": "span",
-          "text": "China sent 138,600 visitors to Greece in 2024, surpassing 2019 pre-pandemic levels by 30%. Air connectivity has expanded aggressively: from just 3 direct weekly flights in 2019, summer 2025 featured 12 weekly flights operated by Air China (five weekly Beijing–Athens), Sichuan Airlines (launching Chengdu–Athens on Boeing 787-9), and expanded China Eastern service from Shanghai.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "9a385f9fc7fb",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "5b43c323d81b",
-          "_type": "span",
-          "text": "China's relationship with Greece extends well beyond tourism. Chinese nationals hold 47.9% of all Golden Visa permits — approximately 10,000 approvals. In 2025, 8,879 new Golden Visa permits were approved, a 95% increase over 2024, with cumulative investment exceeding €5.5 billion. Chinese travelers are increasingly visiting during off-season months for cultural tourism and luxury shopping, helping build Greece's nascent winter tourism economy.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "fbbe26cbf417",
-      "_type": "block",
-      "style": "h2",
-      "children": [
-        {
-          "_key": "542f00a5ccf3",
-          "_type": "span",
-          "text": "India: from 50,000 visitors to a potential half-million market",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "a0309cd56840",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "d67d73be83ef",
-          "_type": "span",
-          "text": "India's trajectory as a source market for Greece is among the most dramatic in European tourism — not because of what has happened yet, but because of what is about to.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "5bfcf7382e47",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "bc352a8903b1",
-          "_type": "span",
-          "text": "Estimated at roughly 50,000 visitors in 2023, the India-Greece corridor generated approximately 90,000 two-way origin-and-destination passengers in 2024, with Athens capturing over 90% of this traffic according to IATA AirportIS data cited by Athens International Airport. Through the first eight months of 2025, India-to-Athens traffic surged 26.5% year-over-year.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "39d4628fa809",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "447bff504511",
-          "_type": "span",
-          "text": "These numbers remain tiny against Greece's 36 million total arrivals — India represents less than 0.3% of the total. But the denominators reveal the opportunity. India sent over 30 million travelers abroad in 2024, spending a record $28.31 billion on international tourism — 81% above 2019 levels, the fastest spending recovery of any major Asian source market. The India-to-Europe air corridor alone carried more than 11.5 million two-way passengers. Greece currently captures a negligible fraction of this flow. For comparison, Turkey attracted roughly 300,000 Indian tourists in 2024, while even Azerbaijan drew 244,000 and Georgia 124,000. Greece's 27th-place ranking in Indian destination preferences — up nine places from 36th in 2024, per INSETE's 2025 study — underscores both the distance still to travel and the momentum already building.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "10d2fad70f3f",
-      "_type": "block",
-      "style": "h3",
-      "children": [
-        {
-          "_key": "c76fdace5f20",
-          "_type": "span",
-          "text": "January 2026 changed the connectivity equation",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "0bc1bb61d636",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "93ffc43bb299",
-          "_type": "span",
-          "text": "The single most transformative development is IndiGo Airlines' launch of direct Mumbai–Athens and Delhi–Athens service on January 23–24, 2026 — the first-ever nonstop scheduled flights between India and Greece. Operating Airbus A321XLR aircraft with 195 seats, IndiGo flies three times weekly from each city, providing six weekly nonstop frequencies. The airline is now the fourth-largest carrier between India and Europe, offering 46 weekly flights with year-over-year capacity growth of 104% on India-Europe routes.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "8b1a0057ff13",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "02129e7634ca",
-          "_type": "span",
-          "text": "Aegean Airlines follows with its own India entry: Athens–New Delhi five times weekly from March 2026 and Athens–Mumbai three times weekly from May 2026, using A321XLR aircraft configured in a premium 138-seat layout with 24 fully lie-flat business-class suites. The two carriers have activated a codeshare agreement, placing IndiGo's 6E code on connections to Italy, Spain, and Bulgaria. Aegean Chairman Vassilakis framed the opportunity bluntly: while only 0.5% of Indians report annual incomes above $53,000, the absolute number of high-income Indian travelers is nearly 40 times larger than Greece's equivalent cohort.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "2ab6b5164774",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "a678fcec03d1",
-          "_type": "span",
-          "text": "Combined, the two carriers will offer 14 weekly nonstop India-Greece frequencies by mid-2026 — where zero existed before January. Aegean has four additional A321LR aircraft on order for 2027–2028 delivery, with Bangalore among the route candidates.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "8e42a1a5b952",
-      "_type": "block",
-      "style": "h3",
-      "children": [
-        {
-          "_key": "89048ae6bbb9",
-          "_type": "span",
-          "text": "High spenders with a wedding opportunity",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "1873465f1085",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "247661e453b6",
-          "_type": "span",
-          "text": "Indian travelers visiting Europe are not the price-sensitive visitors some assume. Visitors to Britain averaged £1,338 per visit ($1,700) in 2024, and 53.8% of Indian visitors to Switzerland stay in four- or five-star hotels. India's aggregate outbound spending of $28.31 billion in 2024 was the fastest spending recovery of any major Asian source market according to UN Tourism.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "baa3e599d04c",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "4eca9b032ecf",
-          "_type": "span",
-          "text": "Greece's particular opportunity lies in the destination wedding and MICE segments. Dedicated wedding planning companies already operate for Indian ceremonies in Santorini, Mykonos, and the Athens Riviera, handling multi-day Hindu and Sikh celebrations for 50–160 guests. Greece's Tourism Minister confirmed in January 2026 that the government is connecting Indian wedding planners with Greek counterparts, hosting familiarization trips, and exploring visa simplification for wedding groups.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "235b81f94e0f",
-      "_type": "block",
-      "style": "h3",
-      "children": [
-        {
-          "_key": "843a2ff554c3",
-          "_type": "span",
-          "text": "Diplomatic acceleration and the Turkey headwind",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "0dac1a9877ed",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "02a35cd5a77a",
-          "_type": "span",
-          "text": "The most significant structural impediment remains the Schengen visa requirement. India is the third-largest source of all Schengen visa applications globally, with standard processing taking 15–28 days. By contrast, Turkey offers visa-on-arrival for Indians — a friction advantage that partially explains Turkey's six-to-one visitor lead.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "8a6bccd367e2",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "5418377f600e",
-          "_type": "span",
-          "text": "But diplomatic momentum is accelerating. Greek Prime Minister Mitsotakis visited India on February 19, 2026, with bilateral trade targets set to double to $5 billion by 2030 and a new tourism cooperation agreement expected within 2026. Greece plans to open two new consular missions in Mumbai and Bangalore during 2026, dramatically expanding visa processing capacity.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "03b46fc638bc",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "3263da61ca39",
-          "_type": "span",
-          "text": "A geopolitical tailwind adds urgency: Turkey's diplomatic support for Pakistan during India-Pakistan tensions in May 2025 triggered a 42% decline in Indian visa applications to Turkey within ten days. Greece, with its new direct flights launching simultaneously, is positioned to absorb redirected demand.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "ed75b9894202",
-      "_type": "block",
-      "style": "h2",
-      "children": [
-        {
-          "_key": "e58404f2f291",
-          "_type": "span",
-          "text": "Markets on the horizon: South Korea, Japan, and the diaspora",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "fa44d66238f7",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "43b097a4264f",
-          "_type": "span",
-          "text": "Several additional markets warrant attention for their growth potential, even where current numbers remain modest.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "7d4d5bb04bfd",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "aa2bd235b47e",
-          "_type": "span",
-          "text": "South Korea sent only 55,000 tourists to Greece in 2024 — just 0.13% of arrivals — constrained entirely by the absence of direct flights. Greece's Tourism Minister made the first official tourism ministerial visit to Seoul in September 2025, and Korean Air executives expressed optimism about a potential direct route. South Korea's outbound travel market exceeds 25 million annually, and Greek cultural content — Mediterranean food, island aesthetics — has gained significant traction on Korean social media platforms.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "baf9f608e8cc",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "b895739dff14",
-          "_type": "span",
-          "text": "Japan similarly lacks direct connectivity, though 2024 was designated the \"Greece-Japan Year of Culture and Tourism\" and bilateral talks included discussion of direct flights and tourism investments.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "ca465ed8ba91",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "9ba4151d5f4c",
-          "_type": "span",
-          "text": "Australia, driven by a 700,000-strong Greek diaspora, generated over €430 million in tourism receipts in 2023 — a record — with average per-overnight spending of €145.80, among the highest of any source market. Diaspora visitors stay longer (often 2–3 weeks), visit family in less-touristed areas, and combine holiday spending with cultural reconnection. The Athens–Melbourne and Athens–Sydney corridors are among Europe's most valuable diaspora travel routes.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "4e4f08555d55",
-      "_type": "block",
-      "style": "h2",
-      "children": [
-        {
-          "_key": "292bda604261",
-          "_type": "span",
-          "text": "The structural divergence: why non-EU revenue is pulling ahead",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "4044f2d774ad",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "881f7fbb0aeb",
-          "_type": "span",
-          "text": "The 12.2% growth in non-EU receipts versus 5.8% for EU sources through October 2025 is not a temporary anomaly. It reflects three structural forces that are likely to persist.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "b7ecef28604a",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "e43b400ebda6",
-          "_type": "span",
-          "text": "First, currency dynamics. Non-eurozone visitors experience a different price reality than visitors from Germany, France, or Italy. When a German tourist sees a €200 hotel room, it costs exactly €200. When a British visitor sees the same room, Sterling strength can make it feel like a bargain. This differential drives per-trip spending variance of 15–25% between eurozone and non-eurozone European visitors, and even larger differentials for US visitors whose dollar purchasing power in Europe remains historically strong.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "a8ec7532169f",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "a4e70e9fa117",
-          "_type": "span",
-          "text": "Second, air connectivity expansion is asymmetric. Europe's mature aviation network means additional Athens–Frankfurt or Athens–Paris frequencies add only marginal accessibility. New routes from Delhi, Mumbai, Chengdu, and Tel Aviv create connectivity where little or none existed — and new-route passengers spend disproportionately more because they're undertaking considered, often once-in-several-years trips rather than repeat annual holidays.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "97e19a42cd97",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "42737cfe40f6",
-          "_type": "span",
-          "text": "Third, the high-spending segments — luxury accommodation, MICE, destination weddings, cultural tourism — are growing fastest in non-EU source markets. Gulf visitors at Mykonos boutique hotels, American families booking villa holidays on Crete, Indian wedding parties at Santorini venues, Chinese Golden Visa holders combining property visits with tourism — these are qualitatively different forms of tourism that generate more value per interaction than the traditional European beach-and-pool model.",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "3d1e97bb1da8",
-      "_type": "block",
-      "style": "h2",
-      "children": [
-        {
-          "_key": "c76e00fb4414",
-          "_type": "span",
-          "text": "What this means for the Greek travel industry",
-          "marks": []
-        }
-      ],
-      "markDefs": []
-    },
-    {
-      "_key": "d033ca07d121",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "dd3244432daa",
-          "_type": "span",
-          "text": "The source market analysis yields five conclusions with direct operational implications for businesses across Greece's tourism ecosystem — from hotels and tour operators to ",
-          "marks": []
-        },
-        {
-          "_key": "00c4a6b7f994",
-          "_type": "span",
-          "text": "transfer services",
-          "marks": [
-            "4ab16c7824dc"
-          ]
-        },
-        {
-          "_key": "5685ce1fe24a",
-          "_type": "span",
-          "text": " and activity providers.",
-          "marks": []
-        }
-      ],
-      "markDefs": [
-        {
-          "_key": "4ab16c7824dc",
-          "_type": "link",
-          "href": "https://greektriplanner.me/blog/how-to-plan-a-trip-to-greece",
-          "blank": false
-        }
-      ]
-    },
-    {
-      "_key": "20e7c3b3983b",
-      "_type": "block",
-      "style": "normal",
-      "children": [
-        {
-          "_key": "bc7e58c738c8",
-          "_type": "span",
-          "text": "High-value diversification is no longer optional.",
+          "text": "Italy",
           "marks": [
             "strong"
           ]
         },
         {
-          "_key": "374d6e6b7bfc",
+          "_key": "8df41d503fd1",
           "_type": "span",
-          "text": " The convergence of US spending power (€958/trip), UK revenue momentum (+15.1%), and the India market launch (14 weekly direct flights) means that businesses still exclusively targeting German or French package tourists are under-indexing on the highest-growth revenue pools. Properties and services that can accommodate English-speaking, independently-booking, experience-seeking visitors from these markets will capture disproportionate value growth.",
+          "text": " fall in the middle, with approximately ",
+          "marks": []
+        },
+        {
+          "_key": "c73145943465",
+          "_type": "span",
+          "text": "30–35%",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "9053c760d236",
+          "_type": "span",
+          "text": " summer concentration. Lisbon and Rome function as year-round city-break destinations, and the Algarve's winter golf product extends Portugal's season beyond the beach months.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "4c9ec5490fae",
+      "_key": "e33e99a11580",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "d68e0969ece7",
+          "_key": "3bedaf6a767c",
           "_type": "span",
-          "text": "The Balkans demand a different product, not dismissal.",
+          "text": "Turkey",
           "marks": [
             "strong"
           ]
         },
         {
-          "_key": "ff54738cd720",
+          "_key": "de208cf04b0f",
           "_type": "span",
-          "text": " Ten million visitors generating roughly €2.5 billion is a substantial business — comparable in revenue terms to the entire US contribution. The opportunity is not to convert Balkan day-trippers into luxury guests but to serve the market's actual characteristics: short-stay, road-accessible, value-oriented, concentrated in northern Greece. Businesses in Halkidiki, Kavala, Thassos, and Thessaloniki that optimize for this segment can build reliable volume businesses that complement higher-value long-haul segments.",
+          "text": " manages seasonal concentration better than Greece (roughly ",
+          "marks": []
+        },
+        {
+          "_key": "eeba410b5168",
+          "_type": "span",
+          "text": "35%",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "a47637938c2c",
+          "_type": "span",
+          "text": " in July–August) thanks to Istanbul's year-round city tourism, medical tourism demand that is essentially non-seasonal, and the MICE sector that peaks in spring and autumn.",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "8fbf5fb98975",
+      "_key": "f0d92dc2ac03",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "3829239f9d50",
+          "_key": "ac44d3772d6b",
           "_type": "span",
-          "text": "Shoulder seasons are being created by specific source markets.",
-          "marks": [
-            "strong"
-          ]
-        },
-        {
-          "_key": "e6736fda5927",
-          "_type": "span",
-          "text": " The UK's October surge (+42.9%), Gulf visitors extending Mykonos and Santorini past October, Israeli year-round connectivity, and Chinese off-season cultural tourism are not abstract trends — they're specific markets with specific seasonal patterns. Businesses that align their operating and marketing calendars to these patterns can extend their revenue seasons by 4–8 weeks. For detailed data on Greece's evolving seasonality, see the companion ",
+          "text": "Greece's ",
           "marks": []
         },
         {
-          "_key": "fa997bf94fa8",
+          "_key": "e55843341b6d",
           "_type": "span",
-          "text": "shoulder season analysis",
+          "text": "seasonality shift",
           "marks": [
-            "72cfee7e2e4b"
+            "f9b39cddd010"
           ]
         },
         {
-          "_key": "79e02cb45538",
+          "_key": "e549a207fa3b",
           "_type": "span",
-          "text": ".",
+          "text": " is measurable — summer's share of arrivals fell from 56% in 2019 to 50% in 2024 — but the country remains more seasonal than every competitor except Croatia. The Climate Resilience Fee's 67–75% off-peak discount is designed to accelerate this shift, and there is ",
+          "marks": []
+        },
+        {
+          "_key": "a533fde90ce8",
+          "_type": "span",
+          "text": "evidence it is working",
+          "marks": [
+            "615dd4f38f75"
+          ]
+        },
+        {
+          "_key": "4f47d99f7218",
+          "_type": "span",
+          "text": ", though separating the fee's impact from broader climate and airline-capacity trends remains difficult.",
           "marks": []
         }
       ],
       "markDefs": [
         {
-          "_key": "72cfee7e2e4b",
+          "_key": "f9b39cddd010",
           "_type": "link",
-          "href": "/insights/greece-tourism-seasonality-shift",
+          "href": "https://greektriplanner.me/insights/greece-tourism-seasonality-shift",
+          "blank": false
+        },
+        {
+          "_key": "615dd4f38f75",
+          "_type": "link",
+          "href": "https://greektriplanner.me/insights/greece-tourism-taxes-fees-2025",
           "blank": false
         }
       ]
     },
     {
-      "_key": "5588a1bb5881",
+      "_key": "57bbc1a32804",
       "_type": "block",
-      "style": "normal",
+      "style": "h2",
       "children": [
         {
-          "_key": "c00be7c4b32d",
+          "_key": "e8bf26718623",
           "_type": "span",
-          "text": "India requires strategic patience and specific investment.",
-          "marks": [
-            "strong"
-          ]
-        },
-        {
-          "_key": "317ebbc4e4d8",
-          "_type": "span",
-          "text": " Direct flights began in January 2026. Meaningful Indian visitor volumes — in the 100,000–200,000 range — will take 2–3 years to materialize as awareness builds, visa processing scales, and Indian travel agents develop Greece packages. The winners will be early movers who invest now in Indian wedding capability, familiarization trips for Indian travel agents, Hindi-language digital content, and partnerships with Indian travel management companies.",
+          "text": "Where Greece holds competitive ground",
           "marks": []
         }
       ],
       "markDefs": []
     },
     {
-      "_key": "f1172b42f3cf",
+      "_key": "359ff5622457",
       "_type": "block",
       "style": "normal",
       "children": [
         {
-          "_key": "819efc7a0d7e",
+          "_key": "b0d9ab979f81",
           "_type": "span",
-          "text": "Currency hedging is embedded in source market diversity.",
+          "text": "The benchmarking data reveals genuine competitive advantages that Greece's €602-per-visitor figure obscures.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "08b4cf7179b0",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "c10a0889ca5c",
+          "_type": "span",
+          "text": "Island product depth is unmatched.",
           "marks": [
             "strong"
           ]
         },
         {
-          "_key": "4ae0c0e89345",
+          "_key": "c38bc0278053",
           "_type": "span",
-          "text": " A portfolio approach — serving German volume, UK premium, US luxury, Balkan value, and emerging-market growth simultaneously — provides natural hedging against currency movements, geopolitical disruption, and single-market economic downturns. The September 2025 German receipts collapse (-28.3%) demonstrates the risk of overconcentration; properties with diversified source market exposure were significantly less affected.",
+          "text": " No other Mediterranean country offers the combination of 227 inhabited islands, ranging from cosmopolitan Mykonos to undiscovered Cycladic villages, from the beaches of Crete to the forests of Corfu. Turkey has a longer coastline but lacks the archipelago appeal. Croatia's island airlift is limited. Portugal offers only the Azores and Madeira. Spain's Balearics and Canaries are substantial but cannot match Greece's diversity. For travelers asking ",
+          "marks": []
+        },
+        {
+          "_key": "9b212163881a",
+          "_type": "span",
+          "text": "where to go in Greece",
+          "marks": [
+            "20e4c8df550a"
+          ]
+        },
+        {
+          "_key": "367fd011b92c",
+          "_type": "span",
+          "text": ", the answer encompasses dozens of meaningfully distinct island experiences — a product range that exists nowhere else.",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "20e4c8df550a",
+          "_type": "link",
+          "href": "https://greektriplanner.me/blog/best-places-to-visit-in-greece",
+          "blank": false
+        }
+      ]
+    },
+    {
+      "_key": "0ee3d9c1613f",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "c21e835ab825",
+          "_type": "span",
+          "text": "Athens has emerged as a genuine year-round city destination.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "6133fc342b8f",
+          "_type": "span",
+          "text": " Athens International Airport handled a record 37.98 million passengers in 2025. Hotel occupancy averages 77–78% annually, with February occupancy reaching 66.3%. This positions Athens as a gateway that functions increasingly like Lisbon or Barcelona — a city-break destination in its own right rather than merely a transit point to the islands.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "ad3a6373d9ba",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "6f6b2f8b74ce",
+          "_type": "span",
+          "text": "Recovery momentum is strong and broadly based.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "dd303363d76b",
+          "_type": "span",
+          "text": " Greece's 14% above 2019 on arrivals and approximately 30% above on revenue represents healthy, balanced growth. The Bank of Greece, the Tourism Ministry, and the European Travel Commission all confirmed Greece's record 2025 performance. Germany led source markets with 5.95 million visitors (+10.2%), the UK contributed 4.89 million (+7.6%), and the US market continues expanding.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "328b928661a1",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "f4c8ac979c69",
+          "_type": "span",
+          "text": "Infrastructure investment is accelerating.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "5ee6343fd9c1",
+          "_type": "span",
+          "text": " Athens International Airport's €1.28 billion expansion is underway. Crete's Kastelli Airport (opening 2027, 18 million passenger capacity) will transform the island's connectivity. New luxury hotel openings — JW Marriott Chania, Rosewood Blue Palace, Mandarin Oriental Athens — signal international investor confidence. These investments address the infrastructure gap that historically placed Greece below Spain and Italy in the WEF Travel & Tourism Development Index, where Greece improved five places to 21st globally in 2024.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "5f4cbdfa6f38",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "cc839c03755f",
+          "_type": "span",
+          "text": "EU membership provides regulatory certainty.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "2f2d74e4a883",
+          "_type": "span",
+          "text": " Against Turkey specifically, Greece's Schengen access, EU consumer protection frameworks, and political stability offer tangible advantages for Western European and North American travelers. Turkey's ongoing currency volatility and inflation create pricing uncertainty that Greece's Euro-zone membership eliminates.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "a220bc8e73ea",
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_key": "2687595b75a7",
+          "_type": "span",
+          "text": "Where Greece is vulnerable",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "ced99c537754",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "548d6601f1b4",
+          "_type": "span",
+          "text": "The same data reveals structural weaknesses that Greece's record headlines cannot conceal.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "f4ab990c2e48",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "70cd5faf39a6",
+          "_type": "span",
+          "text": "Revenue yield is the fundamental challenge.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "90bf8267cc7b",
+          "_type": "span",
+          "text": " At €602 per visitor, Greece extracts roughly 43% of what Spain generates per tourist and 62% of Portugal's yield. This gap reflects shorter average stays (Greek island-hopping creates multi-destination trips with shorter per-destination stays), lower ancillary spending (shopping, entertainment, cultural attractions), and accommodation pricing that remains below Western Mediterranean levels outside of Mykonos and Santorini. Closing even half this gap — reaching €800–900 per visitor — would add ",
+          "marks": []
+        },
+        {
+          "_key": "63762126e20d",
+          "_type": "span",
+          "text": "€7.5–11.3 billion",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "8a4be4d88387",
+          "_type": "span",
+          "text": " to annual tourism revenue without requiring a single additional arrival.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "b2218b33b27f",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "1e0e022b74f4",
+          "_type": "span",
+          "text": "The 13% VAT creates a measurable pricing disadvantage.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "cbaa960cc285",
+          "_type": "span",
+          "text": " Greece's accommodation VAT is the highest among all benchmarked competitors except Croatia — and Croatia just demonstrated what happens when pricing exceeds perceived value. Every hotel night sold in Greece carries a €9–10 tax premium over Portugal and a €4–5 premium over Spain and Italy. At 38 million visitors, this structural cost disadvantage runs into the billions and contributes directly to the INSETE finding that Greek hotels record the lowest profit margins in the Mediterranean.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "ccf79ceeaa7a",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "0816f14a5bd4",
+          "_type": "span",
+          "text": "Seasonality remains acute despite improvements.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "bb51b96fb74f",
+          "_type": "span",
+          "text": " While Greece's off-peak months are growing at double-digit rates, the country still concentrates over 40% of tourist activity in July and August. This creates infrastructure strain during peak months, employment instability in shoulder and off-peak periods, and environmental pressure on island ecosystems that are not designed for the population surges they absorb each summer.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "4d209d5d1ae5",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "f3990ce2b5a5",
+          "_type": "span",
+          "text": "Overtourism concentration threatens flagship destinations.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "3cb10e5e4a45",
+          "_type": "span",
+          "text": " Santorini's 107.8 tourists per 100 residents, Mykonos's cruise-ship congestion, and the Acropolis's 20,000 daily visitor cap illustrate a pattern where Greece's most famous destinations face saturation while dozens of equally beautiful alternatives remain undervisited. The Santorini cruise cap (tightened for 2026) and the €20 peak cruise tax are policy responses, but dispersal of demand toward ",
+          "marks": []
+        },
+        {
+          "_key": "62883826fa56",
+          "_type": "span",
+          "text": "less-visited destinations",
+          "marks": [
+            "497266937b5a"
+          ]
+        },
+        {
+          "_key": "d6d6ac423cea",
+          "_type": "span",
+          "text": " remains the deeper structural challenge.",
+          "marks": []
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "497266937b5a",
+          "_type": "link",
+          "href": "https://greektriplanner.me/blog/best-places-to-visit-in-greece",
+          "blank": false
+        }
+      ]
+    },
+    {
+      "_key": "007206642ca8",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "ec1405e1c64c",
+          "_type": "span",
+          "text": "Labor shortages constrain quality.",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "d0d1bfdc5590",
+          "_type": "span",
+          "text": " Greece's tourism sector faces chronic staffing challenges, particularly on islands where seasonal employment contracts, high living costs, and limited housing create recruitment difficulties. This constraint limits service quality improvements that would support higher per-visitor spending — the very metric where Greece underperforms most acutely.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "ee27b6126395",
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_key": "4c376d626d42",
+          "_type": "span",
+          "text": "What the comparison means for travelers",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "0fdf01e88fc2",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "a5a2262ba9ca",
+          "_type": "span",
+          "text": "For the traveler deciding between Mediterranean destinations, the data points toward clear positioning differences rather than a single \"best\" answer.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "044fcd530b3d",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "8369da453f12",
+          "_type": "span",
+          "text": "Choose Greece for:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "13cddcb6860b",
+          "_type": "span",
+          "text": " unmatched island diversity, beach quality, competitive pricing outside luxury hotspots, culinary authenticity, historical depth concentrated in accessible sites, and a destination that still feels less industrialized than Spain's costas or Italy's Amalfi Coast.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "34b9582a9a8d",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "d2ae748d8795",
+          "_type": "span",
+          "text": "Choose Spain for:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "4a7f331de11c",
+          "_type": "span",
+          "text": " year-round reliability (Canary Islands), the best transport infrastructure in the Mediterranean, urban culture (Barcelona, Madrid, Seville), sheer product variety, and the most developed tourism ecosystem — albeit one increasingly burdened by overtourism pushback.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "2212aa9f5ba3",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "5ad25b31e7da",
+          "_type": "span",
+          "text": "Choose Italy for:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "d01f5638322b",
+          "_type": "span",
+          "text": " the deepest cultural product in the Mediterranean (61 UNESCO sites), fashion and shopping, wine tourism, high-speed rail connectivity enabling seamless multi-city itineraries, and a culinary tradition that rivals Greece's in depth if not in healthy-eating reputation.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "2e9eca16518d",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "532dcd2a2d4f",
+          "_type": "span",
+          "text": "Choose Turkey for:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "b2f6cec114d4",
+          "_type": "span",
+          "text": " Istanbul (which has no Mediterranean equivalent as a cultural gateway), significantly lower dental and medical costs, competitive luxury resort pricing in Bodrum and Antalya, and a travel experience that spans European and Asian cultural traditions.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "ffefdf1df4d5",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "4cf384aca82e",
+          "_type": "span",
+          "text": "Choose Portugal for:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "f305f8c2b679",
+          "_type": "span",
+          "text": " the best tax value in the Mediterranean (6% accommodation VAT), Lisbon's year-round appeal, Algarve winter sun and golf, the digital nomad lifestyle, and a destination that deliberately prioritizes quality over quantity.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "72a797bc2455",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "f8ee17e95e99",
+          "_type": "span",
+          "text": "Choose Croatia for:",
+          "marks": [
+            "strong"
+          ]
+        },
+        {
+          "_key": "decad032a0e7",
+          "_type": "span",
+          "text": " Adriatic coastal beauty, proximity to Central European drive markets, Dubrovnik's extraordinary old town, and national parks — but be aware that prices have risen 50% in three years and now exceed Greek equivalents in many categories.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "69d4985fd02a",
+      "_type": "block",
+      "style": "h2",
+      "children": [
+        {
+          "_key": "f4b4a06525c0",
+          "_type": "span",
+          "text": "Conclusion: Greece's real competition is with itself",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "9d786090c0bb",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "d253d82c890d",
+          "_type": "span",
+          "text": "The benchmarking reveals that Greece's central challenge is not volume growth — at 37.98 million visitors, it has never been more popular — but revenue yield. At €602 per visitor, Greece leaves significant value on the table compared to every Mediterranean competitor. Portugal demonstrates that lower taxes and premium positioning can generate 61% more per visitor. Spain demonstrates that scale and year-round infrastructure create compounding revenue advantages. Croatia demonstrates that aggressive price increases without corresponding quality improvements trigger sharp demand corrections.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "64df3b407217",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "4d67ce16819e",
+          "_type": "span",
+          "text": "Greece's 13% accommodation VAT, shared only with the competitor experiencing the Mediterranean's most visible pricing backlash, is the single most actionable data point in this analysis. Every hotel night sold in Greece carries a structural cost penalty that competitors have avoided. Whether through VAT reduction (the Portugal model), quality investment to justify the premium (the Spain model), or demand dispersal to underutilized destinations (addressing the Santorini/Mykonos concentration), Greece's path to higher tourism revenue runs through yield improvement — not through adding more arrivals to an already record-setting total.",
+          "marks": []
+        }
+      ],
+      "markDefs": []
+    },
+    {
+      "_key": "a62e86e2a839",
+      "_type": "block",
+      "style": "normal",
+      "children": [
+        {
+          "_key": "cd29a2f184ca",
+          "_type": "span",
+          "text": "The government's upcoming White Paper on Greek Tourism 2030–2035 will be the vehicle for addressing these structural questions. The data in this analysis provides the competitive context that paper will need to confront.",
           "marks": []
         }
       ],
@@ -1989,162 +2705,163 @@
     }
   ],
   "keyTakeaways": [
-    "Germany remains Greece's largest source market (5.65 million arrivals, €3.61 billion), but revenue grew just 0.5% through October 2025 — compared with +15.1% from the UK and +8.4% from the US — signaling price sensitivity among eurozone travelers as the European economy cools.",
-    "The United Kingdom is the breakout market of 2025, with €3.55 billion in receipts narrowing the gap with Germany to just €60 million. October UK spending surged 42.9%, driven by favorable Sterling exchange rates and strong late-season island demand.",
-    "American visitors averaged €958.66 per trip — 59% above the national mean and 53% more than German tourists — making the US by far Greece's highest-value major source market per capita, supported by new transatlantic routes from Charlotte, Los Angeles, and Newark.",
-    "The Balkans represent Greece's most underanalyzed tourism segment: Bulgaria, Romania, North Macedonia, Turkey, Albania, and Serbia collectively sent an estimated 10–11 million visitors in 2024 — roughly 28–31% of all international arrivals — yet their combined revenue share is approximately 12%.",
-    "India's tourism corridor is about to transform: IndiGo launched direct Mumbai–Athens and Delhi–Athens service in January 2026, and Aegean Airlines follows with eight weekly frequencies from March, creating 14 weekly nonstop India-Greece flights where zero existed before.",
-    "Non-EU tourism receipts grew 12.2% versus 5.8% for EU sources through October 2025, a structural divergence driven by high-spending markets from Israel (+41% air capacity), the Gulf states (Saudi receipts +98% vs 2019), and China (138,600 visitors, surpassing pre-pandemic levels by 30%)."
+    "Greece's 37.98 million arrivals and €23.6 billion in 2025 tourism revenue place it mid-table among Mediterranean competitors — ahead of Croatia (21.8M) and Portugal (~30M) but well behind Spain (96.8M), Turkey (63.9M total), and Italy (~60M). On raw volume, Spain attracts 2.5 times more international visitors than Greece.",
+    "Greece's €602 revenue per visitor is the lowest among all six countries benchmarked — 57% below Spain's €1,392, 38% below Portugal's €970, and 36% below Turkey's adjusted average. Closing even half this gap to ~€800 per visitor would add €7.5 billion to annual revenue without requiring a single additional arrival.",
+    "Turkey's 63.94 million total visitor headline masks a 17.5% diaspora component (11.16 million returning Turkish citizens) and millions of Bulgarian and Georgian border-crossing day-trippers who inflate Edirne to the country's second most-visited destination. Foreign tourist arrivals grew just 0.28% in 2025 despite the record headline.",
+    "Croatia's 2025 experience serves as the Mediterranean's clearest cautionary tale: annual records (21.8M arrivals, 110.1M overnight stays) coexisted with 745,000 fewer July–August overnight stays and €140 million in lost summer revenue, driven by post-Euro-adoption price increases of approximately 50% in three years that made Croatia more expensive than Greece or Spain.",
+    "Portugal quietly outperforms Greece on tourism yield thanks to a structural tax advantage — its 6% accommodation VAT is less than half Greece's 13% — generating approximately €970 per visitor, 61% more than Greece, while pursuing a deliberate strategy of fewer visitors spending more.",
+    "Greece's 13% accommodation VAT, shared only with Croatia among these competitors, creates a measurable pricing disadvantage of €9–10 per hotel night versus Portugal and €4–5 versus Spain and Italy — a structural cost gap that compounds across millions of visitor-nights annually and contributes to Greek hotels recording the lowest EBITDA margins among Mediterranean competitors."
   ],
   "dataTimePeriod": {
-    "startDate": "2024-01-01",
+    "startDate": "2019-01-01",
     "endDate": "2025-12-31",
-    "label": "2024–2025 (with 2019 baseline)"
+    "label": "2019–2025 (recovery period and competitive benchmarking)"
   },
   "dataSources": [
     {
-      "_key": "37041af4fcf2",
+      "_key": "9a030b614eb4",
       "_type": "dataSource",
-      "name": "Bank of Greece",
-      "description": "Monthly border survey data on arrivals, receipts, expenditure by nationality",
-      "url": "https://www.bankofgreece.gr",
-      "accessDate": "2026-02-23"
+      "name": "INE Spain",
+      "description": "96.77M arrivals, €134.7B spending, source market breakdown",
+      "url": "https://www.ine.es/dyngs/Prensa/en/FRONTUR1225.htm",
+      "accessDate": "2026-03-02"
     },
     {
-      "_key": "440dc1aa9697",
+      "_key": "ff46eb04e973",
       "_type": "dataSource",
-      "name": "INSETE",
-      "description": "Country-level breakdowns of arrivals, overnight stays, receipts",
-      "url": "https://insete.gr/wp-content/uploads/2025/09/25-9_X-RAY_2023-2024_ENG.pdf",
-      "accessDate": "2026-02-23"
+      "name": "La Moncloa",
+      "description": "Official confirmation of 2025 record spending",
+      "url": "https://www.lamoncloa.gob.es/lang/en/gobierno/news/Paginas/2026/20260203-international-tourists-spending.aspx",
+      "accessDate": "2026-03-02"
     },
     {
-      "_key": "42d10635d8b4",
+      "_key": "b98a6972e508",
       "_type": "dataSource",
-      "name": "INSETE",
-      "description": "Air passenger data by nationality and airport",
-      "url": "https://insete.gr",
-      "accessDate": "2026-02-23"
+      "name": "Daily Sabah",
+      "description": "63.94M visitors, $65.23B revenue",
+      "url": "https://www.dailysabah.com/business/tourism/turkiye-tops-2025-tourism-revenue-target-foreign-arrivals-hit-record",
+      "accessDate": "2026-03-02"
     },
     {
-      "_key": "28bd9991b002",
+      "_key": "aa024f17ef47",
       "_type": "dataSource",
-      "name": "Athens International Airport",
-      "description": "India corridor data, network statistics",
-      "url": "https://www.aia.gr",
-      "accessDate": "2026-02-23"
+      "name": "Turkish Minute",
+      "description": "Revenue breakdown, foreign vs diaspora arrivals",
+      "url": "https://turkishminute.com/2026/01/30/turkeys-tourism-revenue-visitor-numbers-hit-all-time-highs-in-2025/",
+      "accessDate": "2026-03-02"
     },
     {
-      "_key": "5f95f19ca3ce",
+      "_key": "8d3d4f3f0c59",
       "_type": "dataSource",
-      "name": "Mabrian Travel Intelligence",
-      "description": "Source market air seat capacity growth",
-      "accessDate": "2026-02-23"
+      "name": "HTZ Croatia",
+      "description": "21.8M arrivals, 110.1M overnights, growth rates",
+      "url": "https://www.htz.hr/en-GB/press/press-releases/tourists-croatia-recorded-110-million-overnights-2025",
+      "accessDate": "2026-03-02"
     },
     {
-      "_key": "4f1882e3e405",
+      "_key": "7f42f9c8d6e3",
       "_type": "dataSource",
-      "name": "Routes Online",
-      "description": "IndiGo and Aegean India route details",
-      "url": "https://www.routesonline.com",
-      "accessDate": "2026-02-23"
+      "name": "Croatia Week",
+      "description": "745,000 fewer summer overnights, €140M loss, pricing comparisons",
+      "url": "https://www.croatiaweek.com/too-expensive-for-tourists-why-croatias-prices-are-raising-concerns/",
+      "accessDate": "2026-03-02"
     },
     {
-      "_key": "5fd39e126dac",
+      "_key": "0563cb705be5",
       "_type": "dataSource",
-      "name": "Aegean Airlines",
-      "description": "A321XLR fleet and route details",
-      "url": "https://en.about.aegeanair.com",
-      "accessDate": "2026-02-23"
+      "name": "Xinhua/Bank of Portugal",
+      "description": "€22B trade surplus, €29.1B revenue",
+      "url": "https://english.news.cn/20260220/bce381406f62462d9df10dab23878760/c.html",
+      "accessDate": "2026-03-02"
     },
     {
-      "_key": "d9dc5723075b",
+      "_key": "40d48246ba8e",
       "_type": "dataSource",
-      "name": "CLIA",
-      "description": "Cruise passenger data",
-      "url": "https://www.cruising.org",
-      "accessDate": "2026-02-23"
+      "name": "INSETE/PwC",
+      "description": "29.8% total tax burden, Mediterranean comparison",
+      "url": "https://news.gtp.gr/2025/10/24/greek-tourism-struggling-under-high-taxes-and-rising-costs-insete-warns/",
+      "accessDate": "2026-03-02"
     },
     {
-      "_key": "776101a5573d",
+      "_key": "952ba0d0ba91",
       "_type": "dataSource",
-      "name": "Tornos News",
-      "description": "Turkey, Serbia, North Macedonia tourism data",
-      "url": "https://tornosnews.gr",
-      "accessDate": "2026-02-23"
+      "name": "WEF",
+      "description": "Rankings: Spain 2nd, Italy 9th, Portugal 12th, Greece 21st, Turkey 29th, Croatia 46th",
+      "url": "https://www.gstc.org/wef-travel-tourism-development-index-2024/",
+      "accessDate": "2026-03-02"
     },
     {
-      "_key": "a5058e69412f",
+      "_key": "da9b250cbf41",
       "_type": "dataSource",
-      "name": "Greek Travel Pages",
-      "description": "Regulatory updates, market analysis",
-      "url": "https://news.gtp.gr",
-      "accessDate": "2026-02-23"
+      "name": "Eurostat",
+      "description": "Seasonality Gini coefficients, monthly distribution data",
+      "url": "https://ec.europa.eu/eurostat/statistics-explained/index.php/Seasonality_in_the_tourist_accommodation_sector",
+      "accessDate": "2026-03-02"
     }
   ],
-  "methodology": "This analysis draws primarily on the Bank of Greece's Balance of Travel Services reports, which compile data from approximately 58,000 exit-point questionnaires annually covering airports, road border crossings, and seaports. Arrival and receipt figures for 2024 are full-year final data; for 2025, they represent January–October unless otherwise specified. The INSETE X-Ray report for 2023–2024 provides detailed country-level breakdowns of arrivals, overnight stays, and receipts, along with regional destination distribution.\n\nAir capacity data is sourced from INSETE flight statistics, Mabrian Travel Intelligence seasonal reports, and individual airline announcements. Airport passenger figures come from Athens International Airport, Fraport Greece, and individual airport authorities. The India section draws on IATA AirportIS origin-and-destination data as cited by Athens International Airport's route development analysis, IndiGo and Aegean Airlines press releases, and Routes Online reporting.\n\nBalkan visitor estimates combine Bank of Greece border survey data with INSETE country profiles. As noted in the analysis, road border arrival counts rely on sampling rather than exhaustive tallying, and same-day visits are counted as one overnight stay — conventions that affect comparisons with air-arrival markets. Per-trip spending figures for Balkan markets are derived calculations (total receipts ÷ arrivals) rather than direct survey responses, and should be treated as approximations.\n\nAll currency figures are in euros unless otherwise stated. Where 2025 data covers January–October only, this is specified. Forward-looking statements about India and other emerging markets are based on confirmed airline schedules, government announcements, and industry projections — not guaranteed outcomes.",
-  "dataDisclaimer": "Tourism statistics are subject to revision as authorities finalize annual reports. Full-year 2025 data was not available at the time of publication; analysis uses January–October 2025 data as specified. Balkan visitor counts include repeat crossings and same-day visits that may inflate headline arrival figures relative to unique visitors. India market projections are based on confirmed airline schedules as of February 2026 and should not be treated as guaranteed outcomes.",
-  "metaTitle": "Where Do Greece's Tourists Come From? Source Market Analy...",
-  "metaDescription": "Greece earned €22.38 billion from tourism through October 2025, but the money isn't coming from where most people assume. Non-EU receipts grew 12.2% — more than",
-  "focusKeyword": "where do tourists in greece come from",
+  "methodology": "This analysis draws on 2025 official tourism statistics from national statistical offices, central banks, and tourism promotion bodies. Where full-year 2025 data is provisional or estimated, this is noted.\n\n**Spain:** INE Frontur (arrivals) and Egatur (spending) surveys, February 2026 provisional releases. Full-year 2025: 96.77M arrivals, €134.7B spending. Revenue growth +6.8%, arrival growth +3.2%. Source market data from INE press release. Hotel performance from INE Coyuntura Turística Hotelera. Overtourism data from CNN, CNBC, and Waging Nonviolence reporting on 2025 protests. Tax data from Idealista Spain and VATCalc.\n\n**Turkey:** TUIK/Ministry of Culture and Tourism visitor statistics. Full-year 2025: 63.94M total visitors (52.78M foreign), $65.23B revenue. Diaspora share calculated from TUIK breakdown. Revenue per visitor calculated from TUIK data. Lira depreciation from TheGlobalEconomy.com. Medical tourism data from IMARC Group. Istanbul MICE data from Tourism Explorer. Tax data from A&M Consulting Turkey. Industry critique from Balkan Insight and TravelMole.\n\n**Italy:** ISTAT tourism statistics, Bank of Italy balance of payments (tourism receipts), Rome Business School tourism trends analysis. 2024 arrivals: ~57.7M (ISTAT preliminary). Revenue: ~€55.2B (2024 Bank of Italy), €60.4B (2025 WTTC projection). UNESCO count from official UNESCO list. Tax and city tourist tax data from Idealista Italy, ExpertoItaly, and AFAR (Venice). Hotel counts from Tourist Italy.\n\n**Croatia:** HTZ (Croatian Tourist Board) official press releases and statistics. Full-year 2025: 21.8M arrivals, 110.1M overnight stays. Summer decline: 745,000 fewer Jul–Aug overnight stays, ~€140M revenue impact. Pricing data from Croatia Week, Tourism Review, Eualive, and ETIAS comparative analysis. Seasonality from Eurostat. Tax data from PwC Croatia and CMS Lawnow. Government reforms from Croatia Week (bed removal, short-term rental regulation).\n\n**Portugal:** Bank of Portugal balance of payments data (tourism receipts), Turismo de Portugal statistics. Full-year 2025: €29.1B revenue, €22B trade surplus (Xinhua/Bank of Portugal). Visitor estimates: ~30–31M (Travel And Tour World, Portugal Resident). VAT rates from Airnest REIM and Idealista Portugal. Digital nomad visa data from Immigrant Invest. Golf tourism from Golfbreaks.\n\n**Greece (own data):** Bank of Greece, Euronews, GTP Headlines. Full-year 2025: 37.98M visitors, €23.6B revenue. Source markets from GTP Headlines. INSETE/PwC tax burden study (29.8%). Climate Resilience Fee from Law 5162/2024 via Greek Trip Planner analysis.\n\n**Comparative frameworks:** WEF Travel & Tourism Development Index 2024 (rankings: Spain 2nd, Italy 9th, Portugal 12th, Greece 21st, Turkey 29th, Croatia 46th). Eurostat seasonality statistics. Tax Foundation VAT comparisons. All revenue per visitor figures calculated by dividing total international tourism revenue by total international arrivals; methodological differences between countries (counting conventions, revenue definitions) mean these should be treated as indicative rather than precisely comparable.",
+  "dataDisclaimer": "Tourism statistics from different countries use varying methodologies, making direct comparisons indicative rather than precise. Turkey's total visitor count includes diaspora and border-crossing visitors alongside international tourists, inflating headline figures relative to Western Mediterranean counting methods. Italy's 2025 full-year data is partially estimated pending final ISTAT releases. Portugal's arrival figure is approximate pending final INE Portugal publication. Revenue figures reflect international tourist spending as reported by each country's central bank or statistical office, but definitions of what constitutes \"tourism revenue\" vary. City tourist tax rates are representative of 4-star hotel categories and change frequently. All 2025 data is provisional and subject to revision.",
+  "metaTitle": "Greece vs Mediterranean Rivals: How It Competes Against S...",
+  "metaDescription": "Greece welcomed 37.98 million visitors and generated €23.6 billion in tourism revenue in 2025 — both records. But how does that compare to the rest of the Medit",
+  "focusKeyword": "mediterranean tourism statistics",
   "secondaryKeywords": [
-    "greece tourism by country",
-    "german tourists greece",
-    "american tourists greece",
-    "uk tourists greece",
-    "greece source markets",
-    "greece tourism statistics by nationality"
+    "greece vs spain tourism",
+    "greece vs turkey tourism",
+    "greece vs italy vacation",
+    "best mediterranean destination",
+    "mediterranean tourism comparison 2025",
+    "greece tourism competitors"
   ],
   "schemaArticleType": "Article",
   "enableFaqSchema": true,
   "faqItems": [
     {
-      "_key": "96fe780c8136",
+      "_key": "4ab0d7d836c4",
       "_type": "faqItem",
-      "question": "Where do most tourists in Greece come from?",
-      "answer": "Germany is the largest source market by volume with 5.65 million arrivals through October 2025, followed by the United Kingdom (~4.2 million), Bulgaria (~3 million), Romania (~2.5–2.7 million), and Italy (~2.2 million). By revenue, Germany leads at €3.61 billion, with the UK close behind at €3.55 billion. The Balkans collectively send an estimated 10–11 million visitors annually — roughly a third of all international arrivals."
+      "question": "How does Greece compare to Spain for tourism?",
+      "answer": "Spain attracts 2.5 times more visitors than Greece (96.8M vs 38.0M in 2025) and generates nearly six times the revenue (€134.7B vs €23.6B). Spain's average tourist spends €1,392 versus Greece's €602. However, Spain faces significant overtourism backlash, with protests in Barcelona and Mallorca, while Greece charges a higher accommodation VAT (13% vs 10%). Spain benefits from year-round Canary Islands tourism and superior transport infrastructure. Greece offers unmatched island diversity and generally lower trip costs outside luxury destinations."
     },
     {
-      "_key": "4fbd13d3cd2a",
+      "_key": "9707893a89b6",
       "_type": "faqItem",
-      "question": "How many American tourists visit Greece each year?",
-      "answer": "Approximately 1.55 million American tourists visited Greece in 2024, generating €1,583.8 million in revenue. US visitors are Greece's highest-value major segment, spending an average of €1,022 per trip — 78% above the national average and roughly 50% more than German tourists per trip."
+      "question": "Is Greece cheaper than Italy for a vacation?",
+      "answer": "Generally yes. A mid-range week in the Greek islands typically costs 15–25% less than an equivalent week on Italy's Amalfi Coast or in Tuscany. However, Greece charges higher accommodation VAT (13% vs Italy's 10%), partially offsetting the lower base rates. Italy adds per-person city tourist taxes (€4–10/night in Rome, Venice, Florence) that can exceed Greece's per-room Climate Resilience Fee for solo travelers. For couples and families, Greece's per-room fee structure tends to be more favorable than Italy's per-person charges."
     },
     {
-      "_key": "5cef26a6a030",
+      "_key": "27332f94bd2c",
       "_type": "faqItem",
-      "question": "How many German tourists visit Greece?",
-      "answer": "Germany sent 5.40 million visitors to Greece in 2024 and 5.65 million through October 2025. While Germany is the largest source market by volume, its revenue growth stalled at just 0.5% in 2025, compared with the UK's 15.1% growth, suggesting increasing price sensitivity among eurozone travelers."
+      "question": "How many tourists visit Turkey compared to Greece?",
+      "answer": "Turkey reported 63.94 million total visitors in 2025 versus Greece's 37.98 million. However, 11.16 million (17.5%) of Turkey's visitors were returning diaspora, and millions more were Bulgarian, Georgian, and Iranian border-crossing day-trippers. Foreign tourist arrivals — the more comparable measure — were 52.78 million, growing just 0.28% in 2025. Turkey's headline advantage over Greece is real but less dramatic than it appears."
     },
     {
-      "_key": "ed7d294ddcb9",
+      "_key": "4723e6dd26e7",
       "_type": "faqItem",
-      "question": "How many British tourists visit Greece?",
-      "answer": "The UK sent approximately 4.55 million visitors in 2024, generating €3,159.8 million in receipts. Through October 2025, UK tourism revenue surged 15.1% to €3.55 billion, making it the fastest-growing major market and narrowing the revenue gap with Germany to just €60 million."
+      "question": "Which Mediterranean country has the lowest tourist tax?",
+      "answer": "Portugal offers the lowest accommodation tax burden among major Mediterranean destinations, with just 6% VAT on hotel stays (mainland) — less than half Greece's 13% or Croatia's 13%. On a €150 hotel night, the total tax in Portugal runs approximately €13–15, compared to €23–26 in Greece. Turkey (8% VAT + 2% tax) and Spain/Italy (10% VAT) fall in between."
     },
     {
-      "_key": "55095b6d62e0",
+      "_key": "7c1646ada375",
       "_type": "faqItem",
-      "question": "Are there direct flights from India to Greece?",
-      "answer": "Yes — for the first time in history. IndiGo Airlines launched direct Mumbai–Athens and Delhi–Athens flights on January 23–24, 2026, each operating three times weekly. Aegean Airlines follows with Athens–New Delhi (five times weekly from March 2026) and Athens–Mumbai (three times weekly from May 2026), creating 14 weekly nonstop frequencies by mid-2026."
+      "question": "Why is Greece's revenue per tourist so low compared to competitors?",
+      "answer": "Greece generates approximately €602 per visitor — the lowest among Spain (€1,392), Portugal (~€970), Turkey (~€940 adjusted), and Italy (~€930). The gap reflects shorter average stays (island-hopping creates multiple short stops), lower ancillary spending (less shopping and entertainment than Italy or Spain), accommodation pricing below Western Mediterranean levels outside luxury islands, and the 13% accommodation VAT that squeezes hotel margins and limits pricing flexibility."
     },
     {
-      "_key": "de2f0c89d9a1",
+      "_key": "48aefb9880fe",
       "_type": "faqItem",
-      "question": "Which country's tourists spend the most in Greece?",
-      "answer": "Among major-volume markets, American visitors spend the most at €1,022 per trip on average. Australian visitors have even higher per-trip spending (~€2,150) driven by longer diaspora visits. Gulf state visitors and Chinese tourists also exceed €1,000 per trip, while German visitors average €691 and Balkan visitors typically spend €150–350 per trip."
+      "question": "Is Croatia more expensive than Greece?",
+      "answer": "As of 2025, yes for many categories. Croatian accommodation prices rose approximately 50% in three years following Euro adoption in January 2023. HTZ flash analysis confirmed that minimum Croatian accommodation prices exceeded Greek equivalents by Easter 2025, and first-week-of-August prices surpassed all Mediterranean competitors except France. Croatia's summer 2025 saw 745,000 fewer overnight stays as price-sensitive visitors — particularly Germans — switched to cheaper alternatives including Greece."
     },
     {
-      "_key": "8358f43c085d",
+      "_key": "de8a6c994103",
       "_type": "faqItem",
-      "question": "How many Balkan tourists visit Greece?",
-      "answer": "An estimated 10–11 million visitors from Bulgaria, Romania, North Macedonia, Turkey, Albania, and Serbia visited Greece in 2024, accounting for roughly 28–31% of all international arrivals. Most arrive by road, with land border crossings totaling 11.4 million in 2024. Their per-trip spending is lower than Western European visitors, but their volume makes them collectively the largest regional source."
+      "question": "What is the best Mediterranean destination for value?",
+      "answer": "Portugal offers the best combination of quality and tax competitiveness, with 6% accommodation VAT and approximately €970 revenue per visitor suggesting travelers perceive high value. Greece offers the best beach and island value outside of luxury hotspots like Mykonos and Santorini. Turkey remains competitive on price despite recent inflation, particularly for all-inclusive resorts. Spain and Italy offer premium experiences at premium prices. Croatia has priced itself above several competitors since Euro adoption."
     },
     {
-      "_key": "2d123fc7a431",
+      "_key": "ec5bda6aeef1",
       "_type": "faqItem",
-      "question": "How many Israeli tourists visit Greece?",
-      "answer": "Israel sent 621,000 visitors to Greece in 2024, generating €419 million in receipts. Air capacity surged 41% in 2025 to over 1 million scheduled seats, making Israel-Greece the fastest-growing air corridor. Total air passengers reached 2.2 million in 2025, with Athens as the number-one route from Ben Gurion Airport."
+      "question": "How seasonal is Greek tourism compared to other Mediterranean countries?",
+      "answer": "Greece concentrates approximately 42% of overnight stays in July–August at the national level — more seasonal than Spain (~30–35%), Portugal (~30–32%), or Turkey (~35%), but less extreme than Croatia (~58%). Greece's seasonality is improving, with summer's share of arrivals falling from 56% in 2019 to 50% in 2024, driven by growing winter and shoulder-season demand plus the Climate Resilience Fee's 67–75% off-peak discount."
     }
   ],
   "enableDatasetSchema": true,
@@ -2153,60 +2870,74 @@
   "ctaCustomText": "Plan Your Greece Trip",
   "externalReferences": [
     {
-      "_key": "9f3e0421bccc",
+      "_key": "6c88d05e4028",
       "_type": "externalRef",
-      "title": "Bank of Greece: Travel Services Balance 2024",
-      "url": "https://www.bankofgreece.gr/en/news-and-media/press-office/news-list/news?announcement=a6b6b92e-908e-455e-a7e5-bce16001ea5c",
-      "source": "Bank of Greece"
+      "title": "INE Spain: Frontur 2025 (Arrivals)",
+      "url": "https://www.ine.es/dyngs/Prensa/en/FRONTUR1225.htm",
+      "source": "INE"
     },
     {
-      "_key": "feccff381e2b",
+      "_key": "a7821a52b475",
       "_type": "externalRef",
-      "title": "INSETE: X-Ray of International Tourism 2023–2024",
-      "url": "https://insete.gr/wp-content/uploads/2025/09/25-9_X-RAY_2023-2024_ENG.pdf",
-      "source": "INSETE"
+      "title": "La Moncloa: Spain 2025 Tourist Spending",
+      "url": "https://www.lamoncloa.gob.es/lang/en/gobierno/news/Paginas/2026/20260203-international-tourists-spending.aspx",
+      "source": "La Moncloa"
     },
     {
-      "_key": "295ff2793a26",
+      "_key": "6df15807b11e",
       "_type": "externalRef",
-      "title": "GTP: IndiGo Connects India and Greece",
-      "url": "https://news.gtp.gr/2026/01/24/indigo-connects-india-and-greece-with-first-ever-direct-flights-to-athens/",
+      "title": "Daily Sabah: Turkey 2025 Tourism Records",
+      "url": "https://www.dailysabah.com/business/tourism/turkiye-tops-2025-tourism-revenue-target-foreign-arrivals-hit-record",
+      "source": "Daily Sabah"
+    },
+    {
+      "_key": "1f0b221007c8",
+      "_type": "externalRef",
+      "title": "HTZ: Croatia 110M Overnight Stays 2025",
+      "url": "https://www.htz.hr/en-GB/press/press-releases/tourists-croatia-recorded-110-million-overnights-2025",
+      "source": "HTZ"
+    },
+    {
+      "_key": "6253eee82e2c",
+      "_type": "externalRef",
+      "title": "Xinhua/Bank of Portugal: Tourism Surplus 2025",
+      "url": "https://english.news.cn/20260220/bce381406f62462d9df10dab23878760/c.html",
+      "source": "Xinhua"
+    },
+    {
+      "_key": "eaa43b5ee90b",
+      "_type": "externalRef",
+      "title": "Croatia Week: Pricing Concerns",
+      "url": "https://www.croatiaweek.com/too-expensive-for-tourists-why-croatias-prices-are-raising-concerns/",
+      "source": "Croatia Week"
+    },
+    {
+      "_key": "bd4f3b363da7",
+      "_type": "externalRef",
+      "title": "INSETE/GTP: Greek Tax Burden Study",
+      "url": "https://news.gtp.gr/2025/10/24/greek-tourism-struggling-under-high-taxes-and-rising-costs-insete-warns/",
       "source": "GTP Headlines"
     },
     {
-      "_key": "933fac9141c1",
+      "_key": "4a647c6f895a",
       "_type": "externalRef",
-      "title": "Routes Online: Will 2026 Be the Year of India for Athens?",
-      "url": "https://www.routesonline.com/airports/2360/athens-international-airport-sa-eleftherios-venizelos/news/299665118/namaste-will-2026-be-the-year-of-india-for-athens-or-what/",
-      "source": "Routes"
+      "title": "WEF: Travel & Tourism Development Index 2024",
+      "url": "https://www.gstc.org/wef-travel-tourism-development-index-2024/",
+      "source": "GSTC/WEF"
     },
     {
-      "_key": "32176ca9deee",
+      "_key": "187063e31d7f",
       "_type": "externalRef",
-      "title": "Aegean Airlines: India Route Press Release",
-      "url": "https://en.about.aegeanair.com/media-center/press-releases/2025/aegean-invests-in-two-new-airbus-a321neo-xlr-aircraft/",
-      "source": "Aegean Airlines"
+      "title": "Eurostat: Tourism Seasonality",
+      "url": "https://ec.europa.eu/eurostat/statistics-explained/index.php/Seasonality_in_the_tourist_accommodation_sector",
+      "source": "Eurostat"
     },
     {
-      "_key": "80f3939d4c1d",
+      "_key": "eb58bd541110",
       "_type": "externalRef",
-      "title": "Tornos News: Surge in Overnight Stays from Serbia, Turkey, China",
-      "url": "https://tornosnews.gr/en/businesses/markets/52597-greek-tourism-2024-surge-in-overnight-stays-from-serbia-turkey-and-china.html",
-      "source": "Tornos News"
-    },
-    {
-      "_key": "e54e58b43893",
-      "_type": "externalRef",
-      "title": "Türkiye Today: 1.15M Turkish Tourists at Greek Islands",
-      "url": "https://www.turkiyetoday.com/business/1-15m-turkish-tourists-travel-to-greek-islands-in-record-surge-121209/",
-      "source": "Türkiye Today"
-    },
-    {
-      "_key": "98d74a374830",
-      "_type": "externalRef",
-      "title": "GTP: Greece Tourism Records 35.2M Visitors Jan-Oct",
-      "url": "https://news.gtp.gr/2025/12/23/greek-tourism-records-35-2-million-visitors-and-e22-4bn-in-receipts-in-jan-oct/",
-      "source": "GTP Headlines"
+      "title": "Balkan Insight: Turkey Tourism Struggles",
+      "url": "https://balkaninsight.com/2025/08/26/turkish-officials-claim-tourism-boom-but-insiders-say-trade-is-struggling/",
+      "source": "Balkan Insight"
     }
   ]
 }

@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
-import Script from "next/script";
-import "./globals.css";
+import type { Metadata } from 'next'
+import Script from 'next/script'
+import './globals.css'
+import Navbar from '@/components/Navbar'
 
 export const metadata: Metadata = {
-  title: "AI Greek Trip Planner - Your Perfect Greece Adventure",
-  description: "AI-powered trip planning for Greece with personalized itineraries, insider tips, and realistic logistics.",
-};
+  title: 'AI Greek Trip Planner - Your Perfect Greece Adventure',
+  description: 'AI-powered trip planning for Greece with personalized itineraries, insider tips, and realistic logistics.',
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en">
@@ -29,8 +30,9 @@ export default function RootLayout({
         </Script>
       </head>
       <body className="antialiased">
+        <Navbar />
         {children}
       </body>
     </html>
-  );
+  )
 }

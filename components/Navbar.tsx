@@ -1,17 +1,142 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ArrowRight, X, Compass, BookOpen, BarChart3, Users, Sparkles } from 'lucide-react'
+import { ArrowRight, X, Compass, BookOpen, BarChart3, Users, Sparkles, ChevronDown, MapPin, Map } from 'lucide-react'
+
+const topDestinations = [
+  { name: 'Athens',    slug: 'athens',    emoji: '🏛️', desc: 'History & culture' },
+  { name: 'Santorini', slug: 'santorini', emoji: '🌅', desc: 'Iconic caldera views' },
+  { name: 'Mykonos',   slug: 'mykonos',   emoji: '🎉', desc: 'Glamour & nightlife' },
+  { name: 'Crete',     slug: 'crete',     emoji: '🏔️', desc: 'Beaches & gorges' },
+  { name: 'Rhodes',    slug: 'rhodes',    emoji: '🏰', desc: 'Medieval old town' },
+]
 
 const navLinks = [
   { href: '/how-it-works', label: 'How it Works', icon: Compass, desc: 'See how our AI builds your itinerary' },
+  { href: '/destinations', label: 'Destinations', icon: Map, desc: '133 destinations across Greece' },
   { href: '/blog', label: 'Blog', icon: BookOpen, desc: '133 destination guides by local experts' },
   { href: '/insights', label: 'Insights', icon: BarChart3, desc: 'Greece tourism data & analysis' },
   { href: '/about', label: 'About', icon: Users, desc: 'Meet the 5 Greeks behind the planner' },
 ]
+
+// ─── DESTINATIONS DROPDOWN (desktop only) ────────────────────────────────────
+
+function DestinationsDropdown({ isActive }: { isActive: boolean }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Close on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', handler)
+    return () => document.removeEventListener('mousedown', handler)
+  }, [])
+
+  const handleMouseEnter = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    setOpen(true)
+  }
+  const handleMouseLeave = () => {
+    closeTimer.current = setTimeout(() => setOpen(false), 150)
+  }
+
+  return (
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      {/* Trigger button */}
+      <Link
+        href="/destinations"
+        onClick={() => setOpen(false)}
+        className={`flex items-center gap-1 text-sm font-medium transition-colors ${
+          isActive ? 'text-[#FF5635]' : 'text-[#180204]/70 hover:text-[#FF5635]'
+        }`}
+      >
+        Destinations
+        <ChevronDown
+          className={`w-3.5 h-3.5 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+        />
+      </Link>
+
+      {/* Active underline — matches other nav items */}
+      {isActive && (
+        <span className="absolute -bottom-[21px] left-0 right-0 h-[2px] bg-[#FF5635] rounded-full" />
+      )}
+
+      {/* Dropdown panel */}
+      <div
+        className={`absolute top-[calc(100%+20px)] left-1/2 -translate-x-1/2 w-64
+          bg-white border border-[#E6DAD1] rounded-2xl shadow-xl shadow-[#180204]/10
+          overflow-hidden z-50 origin-top transition-all duration-200
+          ${open
+            ? 'opacity-100 scale-100 translate-y-0 pointer-events-auto'
+            : 'opacity-0 scale-95 -translate-y-1 pointer-events-none'
+          }`}
+      >
+        {/* Arrow pointer */}
+        <div className="absolute -top-[6px] left-1/2 -translate-x-1/2 w-3 h-3 bg-white border-l border-t border-[#E6DAD1] rotate-45" />
+
+        {/* Top destinations */}
+        <div className="p-2">
+          <p className="text-[10px] font-bold text-[#180204]/35 uppercase tracking-widest px-3 pt-2 pb-1.5 font-sans">
+            Top Destinations
+          </p>
+          {topDestinations.map((dest) => (
+            <Link
+              key={dest.slug}
+              href={`/blog/${dest.slug}-travel-guide`}
+              onClick={() => setOpen(false)}
+              className="group flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-[#FAF6F3] transition-colors"
+            >
+              <span className="text-lg leading-none w-7 text-center flex-shrink-0">
+                {dest.emoji}
+              </span>
+              <div className="min-w-0">
+                <span className="block text-sm font-semibold text-[#180204] group-hover:text-[#FF5635] transition-colors font-sans leading-tight">
+                  {dest.name}
+                </span>
+                <span className="block text-[11px] text-[#180204]/40 font-sans">
+                  {dest.desc}
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Divider */}
+        <div className="mx-4 border-t border-[#E6DAD1]" />
+
+        {/* View all */}
+        <div className="p-2 pt-1.5">
+          <Link
+            href="/destinations"
+            onClick={() => setOpen(false)}
+            className="group flex items-center justify-between px-3 py-2.5 rounded-xl bg-[#180204] hover:bg-[#FF5635] transition-colors duration-200"
+          >
+            <div className="flex items-center gap-2">
+              <MapPin className="w-3.5 h-3.5 text-white/60 group-hover:text-white transition-colors" />
+              <span className="text-sm font-semibold text-white font-sans">
+                View All Destinations
+              </span>
+            </div>
+            <ArrowRight className="w-3.5 h-3.5 text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+          </Link>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─── MAIN NAVBAR ─────────────────────────────────────────────────────────────
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
@@ -53,19 +178,34 @@ export default function Navbar() {
 
           {/* Desktop nav */}
           <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`transition-colors text-sm font-medium ${
-                  isActive(link.href)
-                    ? 'text-[#FF5635]'
-                    : 'text-[#180204]/70 hover:text-[#FF5635]'
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {/* How it Works */}
+            <Link
+              href="/how-it-works"
+              className={`transition-colors text-sm font-medium ${
+                isActive('/how-it-works') ? 'text-[#FF5635]' : 'text-[#180204]/70 hover:text-[#FF5635]'
+              }`}
+            >
+              How it Works
+            </Link>
+
+            {/* Destinations — with dropdown */}
+            <DestinationsDropdown isActive={isActive('/destinations')} />
+
+            {/* Blog, Insights, About */}
+            {navLinks
+              .filter((l) => !['how-it-works', 'destinations'].some((s) => l.href.includes(s)))
+              .map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`transition-colors text-sm font-medium ${
+                    isActive(link.href) ? 'text-[#FF5635]' : 'text-[#180204]/70 hover:text-[#FF5635]'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+
             <Link
               href="/ai-trip-planner"
               className="btn-accent px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2"

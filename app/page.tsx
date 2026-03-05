@@ -1,7 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, MapPin, Utensils, Compass, Star, ChevronDown, Ship, Landmark, Sun, Shield, Gem, Heart, Users, Sparkles, BookOpen, Map, BarChart3, TrendingUp, Globe, Zap } from 'lucide-react'
-import Navbar from '@/components/Navbar'
+import {
+  ArrowRight, MapPin, Utensils, Compass, Star, ChevronDown, Ship,
+  Landmark, Sun, Shield, Gem, Heart, Users, Sparkles, BookOpen,
+  Map, BarChart3, TrendingUp, Globe, Zap,
+} from 'lucide-react'
 
 export const metadata = {
   title: 'AI Greece Trip Planner | 133 Destinations · Free Itinerary Generator 2026',
@@ -16,150 +19,20 @@ export const metadata = {
   },
 }
 
+// ─── Featured destinations for the teaser ────────────────────────────────────
+const featuredDestinations = [
+  { name: 'Santorini', desc: 'Iconic caldera views',   img: '/Santorini_Sunset_View.jpg',     slug: 'santorini' },
+  { name: 'Athens',    desc: 'History & modern life',  img: '/hero-acropolis.jpg',             slug: 'athens'    },
+  { name: 'Crete',     desc: 'Beaches & gorges',       img: '/Crete_Knossos_Ruins.jpg',        slug: 'crete'     },
+  { name: 'Mykonos',   desc: 'Glamour & nightlife',    img: '/Mykonos_Architecture.jpg',       slug: 'mykonos'   },
+  { name: 'Rhodes',    desc: 'Medieval old town',      img: '/Rhodes_Historic_Quarter.jpg',    slug: 'rhodes'    },
+  { name: 'Meteora',   desc: 'Monasteries in the sky', img: '/Meteora_Mountain_Monastery.jpg', slug: 'meteora'   },
+]
+
 export default function HomePage() {
-
-  /* ─── Destination directory data — ALL LIVE ─── */
-  const destinationsByRegion = [
-    {
-      region: 'Cyclades',
-      count: 24,
-      destinations: [
-        { name: 'Santorini', slug: 'santorini' }, { name: 'Mykonos', slug: 'mykonos' },
-        { name: 'Naxos', slug: 'naxos' }, { name: 'Paros', slug: 'paros' },
-        { name: 'Milos', slug: 'milos' }, { name: 'Ios', slug: 'ios' },
-        { name: 'Folegandros', slug: 'folegandros' }, { name: 'Sifnos', slug: 'sifnos' },
-        { name: 'Tinos', slug: 'tinos' }, { name: 'Serifos', slug: 'serifos' },
-        { name: 'Andros', slug: 'andros' }, { name: 'Amorgos', slug: 'amorgos' },
-        { name: 'Antiparos', slug: 'antiparos' }, { name: 'Syros', slug: 'syros' },
-        { name: 'Koufonisia', slug: 'koufonisia' }, { name: 'Sikinos', slug: 'sikinos' },
-        { name: 'Anafi', slug: 'anafi' }, { name: 'Kea', slug: 'kea' },
-        { name: 'Kythnos', slug: 'kythnos' }, { name: 'Kimolos', slug: 'kimolos' },
-        { name: 'Thirassia', slug: 'thirassia' }, { name: 'Iraklia', slug: 'iraklia' },
-        { name: 'Schinoussa', slug: 'schinoussa' }, { name: 'Donoussa', slug: 'donoussa' },
-      ],
-    },
-    {
-      region: 'Dodecanese',
-      count: 14,
-      destinations: [
-        { name: 'Rhodes', slug: 'rhodes' }, { name: 'Kos', slug: 'kos' },
-        { name: 'Patmos', slug: 'patmos' }, { name: 'Symi', slug: 'symi' },
-        { name: 'Karpathos', slug: 'karpathos' }, { name: 'Leros', slug: 'leros' },
-        { name: 'Kalymnos', slug: 'kalymnos' }, { name: 'Astypalea', slug: 'astypalea' },
-        { name: 'Kastellorizo', slug: 'kastellorizo' }, { name: 'Tilos', slug: 'tilos' },
-        { name: 'Nisyros', slug: 'nisyros' }, { name: 'Lipsi', slug: 'lipsi' },
-        { name: 'Chalki', slug: 'chalki' }, { name: 'Agathonisi', slug: 'agathonisi' },
-      ],
-    },
-    {
-      region: 'Ionian Islands',
-      count: 6,
-      destinations: [
-        { name: 'Corfu', slug: 'corfu' }, { name: 'Zakynthos', slug: 'zakynthos' },
-        { name: 'Kefalonia', slug: 'kefalonia' }, { name: 'Lefkada', slug: 'lefkada' },
-        { name: 'Ithaca', slug: 'ithaca' }, { name: 'Paxos', slug: 'paxos' },
-      ],
-    },
-    {
-      region: 'Crete',
-      count: 14,
-      destinations: [
-        { name: 'Crete', slug: 'crete' }, { name: 'Heraklion', slug: 'heraklion' },
-        { name: 'Chania', slug: 'chania' }, { name: 'Rethymno', slug: 'rethymno' },
-        { name: 'Agios Nikolaos', slug: 'agios-nikolaos' }, { name: 'Elounda', slug: 'elounda' },
-        { name: 'Sitia', slug: 'sitia' }, { name: 'Ierapetra', slug: 'ierapetra' },
-        { name: 'Paleochora', slug: 'paleochora' }, { name: 'Loutro', slug: 'loutro' },
-        { name: 'Matala', slug: 'matala' }, { name: 'Samaria Gorge', slug: 'samaria-gorge' },
-        { name: 'Balos Beach', slug: 'balos-beach' }, { name: 'Elafonissi Beach', slug: 'elafonissi-beach' },
-      ],
-    },
-    {
-      region: 'Sporades',
-      count: 4,
-      destinations: [
-        { name: 'Skopelos', slug: 'skopelos' }, { name: 'Skiathos', slug: 'skiathos' },
-        { name: 'Alonissos', slug: 'alonissos' }, { name: 'Skyros', slug: 'skyros' },
-      ],
-    },
-    {
-      region: 'Saronic Gulf',
-      count: 5,
-      destinations: [
-        { name: 'Hydra', slug: 'hydra' }, { name: 'Aegina', slug: 'aegina' },
-        { name: 'Poros', slug: 'poros' }, { name: 'Spetses', slug: 'spetses' },
-        { name: 'Agistri', slug: 'agistri' },
-      ],
-    },
-    {
-      region: 'North Aegean',
-      count: 7,
-      destinations: [
-        { name: 'Lesbos', slug: 'lesbos' }, { name: 'Samos', slug: 'samos' },
-        { name: 'Chios', slug: 'chios' }, { name: 'Ikaria', slug: 'ikaria' },
-        { name: 'Thasos', slug: 'thasos' }, { name: 'Samothrace', slug: 'samothrace' },
-        { name: 'Lemnos', slug: 'lemnos' },
-      ],
-    },
-    {
-      region: 'Peloponnese',
-      count: 23,
-      destinations: [
-        { name: 'Nafplio', slug: 'nafplio' }, { name: 'Olympia', slug: 'olympia' },
-        { name: 'Mycenae', slug: 'mycenae' }, { name: 'Epidaurus', slug: 'epidaurus' },
-        { name: 'Monemvasia', slug: 'monemvasia' }, { name: 'Mystras', slug: 'mystras' },
-        { name: 'Mani Peninsula', slug: 'mani-peninsula' }, { name: 'Kardamyli', slug: 'kardamyli' },
-        { name: 'Sparta', slug: 'sparta' }, { name: 'Ancient Corinth', slug: 'ancient-corinth' },
-        { name: 'Kalamata', slug: 'kalamata' }, { name: 'Pylos', slug: 'pylos' },
-        { name: 'Gytheio', slug: 'gytheio' }, { name: 'Dimitsana', slug: 'dimitsana' },
-        { name: 'Stemnitsa', slug: 'stemnitsa' }, { name: 'Methoni', slug: 'methoni' },
-        { name: 'Koroni', slug: 'koroni' }, { name: 'Vathia', slug: 'vathia' },
-        { name: 'Limeni', slug: 'limeni' }, { name: 'Areopoli', slug: 'areopoli' },
-        { name: 'Ancient Messene', slug: 'ancient-messene' }, { name: 'Nemea', slug: 'nemea' },
-        { name: 'Kalavryta', slug: 'kalavryta' },
-      ],
-    },
-    {
-      region: 'Central Greece',
-      count: 12,
-      destinations: [
-        { name: 'Meteora', slug: 'meteora' }, { name: 'Delphi', slug: 'delphi' },
-        { name: 'Pelion', slug: 'pelion' }, { name: 'Arachova', slug: 'arachova' },
-        { name: 'Volos', slug: 'volos' }, { name: 'Galaxidi', slug: 'galaxidi' },
-        { name: 'Hosios Loukas', slug: 'hosios-loukas' }, { name: 'Thermopylae', slug: 'thermopylae' },
-        { name: 'Lake Plastira', slug: 'lake-plastira' }, { name: 'Makrinitsa', slug: 'makrinitsa' },
-        { name: 'Portaria', slug: 'portaria' }, { name: 'Tsagarada', slug: 'tsagarada' },
-      ],
-    },
-    {
-      region: 'Northern Greece',
-      count: 19,
-      destinations: [
-        { name: 'Thessaloniki', slug: 'thessaloniki' }, { name: 'Zagori Villages', slug: 'zagori-villages' },
-        { name: 'Vikos Gorge', slug: 'vikos-gorge' }, { name: 'Ioannina', slug: 'ioannina' },
-        { name: 'Metsovo', slug: 'metsovo' }, { name: 'Mount Olympus', slug: 'mount-olympus' },
-        { name: 'Halkidiki', slug: 'halkidiki' }, { name: 'Kastoria', slug: 'kastoria' },
-        { name: 'Vergina', slug: 'vergina' }, { name: 'Pella', slug: 'pella' },
-        { name: 'Kavala', slug: 'kavala' }, { name: 'Prespa Lakes', slug: 'prespa-lakes' },
-        { name: 'Lake Kerkini', slug: 'lake-kerkini' }, { name: 'Edessa', slug: 'edessa' },
-        { name: 'Naousa', slug: 'naousa' }, { name: 'Parga', slug: 'parga' },
-        { name: 'Preveza', slug: 'preveza' }, { name: 'Syvota', slug: 'syvota' },
-        { name: 'Litochoro', slug: 'litochoro' },
-      ],
-    },
-    {
-      region: 'Attica & Other',
-      count: 5,
-      destinations: [
-        { name: 'Athens', slug: 'athens' }, { name: 'Cape Sounion', slug: 'cape-sounion' },
-        { name: 'Kythira', slug: 'kythira' }, { name: 'Gavdos', slug: 'gavdos' },
-        { name: 'Elafonisos', slug: 'elafonisos' },
-      ],
-    },
-  ]
-
   return (
     <main className="min-h-screen bg-[#FAF6F3]">
-      <Navbar />
+      {/* Navbar is rendered globally in layout.tsx — do NOT add it here */}
 
       {/* ===== HERO ===== */}
       <section className="relative min-h-[92vh] flex items-center pt-24 pb-12">
@@ -188,8 +61,8 @@ export default function HomePage() {
             <div className="animate-fade-in-up delay-400 mt-14 grid grid-cols-2 sm:grid-cols-4 gap-6 max-w-lg">
               {[
                 { value: '133', label: 'Destinations' },
-                { value: '11', label: 'Regions Covered' },
-                { value: '5', label: 'Local Experts' },
+                { value: '11',  label: 'Regions Covered' },
+                { value: '5',   label: 'Local Experts' },
                 { value: '100%', label: 'Free Forever' },
               ].map((stat) => (
                 <div key={stat.label}>
@@ -213,7 +86,6 @@ export default function HomePage() {
             <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Not Just Another AI Planner</h2>
             <p className="text-[#180204]/60 max-w-2xl mx-auto">Most travel AI scrapes the internet and gives you what everyone else gets. Ours is built on something no algorithm can replicate: decades of real Greek tourism expertise, encoded into 133 destination profiles.</p>
           </div>
-
           <div className="grid md:grid-cols-3 gap-8">
             <div className="text-center p-8">
               <div className="w-16 h-16 bg-[#FF5635]/10 rounded-2xl flex items-center justify-center mx-auto mb-5">
@@ -237,7 +109,6 @@ export default function HomePage() {
               <p className="text-[#180204]/55 leading-relaxed">Our AI doesn&apos;t just ask where you want to go — it understands your pace, your crowd tolerance, your dining style, your experience level. Then it matches you to destinations you&apos;d never find alone.</p>
             </div>
           </div>
-
           <div className="text-center mt-10">
             <Link href="/ai-trip-planner" className="btn-accent px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-3">
               Try It Free — 3 Minutes <ArrowRight className="w-5 h-5" />
@@ -255,10 +126,8 @@ export default function HomePage() {
             <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Your Greece, Your Way</h2>
             <p className="text-[#180204]/60 max-w-2xl mx-auto">Whether you&apos;re chasing sunsets with your partner, exploring ruins solo, or keeping the kids entertained — we build the itinerary around YOU. Read our expert guides to start dreaming.</p>
           </div>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            {/* Couples */}
+            {/* Couples — linked */}
             <Link href="/blog/best-greek-islands-for-couples" className="group bg-white rounded-3xl overflow-hidden card-hover">
               <div className="relative h-52 overflow-hidden">
                 <Image src="/Santorini_Evening_Glow.jpg" alt="Romantic Greece trip for couples" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -277,7 +146,7 @@ export default function HomePage() {
               </div>
             </Link>
 
-            {/* Families */}
+            {/* Families — linked */}
             <Link href="/blog/best-greek-islands-for-families" className="group bg-white rounded-3xl overflow-hidden card-hover">
               <div className="relative h-52 overflow-hidden">
                 <Image src="/Paros_Island_View.jpg" alt="Family trip to Greece" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -367,7 +236,6 @@ export default function HomePage() {
                 <p className="text-[#180204]/60 text-sm leading-relaxed">Wind through the Mani Peninsula, explore Zagori villages, drive coastal Crete. The best of Greece is between the destinations.</p>
               </div>
             </div>
-
           </div>
 
           {/* Planning guide pills */}
@@ -382,80 +250,94 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== EXPLORE 133 DESTINATIONS — ALL LINKED ===== */}
+      {/* ===== DESTINATIONS TEASER ===== */}
+      {/*
+        Replaces the old "Explore All 133 Destinations" section (featured cards +
+        full regional directory). That content now lives at /destinations.
+        This teaser keeps destination discovery on the homepage without making
+        it a duplicate directory — and funnels users to the dedicated hub.
+      */}
       <section className="section-padding bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="divider-accent mx-auto mb-4" />
-            <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Explore All 133 Destinations</h2>
-            <p className="text-[#180204]/60 max-w-2xl mx-auto">Every destination has a dedicated travel guide written by our team. Click any destination to read the full guide — they&apos;re all live.</p>
+
+          {/* Header */}
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-10">
+            <div>
+              <div className="divider-accent mb-4" />
+              <h2 className="text-4xl sm:text-5xl text-[#180204] mb-2">Explore Greece</h2>
+              <p className="text-[#180204]/55 max-w-md">Islands, cities & hidden gems — 133 destinations with dedicated guides.</p>
+            </div>
+            <Link
+              href="/destinations"
+              className="group inline-flex items-center gap-2 text-sm font-semibold text-[#FF5635] border border-[#FF5635]/25 hover:border-[#FF5635] rounded-full px-5 py-2.5 transition-all hover:bg-[#FF5635]/5 flex-shrink-0 font-sans"
+            >
+              View All 133 Destinations
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            </Link>
           </div>
 
-          {/* Featured destination cards — ALL LINKED */}
-          <div className="flex gap-5 overflow-x-auto pb-4 scrollbar-hidden md:grid md:grid-cols-4 md:overflow-visible">
-            {[
-              { name: 'Santorini', desc: 'Iconic sunsets & caldera views', img: '/Santorini_Sunset_View.jpg', slug: 'santorini', color: 'bg-orange-50' },
-              { name: 'Mykonos', desc: 'Beach clubs & nightlife', img: '/Mykonos_Architecture.jpg', slug: 'mykonos', color: 'bg-blue-50' },
-              { name: 'Athens', desc: 'Ancient sites & modern culture', img: '/hero-acropolis.jpg', slug: 'athens', color: 'bg-amber-50' },
-              { name: 'Crete', desc: 'Largest island, rich history', img: '/Crete_Knossos_Ruins.jpg', slug: 'crete', color: 'bg-stone-50' },
-              { name: 'Meteora', desc: 'Monasteries in the sky', img: '/Meteora_Mountain_Monastery.jpg', slug: 'meteora', color: 'bg-orange-50' },
-              { name: 'Paros', desc: 'Authentic Cycladic charm', img: '/Paros_Island_View.jpg', slug: 'paros', color: 'bg-blue-50' },
-              { name: 'Rhodes', desc: 'Medieval town & beaches', img: '/Rhodes_Historic_Quarter.jpg', slug: 'rhodes', color: 'bg-amber-50' },
-              { name: 'Corfu', desc: 'Lush island paradise', img: '/Corfu_Beach_Paradise.jpg', slug: 'corfu', color: 'bg-stone-50' },
-            ].map((dest) => (
-              <Link key={dest.name} href={`/blog/${dest.slug}-travel-guide`} className={`min-w-[250px] md:min-w-0 ${dest.color} rounded-3xl overflow-hidden group`}>
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image src={dest.img} alt={dest.name} fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
+          {/* 6-card grid — 3 cols on md+, 2 on mobile */}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+            {featuredDestinations.map((dest, i) => (
+              <Link
+                key={dest.slug}
+                href={`/blog/${dest.slug}-travel-guide`}
+                className={`group relative rounded-2xl overflow-hidden card-hover ${
+                  i === 0 ? 'md:col-span-2 md:row-span-2' : ''
+                }`}
+                style={{ aspectRatio: i === 0 ? 'auto' : '4/3' }}
+              >
+                <div className={`relative w-full ${i === 0 ? 'h-[340px] md:h-full' : 'aspect-[4/3]'}`}>
+                  <Image
+                    src={dest.img}
+                    alt={dest.name}
+                    fill
+                    className="object-cover group-hover:scale-[1.05] transition-transform duration-600"
+                    sizes={i === 0 ? '(max-width: 768px) 100vw, 66vw' : '(max-width: 768px) 50vw, 33vw'}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/80 via-[#180204]/15 to-transparent" />
                 </div>
-                <div className="p-5">
-                  <h3 className="text-xl text-[#180204] mb-1 group-hover:text-[#FF5635] transition-colors">{dest.name}</h3>
-                  <p className="text-[#180204]/55 text-sm">{dest.desc}</p>
-                  <span className="text-[#FF5635] text-xs font-sans font-semibold mt-2 inline-flex items-center gap-1 group-hover:gap-2 transition-all">Read Guide <ArrowRight className="w-3 h-3" /></span>
+                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5">
+                  <h3 className={`text-white mb-0.5 ${i === 0 ? 'text-2xl sm:text-3xl' : 'text-lg'}`}>
+                    {dest.name}
+                  </h3>
+                  <p className="text-white/58 text-xs font-sans">{dest.desc}</p>
                 </div>
               </Link>
             ))}
           </div>
 
-          {/* Full destination directory by region — ALL LINKED */}
-          <div className="mt-12 space-y-6">
-            {destinationsByRegion.map((group) => (
-              <div key={group.region}>
-                <h3 className="text-lg text-[#180204] mb-3 font-sans font-semibold">
-                  {group.region} <span className="text-[#180204]/30 text-sm font-normal ml-1">({group.count})</span>
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {group.destinations.map((d) => (
-                    <Link
-                      key={d.slug}
-                      href={`/blog/${d.slug}-travel-guide`}
-                      className="bg-[#FAF6F3] border border-[#E6DAD1]/60 text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 hover:bg-[#FF5635]/5 px-3 py-1.5 rounded-full text-sm font-sans transition-all"
-                    >
-                      {d.name}
-                    </Link>
-                  ))}
-                </div>
-              </div>
+          {/* Quick region pills */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {[
+              { label: '🌊 Cyclades', href: '/destinations#islands' },
+              { label: '⚓ Dodecanese', href: '/destinations#islands' },
+              { label: '🌿 Ionian', href: '/destinations#islands' },
+              { label: '🏛️ Athens & Mainland', href: '/destinations#mainland' },
+              { label: '🏝️ Crete', href: '/destinations#crete' },
+              { label: '💎 Hidden Gems', href: '/destinations#hidden' },
+            ].map((pill) => (
+              <Link
+                key={pill.label}
+                href={pill.href}
+                className="bg-[#FAF6F3] border border-[#E6DAD1] text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 hover:bg-[#FF5635]/5 px-4 py-1.5 rounded-full text-sm font-sans font-medium transition-all"
+              >
+                {pill.label}
+              </Link>
             ))}
-
-            {/* Popular Guides */}
-            <div>
-              <h3 className="text-lg text-[#180204] mb-3 font-sans font-semibold">Popular Guides</h3>
-              <div className="flex flex-wrap gap-2">
-                <Link href="/blog/best-beaches-in-greece" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Best Beaches in Greece</Link>
-                <Link href="/blog/best-greek-islands-to-visit-for-the-first-time" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Best Islands for First-Timers</Link>
-                <Link href="/blog/best-greek-islands-for-beaches" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Best Islands for Beaches</Link>
-                <Link href="/blog/best-places-to-visit-in-greece-for-young-adults" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Best for Nightlife</Link>
-                <Link href="/blog/best-places-to-visit-in-greece-by-month" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Best by Month</Link>
-                <Link href="/blog/best-unknown-and-small-greek-islands" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Hidden Gem Islands</Link>
-                <Link href="/blog/best-way-to-see-the-greek-islands" className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-3 py-1.5 rounded-full text-sm font-sans font-medium transition-all">Island Hopping Guide</Link>
-              </div>
-            </div>
           </div>
 
-          <div className="mt-10 text-center">
-            <Link href="/blog" className="inline-flex items-center gap-2 text-[#180204] hover:text-[#FF5635] transition-colors font-sans font-semibold">
-              <BookOpen className="w-5 h-5" />
-              Browse All Travel Guides <ArrowRight className="w-4 h-4" />
+          {/* Bottom CTA */}
+          <div className="bg-[#180204] rounded-3xl px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div>
+              <p className="text-white font-semibold text-lg mb-1">All 133 destinations, fully mapped.</p>
+              <p className="text-white/45 text-sm font-sans">Cyclades, Dodecanese, Crete, Peloponnese, Northern Greece and more — each with a dedicated guide.</p>
+            </div>
+            <Link
+              href="/destinations"
+              className="btn-accent px-7 py-3.5 rounded-full font-semibold text-sm font-sans flex items-center gap-2 flex-shrink-0 whitespace-nowrap"
+            >
+              Browse All Destinations <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>
@@ -496,24 +378,22 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== GREECE TOURISM INSIGHTS — NEW ===== */}
+      {/* ===== GREECE TOURISM INSIGHTS ===== */}
       <section className="section-padding bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left — Content */}
             <div>
               <div className="divider-accent mb-4" />
               <h2 className="text-4xl sm:text-5xl text-[#180204] mb-6">Greece Tourism<br /><span className="text-[#2C73FF]">Insights & Data</span></h2>
               <p className="text-[#180204]/65 text-lg leading-relaxed mb-8">
                 We don&apos;t just help you plan trips — we analyze the Greek tourism industry at a level nobody else does. Original research, real data, and the kind of analysis that shapes how professionals and travelers understand Greece.
               </p>
-
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {[
-                  { icon: BarChart3, label: 'Market Reports', desc: 'Revenue data, visitor statistics, industry forecasts' },
-                  { icon: TrendingUp, label: 'Trend Analysis', desc: 'Emerging patterns in Greek travel demand' },
-                  { icon: MapPin, label: 'Destination Performance', desc: 'Which regions are growing and why' },
-                  { icon: Globe, label: 'Source Markets', desc: 'Where Greece\'s visitors come from' },
+                  { icon: BarChart3,   label: 'Market Reports',          desc: 'Revenue data, visitor statistics, industry forecasts' },
+                  { icon: TrendingUp,  label: 'Trend Analysis',          desc: 'Emerging patterns in Greek travel demand' },
+                  { icon: MapPin,      label: 'Destination Performance', desc: 'Which regions are growing and why' },
+                  { icon: Globe,       label: 'Source Markets',          desc: 'Where Greece\'s visitors come from' },
                 ].map((item) => (
                   <div key={item.label} className="bg-[#FAF6F3] rounded-xl p-4 border border-[#E6DAD1]/40">
                     <item.icon className="w-5 h-5 text-[#2C73FF] mb-2" />
@@ -522,38 +402,37 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-
               <Link href="/insights" className="inline-flex items-center gap-2 px-6 py-3 bg-[#2C73FF] text-white rounded-full font-semibold hover:bg-[#1a5fe0] transition-colors">
                 Explore All Insights <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
-
-            {/* Right — Stats showcase */}
             <div className="bg-[#180204] rounded-3xl p-8 md:p-10">
               <div className="flex items-center gap-2 mb-8">
                 <BarChart3 className="w-5 h-5 text-[#FF5635]" />
                 <span className="text-white/70 text-sm font-semibold font-sans uppercase tracking-wider">Key Statistics</span>
               </div>
-
               <div className="space-y-6">
                 {[
-                  { value: '€22B+', label: 'Greece tourism revenue (2025)', trend: '+12%' },
-                  { value: '36M+', label: 'International arrivals to Greece', trend: '+8%' },
-                  { value: '23%', label: 'Tourism share of Greek GDP', trend: 'Stable' },
-                  { value: '#1', label: 'European destination for island tourism', trend: '—' },
+                  { value: '€22B+', label: 'Greece tourism revenue (2025)',        trend: '+12%'  },
+                  { value: '36M+',  label: 'International arrivals to Greece',      trend: '+8%'   },
+                  { value: '23%',   label: 'Tourism share of Greek GDP',            trend: 'Stable' },
+                  { value: '#1',    label: 'European destination for island tourism', trend: '—'   },
                 ].map((stat, i) => (
                   <div key={i} className="flex items-center justify-between border-b border-white/10 pb-5 last:border-0 last:pb-0">
                     <div>
                       <div className="text-3xl font-bold text-white">{stat.value}</div>
                       <div className="text-white/45 text-sm font-sans mt-1">{stat.label}</div>
                     </div>
-                    <span className={`text-xs font-semibold font-sans px-2.5 py-1 rounded-full ${stat.trend.startsWith('+') ? 'bg-emerald-500/15 text-emerald-400' : stat.trend === 'Stable' ? 'bg-amber-500/15 text-amber-400' : 'bg-white/10 text-white/40'}`}>
+                    <span className={`text-xs font-semibold font-sans px-2.5 py-1 rounded-full ${
+                      stat.trend.startsWith('+')  ? 'bg-emerald-500/15 text-emerald-400'  :
+                      stat.trend === 'Stable'     ? 'bg-amber-500/15 text-amber-400'      :
+                                                    'bg-white/10 text-white/40'
+                    }`}>
                       {stat.trend}
                     </span>
                   </div>
                 ))}
               </div>
-
               <div className="mt-8 pt-6 border-t border-white/10">
                 <p className="text-white/40 text-xs font-sans">Sources: INSETE, Bank of Greece, GNTO, Eurostat. Updated regularly with original analysis.</p>
               </div>
@@ -572,12 +451,12 @@ export default function HomePage() {
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { icon: MapPin, title: 'Hotels & Villas', desc: 'From boutique hotels to luxury villas with Aegean views. Find your perfect Greek home base.' },
-              { icon: Ship, title: 'Flights & Ferries', desc: 'Real ferry schedules, flight connections, and inter-island transportation timing. All the logistics handled.' },
-              { icon: Utensils, title: 'Tavernas & Dining', desc: 'Authentic Greek cuisine from seaside tavernas to hidden local spots. Where Greeks actually eat.' },
-              { icon: Compass, title: 'Tours & Activities', desc: 'Archaeological tours, sailing trips, cooking classes, and adventure activities curated by locals.' },
-              { icon: Gem, title: 'Hidden Gems', desc: 'Discover secret beaches, local festivals, and off-the-beaten-path villages tourists never find.' },
-              { icon: Shield, title: '100% Free Forever', desc: 'No hidden fees, no premium tiers, no credit card required. Seriously—completely free.' },
+              { icon: MapPin,   title: 'Hotels & Villas',    desc: 'From boutique hotels to luxury villas with Aegean views. Find your perfect Greek home base.' },
+              { icon: Ship,     title: 'Flights & Ferries',  desc: 'Real ferry schedules, flight connections, and inter-island transportation timing. All the logistics handled.' },
+              { icon: Utensils, title: 'Tavernas & Dining',  desc: 'Authentic Greek cuisine from seaside tavernas to hidden local spots. Where Greeks actually eat.' },
+              { icon: Compass,  title: 'Tours & Activities', desc: 'Archaeological tours, sailing trips, cooking classes, and adventure activities curated by locals.' },
+              { icon: Gem,      title: 'Hidden Gems',        desc: 'Discover secret beaches, local festivals, and off-the-beaten-path villages tourists never find.' },
+              { icon: Shield,   title: '100% Free Forever',  desc: 'No hidden fees, no premium tiers, no credit card required. Seriously—completely free.' },
             ].map((service) => (
               <div key={service.title} className="bg-white rounded-2xl p-7 card-hover group border border-[#E6DAD1]/40">
                 <div className="w-12 h-12 bg-[#FF5635]/10 rounded-xl flex items-center justify-center mb-5 group-hover:bg-[#FF5635] transition-colors duration-300">
@@ -612,12 +491,12 @@ export default function HomePage() {
                 </thead>
                 <tbody className="font-sans">
                   {[
-                    ['Cost', '100% Free', '€500-2000', 'Free (but...)'],
-                    ['Time to Create', '3 Minutes', '1-2 Weeks', '40+ Hours'],
-                    ['Destinations Covered', '133 with Guides', '10-20 Popular', 'Whatever You Find'],
-                    ['Personalization', 'AI + 13 Questions', 'Generic Packages', 'DIY Effort'],
-                    ['Local Knowledge', '5 Greek Experts', 'Varies', 'Reddit/TripAdvisor'],
-                    ['Instant Results', '✓ Yes', '✗ No', '✗ No'],
+                    ['Cost',                   '100% Free',       '€500-2000',      'Free (but...)'],
+                    ['Time to Create',          '3 Minutes',       '1-2 Weeks',      '40+ Hours'],
+                    ['Destinations Covered',    '133 with Guides', '10-20 Popular',  'Whatever You Find'],
+                    ['Personalization',         'AI + 13 Questions','Generic Packages','DIY Effort'],
+                    ['Local Knowledge',         '5 Greek Experts', 'Varies',         'Reddit/TripAdvisor'],
+                    ['Instant Results',         '✓ Yes',           '✗ No',           '✗ No'],
                   ].map((row, i) => (
                     <tr key={i} className={i < 5 ? 'border-b border-[#E6DAD1]/60' : ''}>
                       <td className="p-4 text-[#180204]/70 font-medium">{row[0]}</td>
@@ -646,7 +525,7 @@ export default function HomePage() {
               { q: 'Do I need to create an account?', a: 'Nope! No sign-up, no email, no account needed. Just answer questions and get your itinerary instantly.' },
               { q: 'How is this different from ChatGPT or other AI tools?', a: 'Generic AI tools scrape the internet. Ours is built on a proprietary database of 133 Greek destinations, each profiled by tourism professionals who live and work across Greece. The result is itineraries with realistic ferry routes, seasonal accuracy, and recommendations no generic AI can match.' },
               { q: 'How accurate are the ferry times?', a: 'We use real ferry schedule data, but times can change seasonally. Always double-check with official ferry websites closer to your travel dates.' },
-              { q: 'Can I modify the itinerary after it\'s generated?', a: 'Absolutely! Your itinerary is completely editable. Think of it as a smart starting point you can customize.' },
+              { q: "Can I modify the itinerary after it's generated?", a: "Absolutely! Your itinerary is completely editable. Think of it as a smart starting point you can customize." },
               { q: 'What time of year is best to visit Greece?', a: 'Shoulder season (April-May, Sept-Oct) offers perfect weather, fewer crowds, and better prices. Peak season (June-Aug) is hot and crowded but all islands operate.' },
             ].map((faq, i) => (
               <details key={i} className="group bg-white rounded-2xl border border-[#E6DAD1]/60">
@@ -671,8 +550,8 @@ export default function HomePage() {
           <div className="grid md:grid-cols-3 gap-6">
             {[
               { quote: 'This Greece trip planner saved us SO much time! The itinerary was spot-on, and the ferry timing estimates were actually accurate. Highly recommend!', name: 'Sarah M.', location: 'California' },
-              { quote: 'Best free travel tool I\'ve used. The local restaurant recommendations alone were worth it. Found gems we never would have discovered otherwise.', name: 'James T.', location: 'UK' },
-              { quote: 'As a first-timer to Greece, I was overwhelmed. This AI planner made everything simple and gave me confidence in my itinerary. Trip was perfect!', name: 'Maria L.', location: 'Australia' },
+              { quote: "Best free travel tool I've used. The local restaurant recommendations alone were worth it. Found gems we never would have discovered otherwise.", name: 'James T.', location: 'UK' },
+              { quote: "As a first-timer to Greece, I was overwhelmed. This AI planner made everything simple and gave me confidence in my itinerary. Trip was perfect!", name: 'Maria L.', location: 'Australia' },
             ].map((testimonial, i) => (
               <div key={i} className="bg-[#FAF6F3] rounded-3xl p-8 border border-[#E6DAD1]/60 card-hover">
                 <div className="flex gap-1 mb-5">
@@ -699,7 +578,10 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-[#180204]/65" />
         </div>
         <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-4xl sm:text-5xl md:text-6xl text-white mb-6">133 Destinations.<br /><span className="text-[#FF5635]">Your Perfect Trip.</span></h2>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl text-white mb-6">
+            133 Destinations.<br />
+            <span className="text-[#FF5635]">Your Perfect Trip.</span>
+          </h2>
           <p className="text-white/70 text-lg mb-10 max-w-xl mx-auto">The most comprehensive AI Greece trip planner in the world. Built by locals, powered by real expertise, completely free.</p>
           <Link href="/ai-trip-planner" className="btn-accent px-10 py-4 rounded-full text-lg font-semibold inline-flex items-center gap-3">
             Start Planning My Greece Trip <ArrowRight className="w-5 h-5" />
@@ -719,10 +601,11 @@ export default function HomePage() {
           <div className="flex flex-col items-center">
             <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} className="brightness-0 invert mb-6" />
             <div className="flex flex-wrap justify-center gap-6 mb-8">
-              <Link href="/how-it-works" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">How it Works</Link>
-              <Link href="/blog" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Blog</Link>
-              <Link href="/insights" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Insights</Link>
-              <Link href="/about" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
+              <Link href="/how-it-works"     className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">How it Works</Link>
+              <Link href="/destinations"     className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Destinations</Link>
+              <Link href="/blog"             className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Blog</Link>
+              <Link href="/insights"         className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Insights</Link>
+              <Link href="/about"            className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
               <Link href="/editorial-policy" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Editorial Policy</Link>
             </div>
             <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -743,14 +626,14 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebApplication",
-            "name": "Greek Trip Planner — AI Itinerary Generator",
-            "description": "The world's most comprehensive AI Greece trip planner. 133 destinations, 11 regions, built by 5 Greek tourism experts. Free personalized itineraries in 3 minutes.",
-            "url": "https://greektriplanner.me",
-            "applicationCategory": "TravelApplication",
-            "operatingSystem": "Any",
-            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+            '@context': 'https://schema.org',
+            '@type': 'WebApplication',
+            name: 'Greek Trip Planner — AI Itinerary Generator',
+            description: "The world's most comprehensive AI Greece trip planner. 133 destinations, 11 regions, built by 5 Greek tourism experts. Free personalized itineraries in 3 minutes.",
+            url: 'https://greektriplanner.me',
+            applicationCategory: 'TravelApplication',
+            operatingSystem: 'Any',
+            offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
           })
         }}
       />
