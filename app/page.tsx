@@ -118,146 +118,80 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ===== YOUR GREECE, YOUR WAY ===== */}
+      {/* ===== THREE PILLARS — what this site is ===== */}
       <section className="section-padding bg-[#FAF6F3]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
+
+          <div className="text-center mb-14">
             <div className="divider-accent mx-auto mb-4" />
-            <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Your Greece, Your Way</h2>
-            <p className="text-[#180204]/60 max-w-2xl mx-auto">Whether you&apos;re chasing sunsets with your partner, exploring ruins solo, or keeping the kids entertained — we build the itinerary around YOU. Read our expert guides to start dreaming.</p>
+            <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Everything Greece.<br />One Place.</h2>
+            <p className="text-[#180204]/60 max-w-2xl mx-auto">
+              Three products built on the same foundation: real expertise from 5 Greek professionals who live and work here.
+            </p>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {/* Couples — linked */}
-            <Link href="/blog/best-greek-islands-for-couples" className="group bg-white rounded-3xl overflow-hidden card-hover">
-              <div className="relative h-52 overflow-hidden">
-                <Image src="/Santorini_Evening_Glow.jpg" alt="Romantic Greece trip for couples" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/50 to-transparent" />
-                <div className="absolute bottom-4 left-5 right-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Heart className="w-4 h-4 text-[#FF5635]" />
-                    <span className="text-white/80 text-xs font-sans font-medium uppercase tracking-wider">Couples</span>
-                  </div>
-                  <h3 className="text-xl text-white">Romantic Island Escapes</h3>
-                </div>
+
+          <div className="grid md:grid-cols-3 gap-6">
+
+            {/* Pillar 1 — AI Trip Planner */}
+            <Link href="/ai-trip-planner" className="group relative bg-[#180204] rounded-3xl p-8 overflow-hidden card-hover flex flex-col">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-[#FF5635]/10 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+              <div className="w-14 h-14 bg-[#FF5635]/15 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#FF5635]/25 transition-colors">
+                <Sparkles className="w-7 h-7 text-[#FF5635]" />
               </div>
-              <div className="p-5">
-                <p className="text-[#180204]/60 text-sm leading-relaxed mb-3">Caldera sunsets in Santorini, private beaches in Milos, candlelit dinners in Nafplio. Discover the most romantic corners of Greece.</p>
-                <span className="text-[#FF5635] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all font-sans">Best Islands for Couples <ArrowRight className="w-4 h-4" /></span>
+              <div className="flex-1">
+                <div className="text-[#FF5635] text-xs font-bold uppercase tracking-widest font-sans mb-2">AI Trip Planner</div>
+                <h3 className="text-2xl text-white mb-3">Your Itinerary in 3 Minutes</h3>
+                <p className="text-white/50 text-sm leading-relaxed font-sans">
+                  Answer 13 questions about your travel style, group, and budget. Get a personalised day-by-day itinerary with realistic ferry routes — built on local knowledge no other AI has.
+                </p>
+              </div>
+              <div className="mt-8 flex items-center gap-2 text-[#FF5635] text-sm font-semibold font-sans group-hover:gap-3 transition-all">
+                Start Planning Free <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
 
-            {/* Families — linked */}
-            <Link href="/blog/best-greek-islands-for-families" className="group bg-white rounded-3xl overflow-hidden card-hover">
-              <div className="relative h-52 overflow-hidden">
-                <Image src="/Paros_Island_View.jpg" alt="Family trip to Greece" fill className="object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/50 to-transparent" />
-                <div className="absolute bottom-4 left-5 right-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Users className="w-4 h-4 text-[#2C73FF]" />
-                    <span className="text-white/80 text-xs font-sans font-medium uppercase tracking-wider">Families</span>
-                  </div>
-                  <h3 className="text-xl text-white">Family-Friendly Adventures</h3>
-                </div>
+            {/* Pillar 2 — Travel Guides */}
+            <Link href="/destinations" className="group relative bg-white rounded-3xl p-8 overflow-hidden card-hover border border-[#E6DAD1]/60 flex flex-col">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-[#2C73FF]/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+              <div className="w-14 h-14 bg-[#2C73FF]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#2C73FF]/20 transition-colors">
+                <BookOpen className="w-7 h-7 text-[#2C73FF]" />
               </div>
-              <div className="p-5">
-                <p className="text-[#180204]/60 text-sm leading-relaxed mb-3">Sandy beaches with shallow water, kid-approved tavernas, ancient myths that come alive. Greece is magic for families of all ages.</p>
-                <span className="text-[#FF5635] text-sm font-semibold flex items-center gap-1 group-hover:gap-2 transition-all font-sans">Best Islands for Families <ArrowRight className="w-4 h-4" /></span>
+              <div className="flex-1">
+                <div className="text-[#2C73FF] text-xs font-bold uppercase tracking-widest font-sans mb-2">Travel Guides</div>
+                <h3 className="text-2xl text-[#180204] mb-3">133 Destination Guides</h3>
+                <p className="text-[#180204]/55 text-sm leading-relaxed font-sans">
+                  Every Greek island, city, and region covered — from Santorini to Samothrace. Expert-written guides with beaches, restaurants, transport, and what to actually skip.
+                </p>
+              </div>
+              <div className="mt-8 flex items-center gap-2 text-[#2C73FF] text-sm font-semibold font-sans group-hover:gap-3 transition-all">
+                Explore Destinations <ArrowRight className="w-4 h-4" />
               </div>
             </Link>
 
-            {/* Solo */}
-            <div className="bg-white rounded-3xl overflow-hidden">
-              <div className="relative h-52 overflow-hidden">
-                <Image src="/Meteora_Sunset_View.jpg" alt="Solo trip to Greece" fill className="object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/50 to-transparent" />
-                <div className="absolute bottom-4 left-5 right-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Compass className="w-4 h-4 text-[#FF5635]" />
-                    <span className="text-white/80 text-xs font-sans font-medium uppercase tracking-wider">Solo</span>
-                  </div>
-                  <h3 className="text-xl text-white">Solo Discovery</h3>
-                </div>
+            {/* Pillar 3 — Insights */}
+            <Link href="/insights" className="group relative bg-white rounded-3xl p-8 overflow-hidden card-hover border border-[#E6DAD1]/60 flex flex-col">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-[#FF5635]/5 rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+              <div className="w-14 h-14 bg-[#FF5635]/10 rounded-2xl flex items-center justify-center mb-6 group-hover:bg-[#FF5635]/20 transition-colors">
+                <BarChart3 className="w-7 h-7 text-[#FF5635]" />
               </div>
-              <div className="p-5">
-                <p className="text-[#180204]/60 text-sm leading-relaxed">Safe, welcoming, and endlessly fascinating. From the monasteries of Meteora to the trails of Ikaria — Greece rewards the solo traveler.</p>
+              <div className="flex-1">
+                <div className="text-[#FF5635] text-xs font-bold uppercase tracking-widest font-sans mb-2">Insights & Data</div>
+                <h3 className="text-2xl text-[#180204] mb-3">Greek Tourism Analytics</h3>
+                <p className="text-[#180204]/55 text-sm leading-relaxed font-sans">
+                  Original market research, visitor statistics, and industry trend analysis you won&apos;t find elsewhere. For travellers who want context — and professionals who need data.
+                </p>
               </div>
-            </div>
+              <div className="mt-8 flex items-center gap-2 text-[#FF5635] text-sm font-semibold font-sans group-hover:gap-3 transition-all">
+                View Insights <ArrowRight className="w-4 h-4" />
+              </div>
+            </Link>
 
-            {/* Luxury */}
-            <div className="bg-white rounded-3xl overflow-hidden">
-              <div className="relative h-52 overflow-hidden">
-                <Image src="/Mykonos_Architecture.jpg" alt="Luxury trip to Greece" fill className="object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/50 to-transparent" />
-                <div className="absolute bottom-4 left-5 right-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Star className="w-4 h-4 text-[#FF5635]" />
-                    <span className="text-white/80 text-xs font-sans font-medium uppercase tracking-wider">Luxury</span>
-                  </div>
-                  <h3 className="text-xl text-white">Luxury Greek Getaways</h3>
-                </div>
-              </div>
-              <div className="p-5">
-                <p className="text-[#180204]/60 text-sm leading-relaxed">Five-star villas with infinity pools, private yacht charters, Michelin dining. Experience Greece at its most indulgent and exclusive.</p>
-              </div>
-            </div>
-
-            {/* Friends */}
-            <div className="bg-white rounded-3xl overflow-hidden">
-              <div className="relative h-52 overflow-hidden">
-                <Image src="/Rhodes_Historic_Quarter.jpg" alt="Girls trip to Greece" fill className="object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/50 to-transparent" />
-                <div className="absolute bottom-4 left-5 right-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Sparkles className="w-4 h-4 text-[#2C73FF]" />
-                    <span className="text-white/80 text-xs font-sans font-medium uppercase tracking-wider">Friends</span>
-                  </div>
-                  <h3 className="text-xl text-white">Girls Trip & Friend Groups</h3>
-                </div>
-              </div>
-              <div className="p-5">
-                <p className="text-[#180204]/60 text-sm leading-relaxed">Beach clubs in Mykonos, wine tasting in Santorini, shopping in Athens. The ultimate group getaway with something for everyone.</p>
-              </div>
-            </div>
-
-            {/* Road Trip */}
-            <div className="bg-white rounded-3xl overflow-hidden">
-              <div className="relative h-52 overflow-hidden">
-                <Image src="/Corfu_Beach_Paradise.jpg" alt="Greece road trip" fill className="object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/50 to-transparent" />
-                <div className="absolute bottom-4 left-5 right-5">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Map className="w-4 h-4 text-[#FF5635]" />
-                    <span className="text-white/80 text-xs font-sans font-medium uppercase tracking-wider">Road Trip</span>
-                  </div>
-                  <h3 className="text-xl text-white">Open Road Adventures</h3>
-                </div>
-              </div>
-              <div className="p-5">
-                <p className="text-[#180204]/60 text-sm leading-relaxed">Wind through the Mani Peninsula, explore Zagori villages, drive coastal Crete. The best of Greece is between the destinations.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Planning guide pills */}
-          <div className="mt-10 flex flex-wrap justify-center gap-3">
-            <Link href="/blog/greece-itinerary-7-days" className="bg-white border border-[#E6DAD1] text-[#180204]/70 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-4 py-2 rounded-full text-sm font-sans font-medium transition-all">7-Day Itinerary</Link>
-            <Link href="/blog/greece-itinerary-10-days" className="bg-white border border-[#E6DAD1] text-[#180204]/70 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-4 py-2 rounded-full text-sm font-sans font-medium transition-all">10-Day Itinerary</Link>
-            <Link href="/blog/how-much-does-a-trip-to-greece-cost" className="bg-white border border-[#E6DAD1] text-[#180204]/70 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-4 py-2 rounded-full text-sm font-sans font-medium transition-all">Budget Guide</Link>
-            <Link href="/blog/where-to-go-in-greece-for-first-time" className="bg-white border border-[#E6DAD1] text-[#180204]/70 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-4 py-2 rounded-full text-sm font-sans font-medium transition-all">First Time in Greece</Link>
-            <Link href="/blog/3-days-in-athens" className="bg-white border border-[#E6DAD1] text-[#180204]/70 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-4 py-2 rounded-full text-sm font-sans font-medium transition-all">3 Days in Athens</Link>
-            <Link href="/blog/3-days-in-santorini" className="bg-white border border-[#E6DAD1] text-[#180204]/70 hover:text-[#FF5635] hover:border-[#FF5635]/30 px-4 py-2 rounded-full text-sm font-sans font-medium transition-all">3 Days in Santorini</Link>
           </div>
         </div>
       </section>
 
       {/* ===== DESTINATIONS TEASER ===== */}
-      {/*
-        Replaces the old "Explore All 133 Destinations" section (featured cards +
-        full regional directory). That content now lives at /destinations.
-        This teaser keeps destination discovery on the homepage without making
-        it a duplicate directory — and funnels users to the dedicated hub.
-      */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-[#FAF6F3]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
           {/* Header */}
@@ -308,7 +242,7 @@ export default function HomePage() {
           </div>
 
           {/* Quick region pills */}
-          <div className="flex flex-wrap gap-2 mb-8">
+          <div className="flex flex-wrap gap-2 mb-6">
             {[
               { label: '🌊 Cyclades', href: '/destinations#islands' },
               { label: '⚓ Dodecanese', href: '/destinations#islands' },
@@ -321,6 +255,26 @@ export default function HomePage() {
                 key={pill.label}
                 href={pill.href}
                 className="bg-[#FAF6F3] border border-[#E6DAD1] text-[#180204]/65 hover:text-[#FF5635] hover:border-[#FF5635]/30 hover:bg-[#FF5635]/5 px-4 py-1.5 rounded-full text-sm font-sans font-medium transition-all"
+              >
+                {pill.label}
+              </Link>
+            ))}
+          </div>
+
+          {/* Planning guide pills */}
+          <div className="flex flex-wrap gap-2 mb-8">
+            {[
+              { label: '7-Day Itinerary',      href: '/blog/greece-itinerary-7-days' },
+              { label: '10-Day Itinerary',     href: '/blog/greece-itinerary-10-days' },
+              { label: 'Budget Guide',         href: '/blog/how-much-does-a-trip-to-greece-cost' },
+              { label: 'First Time in Greece', href: '/blog/where-to-go-in-greece-for-first-time' },
+              { label: '3 Days in Athens',     href: '/blog/3-days-in-athens' },
+              { label: '3 Days in Santorini',  href: '/blog/3-days-in-santorini' },
+            ].map((pill) => (
+              <Link
+                key={pill.label}
+                href={pill.href}
+                className="bg-[#FF5635]/8 border border-[#FF5635]/15 text-[#FF5635] hover:bg-[#FF5635] hover:text-white px-4 py-1.5 rounded-full text-sm font-sans font-medium transition-all"
               >
                 {pill.label}
               </Link>
@@ -344,7 +298,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== FEATURES GRID ===== */}
-      <section className="section-padding bg-[#FAF6F3]">
+      <section className="section-padding bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="divider-accent mx-auto mb-4" />
@@ -379,7 +333,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== GREECE TOURISM INSIGHTS ===== */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-[#FAF6F3]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -442,7 +396,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== SERVICES ===== */}
-      <section className="section-padding bg-[#FAF6F3]">
+      <section className="section-padding bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="divider-accent mx-auto mb-4" />
@@ -471,7 +425,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== COMPARISON TABLE ===== */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-[#FAF6F3]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="divider-accent mx-auto mb-4" />
@@ -513,7 +467,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== FAQ ===== */}
-      <section className="section-padding bg-[#FAF6F3]">
+      <section className="section-padding bg-white">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="divider-accent mx-auto mb-4" />
@@ -541,7 +495,7 @@ export default function HomePage() {
       </section>
 
       {/* ===== TESTIMONIALS ===== */}
-      <section className="section-padding bg-white">
+      <section className="section-padding bg-[#FAF6F3]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="divider-accent mx-auto mb-4" />
