@@ -560,6 +560,7 @@ export default function HomePage() {
               <Link href="/blog"             className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Blog</Link>
               <Link href="/insights"         className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Insights</Link>
               <Link href="/about"            className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
+              <Link href="/contact"          className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Contact</Link>
               <Link href="/editorial-policy" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Editorial Policy</Link>
             </div>
             <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
