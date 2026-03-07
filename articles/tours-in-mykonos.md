@@ -60,7 +60,7 @@ The rule of thumb: Delos is non-negotiable for anyone interested in ancient hist
 **Best for:** Everyone with an interest in ancient history; also worthwhile for travelers who enjoy unusual landscapes even without historical knowledge
 **Duration:** 3–4 hours (half-day format)
 **Price range:** €60–€90 per person for guided boat tour including entry
-**Book:** [Delos Tours from Mykonos on GetYourGuide](https://www.getyourguide.com/mykonos-l472/delos-tour-tc25/?partner_id=greektriplanner)
+**Book:** [Delos Tours from Mykonos on GetYourGuide](https://www.getyourguide.com/mykonos-l472/the-original-morning-delos-guided-tour-t110689/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Delos is a 30–40 minute boat ride from Mykonos Old Port, departing at 09:00, 10:00, and 11:00 in high season. The round-trip boat ticket runs approximately €20; the archaeological site entry adds another €20. On its own, that's a self-guided visit through a vast, largely unmarked landscape of Hellenistic ruins, mosaic floors, and marble colonnades. With a licensed guide, it becomes something entirely different.
 
@@ -74,7 +74,7 @@ Delos is a 30–40 minute boat ride from Mykonos Old Port, departing at 09:00, 1
 
 Best for: Every visitor to Mykonos who has any interest in ancient civilization. This is the most significant experience the island provides.
 
-[Book a Delos guided tour on GetYourGuide](https://www.getyourguide.com/mykonos-l472/delos-tour-tc25/?partner_id=greektriplanner) | [Find hotels in Mykonos on Booking.com](https://www.booking.com/city/gr/mykonos.html?label=greektriplanner)
+[Book a Delos guided tour on GetYourGuide](https://www.getyourguide.com/mykonos-l472/the-original-morning-delos-guided-tour-t110689/?partner_id=YBDA3YO&utm_medium=online_publisher) | [Find hotels in Mykonos on Booking.com](https://www.booking.com/city/gr/mykonos.html?label=greektriplanner)
 
 
 ## Mykonos Boat Tours & Catamaran Cruises
@@ -82,7 +82,7 @@ Best for: Every visitor to Mykonos who has any interest in ancient civilization.
 **Best for:** Travelers wanting a full day on the Aegean; couples; groups
 **Duration:** 4–8 hours depending on format
 **Price range:** €50–€80 for half-day; €90–€150 for full-day with lunch and drinks
-**Book:** [Mykonos Boat Tours on GetYourGuide](https://www.getyourguide.com/mykonos-l472/sailing-trips-boat-tours-tc51/?partner_id=greektriplanner)
+**Book:** [Mykonos Boat Tours on GetYourGuide](https://www.getyourguide.com/mykonos-l472/luxury-catamaran-small-group-cruise-with-meals-and-drinks-t394393/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Mykonos' most popular organized experiences are on the water, and the range of formats covers most travel styles.
 
@@ -98,7 +98,7 @@ Mykonos' most popular organized experiences are on the water, and the range of f
 
 Best for: Every visitor staying 3+ nights in Mykonos. A day on the water is as central to the Mykonos experience as the Chora or the windmills.
 
-[Book a Mykonos catamaran cruise on GetYourGuide](https://www.getyourguide.com/mykonos-l472/sailing-trips-boat-tours-tc51/?partner_id=greektriplanner)
+[Book a Mykonos catamaran cruise on GetYourGuide](https://www.getyourguide.com/mykonos-l472/luxury-catamaran-small-group-cruise-with-meals-and-drinks-t394393/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ## Mykonos Sunset Tours
@@ -106,7 +106,7 @@ Best for: Every visitor staying 3+ nights in Mykonos. A day on the water is as c
 **Best for:** Couples; first-time visitors wanting the iconic Mykonos evening; photographers
 **Duration:** 2–3 hours
 **Price range:** €40–€70 per person
-**Book:** [Mykonos Sunset Cruises on GetYourGuide](https://www.getyourguide.com/mykonos-l472/sunset-tours-tc25/?partner_id=greektriplanner)
+**Book:** [Mykonos Sunset Cruises on GetYourGuide](https://www.getyourguide.com/mykonos-town-l150490/mykonos-sunset-cruise-with-sailing-demo-welcome-prosecco-t1106579/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Mykonos at sunset is one of the defining images of Greek island travel — the windmills of Kato Mili in amber light, Little Venice's waterfront balconies reflected in the harbor, the Aegean turning gold while everyone with a drink in their hand faces west. A sunset sailing tour frames all of this from the water.
 
@@ -116,7 +116,7 @@ The alternative to a sunset boat tour is watching from the windmill area or Litt
 
 Best for: Couples celebrating a special occasion; photographers; travelers who find the on-foot sunset experience at the windmills too crowded.
 
-[Book a Mykonos sunset cruise on GetYourGuide](https://www.getyourguide.com/mykonos-l472/sunset-tours-tc25/?partner_id=greektriplanner)
+[Book a Mykonos sunset cruise on GetYourGuide](https://www.getyourguide.com/mykonos-town-l150490/mykonos-sunset-cruise-with-sailing-demo-welcome-prosecco-t1106579/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ## Mykonos Walking Tours
@@ -124,7 +124,7 @@ Best for: Couples celebrating a special occasion; photographers; travelers who f
 **Best for:** First-day orientation in Mykonos Town; travelers curious about traditional island life beyond the tourist surface
 **Duration:** 2–3 hours
 **Price range:** €20–€45 per person
-**Book:** [Mykonos Walking Tours on GetYourGuide](https://www.getyourguide.com/mykonos-l472/walking-tours-tc25/?partner_id=greektriplanner)
+**Book:** [Mykonos Walking Tours on GetYourGuide](https://www.getyourguide.com/mykonos-l472/walking-tour-of-mykonos-t92424/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Mykonos Town (Chora) is the most photographed Cycladic village in Greece — and also one of the easiest to get genuinely lost in. The streets were designed that way deliberately: the labyrinthine lanes were intended to confuse and disorient invading pirates. They work equally well on visitors.
 
@@ -134,7 +134,7 @@ A walking tour of the Chora does two things well. First, it gives you spatial or
 
 Best for: First-time visitors wanting Chora orientation; travelers interested in traditional Mykonian life; cruise passengers with limited time.
 
-[Book a Mykonos walking tour on GetYourGuide](https://www.getyourguide.com/mykonos-l472/walking-tours-tc25/?partner_id=greektriplanner)
+[Book a Mykonos walking tour on GetYourGuide](https://www.getyourguide.com/mykonos-l472/walking-tour-of-mykonos-t92424/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ## Mykonos Food & Cooking Tours
@@ -142,7 +142,7 @@ Best for: First-time visitors wanting Chora orientation; travelers interested in
 **Best for:** Food-focused travelers; anyone who wants more from Mykonos than beaches and nightclubs
 **Duration:** 2.5–4 hours
 **Price range:** €45–€120 per person depending on format
-**Book:** [Mykonos Food Tours on GetYourGuide](https://www.getyourguide.com/mykonos-l472/food-tours-tc25/?partner_id=greektriplanner)
+**Book:** [Mykonos Food Tours on GetYourGuide](https://www.getyourguide.com/mykonos-town-l150490/food-tour-mykonos-10-tastings-t601204/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Mykonos has a distinct culinary identity that most visitors never encounter because they eat at the harbor restaurants priced for the yacht set. The island makes its own cheeses — kopanisti (a sharp fermented soft cheese unique to Mykonos and the Cyclades) and tyrovolia (a mild fresh cheese used in pies and as a table cheese) — along with louza (spiced, air-dried pork), and sweets made from local honey and almonds. A food tour or cooking class is the most direct way into this.
 
@@ -154,7 +154,7 @@ Mykonos has a distinct culinary identity that most visitors never encounter beca
 
 Best for: Food lovers; travelers staying 3+ nights; anyone who wants Mykonos beyond the surface.
 
-[Book a Mykonos cooking class on GetYourGuide](https://www.getyourguide.com/mykonos-l472/food-tours-tc25/?partner_id=greektriplanner) | [Best Restaurants in Mykonos](https://greektriplanner.me/blog/best-restaurants-in-mykonos)
+[Book a Mykonos cooking class on GetYourGuide](https://www.getyourguide.com/mykonos-l472/cooking-class-in-mykonos-greece-t91980/?partner_id=YBDA3YO&utm_medium=online_publisher) | [Best Restaurants in Mykonos](https://greektriplanner.me/blog/best-restaurants-in-mykonos)
 
 
 ## Day Trips from Mykonos
@@ -164,7 +164,7 @@ Mykonos' position in the central Cyclades — between Athens, Paros, Naxos, and 
 ### Paros & Naxos Day Trip
 
 **Duration:** Full day (12–13 hours)
-**Book:** [Paros & Naxos Day Trip from Mykonos on GetYourGuide](https://www.getyourguide.com/mykonos-l472/paros-naxos-tc25/?partner_id=greektriplanner)
+**Book:** [Paros & Naxos Day Trip from Mykonos on GetYourGuide](https://www.getyourguide.com/mykonos-l472/from-mykonos-cruise-to-delos-and-rhenia-with-lunch-t32350/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Several operators run organized day trips combining Paros and Naxos from Mykonos — departing early on a traditional boat or catamaran, stopping at key Cycladic ports, with time ashore at each island. Paros offers the photogenic harbor of Naoussa and the Byzantine marble-paved Ekatontapyliani church; Naxos offers the Portara (ruins of an unfinished Temple of Apollo) and the medieval Venetian Kastro above Naxos Town.
 
@@ -175,7 +175,7 @@ Best for: Travelers wanting to see neighboring Cyclades islands without extendin
 ### Santorini Day Trip
 
 **Duration:** Full day (very long — expect 14+ hours)
-**Book:** [Santorini Day Trip from Mykonos on GetYourGuide](https://www.getyourguide.com/mykonos-l472/santorini-tc25/?partner_id=greektriplanner)
+**Book:** [Santorini Day Trip from Mykonos on GetYourGuide](https://www.getyourguide.com/mykonos-l472/mykonos-catamaran-cruise-with-3-course-meal-and-transfers-t394393/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 The honest assessment: a Santorini day trip from Mykonos is logistically demanding. The ferry journey is 2–3 hours each way depending on the route, which leaves limited time on the island. Operators offering bus-based Santorini day trips from Mykonos handle the connections, but the day is long and Santorini warrants more than a rushed afternoon.
 
@@ -187,20 +187,20 @@ Best for: Travelers with a single specific reason to visit Santorini (the calder
 ## Niche & Alternative Experiences
 
 **ATV & Jeep Island Tours**
-Mykonos' interior — the agricultural villages, the windmill-dotted hills, the quiet northern coast — is best explored by vehicle. Half and full-day ATV or 4x4 jeep tours cover the island's inland highlights: Ano Mera village, the Armenistis lighthouse on the northern tip, the secluded beaches of the east coast accessible by dirt track. Good option for active travelers who find boat tours passive. [Book on GetYourGuide](https://www.getyourguide.com/mykonos-l472/jeep-atv-tc25/?partner_id=greektriplanner)
+Mykonos' interior — the agricultural villages, the windmill-dotted hills, the quiet northern coast — is best explored by vehicle. Half and full-day ATV or 4x4 jeep tours cover the island's inland highlights: Ano Mera village, the Armenistis lighthouse on the northern tip, the secluded beaches of the east coast accessible by dirt track. Good option for active travelers who find boat tours passive. [Book on GetYourGuide](https://www.getyourguide.com/mykonos-l472/explore-mykonos-island-with-a-650cc-atv-quad-tour-t677026/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 **Private Sightseeing Tours by Minivan**
 For cruise passengers with limited port time, private minivan tours of the island — covering the windmills, Little Venice, the Chora's photogenic lanes, and a beach stop — are the most time-efficient format. A knowledgeable local guide in a climate-controlled vehicle, direct pickup from the cruise terminal. 3–5 hours depending on itinerary. Highly recommended for cruise passengers who want a real experience rather than a Chora wander and a souvenir shop.
 
 **Scuba Diving Tours**
-Mykonos' clear Aegean waters and the underwater terrain around its small satellite islands offer decent diving conditions from May through October. Several operators run half-day intro dives for beginners and certified dives for experienced divers. The sea around Delos and Rhenia — shallow, clear, and historically layered — is a particularly distinctive diving environment. [Book on GetYourGuide](https://www.getyourguide.com/mykonos-l472/diving-tc25/?partner_id=greektriplanner)
+Mykonos' clear Aegean waters and the underwater terrain around its small satellite islands offer decent diving conditions from May through October. Several operators run half-day intro dives for beginners and certified dives for experienced divers. The sea around Delos and Rhenia — shallow, clear, and historically layered — is a particularly distinctive diving environment. [Book on GetYourGuide](https://www.getyourguide.com/mykonos-town-l150490/mykonos-full-day-jeep-safari-t74654/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ## How to Choose and Book Mykonos Tours
 
 **When to book:** Delos guided tours and catamaran day cruises should be booked 5–7 days ahead in June through September — the best small-group departures fill quickly. Schedule boat trips early in your stay (not on your last day) to allow for weather rescheduling. Cooking classes and walking tours can typically be booked 24–48 hours ahead.
 
-**Where to book:** [GetYourGuide](https://www.getyourguide.com/mykonos-l472/?partner_id=greektriplanner) covers most Mykonos operators with verified reviews and free cancellation policies. For boat charters, contacting operators directly from the Old Port kiosks sometimes produces better pricing for groups of 4 or more.
+**Where to book:** [GetYourGuide](https://www.getyourguide.com/mykonos-l472/?partner_id=YBDA3YO&utm_medium=online_publisher) covers most Mykonos operators with verified reviews and free cancellation policies. For boat charters, contacting operators directly from the Old Port kiosks sometimes produces better pricing for groups of 4 or more.
 
 **Wind and weather:** The meltemi is the dominant planning variable for Mykonos boat tours. Check forecasts and build flexibility into your schedule. A good rule: book boat trips for day 2 or 3 of a 5-day stay, with the flexibility to reschedule if conditions deteriorate.
 
@@ -311,7 +311,7 @@ Paros and Naxos are both excellent and reachable by fast ferry in 1–2 hours. D
 - best-greek-islands-for-couples
 
 **externalReferences:**
-- GetYourGuide Mykonos | https://www.getyourguide.com/mykonos-l472/?partner_id=greektriplanner | GetYourGuide
+- GetYourGuide Mykonos | https://www.getyourguide.com/mykonos-l472/?partner_id=YBDA3YO&utm_medium=online_publisher | GetYourGuide
 - Viator Mykonos Tours | https://www.viator.com/Mykonos/d958-ttd | Viator
 - Delos Archaeological Site | https://odysseus.culture.gr/h/3/eh355.jsp?obj_id=2442 | Greek Ministry of Culture
 - FerryHopper | https://ferryhopper.com/?affiliate=greektriplanner | FerryHopper

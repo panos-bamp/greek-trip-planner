@@ -64,7 +64,7 @@ In summary: book tours for boat trips and organized hiking. Manage the archaeolo
 **Best for:** History-minded travelers; anyone who wants to understand the island beyond its beaches
 **Duration:** 3–5 hours depending on sites covered
 **Price range:** €30–€70 per person for group tours; €150–€300 per group for private
-**Book:** [Naxos Archaeological Tours on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/tours-tc25/?partner_id=greektriplanner)
+**Book:** [Naxos Archaeological Tours on GetYourGuide](https://www.getyourguide.com/naxos-l145614/naxos-naxos-town-food-tour-with-tastings-and-wine-t404391/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Naxos has a denser concentration of ancient sites than any other Cyclades island — and most of them are almost entirely unvisited compared to their significance. A guided archaeological tour of the island is one of the most rewarding ways to spend a morning in the Cyclades, particularly for travelers who've already seen the flagship sites in Athens.
 
@@ -82,7 +82,7 @@ These figures were abandoned when the marble cracked during carving, and they've
 
 Best for: History enthusiasts; travelers with 4+ nights who have covered the beaches; anyone who wants the version of Naxos that no one else is seeing.
 
-[Book a Naxos archaeological tour on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/tours-tc25/?partner_id=greektriplanner) | [Find hotels in Naxos on Booking.com](https://www.booking.com/city/gr/naxos.html?label=greektriplanner)
+[Book a Naxos archaeological tour on GetYourGuide](https://www.getyourguide.com/naxos-l145614/naxos-naxos-town-food-tour-with-tastings-and-wine-t404391/?partner_id=YBDA3YO&utm_medium=online_publisher) | [Find hotels in Naxos on Booking.com](https://www.booking.com/city/gr/naxos.html?label=greektriplanner)
 
 
 ## Naxos Boat Tours & Sailing Cruises
@@ -90,7 +90,7 @@ Best for: History enthusiasts; travelers with 4+ nights who have covered the bea
 **Best for:** Travelers wanting the full Aegean sea experience; anyone based on Naxos for 3+ nights
 **Duration:** 4–8 hours depending on format
 **Price range:** €40–€110 per person; private charters from €350
-**Book:** [Naxos Boat Tours on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/boat-tours-tc25/?partner_id=greektriplanner)
+**Book:** [Naxos Boat Tours on GetYourGuide](https://www.getyourguide.com/naxos-l145614/naxos-full-day-small-cyclades-sailing-cruise-t206037/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Naxos' position at the southern edge of the central Cyclades — with the Small Cyclades directly to its southeast and Paros 40 minutes to its west — makes it one of the best boat-trip bases in the archipelago.
 
@@ -108,7 +108,7 @@ Naxos' position at the southern edge of the central Cyclades — with the Small 
 
 Best for: Anyone staying 3+ nights in Naxos. The Small Cyclades day trip specifically is the single best experience available from the island.
 
-[Book a Naxos boat tour on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/boat-tours-tc25/?partner_id=greektriplanner)
+[Book a Naxos boat tour on GetYourGuide](https://www.getyourguide.com/naxos-l145614/naxos-full-day-small-cyclades-sailing-cruise-t206037/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ## Naxos Hiking & Village Tours
@@ -116,7 +116,7 @@ Best for: Anyone staying 3+ nights in Naxos. The Small Cyclades day trip specifi
 **Best for:** Active travelers; hikers; anyone wanting the interior of the island rather than just the coast
 **Duration:** 3–6 hours depending on route
 **Price range:** €25–€60 per person for guided tours
-**Book:** [Naxos Hiking Tours on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/hiking-tours-tc25/?partner_id=greektriplanner)
+**Book:** [Naxos Hiking Tours on GetYourGuide](https://www.getyourguide.com/naxos-l145614/naxos-local-villages-cultural-food-tour-t437126/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 The interior of Naxos is the Cyclades' best-kept secret. A landscape of terraced olive groves, cedar forest, marble quarry ruins, and mountain villages connected by Byzantine-era paths — greener and more substantial than any other Cyclades island, a consequence of being the largest and the only one with a meaningful river system.
 
@@ -130,7 +130,7 @@ The interior of Naxos is the Cyclades' best-kept secret. A landscape of terraced
 
 Best for: Active travelers; hikers; anyone staying 4+ nights; travelers interested in what Cycladic island life actually looks like away from the harbor.
 
-[Book a Naxos hiking tour on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/hiking-tours-tc25/?partner_id=greektriplanner)
+[Book a Naxos hiking tour on GetYourGuide](https://www.getyourguide.com/naxos-l145614/naxos-local-villages-cultural-food-tour-t437126/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ## Naxos Food & Cooking Tours
@@ -138,7 +138,7 @@ Best for: Active travelers; hikers; anyone staying 4+ nights; travelers interest
 **Best for:** Food-focused travelers; anyone interested in Greek agricultural and culinary traditions
 **Duration:** 3–5 hours
 **Price range:** €60–€120 per person
-**Book:** [Naxos Food Tours on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/food-tours-tc25/?partner_id=greektriplanner)
+**Book:** [Naxos Food Tours on GetYourGuide](https://www.getyourguide.com/naxos-l145614/naxos-walking-tour-cheeseliqueur-tasting-cooking-class-t465421/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Naxos is the most food-self-sufficient island in the Cyclades — a distinction with real culinary consequences. The island produces potatoes (Naxian potatoes are a protected designation of origin product, considered the best in Greece), five named cheeses (graviera, arseniko, manouri, anthotiro, and the aged xynomizithra), citron liqueur, first-pressing olive oil, and the livestock that supplies the island's meat-based dishes. This isn't just culinary background — it means the food on Naxos is distinctly better than on most Greek islands, and a food tour connects directly to the producers who make it.
 
@@ -150,7 +150,7 @@ Naxos is the most food-self-sufficient island in the Cyclades — a distinction 
 
 Best for: Food lovers; travelers staying 4+ nights; anyone who wants to understand why Naxian food has a different character than the rest of the Cyclades.
 
-[Book a Naxos cooking class on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/food-tours-tc25/?partner_id=greektriplanner) | [Best Restaurants in Naxos](https://greektriplanner.me/blog/best-restaurants-in-naxos)
+[Book a Naxos cooking class on GetYourGuide](https://www.getyourguide.com/naxos-l145614/naxos-half-day-cooking-class-at-basiliko-family-tavern-t167001/?partner_id=YBDA3YO&utm_medium=online_publisher) | [Best Restaurants in Naxos](https://greektriplanner.me/blog/best-restaurants-in-naxos)
 
 
 ## Naxos Water Sports
@@ -158,7 +158,7 @@ Best for: Food lovers; travelers staying 4+ nights; anyone who wants to understa
 **Best for:** Active travelers; kitesurfers and windsurfers; families with older children
 **Duration:** 2–6 hours
 **Price range:** €40–€90 for lessons; €30–€60 for equipment rental
-**Book:** [Naxos Water Sports on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/water-sports-tc25/?partner_id=greektriplanner)
+**Book:** [Naxos Water Sports on GetYourGuide](https://www.getyourguide.com/naxos-l145614/full-day-sailing-cruise-from-naxos-t115912/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Naxos competes directly with Paros as the best kitesurfing and windsurfing destination in the Cyclades. The Meltemi winds accelerate through the channel between Naxos and Paros, and the northern beaches — particularly Mikri Vigla and Plaka — provide the long, open fetch that advanced riders want and the flat, shallow water that beginners need.
 
@@ -172,7 +172,7 @@ Naxos competes directly with Paros as the best kitesurfing and windsurfing desti
 
 Best for: Active travelers; anyone with specific water sports ambitions; families with older children interested in snorkeling.
 
-[Book Naxos water sports on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/water-sports-tc25/?partner_id=greektriplanner)
+[Book Naxos water sports on GetYourGuide](https://www.getyourguide.com/naxos-l145614/full-day-sailing-cruise-from-naxos-t115912/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ## Day Trips from Naxos
@@ -180,7 +180,7 @@ Best for: Active travelers; anyone with specific water sports ambitions; familie
 ### The Small Cyclades (Koufonisia, Iraklia, Schinoussa, Donoussa)
 
 **Duration:** Full day | **Departure:** Naxos port
-**Book:** [Small Cyclades Day Trip from Naxos on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/small-cyclades-tc25/?partner_id=greektriplanner)
+**Book:** [Small Cyclades Day Trip from Naxos on GetYourGuide](https://www.getyourguide.com/koufonisia-l96343/iraklia-and-koufonissia-one-day-cruise-from-naxos-t490694/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 The Small Cyclades are Naxos' most distinctive day-trip offering and one of the best single-day experiences available from any Greek island base. These four tiny inhabited islands — Koufonisia, Iraklia, Schinoussa, and Donoussa — have a combined permanent population of around 1,000, beaches of extraordinary quality, water clarity that makes the Maldives comparisons feel justified, and virtually no mass tourism infrastructure.
 
@@ -188,7 +188,7 @@ Reaching them independently requires inter-island ferry coordination across mult
 
 Best for: Every Naxos visitor with 3+ nights. This is the best boat day in the Cyclades.
 
-[Book a Small Cyclades tour from Naxos on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/small-cyclades-tc25/?partner_id=greektriplanner)
+[Book a Small Cyclades tour from Naxos on GetYourGuide](https://www.getyourguide.com/agios-prokopios-naxos-l190950/explore-rina-s-cave-and-koufonisia-cruise-from-naxos-t652794/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ### Paros Day Trip
@@ -206,13 +206,13 @@ Best for: Travelers staying 4+ nights in Naxos who want mainland island contrast
 ### Mykonos & Delos Day Trip
 
 **Duration:** Full day | **Getting there:** Fast ferry (1–1.5 hours) or organized boat trip
-**Book:** [Mykonos & Delos Day Trip from Naxos on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/mykonos-delos-tc25/?partner_id=greektriplanner)
+**Book:** [Mykonos & Delos Day Trip from Naxos on GetYourGuide](https://www.getyourguide.com/koufonisia-l96343/from-naxos-day-cruise-to-koufonisia-t674257/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 From Naxos, organized day trips combining Delos (the UNESCO archaeological site — mythological birthplace of Apollo and Artemis) and Mykonos run on traditional boats departing from Naxos port in the morning. The format: Delos guided tour in the morning, free time in Mykonos Town in the afternoon, return by evening. The Delos component is the primary draw — read our [Mykonos Tours](https://greektriplanner.me/blog/mykonos-tours) guide for what the guided experience involves.
 
 Best for: History enthusiasts who want Delos but are based in Naxos.
 
-[Book a Mykonos & Delos day trip on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/mykonos-delos-tc25/?partner_id=greektriplanner)
+[Book a Mykonos & Delos day trip on GetYourGuide](https://www.getyourguide.com/koufonisia-l96343/from-naxos-day-cruise-to-koufonisia-t674257/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ### Amorgos Day Trip
@@ -228,7 +228,7 @@ Best for: Travelers with a specific interest in Amorgos' landscape and monastery
 ## Niche & Alternative Tours
 
 **Naxos by Jeep or Buggy**
-Private jeep tours of the island interior — covering the village circuit (Halki, Apeiranthos, Koronos, Apollonas), the marble quarries, and the Zas summit area — are an excellent format for travelers who want the island's most distinctive landscapes without the physical demands of hiking. Several operators offer guided half-day and full-day jeep tours with hotel pickup and a driver-guide who narrates the landscape. [Book on GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/jeep-tours-tc25/?partner_id=greektriplanner)
+Private jeep tours of the island interior — covering the village circuit (Halki, Apeiranthos, Koronos, Apollonas), the marble quarries, and the Zas summit area — are an excellent format for travelers who want the island's most distinctive landscapes without the physical demands of hiking. Several operators offer guided half-day and full-day jeep tours with hotel pickup and a driver-guide who narrates the landscape. [Book on GetYourGuide](https://www.getyourguide.com/naxos-l145614/naxos-local-villages-cultural-food-tour-t437126/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 **Photography Tours**
 Naxos' combination of dramatic coastal light (the west-facing Portara is exceptional at sunset), marble-quarry landscapes, and medieval village architecture makes it one of the most photogenic islands in Greece. Small-group photography tours — typically 3–4 hours, early morning or late afternoon — are run by local photographers who know the optimal conditions and access points. Best for travelers with DSLR or mirrorless cameras who want to photograph the island seriously.
@@ -244,7 +244,7 @@ A small number of Naxos guides run mythology-focused walking and site tours spec
 
 **When to book:** Small Cyclades boat trips and catamaran day cruises should be booked 5–7 days ahead in peak season. Schedule boat trips mid-stay rather than on your first or last day to allow weather flexibility. Archaeological tours, hiking tours, and cooking classes can typically be booked 24–48 hours ahead. Water sports courses (particularly kite) need 1 week ahead in July–August.
 
-**Where to book:** [GetYourGuide](https://www.getyourguide.com/naxos-town-l1357/?partner_id=greektriplanner) covers the main Naxos operators. The harbor area in Naxos Town has good direct-operator access for boat charters and private jeep tours. For inter-island ferry connections, [FerryHopper](https://ferryhopper.com/?affiliate=greektriplanner) covers all routes from Naxos.
+**Where to book:** [GetYourGuide](https://www.getyourguide.com/naxos-l145614/?partner_id=YBDA3YO&utm_medium=online_publisher) covers the main Naxos operators. The harbor area in Naxos Town has good direct-operator access for boat charters and private jeep tours. For inter-island ferry connections, [FerryHopper](https://ferryhopper.com/?affiliate=greektriplanner) covers all routes from Naxos.
 
 **Naxos vs Paros for boat trips:** Both islands offer excellent Small Cyclades access. Naxos is marginally better positioned for east-coast routes (Rina Caves, eastern Koufonisia coves); Paros has better access to the southern Antiparos channel. If you're choosing a base specifically for boat trips, either works well.
 
@@ -356,7 +356,7 @@ Naxos has the most diverse tour ecosystem of the three — archaeological sites 
 - how-much-does-a-trip-to-greece-cost
 
 **externalReferences:**
-- GetYourGuide Naxos | https://www.getyourguide.com/naxos-town-l1357/?partner_id=greektriplanner | GetYourGuide
+- GetYourGuide Naxos | https://www.getyourguide.com/naxos-l145614/?partner_id=YBDA3YO&utm_medium=online_publisher | GetYourGuide
 - Viator Naxos Tours | https://www.viator.com/Naxos/d50334-ttd | Viator
 - FerryHopper | https://ferryhopper.com/?affiliate=greektriplanner | FerryHopper
 - Vallindras Distillery Naxos | https://www.vallindras.gr | Vallindras Citron Distillery

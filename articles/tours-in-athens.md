@@ -60,7 +60,7 @@ The rule of thumb: book a tour when context or logistics are the bottleneck. Don
 **Best for:** Every first-time visitor. Also worth it for repeat visitors who've only ever gone solo.
 **Duration:** 2–3 hours (4–4.5 hours with the Acropolis Museum)
 **Price range:** €25–€60 per person for small-group; €150–€300 per group for private
-**Book:** [Acropolis Tours on GetYourGuide](https://www.getyourguide.com/athens-l34/acropolis-tours-tc25/?partner_id=greektriplanner)
+**Book:** [Acropolis Tours on GetYourGuide](https://www.getyourguide.com/athens-l91/athens-small-group-guided-tour-of-acropolis-parthenon-t138953/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 The Acropolis is Athens' most visited site and also the one with the most to lose from a bad visit. Going solo at 10am in July with a printed map produces world-class heat, world-class crowds, and very little understanding of what you're looking at. A guided tour — particularly a small-group morning departure — solves all three problems at once.
 
@@ -78,7 +78,7 @@ Guide quality is the first variable, and it matters more here than at most sites
 
 Best for: All first-time visitors without exception. A good guide on the Acropolis turns a visit into an experience you'll be describing for years.
 
-[Book an Acropolis tour on GetYourGuide](https://www.getyourguide.com/athens-l34/acropolis-tours-tc25/?partner_id=greektriplanner) | [Find hotels in Athens on Booking.com](https://www.booking.com/city/gr/athens.html?label=greektriplanner)
+[Book an Acropolis tour on GetYourGuide](https://www.getyourguide.com/athens-l91/athens-small-group-guided-tour-of-acropolis-parthenon-t138953/?partner_id=YBDA3YO&utm_medium=online_publisher) | [Find hotels in Athens on Booking.com](https://www.booking.com/city/gr/athens.html?label=greektriplanner)
 
 
 ## Athens Walking Tours
@@ -86,7 +86,7 @@ Best for: All first-time visitors without exception. A good guide on the Acropol
 **Best for:** City orientation on day one; travelers curious about the non-ancient Athens
 **Duration:** 2.5–4 hours
 **Price range:** €20–€50 per person
-**Book:** [Athens Walking Tours on GetYourGuide](https://www.getyourguide.com/athens-l34/walking-tours-tc25/?partner_id=greektriplanner)
+**Book:** [Athens Walking Tours on GetYourGuide](https://www.getyourguide.com/athens-l91/athens-acropolis-and-mythology-highlights-small-group-tour-t60865/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Athens walking tours divide cleanly into two formats, and the difference is meaningful.
 
@@ -98,7 +98,7 @@ Athens walking tours divide cleanly into two formats, and the difference is mean
 
 Best for: First-time visitors wanting city context; independent travelers who want a neighborhood introduction before exploring on their own.
 
-[Book an Athens walking tour on GetYourGuide](https://www.getyourguide.com/athens-l34/walking-tours-tc25/?partner_id=greektriplanner)
+[Book an Athens walking tour on GetYourGuide](https://www.getyourguide.com/athens-l91/athens-acropolis-and-mythology-highlights-small-group-tour-t60865/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ## Athens Food Tours
@@ -106,7 +106,7 @@ Best for: First-time visitors wanting city context; independent travelers who wa
 **Best for:** Food-focused travelers; anyone who wants to understand Greek cuisine beyond the taverna menu
 **Duration:** 3–4 hours
 **Price range:** €45–€90 per person (food typically included)
-**Book:** [Athens Food Tours on GetYourGuide](https://www.getyourguide.com/athens-l34/food-tour-tc25/?partner_id=greektriplanner)
+**Book:** [Athens Food Tours on GetYourGuide](https://www.getyourguide.com/athens-l91/athens-half-day-ultimate-food-walking-tour-t88115/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Athens has become one of the more genuinely interesting food cities in Europe — a shift that happened roughly between 2012 and 2019, when young Greek chefs returned from abroad to a city with low rents and high culinary ambition. A food tour is the fastest way to understand both the traditional foundation and what's changed.
 
@@ -120,7 +120,7 @@ The best food tours move through 5–8 stops over 3–4 hours, anchored around M
 
 Best for: Food lovers at every level of culinary interest, market enthusiasts, anyone who wants the version of Athens that runs on taste rather than archaeology.
 
-[Book an Athens food tour on GetYourGuide](https://www.getyourguide.com/athens-l34/food-tour-tc25/?partner_id=greektriplanner) | [Best Restaurants in Athens](https://greektriplanner.me/blog/best-restaurants-in-athens)
+[Book an Athens food tour on GetYourGuide](https://www.getyourguide.com/athens-l91/athens-half-day-ultimate-food-walking-tour-t88115/?partner_id=YBDA3YO&utm_medium=online_publisher) | [Best Restaurants in Athens](https://greektriplanner.me/blog/best-restaurants-in-athens)
 
 
 ## Athens by Night Tours
@@ -128,7 +128,7 @@ Best for: Food lovers at every level of culinary interest, market enthusiasts, a
 **Best for:** First-time visitors wanting to see the illuminated monuments; summer travelers avoiding daytime heat
 **Duration:** 2–3 hours
 **Price range:** €25–€55 per person
-**Book:** [Athens Night Tours on GetYourGuide](https://www.getyourguide.com/athens-l34/night-tour-tc25/?partner_id=greektriplanner)
+**Book:** [Athens Night Tours on GetYourGuide](https://www.getyourguide.com/athens-l91/athens-evening-guided-walking-tour-with-plaka-dinner-t416274/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Athens at night is a different city. The Acropolis lit from below against a dark sky — visible from rooftop bars across the city, from Monastiraki square, from the paths of Filopappou Hill — is one of the great urban views in Europe. A night tour builds a route around this, typically covering the illuminated Plaka and Monastiraki area with a stop for a drink and a view.
 
@@ -138,7 +138,7 @@ If monument interiors matter to you, book the daytime Acropolis tour separately.
 
 Best for: First-time visitors wanting the illuminated city; summer travelers; anyone whose days are already full and wants an evening addition.
 
-[Book an Athens night tour on GetYourGuide](https://www.getyourguide.com/athens-l34/night-tour-tc25/?partner_id=greektriplanner)
+[Book an Athens night tour on GetYourGuide](https://www.getyourguide.com/athens-l91/athens-evening-guided-walking-tour-with-plaka-dinner-t416274/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ## Private Tours of Athens
@@ -146,7 +146,7 @@ Best for: First-time visitors wanting the illuminated city; summer travelers; an
 **Best for:** Families with children, travelers with specific interests, honeymooners, cruise passengers with limited port time
 **Duration:** 3–8 hours
 **Price range:** €150–€450 per group (2–6 people)
-**Book:** [Private Athens Tours on GetYourGuide](https://www.getyourguide.com/athens-l34/private-tours-tc25/?partner_id=greektriplanner)
+**Book:** [Private Athens Tours on GetYourGuide](https://www.getyourguide.com/athens-l91/athens-acropolis-plaka-neighborhood-private-walking-tour-t428621/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Private tours in Athens are the most flexible format and — split between 2–4 people — often the best value for money. What you're buying is pace control, route customization, and a guide's undivided attention throughout.
 
@@ -160,7 +160,7 @@ Private tours in Athens are the most flexible format and — split between 2–4
 
 Best for: Families, couples on a honeymoon trip, cruise passengers, and anyone who wants Athens on their own terms. See our [Where to Stay in Athens](https://greektriplanner.me/blog/where-to-stay-in-athens) guide for hotel options near the main departure points.
 
-[Book a private Athens tour on GetYourGuide](https://www.getyourguide.com/athens-l34/private-tours-tc25/?partner_id=greektriplanner)
+[Book a private Athens tour on GetYourGuide](https://www.getyourguide.com/athens-l91/athens-acropolis-plaka-neighborhood-private-walking-tour-t428621/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ## Day Trips from Athens
@@ -170,7 +170,7 @@ The organized day trip format earns its clearest argument in the landscape aroun
 ### Cape Sounion
 
 **Duration:** Half day (4–5 hours) | **Distance:** 70 km south
-**Book:** [Cape Sounion Sunset Tour on GetYourGuide](https://www.getyourguide.com/athens-l34/cape-sounion-tc25/?partner_id=greektriplanner)
+**Book:** [Cape Sounion Sunset Tour on GetYourGuide](https://www.getyourguide.com/athens-l91/cape-sounion-and-temple-of-poseidon-tour-from-athens-t698/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 The Temple of Poseidon at Cape Sounion — built in 444 BC on a cliff 65 meters above the Aegean — has one of the most dramatically sited ancient buildings in Greece. The sunset from the temple grounds, columns turning amber-gold while the sea below turns silver, is one of the great evening experiences Athens makes possible.
 
@@ -180,13 +180,13 @@ Cape Sounion is the easiest argument for a half-day tour format. The destination
 
 Best for: Anyone staying 2+ nights in Athens. The sunset timing makes this one of the best 5-hour investments available.
 
-[Book a Cape Sounion tour on GetYourGuide](https://www.getyourguide.com/athens-l34/cape-sounion-tc25/?partner_id=greektriplanner)
+[Book a Cape Sounion tour on GetYourGuide](https://www.getyourguide.com/athens-l91/cape-sounion-and-temple-of-poseidon-tour-from-athens-t698/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ### Delphi
 
 **Duration:** Full day (10–11 hours) | **Distance:** 180 km northwest
-**Book:** [Delphi Day Trip on GetYourGuide](https://www.getyourguide.com/athens-l34/delphi-day-trip-tc25/?partner_id=greektriplanner)
+**Book:** [Delphi Day Trip on GetYourGuide](https://www.getyourguide.com/athens-l91/2-days-delphi-meteora-monasteries-t91998/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Delphi is, by any serious measure, one of the most extraordinary ancient sites in the world. The sanctuary where the Oracle spoke and the Greek world came to seek guidance for seven centuries sits on the slopes of Mount Parnassus above a gorge of olive trees dropping to the Gulf of Corinth. The Delphi Museum — with its bronze Charioteer from 478 BC, so precisely preserved and so startlingly human in expression that it stops visitors mid-sentence — justifies the journey on its own.
 
@@ -194,13 +194,13 @@ Tour quality varies considerably. The best operators field genuine scholars as g
 
 Best for: Ancient history enthusiasts; anyone staying 3+ days who has already covered the Athens sites. Read the full [Delphi Travel Guide](https://greektriplanner.me/blog/delphi-travel-guide) before booking.
 
-[Book a Delphi day trip on GetYourGuide](https://www.getyourguide.com/athens-l34/delphi-day-trip-tc25/?partner_id=greektriplanner)
+[Book a Delphi day trip on GetYourGuide](https://www.getyourguide.com/athens-l91/2-days-delphi-meteora-monasteries-t91998/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ### Meteora
 
 **Duration:** Full day (12–13 hours) or overnight | **Distance:** 330 km northwest
-**Book:** [Meteora Day Trip on GetYourGuide](https://www.getyourguide.com/athens-l34/meteora-tc25/?partner_id=greektriplanner)
+**Book:** [Meteora Day Trip on GetYourGuide](https://www.getyourguide.com/athens-l91/delphi-and-meteora-2-day-tour-t700/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Meteora — Byzantine monasteries built atop sheer sandstone pinnacles in central Greece — is among the most visually improbable places in Europe. The day trip from Athens involves 4 hours each way by coach and is genuinely exhausting; most operators include a lunch stop and visits to two or three of the six active monasteries.
 
@@ -212,7 +212,7 @@ Best for: Travelers with limited time who can't do an overnight. Those with flex
 ### Mycenae, Nafplio & Epidaurus
 
 **Duration:** Full day (10–11 hours) | **Distance:** Nafplio 140 km south
-**Book:** [Mycenae & Nafplio Day Trip on GetYourGuide](https://www.getyourguide.com/athens-l34/mycenae-nafplio-tc25/?partner_id=greektriplanner)
+**Book:** [Mycenae & Nafplio Day Trip on GetYourGuide](https://www.getyourguide.com/athens-l91/mycenae-and-epidaurus-day-trip-from-athens-t693/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 The Peloponnese day trip — covering the Bronze Age citadel of Mycenae, the Venetian harbor town of Nafplio, and the ancient theatre of Epidaurus — is the most content-dense full day available from Athens. Three genuinely important sites across three distinct eras of Greek history, and Nafplio is beautiful enough to justify the drive independently. See our [Nafplio Travel Guide](https://greektriplanner.me/blog/nafplio-travel-guide), [Mycenae Travel Guide](https://greektriplanner.me/blog/mycenae-travel-guide), and [Epidaurus Travel Guide](https://greektriplanner.me/blog/epidaurus-travel-guide) for what each site offers.
 
@@ -222,7 +222,7 @@ Best for: History enthusiasts who have already covered the main Athens sites and
 ### Saronic Islands Day Cruise
 
 **Duration:** Full day (8–9 hours) | **Departure:** Piraeus port
-**Book:** [Saronic Islands Cruise on GetYourGuide](https://www.getyourguide.com/athens-l34/saronic-islands-tc25/?partner_id=greektriplanner)
+**Book:** [Saronic Islands Cruise on GetYourGuide](https://www.getyourguide.com/athens-l91/full-day-tour-of-the-saronic-islands-from-athens-t5991/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 The classic Athens day cruise covers three Saronic islands — Aegina, Poros, and Hydra — with a buffet lunch on board and short port visits at each. It's popular, enjoyable, and best suited to travelers who want a day at sea rather than deep engagement with any single destination.
 
@@ -234,7 +234,7 @@ Best for: First-time Greece visitors wanting a taste of island life; cruise pass
 ## Niche & Alternative Tours
 
 **Electric Bike Tours**
-Athens is a city of hills, and the Acropolis area involves more climbing than most visitors anticipate. E-bike tours — typically 3–4 hours through the archaeological sites and Plaka — solve the problem efficiently. Good option in summer for travelers who find long walks in 35°C heat punishing. [Book on GetYourGuide](https://www.getyourguide.com/athens-l34/bike-tours-tc25/?partner_id=greektriplanner)
+Athens is a city of hills, and the Acropolis area involves more climbing than most visitors anticipate. E-bike tours — typically 3–4 hours through the archaeological sites and Plaka — solve the problem efficiently. Good option in summer for travelers who find long walks in 35°C heat punishing. [Book on GetYourGuide](https://www.getyourguide.com/athens-l91/athens-city-bike-tour-t64622/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 **Tuk-Tuk Tours**
 Electric tuk-tuks through Plaka and Monastiraki are useful for navigating narrow streets with commentary. Best for families with young children, travelers with mobility constraints, or anyone wanting 90-minute city orientation without sustained walking. A complement to a guided Acropolis visit, not a substitute.
@@ -243,7 +243,7 @@ Electric tuk-tuks through Plaka and Monastiraki are useful for navigating narrow
 Walking tours connecting physical sites to the myths and philosophical debates that animate them — the Agora where Socrates taught, the Areopagus where the first murder trial occurred, the temples of Athena and Hephaestus in context. Best for travelers who've already read Greek mythology and want the landscape to match the stories. Look for tours led by classicists rather than general guides.
 
 **Athenian Riviera & Wine Tours**
-Half-day tours combining the coastal strip running south through Glyfada and Vouliagmeni with visits to Attica's emerging natural wine producers. Add a seafood lunch at a waterfront taverna and this becomes one of the better half-days available from the city. [Book on GetYourGuide](https://www.getyourguide.com/athens-l34/athens-riviera-tc25/?partner_id=greektriplanner)
+Half-day tours combining the coastal strip running south through Glyfada and Vouliagmeni with visits to Attica's emerging natural wine producers. Add a seafood lunch at a waterfront taverna and this becomes one of the better half-days available from the city. [Book on GetYourGuide](https://www.getyourguide.com/athens-l91/full-day-tour-of-athens-and-cape-sounion-t6147/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 **Photography Tours**
 Sunrise access to the Acropolis — before general entry opens — for small groups of 4–8, with a photography guide. These require advance coordination with site management and produce images most visitors to Athens never see. Book several weeks ahead. Best for serious photographers; the format genuinely warrants the specific booking.
@@ -254,7 +254,7 @@ Sunrise access to the Acropolis — before general entry opens — for small gro
 **Best for:** Day-one orientation; families with young children; travelers with mobility constraints
 **Duration:** 24, 48, or 72-hour passes
 **Price range:** €20–€35 per person
-**Book:** [Athens Hop-On Hop-Off on GetYourGuide](https://www.getyourguide.com/athens-l34/hop-on-hop-off-tc25/?partner_id=greektriplanner)
+**Book:** [Athens Hop-On Hop-Off on GetYourGuide](https://www.getyourguide.com/athens-l91/athens-hop-on-hop-off-tour-24h-ticket-t4211/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Athens' hop-on hop-off network runs three routes: the main city circuit (Acropolis, Syntagma, National Archaeological Museum, Monastiraki), the Athenian Riviera route (Glyfada, Vouliagmeni), and a Piraeus connection for cruise passengers. Audio commentary in 14 languages.
 
@@ -267,7 +267,7 @@ Best for: Travelers who want to cover ground quickly on a first day; coastal acc
 
 **When to book:** Acropolis tours at 8am, private tours, and day trips to Delphi and Meteora should be booked 5–7 days ahead in peak season (June–September) — 8am departures sell out regularly. Food tours and walking tours typically have 24–48 hour availability even in summer. Specialized experiences (sunrise photography, cooking classes) need 1–2 weeks.
 
-**Where to book:** [GetYourGuide](https://www.getyourguide.com/athens-l34/?partner_id=greektriplanner) aggregates tours from dozens of Athens operators with verified reviews and free cancellation on most experiences. For direct operator bookings — sometimes marginally cheaper — identify operators with consistently strong GetYourGuide reviews and contact them directly.
+**Where to book:** [GetYourGuide](https://www.getyourguide.com/athens-l91/?partner_id=YBDA3YO&utm_medium=online_publisher) aggregates tours from dozens of Athens operators with verified reviews and free cancellation on most experiences. For direct operator bookings — sometimes marginally cheaper — identify operators with consistently strong GetYourGuide reviews and contact them directly.
 
 **What reviews actually tell you:** Filter by English-language, within the last six months, verified purchase. Comments that describe specific historical insights ("explained the political context of the Parthenon's construction in a way that changed how I understood it") are meaningful. "The Acropolis was beautiful" tells you nothing about the tour quality.
 
@@ -389,7 +389,7 @@ Book an 8am departure, small group under 12 people, licensed Greek archaeologist
 - best-cities-to-visit-in-greece
 
 **externalReferences:**
-- GetYourGuide Athens | https://www.getyourguide.com/athens-l34/?partner_id=greektriplanner | GetYourGuide
+- GetYourGuide Athens | https://www.getyourguide.com/athens-l91/?partner_id=YBDA3YO&utm_medium=online_publisher | GetYourGuide
 - Viator Athens Tours | https://www.viator.com/Athens/d496-ttd | Viator
 - Acropolis Museum Official | https://www.theacropolismuseum.gr | Acropolis Museum
 - FerryHopper | https://ferryhopper.com/?affiliate=greektriplanner | FerryHopper

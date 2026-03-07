@@ -60,7 +60,7 @@ The rule: organized tours are most valuable where the destination is the sea, th
 **Best for:** Travelers wanting the full Cycladic sea experience; couples; groups; anyone based on Paros for 4+ nights
 **Duration:** 4–8 hours depending on format
 **Price range:** €50–€120 per person for shared tours; €300–€600 for private half-day charters
-**Book:** [Paros Boat Tours on GetYourGuide](https://www.getyourguide.com/paros-l88737/boat-tours-tc25/?partner_id=greektriplanner)
+**Book:** [Paros Boat Tours on GetYourGuide](https://www.getyourguide.com/paros-l88737/paros-full-day-sailing-cruise-in-the-small-cyclades-t201916/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Paros boat tours depart from multiple ports across the island — Parikia, Naoussa, and Piso Livadi — which means your choice of base doesn't significantly limit your options.
 
@@ -76,7 +76,7 @@ Paros boat tours depart from multiple ports across the island — Parikia, Naous
 
 Best for: Anyone staying 3+ nights on Paros. A boat day is the defining Cyclades experience, and the Small Cyclades format is a category above the standard beach-hopping tour.
 
-[Book a Paros boat tour on GetYourGuide](https://www.getyourguide.com/paros-l88737/boat-tours-tc25/?partner_id=greektriplanner) | [Find hotels in Paros on Booking.com](https://www.booking.com/city/gr/paros.html?label=greektriplanner)
+[Book a Paros boat tour on GetYourGuide](https://www.getyourguide.com/paros-l88737/paros-full-day-sailing-cruise-in-the-small-cyclades-t201916/?partner_id=YBDA3YO&utm_medium=online_publisher) | [Find hotels in Paros on Booking.com](https://www.booking.com/city/gr/paros.html?label=greektriplanner)
 
 
 ## Paros Walking & Village Tours
@@ -84,7 +84,7 @@ Best for: Anyone staying 3+ nights on Paros. A boat day is the defining Cyclades
 **Best for:** Travelers interested in traditional Cycladic culture; hikers; anyone on their second or third day who has covered the beaches
 **Duration:** 2–4 hours
 **Price range:** €20–€50 per person
-**Book:** [Paros Walking Tours on GetYourGuide](https://www.getyourguide.com/paros-l88737/walking-tours-tc25/?partner_id=greektriplanner)
+**Book:** [Paros Walking Tours on GetYourGuide](https://www.getyourguide.com/paros-l88737/paros-antiparos-island-and-despotiko-private-boat-trip-t413689/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Paros has a mainland interior that most beach-focused visitors never see, and it's one of the island's genuinely distinctive qualities.
 
@@ -104,7 +104,7 @@ Best for: Travelers interested in Cycladic history and culture beyond the beach;
 **Best for:** Food-focused travelers; anyone who wants to understand what Parian cuisine actually tastes like
 **Duration:** 3–5 hours
 **Price range:** €50–€120 per person
-**Book:** [Paros Cooking Classes on GetYourGuide](https://www.getyourguide.com/paros-l88737/food-tours-tc25/?partner_id=greektriplanner)
+**Book:** [Paros Cooking Classes on GetYourGuide](https://www.getyourguide.com/greece-l169010/small-group-kaiki-cruise-to-antiparos-despotiko-with-lunch-t552736/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Paros has a distinct food identity rooted in its marble-quarrying and fishing history — a cuisine that's simpler and more anchored in local producers than the tourist-facing menus of the harbor restaurants suggest.
 
@@ -116,7 +116,7 @@ Paros has a distinct food identity rooted in its marble-quarrying and fishing hi
 
 Best for: Food-focused travelers; couples looking for a meaningful shared activity; anyone who wants Paros beyond the surface.
 
-[Book a Paros cooking class on GetYourGuide](https://www.getyourguide.com/paros-l88737/food-tours-tc25/?partner_id=greektriplanner) | [Best Restaurants in Paros](https://greektriplanner.me/blog/best-restaurants-in-paros)
+[Book a Paros cooking class on GetYourGuide](https://www.getyourguide.com/paros-l88737/from-paros-antiparos-and-despotiko-full-day-cruise-t764952/?partner_id=YBDA3YO&utm_medium=online_publisher) | [Best Restaurants in Paros](https://greektriplanner.me/blog/best-restaurants-in-paros)
 
 
 ## Paros Water Sports & Active Tours
@@ -124,7 +124,7 @@ Best for: Food-focused travelers; couples looking for a meaningful shared activi
 **Best for:** Active travelers; beginners wanting to learn; experienced riders wanting world-class conditions
 **Duration:** 2–6 hours depending on activity
 **Price range:** €30–€90 per person for lessons and rentals
-**Book:** [Paros Water Sports on GetYourGuide](https://www.getyourguide.com/paros-l88737/water-sports-tc25/?partner_id=greektriplanner)
+**Book:** [Paros Water Sports on GetYourGuide](https://www.getyourguide.com/paros-l88737/paros-antiparos-full-day-boat-tour-with-lunch-drinks-t456735/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Paros holds a specific distinction in the European water sports world: its southeastern coast, particularly Chrissi Akti (Golden Beach) and Nea Chrissi Akti (New Golden Beach), is a consistently world-class windsurfing destination. The annual PWA Professional Windsurfing World Cup takes place here, and the combination of reliable meltemi winds channeled between Paros and Naxos, a long sandy beach with shallow water, and multiple well-organized water sports centers makes this one of the best places in Europe to learn.
 
@@ -136,7 +136,7 @@ Paros holds a specific distinction in the European water sports world: its south
 
 Best for: Active travelers; anyone who has wanted to learn windsurfing in genuinely good conditions; families with older children.
 
-[Book Paros water sports on GetYourGuide](https://www.getyourguide.com/paros-l88737/water-sports-tc25/?partner_id=greektriplanner)
+[Book Paros water sports on GetYourGuide](https://www.getyourguide.com/antiparos-l163280/paros-antiparos-full-day-boat-tour-with-lunch-drinks-t456735/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ## Day Trips from Paros
@@ -144,7 +144,7 @@ Best for: Active travelers; anyone who has wanted to learn windsurfing in genuin
 ### Antiparos
 
 **Duration:** Half or full day | **Getting there:** 5-minute ferry from Pounta or boat tour
-**Book:** [Antiparos Day Trip on GetYourGuide](https://www.getyourguide.com/paros-l88737/antiparos-tc25/?partner_id=greektriplanner)
+**Book:** [Antiparos Day Trip on GetYourGuide](https://www.getyourguide.com/paros-l88737/antiparos-and-despotiko-full-day-cruise-from-paros-t509492/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Antiparos — Paros' small sister island — is the most accessible day trip in the Cyclades. The local ferry from Pounta runs continuously and costs approximately €2 each way; the journey is 5 minutes. The island has a charming car-free main village, a cave system (the Cave of Antiparos, one of the largest in Greece), beautiful beaches on the west coast, and a generally quieter, less commercial feel than Paros.
 
@@ -152,13 +152,13 @@ Going independently by ferry is the right call for most travelers — the island
 
 Best for: Every Paros visitor with at least 3 nights. Read our [Antiparos Travel Guide](https://greektriplanner.me/blog/antiparos-travel-guide) for what to see and where to eat.
 
-[Book an Antiparos boat tour on GetYourGuide](https://www.getyourguide.com/paros-l88737/antiparos-tc25/?partner_id=greektriplanner)
+[Book an Antiparos boat tour on GetYourGuide](https://www.getyourguide.com/paros-l88737/antiparos-and-despotiko-full-day-cruise-from-paros-t509492/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ### The Small Cyclades (Koufonisia, Iraklia, Schinoussa)
 
 **Duration:** Full day | **Departure:** Piso Livadi port
-**Book:** [Small Cyclades Tour from Paros on GetYourGuide](https://www.getyourguide.com/paros-l88737/small-cyclades-tc25/?partner_id=greektriplanner)
+**Book:** [Small Cyclades Tour from Paros on GetYourGuide](https://www.getyourguide.com/paros-l88737/paros-full-day-sailing-cruise-in-the-small-cyclades-t201916/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 The Small Cyclades — four tiny inhabited islands southeast of Naxos — represent the Cyclades at their most undiluted: no large hotels, no beach clubs, turquoise water of extraordinary clarity, and beaches so quiet they feel like personal discoveries. Reaching them independently requires coordinating inter-island ferries across multiple islands; organized kaïque boat tours from Piso Livadi handle all of it in a single, excellent full-day format.
 
@@ -166,7 +166,7 @@ The typical itinerary makes two stops in Naxos' southern coastal waters and two 
 
 Best for: Anyone staying 4+ nights in Paros. This is the best single boat day available from any base in the central Cyclades. See our [Koufonisia Travel Guide](https://greektriplanner.me/blog/koufonisia-travel-guide) for the full independent option.
 
-[Book a Small Cyclades tour from Paros on GetYourGuide](https://www.getyourguide.com/paros-l88737/small-cyclades-tc25/?partner_id=greektriplanner)
+[Book a Small Cyclades tour from Paros on GetYourGuide](https://www.getyourguide.com/greece-l169010/small-group-kaiki-cruise-to-antiparos-despotiko-with-lunch-t552736/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ### Naxos Day Trip
@@ -184,20 +184,20 @@ Best for: Travelers staying 4+ nights in Paros who want mainland island contrast
 ### Mykonos & Delos Day Trip
 
 **Duration:** Full day | **Getting there:** Fast ferry (1–1.5 hours) or organized boat trip
-**Book:** [Mykonos & Delos Day Trip on GetYourGuide](https://www.getyourguide.com/paros-l88737/mykonos-delos-tc25/?partner_id=greektriplanner)
+**Book:** [Mykonos & Delos Day Trip on GetYourGuide](https://www.getyourguide.com/mykonos-l472/from-mykonos-cruise-to-delos-and-rhenia-with-lunch-t32350/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 Organized day trips combining Mykonos and Delos from Paros are a popular format — departing by boat in the morning for Delos (the UNESCO archaeological site), then transferring to Mykonos for 3 hours of exploration in the afternoon. This is a full, demanding day but one of the most content-rich available from any Cyclades base. If Delos specifically is your priority, see our [Mykonos Tours](https://greektriplanner.me/blog/mykonos-tours) guide for what the Delos guided experience involves.
 
 Best for: History enthusiasts who want Delos without basing in Mykonos.
 
-[Book a Mykonos & Delos day trip on GetYourGuide](https://www.getyourguide.com/paros-l88737/mykonos-delos-tc25/?partner_id=greektriplanner)
+[Book a Mykonos & Delos day trip on GetYourGuide](https://www.getyourguide.com/mykonos-l472/from-mykonos-cruise-to-delos-and-rhenia-with-lunch-t32350/?partner_id=YBDA3YO&utm_medium=online_publisher)
 
 
 ## How to Choose and Book Paros Tours
 
 **When to book:** Small Cyclades boat trips and catamaran day cruises should be booked 5–7 days ahead in peak season (June–September). Cooking classes and walking tours can typically be booked 24–48 hours ahead. Water sports lessons at Golden Beach have good availability except during World Cup week in August — book weeks ahead if your visit coincides.
 
-**Where to book:** [GetYourGuide](https://www.getyourguide.com/paros-l88737/?partner_id=greektriplanner) covers the main Paros operators. For boat charters and private tours, the harbor kiosks at Piso Livadi and Naoussa often provide better pricing and direct operator access for groups of 4 or more.
+**Where to book:** [GetYourGuide](https://www.getyourguide.com/paros-l88737/?partner_id=YBDA3YO&utm_medium=online_publisher) covers the main Paros operators. For boat charters and private tours, the harbor kiosks at Piso Livadi and Naoussa often provide better pricing and direct operator access for groups of 4 or more.
 
 **Ferry connections:** For independent day trips to Naxos, Antiparos, and the Small Cyclades, [FerryHopper](https://ferryhopper.com/?affiliate=greektriplanner) covers all inter-island routes from Paros' multiple ports (Parikia, Naoussa, Piso Livadi, Pounta).
 
@@ -310,7 +310,7 @@ Paros sits between them — more tour infrastructure than Naxos, more authentic 
 - best-greek-islands-for-couples
 
 **externalReferences:**
-- GetYourGuide Paros | https://www.getyourguide.com/paros-l88737/?partner_id=greektriplanner | GetYourGuide
+- GetYourGuide Paros | https://www.getyourguide.com/paros-l88737/?partner_id=YBDA3YO&utm_medium=online_publisher | GetYourGuide
 - Viator Paros Tours | https://www.viator.com/Paros/d50333-ttd | Viator
 - FerryHopper | https://ferryhopper.com/?affiliate=greektriplanner | FerryHopper
 - Moraitis Winery Paros | https://www.moraitiswinery.com | Moraitis Winery

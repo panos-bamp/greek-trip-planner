@@ -319,19 +319,12 @@ export default async function InsightArticlePage({ params }: { params: Promise<{
                 </details>
               )}
 
-              {/* Article body */}
-              <div className="prose-insight">
-                {post.body && (
-                  <InsightBody body={post.body} />
-                )}
-              </div>
-
-              {/* ===== KEY TAKEAWAYS ===== */}
+              {/* ===== KEY TAKEAWAYS — before intro for featured snippet visibility ===== */}
               {post.keyTakeaways && post.keyTakeaways.length > 0 && (
-                <div className="key-takeaways mt-12 bg-[#180204] rounded-2xl p-7 md:p-8">
+                <div className="key-takeaways mb-10 bg-[#180204] rounded-2xl p-7 md:p-8">
                   <div className="flex items-center gap-2 mb-5">
                     <Lightbulb className="w-5 h-5 text-[#FF5635]" />
-                    <h3 className="text-lg text-white font-sans font-semibold">Key Takeaways</h3>
+                    <h2 className="text-lg text-white font-sans font-semibold">Key Takeaways</h2>
                   </div>
                   <ul className="space-y-3">
                     {post.keyTakeaways.map((takeaway: string, i: number) => (
@@ -343,6 +336,15 @@ export default async function InsightArticlePage({ params }: { params: Promise<{
                   </ul>
                 </div>
               )}
+
+              {/* Article body */}
+              <div className="prose-insight">
+                {post.body && (
+                  <InsightBody body={post.body} />
+                )}
+              </div>
+
+
 
               {/* ===== DATA SOURCES ===== */}
               {post.dataSources && post.dataSources.length > 0 && (
