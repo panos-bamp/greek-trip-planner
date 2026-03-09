@@ -52,7 +52,7 @@ export default async function BlogPage() {
 
       {/* ===== HERO ===== */}
       <section className="relative pt-16">
-        <div className="relative h-[340px] sm:h-[400px] overflow-hidden">
+        <div className="relative h-[520px] sm:h-[620px] overflow-hidden">
           <Image
             src="/greece-blog.jpg"
             alt="Greek Travel Blog"
@@ -61,63 +61,85 @@ export default async function BlogPage() {
             priority
             quality={85}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/70 via-[#180204]/30 to-transparent" />
-          <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center">
-            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-4">
+          <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/75 via-[#180204]/30 to-transparent" />
+          <div className="absolute inset-0 flex flex-col items-start justify-center px-6 sm:px-12 lg:px-20">
+            <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-5">
               <BookOpen className="w-4 h-4 text-[#FF5635]" />
               <span className="text-white/90 text-sm font-medium">Our Stories</span>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl text-white mb-3">Travel Blog</h1>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl text-white mb-4 max-w-2xl">Travel Blog</h1>
             <p className="text-white/70 text-lg max-w-xl">Stories, guides, and insider tips for exploring Greece</p>
           </div>
         </div>
       </section>
 
-      {/* ===== FEATURED ARTICLE ===== */}
+      {/* ===== FEATURED ARTICLE — Editorial Spotlight ===== */}
       {featuredPost && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-12 relative z-10 mb-16">
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="flex items-center gap-3 mb-8">
+            <span className="block w-8 h-[3px] bg-[#FF5635] rounded-full" />
+            <span className="text-[#FF5635] text-xs font-bold uppercase tracking-[0.2em] font-sans">Editor's Pick</span>
+          </div>
           <Link
             href={`/blog/${featuredPost.slug?.current}`}
-            className="group block bg-white rounded-3xl overflow-hidden shadow-lg border border-[#E6DAD1]/60 card-hover"
+            className="group grid lg:grid-cols-[1fr_420px] gap-0 rounded-3xl overflow-hidden shadow-xl border border-[#E6DAD1]/50 bg-white card-hover"
           >
-            <div className="grid md:grid-cols-2 gap-0">
-              <div className="relative h-64 md:h-auto min-h-[280px] overflow-hidden">
-                {featuredPost.mainImage ? (
-                  <Image
-                    src={urlFor(featuredPost.mainImage).width(800).height(500).url()}
-                    alt={featuredPost.title}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-[#FAF6F3] flex items-center justify-center">
-                    <Sun className="w-12 h-12 text-[#E6DAD1]" />
-                  </div>
-                )}
-              </div>
-              <div className="p-8 md:p-10 flex flex-col justify-center">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="bg-[#FF5635]/10 text-[#FF5635] text-xs font-semibold px-3 py-1 rounded-full font-sans">Featured Article</span>
+            {/* Image — large, left side */}
+            <div className="relative h-72 sm:h-96 lg:h-auto min-h-[420px] overflow-hidden">
+              {featuredPost.mainImage ? (
+                <Image
+                  src={urlFor(featuredPost.mainImage).width(1000).height(700).url()}
+                  alt={featuredPost.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              ) : (
+                <div className="w-full h-full bg-[#FAF6F3] flex items-center justify-center">
+                  <Sun className="w-16 h-16 text-[#E6DAD1]" />
+                </div>
+              )}
+              {/* Subtle dark gradient on left image for depth */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-[#180204]/10" />
+            </div>
+
+            {/* Content — right side, dark panel */}
+            <div className="bg-[#180204] p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
+              <div>
+                {/* Meta row */}
+                <div className="flex items-center gap-3 mb-6">
                   {formatDate(featuredPost.publishedAt) && (
-                    <span className="text-[#180204]/40 text-sm font-sans flex items-center gap-1">
+                    <span className="text-white/40 text-xs font-sans flex items-center gap-1.5">
                       <Calendar className="w-3.5 h-3.5" />
                       {formatDate(featuredPost.publishedAt)}
                     </span>
                   )}
                 </div>
-                <h2 className="text-2xl sm:text-3xl text-[#180204] mb-4 group-hover:text-[#FF5635] transition-colors">
+
+                {/* Title */}
+                <h2 className="text-2xl sm:text-3xl lg:text-[2rem] leading-snug text-white mb-5 group-hover:text-[#FF5635] transition-colors duration-300">
                   {featuredPost.title}
                 </h2>
+
+                {/* Divider */}
+                <div className="w-12 h-[2px] bg-[#FF5635]/60 rounded-full mb-5" />
+
+                {/* Excerpt */}
+                {featuredPost.excerpt && (
+                  <p className="text-white/55 leading-relaxed line-clamp-4 font-sans text-sm">{featuredPost.excerpt}</p>
+                )}
+              </div>
+
+              {/* Author + CTA */}
+              <div className="mt-8 flex items-center justify-between">
                 {featuredPost.author?.name && (
-                  <div className="flex items-center gap-2 mb-4">
-                    <User className="w-4 h-4 text-[#180204]/40" />
-                    <span className="text-[#180204]/50 text-sm font-sans">{featuredPost.author.name}</span>
+                  <div className="flex items-center gap-2">
+                    <div className="w-7 h-7 rounded-full bg-[#FF5635]/20 flex items-center justify-center">
+                      <User className="w-3.5 h-3.5 text-[#FF5635]" />
+                    </div>
+                    <span className="text-white/50 text-sm font-sans">{featuredPost.author.name}</span>
                   </div>
                 )}
-                {featuredPost.excerpt && (
-                  <p className="text-[#180204]/60 leading-relaxed mb-6 line-clamp-3 font-sans">{featuredPost.excerpt}</p>
-                )}
-                <span className="text-[#FF5635] font-semibold flex items-center gap-2 group-hover:gap-3 transition-all font-sans">
+                <span className="inline-flex items-center gap-2 bg-[#FF5635] text-white text-sm font-semibold px-5 py-2.5 rounded-full group-hover:bg-[#e04a2a] transition-colors font-sans">
                   Read Article <ArrowRight className="w-4 h-4" />
                 </span>
               </div>
