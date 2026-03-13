@@ -81,7 +81,34 @@ export default defineType({
       group: 'content',
       description: 'Short description for SEO and previews (150-160 characters)',
     }),
-    
+    defineField({
+      name: 'postType',
+      title: 'Post Type',
+      type: 'string',
+      group: 'content',
+      description: 'Categorise this article so readers can filter by type on the blog page.',
+      options: {
+        list: [
+          {title: '🗺️  Destination Guide',        value: 'destination-guide'},
+          {title: '📅  Itinerary',                 value: 'itinerary'},
+          {title: '🏆  Best Of & Comparisons',     value: 'best-of'},
+          {title: '🎯  Things To Do & Tours',      value: 'things-to-do'},
+          {title: '✈️  Planning & Tips',            value: 'planning-tips'},
+          {title: '🧳  Travel by Style',            value: 'travel-style'},
+          {title: '⛵  Cruises & Island Hopping',   value: 'cruises'},
+          {title: '🏖️  Crete In Depth',             value: 'crete'},
+        ],
+        layout: 'radio',
+      },
+    }),
+    defineField({
+      name: 'readingTime',
+      title: 'Reading Time (minutes)',
+      type: 'number',
+      group: 'content',
+      description: 'Estimated reading time displayed on the blog listing card.',
+    }),
+
     // ============================================
     // SEO & META GROUP
     // ============================================
@@ -860,10 +887,23 @@ export default defineType({
       title: 'title',
       author: 'author',
       media: 'mainImage',
+      postType: 'postType',
     },
     prepare(selection) {
-      const {author} = selection
-      return {...selection, subtitle: author && `by ${author}`}
+      const {author, postType} = selection
+      const typeLabels: Record<string, string> = {
+        'destination-guide': '🗺️ Destination Guide',
+        'itinerary':         '📅 Itinerary',
+        'best-of':           '🏆 Best Of',
+        'things-to-do':      '🎯 Things To Do & Tours',
+        'planning-tips':     '✈️ Planning & Tips',
+        'travel-style':      '🧳 Travel by Style',
+        'cruises':           '⛵ Cruises & Island Hopping',
+        'crete':             '🏖️ Crete In Depth',
+      }
+      const typeLabel = postType ? typeLabels[postType] : undefined
+      const subtitle = [author && `by ${author}`, typeLabel].filter(Boolean).join(' · ')
+      return {...selection, subtitle: subtitle || undefined}
     },
   },
 })

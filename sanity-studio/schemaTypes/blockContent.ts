@@ -1,3 +1,11 @@
+// ────────────────────────────────────────────────────────────────────────────
+// SANITY SCHEMA UPDATE — blockContent.ts
+// Add caption, attribution, license, and wikiUrl fields to the image type.
+// Required for Wikimedia CC license compliance and structured captions.
+//
+// Location: c:\ai-greek-trip-planner\sanity-studio\schemaTypes\blockContent.ts
+// ────────────────────────────────────────────────────────────────────────────
+
 import {defineType, defineArrayMember} from 'sanity'
 
 export default defineType({
@@ -8,22 +16,22 @@ export default defineType({
     defineArrayMember({
       type: 'block',
       styles: [
-        {title: 'Normal', value: 'normal'},
-        {title: 'H1', value: 'h1'},
-        {title: 'H2', value: 'h2'},
-        {title: 'H3', value: 'h3'},
-        {title: 'H4', value: 'h4'},
-        {title: 'Quote', value: 'blockquote'},
+        {title: 'Normal',     value: 'normal'},
+        {title: 'H1',         value: 'h1'},
+        {title: 'H2',         value: 'h2'},
+        {title: 'H3',         value: 'h3'},
+        {title: 'H4',         value: 'h4'},
+        {title: 'Quote',      value: 'blockquote'},
       ],
       lists: [
-        {title: 'Bullet', value: 'bullet'},
+        {title: 'Bullet',   value: 'bullet'},
         {title: 'Numbered', value: 'number'},
       ],
       marks: {
         decorators: [
           {title: 'Strong', value: 'strong'},
           {title: 'Emphasis', value: 'em'},
-          {title: 'Code', value: 'code'},
+          {title: 'Code',   value: 'code'},
         ],
         annotations: [
           {
@@ -36,9 +44,7 @@ export default defineType({
                 name: 'href',
                 type: 'url',
                 validation: (Rule) =>
-                  Rule.uri({
-                    scheme: ['http', 'https', 'mailto', 'tel'],
-                  }),
+                  Rule.uri({ scheme: ['http', 'https', 'mailto', 'tel'] }),
               },
               {
                 title: 'Open in new tab',
@@ -50,6 +56,8 @@ export default defineType({
         ],
       },
     }),
+
+    // ── Image type — UPDATED with attribution fields ──────────────────────
     defineArrayMember({
       type: 'image',
       options: {hotspot: true},
@@ -57,40 +65,51 @@ export default defineType({
         {
           name: 'alt',
           type: 'string',
-          title: 'Alternative Text',
+          title: 'Alt Text',
+          description: 'Describe the image for screen readers and SEO',
+          validation: (Rule) => Rule.required().warning('Alt text is required for accessibility'),
         },
-      ],
-    }),
-    // ✅ HTML EMBED - Paste raw HTML (tables, embeds, custom widgets)
-    defineArrayMember({
-      name: 'htmlEmbed',
-      type: 'object',
-      title: '🧩 HTML Embed',
-      description: 'Paste raw HTML here — perfect for tables, embeds, or custom widgets',
-      fields: [
         {
-          name: 'html',
-          title: 'HTML Code',
-          type: 'text',
-          rows: 15,
-          description: 'Paste your HTML table or embed code here. It will render exactly as written on the blog.',
+          name: 'caption',
+          type: 'string',
+          title: 'Caption',
+          description: 'Short engaging caption displayed below the image',
+        },
+        {
+          // ── NEW ──────────────────────────────────────────────────────────
+          name: 'attribution',
+          type: 'string',
+          title: 'Photo Attribution',
+          description: 'Photographer or author name (required for CC-licensed images)',
+        },
+        {
+          // ── NEW ──────────────────────────────────────────────────────────
+          name: 'license',
+          type: 'string',
+          title: 'License',
+          description: 'e.g. CC BY-SA 4.0, CC BY 2.0, Public Domain',
+          options: {
+            list: [
+              {title: 'CC BY-SA 4.0', value: 'CC BY-SA 4.0'},
+              {title: 'CC BY 4.0',    value: 'CC BY 4.0'},
+              {title: 'CC BY-SA 3.0', value: 'CC BY-SA 3.0'},
+              {title: 'CC BY 3.0',    value: 'CC BY 3.0'},
+              {title: 'CC BY-SA 2.0', value: 'CC BY-SA 2.0'},
+              {title: 'CC BY 2.0',    value: 'CC BY 2.0'},
+              {title: 'Public Domain', value: 'Public Domain'},
+            ],
+          },
+        },
+        {
+          // ── NEW ──────────────────────────────────────────────────────────
+          name: 'wikiUrl',
+          type: 'url',
+          title: 'Wikimedia Source URL',
+          description: 'Link to the original Wikimedia Commons file page',
+          validation: (Rule) =>
+            Rule.uri({ scheme: ['http', 'https'] }).warning(),
         },
       ],
-      preview: {
-        select: {
-          html: 'html',
-        },
-        prepare({ html }: { html?: string }) {
-          const snippet = html
-            ? html.replace(/<[^>]*>/g, '').substring(0, 80) + '...'
-            : 'Empty HTML embed'
-          const isTable = html?.includes('<table')
-          return {
-            title: isTable ? '📊 HTML Table' : '🧩 HTML Embed',
-            subtitle: snippet,
-          }
-        },
-      },
     }),
   ],
 })
