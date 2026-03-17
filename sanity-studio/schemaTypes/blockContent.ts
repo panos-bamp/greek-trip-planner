@@ -111,5 +111,45 @@ export default defineType({
         },
       ],
     }),
+
+
+    // ── HTML Embed ────────────────────────────────────────────────────────
+    // Insert raw HTML anywhere in the body — affiliate cards, booking widgets,
+    // featured placements, iframes, custom CTAs, etc.
+    defineArrayMember({
+      type: 'object',
+      name: 'htmlEmbed',
+      title: 'HTML Embed',
+      icon: () => '</>',
+      fields: [
+        {
+          name: 'label',
+          type: 'string',
+          title: 'Label (internal)',
+          description: 'A name to identify this embed in the editor (e.g. "Booking.com card", "Tour widget")',
+          validation: (Rule: any) => Rule.required().warning('Add a label so you can identify this embed later'),
+        },
+        {
+          name: 'html',
+          type: 'text',
+          title: 'HTML Code',
+          description: 'Paste your raw HTML here. Rendered as-is on the page.',
+          rows: 10,
+          validation: (Rule: any) => Rule.required(),
+        },
+      ],
+      preview: {
+        select: {
+          title: 'label',
+          subtitle: 'html',
+        },
+        prepare({ title, subtitle }: { title: string; subtitle: string }) {
+          return {
+            title: title || 'HTML Embed',
+            subtitle: subtitle ? subtitle.slice(0, 80) + '…' : 'No HTML yet',
+          }
+        },
+      },
+    }),
   ],
 })
