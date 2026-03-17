@@ -36,11 +36,20 @@ export interface ProcessedArticle extends ScoredArticle {
   researchNotes: string
 }
 
+// ─── Shared headers for all Anthropic API calls ───────────────
+function anthropicHeaders() {
+  return {
+    'Content-Type': 'application/json',
+    'x-api-key': process.env.ANTHROPIC_API_KEY!,
+    'anthropic-version': '2023-06-01',
+  }
+}
+
 // ─── Relevance Scoring (batched for efficiency) ──────────────
 
 /**
  * Score a batch of articles for Greece inbound tourism relevance.
- * Sends up to 15 articles in a single API call.
+ * Sends up to 10 articles in a single API call.
  */
 export async function scoreArticlesBatch(
   articles: RawArticle[]
@@ -85,13 +94,19 @@ Respond ONLY with valid JSON array (no markdown, no explanation):
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: anthropicHeaders(),
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 2000,
         messages: [{ role: 'user', content: prompt }],
       }),
     })
+
+    if (!response.ok) {
+      const errText = await response.text()
+      console.error(`Anthropic scoring API error ${response.status}:`, errText)
+      throw new Error(`API ${response.status}: ${errText}`)
+    }
 
     const data = await response.json()
     const text = data.content?.[0]?.text || '[]'
@@ -114,7 +129,6 @@ Respond ONLY with valid JSON array (no markdown, no explanation):
     })
   } catch (err) {
     console.error('Batch scoring error:', err)
-    // Return articles with 0 score on failure
     return articles.map(a => ({
       ...a,
       relevanceScore: 0,
@@ -174,13 +188,19 @@ Respond ONLY with valid JSON (no markdown, no explanation):
   try {
     const response = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: anthropicHeaders(),
       body: JSON.stringify({
         model: 'claude-sonnet-4-20250514',
         max_tokens: 3000,
         messages: [{ role: 'user', content: prompt }],
       }),
     })
+
+    if (!response.ok) {
+      const errText = await response.text()
+      console.error(`Anthropic rewrite API error ${response.status}:`, errText)
+      throw new Error(`API ${response.status}: ${errText}`)
+    }
 
     const data = await response.json()
     const text = data.content?.[0]?.text || '{}'
