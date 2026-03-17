@@ -29,6 +29,7 @@ interface Article {
   is_relevant: boolean
   rewritten_title: string | null
   rewritten_excerpt: string | null
+  rewritten_content: string | null
   target_keywords: string[] | null
   suggested_tags: string[] | null
   needs_research: boolean
