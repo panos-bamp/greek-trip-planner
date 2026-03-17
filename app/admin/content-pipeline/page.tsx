@@ -173,7 +173,7 @@ export default function ContentPipelineDashboard() {
     <div className="min-h-screen" style={{ background: 'var(--color-cream-DEFAULT)', fontFamily: 'var(--font-sans)' }}>
 
       {/* ── Header ─────────────────────────────────────────── */}
-      <div style={{ background: 'var(--color-dark-DEFAULT)' }} className="px-6 py-5">
+      <div style={{ background: 'var(--color-dark-DEFAULT)' }} className="px-6 py-5 pt-20">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div>
             <h1 style={{ fontFamily: 'var(--font-serif)', color: 'white' }} className="text-2xl font-normal">
