@@ -1,19 +1,71 @@
 // ============================================================
-// Sanity Draft Publisher
-// Creates draft blog posts in your Sanity CMS
-// Uses the Sanity HTTP API (no SDK needed)
+// Sanity Insight Publisher
+// Path: lib/content-pipeline/sanity-publisher.ts
+// Creates DRAFT insight documents in Sanity CMS
+// Targets _type: 'insight' to appear in /insights section
 // ============================================================
 
 import type { ProcessedArticle } from './processor'
 
 const SANITY_PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!
-const SANITY_DATASET = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
-const SANITY_TOKEN = process.env.SANITY_API_TOKEN! // needs write access
+const SANITY_DATASET   = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
+const SANITY_TOKEN     = process.env.SANITY_API_TOKEN! // needs Editor or Admin role
 
-/**
- * Creates a draft post in Sanity CMS from a processed article.
- * Returns the Sanity document ID if successful, null if failed.
- */
+// ─── insightType auto-detection ──────────────────────────────
+const INSIGHT_TYPE_RULES: Array<{ keywords: string[]; type: string }> = [
+  {
+    keywords: ['arrivals', 'revenue', 'statistics', 'record', 'numbers', 'data', 'figures', 'visitors', 'million', 'billion'],
+    type: 'statistics',
+  },
+  {
+    keywords: ['trend', 'forecast', 'future', 'prediction', 'outlook', 'emerging', '2026', '2027'],
+    type: 'trend-analysis',
+  },
+  {
+    keywords: ['santorini', 'mykonos', 'crete', 'rhodes', 'corfu', 'zakynthos', 'athens', 'island', 'destination', 'performance'],
+    type: 'destination-performance',
+  },
+  {
+    keywords: ['uk', 'british', 'german', 'france', 'french', 'american', 'source market', 'inbound'],
+    type: 'source-market',
+  },
+  {
+    keywords: ['hotel', 'accommodation', 'resort', 'booking', 'occupancy', 'airbnb'],
+    type: 'accommodation',
+  },
+  {
+    keywords: ['cruise', 'ship', 'port', 'passenger'],
+    type: 'cruise',
+  },
+  {
+    keywords: ['regulation', 'policy', 'law', 'tax', 'vat', 'permit', 'government', 'ministry', 'ban'],
+    type: 'policy-regulation',
+  },
+  {
+    keywords: ['sustainable', 'sustainability', 'green', 'eco', 'environment', 'carbon', 'climate'],
+    type: 'sustainability',
+  },
+  {
+    keywords: ['report', 'annual', 'quarter', 'q1', 'q2', 'q3', 'q4', 'wttc', 'insete', 'bank of greece'],
+    type: 'market-report',
+  },
+]
+
+function detectInsightType(title: string, tags: string[]): string {
+  const text = `${title} ${tags.join(' ')}`.toLowerCase()
+  for (const rule of INSIGHT_TYPE_RULES) {
+    if (rule.keywords.some(kw => text.includes(kw))) return rule.type
+  }
+  return 'opinion'
+}
+
+function estimateReadingTime(html: string): number {
+  const words = stripTags(html).split(/\s+/).filter(Boolean).length
+  return Math.max(1, Math.round(words / 200))
+}
+
+// ─── Main publisher ───────────────────────────────────────────
+
 export async function createSanityDraft(
   article: ProcessedArticle
 ): Promise<string | null> {
@@ -22,47 +74,61 @@ export async function createSanityDraft(
     return null
   }
 
-  // Build the Sanity document
+  const insightType = detectInsightType(
+    article.rewrittenTitle || article.title,
+    article.suggestedTags || []
+  )
+
+  const docId = `drafts.pipeline-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
+
   const doc = {
-    _type: 'post',
-    _id: `drafts.pipeline-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+    _type: 'insight',
+    _id: docId,
 
-    // Core content
-    title: article.rewrittenTitle,
-    slug: {
-      _type: 'slug',
-      current: article.suggestedSlug,
-    },
-    excerpt: article.rewrittenExcerpt,
+    title: article.rewrittenTitle || article.title,
+    slug: { _type: 'slug', current: article.suggestedSlug },
+    excerpt: (article.rewrittenExcerpt || article.excerpt || '').slice(0, 300),
+    subtitle: `Source: ${article.sourceName} · ${article.country}`,
 
-    // Body as portable text (we'll wrap HTML as a single block for now)
-    // If your schema uses a rich text field, adjust accordingly
-    body: htmlToPortableText(article.rewrittenContent),
+    insightType,
+    topics: article.suggestedTags || [],
 
-    // SEO fields (if your schema has them)
-    seo: {
-      metaTitle: article.rewrittenTitle.slice(0, 60),
-      metaDescription: article.rewrittenExcerpt.slice(0, 160),
-      keywords: article.targetKeywords,
-    },
+    author: 'Greek Trip Planner Research',
+    authorBio:
+      'The Greek Trip Planner research team monitors international travel media daily, analyzing coverage from Greek, UK, German, and US sources to surface the most relevant insights for travelers and tourism professionals.',
 
-    // Categories / tags
-    tags: article.suggestedTags,
+    publishedAt: new Date().toISOString(),
+    readingTime: estimateReadingTime(article.rewrittenContent || ''),
+    showTableOfContents: true,
 
-    // Pipeline metadata (for tracking)
-    pipelineMeta: {
-      sourceId: article.sourceId,
-      sourceName: article.sourceName,
-      sourceCountry: article.country,
-      originalUrl: article.url,
-      relevanceScore: article.relevanceScore,
-      crawledAt: new Date().toISOString(),
-      needsResearch: article.needsResearch,
-      researchTopics: article.researchTopics,
-    },
+    body: htmlToPortableText(article.rewrittenContent || ''),
 
-    // Draft state — not published until you manually approve
-    publishedAt: null,
+    keyTakeaways: (article.researchTopics || []).map(
+      (t: string) => `Research opportunity: ${t}`
+    ),
+
+    externalReferences: [
+      {
+        _type: 'object',
+        _key: randomKey(),
+        title: article.title,
+        url: article.url,
+        source: article.sourceName,
+      },
+    ],
+
+    // SEO defaults
+    metaTitle: (article.rewrittenTitle || article.title).slice(0, 60),
+    metaDescription: (article.rewrittenExcerpt || article.excerpt || '').slice(0, 160),
+    focusKeyword: article.targetKeywords?.[0] || '',
+    canonicalUrl: `https://greektriplanner.me/insights/${article.suggestedSlug}`,
+
+    // Schema markup defaults
+    enableArticleSchema: true,
+    enableBreadcrumbSchema: true,
+    enableSpeakableSchema: false,
+
+    ctaType: 'subscribe',
   }
 
   try {
@@ -74,74 +140,51 @@ export async function createSanityDraft(
           'Content-Type': 'application/json',
           Authorization: `Bearer ${SANITY_TOKEN}`,
         },
-        body: JSON.stringify({
-          mutations: [{ createOrReplace: doc }],
-        }),
+        body: JSON.stringify({ mutations: [{ createOrReplace: doc }] }),
       }
     )
 
     if (!response.ok) {
-      const error = await response.text()
-      console.error('Sanity mutation failed:', error)
+      console.error('Sanity mutation failed:', await response.text())
       return null
     }
 
     const result = await response.json()
-    return result.results?.[0]?.id || doc._id
+    return result.results?.[0]?.id || docId
   } catch (err) {
     console.error('Sanity publish error:', err)
     return null
   }
 }
 
-// ─── Minimal HTML → Portable Text converter ──────────────────
-// Converts simple HTML to Sanity's portable text blocks
-// Handles: <p>, <h2>, <h3>, <ul>/<li>, plain text
+// ─── HTML → Portable Text ─────────────────────────────────────
+// NOTE: Using [\s\S] instead of . with s flag for TypeScript compatibility
 
 function htmlToPortableText(html: string): object[] {
   if (!html) return []
 
-  // If no HTML tags, wrap as single paragraph
-  if (!html.includes('<')) {
-    return [
-      {
-        _type: 'block',
-        _key: randomKey(),
-        style: 'normal',
-        children: [{ _type: 'span', _key: randomKey(), text: html, marks: [] }],
-        markDefs: [],
-      },
-    ]
-  }
+  if (!html.includes('<')) return [makeBlock(html, 'normal')]
 
   const blocks: object[] = []
 
-  // Split by block-level tags
-  const segments = html
-    .replace(/<\/?(ul|ol)>/gi, '')
-    .split(/(<h[23][^>]*>.*?<\/h[23]>|<p[^>]*>.*?<\/p>|<li[^>]*>.*?<\/li>)/gis)
+  const cleaned = html.replace(/<\/?(ul|ol)>/gi, '')
+
+  // [\s\S]*? used instead of .*? with /s flag — compatible with all TS targets
+  const segments = cleaned
+    .split(/(<h[23][^>]*>[\s\S]*?<\/h[23]>|<p[^>]*>[\s\S]*?<\/p>|<li[^>]*>[\s\S]*?<\/li>)/gi)
     .filter(s => s.trim())
 
   for (const segment of segments) {
-    const h2Match = segment.match(/<h2[^>]*>(.*?)<\/h2>/is)
-    const h3Match = segment.match(/<h3[^>]*>(.*?)<\/h3>/is)
-    const pMatch = segment.match(/<p[^>]*>(.*?)<\/p>/is)
-    const liMatch = segment.match(/<li[^>]*>(.*?)<\/li>/is)
+    const h2 = segment.match(/<h2[^>]*>([\s\S]*?)<\/h2>/i)
+    const h3 = segment.match(/<h3[^>]*>([\s\S]*?)<\/h3>/i)
+    const p  = segment.match(/<p[^>]*>([\s\S]*?)<\/p>/i)
+    const li = segment.match(/<li[^>]*>([\s\S]*?)<\/li>/i)
 
-    if (h2Match) {
-      blocks.push(makeBlock(stripTags(h2Match[1]), 'h2'))
-    } else if (h3Match) {
-      blocks.push(makeBlock(stripTags(h3Match[1]), 'h3'))
-    } else if (pMatch) {
-      const text = stripTags(pMatch[1]).trim()
-      if (text) blocks.push(makeBlock(text, 'normal'))
-    } else if (liMatch) {
-      const text = stripTags(liMatch[1]).trim()
-      if (text) blocks.push(makeBullet(text))
-    } else {
-      const text = stripTags(segment).trim()
-      if (text) blocks.push(makeBlock(text, 'normal'))
-    }
+    if (h2)      { const t = stripTags(h2[1]).trim(); if (t) blocks.push(makeBlock(t, 'h2')) }
+    else if (h3) { const t = stripTags(h3[1]).trim(); if (t) blocks.push(makeBlock(t, 'h3')) }
+    else if (p)  { const t = stripTags(p[1]).trim();  if (t) blocks.push(makeBlock(t, 'normal')) }
+    else if (li) { const t = stripTags(li[1]).trim(); if (t) blocks.push(makeBullet(t)) }
+    else         { const t = stripTags(segment).trim(); if (t) blocks.push(makeBlock(t, 'normal')) }
   }
 
   return blocks.length > 0 ? blocks : [makeBlock(stripTags(html), 'normal')]
@@ -170,7 +213,14 @@ function makeBullet(text: string): object {
 }
 
 function stripTags(html: string): string {
-  return html.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ').trim()
+  return html
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&quot;/g, '"')
+    .trim()
 }
 
 function randomKey(): string {
