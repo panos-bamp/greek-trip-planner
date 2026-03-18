@@ -28,6 +28,17 @@ export default function RootLayout({
             gtag('config', 'G-R61V7TG5HF');
           `}
         </Script>
+
+        {/* Travelpayouts verification */}
+        <Script
+          id="travelpayouts-verify"
+          data-noptimize="1"
+          data-cfasync="false"
+          data-wpfc-render="false"
+          strategy="afterInteractive"
+        >
+          {`(function(){var script=document.createElement("script");script.async=1;script.src='https://emrld.ltd/NTA1MDI3.js?t=505027';document.head.appendChild(script);})();`}
+        </Script>
       </head>
       <body className="antialiased">
         <Navbar />
