@@ -1,7 +1,6 @@
 // ============================================================
 // Article Processor
 // Handles: relevance scoring, translation, rewriting, flagging
-// Uses Claude claude-sonnet-4-20250514 via Anthropic API
 // ============================================================
 
 export interface RawArticle {
@@ -36,7 +35,7 @@ export interface ProcessedArticle extends ScoredArticle {
   researchNotes: string
 }
 
-// ─── Shared headers for all Anthropic API calls ───────────────
+// ─── Shared Anthropic headers ─────────────────────────────────
 function anthropicHeaders() {
   return {
     'Content-Type': 'application/json',
@@ -45,12 +44,8 @@ function anthropicHeaders() {
   }
 }
 
-// ─── Relevance Scoring (batched for efficiency) ──────────────
+// ─── Relevance Scoring ────────────────────────────────────────
 
-/**
- * Score a batch of articles for Greece inbound tourism relevance.
- * Sends up to 10 articles in a single API call.
- */
 export async function scoreArticlesBatch(
   articles: RawArticle[]
 ): Promise<ScoredArticle[]> {
@@ -96,7 +91,7 @@ Respond ONLY with valid JSON array (no markdown, no explanation):
       method: 'POST',
       headers: anthropicHeaders(),
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'claude-sonnet-4-5',
         max_tokens: 2000,
         messages: [{ role: 'user', content: prompt }],
       }),
@@ -119,7 +114,7 @@ Respond ONLY with valid JSON array (no markdown, no explanation):
     }> = JSON.parse(clean)
 
     return articles.map((article, i) => {
-      const score = scores.find(s => s.index === i)
+      const score = scores.find((s) => s.index === i)
       return {
         ...article,
         relevanceScore: score?.relevance_score ?? 0,
@@ -129,7 +124,7 @@ Respond ONLY with valid JSON array (no markdown, no explanation):
     })
   } catch (err) {
     console.error('Batch scoring error:', err)
-    return articles.map(a => ({
+    return articles.map((a) => ({
       ...a,
       relevanceScore: 0,
       relevanceReason: 'Scoring failed',
@@ -138,50 +133,52 @@ Respond ONLY with valid JSON array (no markdown, no explanation):
   }
 }
 
-// ─── Full Article Rewrite ─────────────────────────────────────
+// ─── Article Rewrite ──────────────────────────────────────────
 
-/**
- * Takes a relevant article and produces SEO-enhanced rewrite.
- * Also detects if deeper research is needed.
- */
 export async function rewriteArticle(
-  article: ScoredArticle
+  article: ScoredArticle,
+  isCombined: boolean = false
 ): Promise<ProcessedArticle> {
   const needsTranslation = article.language !== 'en'
 
-  const prompt = `You are an expert travel content writer specializing in Greek tourism. Your task is to rewrite and significantly enhance this article for an English-language Greece travel planning website (greektriplanner.me).
+  const combinedNote = isCombined
+    ? `\nIMPORTANT: This content comes from MULTIPLE sources that have been combined. Your task is to synthesize them into ONE cohesive, comprehensive insight article. Do not repeat points — merge overlapping information and create a unified narrative.\n`
+    : ''
 
+  const prompt = `You are an expert travel content writer specializing in Greek tourism. Your task is to rewrite and significantly enhance this article for an English-language Greece travel planning website (greektriplanner.me).
+${combinedNote}
 SOURCE ARTICLE:
 Title: ${article.title}
 Source: ${article.sourceName} (${article.country})
 Language: ${article.language}
 URL: ${article.url}
 Content: ${article.content || article.excerpt || article.title}
-${needsTranslation ? '\n[NOTE: Content may be in Greek or German — translate AND rewrite]' : ''}
+${needsTranslation && !isCombined ? '\n[NOTE: Content may be in Greek or German — translate AND rewrite]' : ''}
 
 YOUR TASK:
-Rewrite this into a high-quality, original article that:
+Rewrite this into a high-quality, original insight article that:
 1. Is written in fluent, engaging English
-2. Adds value beyond the original (context, tips, booking advice, local insights)
-3. Is SEO-optimized for travelers searching for Greece travel info
-4. Is 400-600 words (longer for high-score articles)
+2. Adds value beyond the original (context, data interpretation, booking advice, local insights)
+3. Is SEO-optimized for travelers and travel professionals searching for Greece travel intelligence
+4. Is 500-700 words
 5. Has a compelling, keyword-rich title
+6. Uses <h2>, <h3>, <p>, <ul> HTML tags in the body
 
 Also identify:
 - 3-5 target SEO keywords (long-tail, high intent)
 - 3-5 content tags
-- Whether this topic needs DEEPER RESEARCH (new data, price changes, policy updates, new destinations emerging, hotel/tour openings, ferry/transport changes, regulatory news)
+- Whether this topic needs DEEPER RESEARCH (new data, price changes, policy updates, emerging destinations, hotel/tour openings, ferry changes, regulatory news)
 
 Respond ONLY with valid JSON (no markdown, no explanation):
 {
   "rewritten_title": "...",
   "rewritten_excerpt": "2-3 sentence meta description (max 160 chars)",
-  "rewritten_content": "Full article HTML with <h2>, <p>, <ul> tags...",
+  "rewritten_content": "Full article HTML...",
   "suggested_slug": "url-friendly-slug",
   "target_keywords": ["keyword 1", "keyword 2", "keyword 3"],
   "suggested_tags": ["tag1", "tag2", "tag3"],
   "needs_research": true/false,
-  "research_topics": ["topic 1 if needs_research", "topic 2"],
+  "research_topics": ["topic 1", "topic 2"],
   "research_notes": "Brief note on what additional research would add value"
 }`
 
@@ -236,7 +233,7 @@ Respond ONLY with valid JSON (no markdown, no explanation):
   }
 }
 
-// ─── Utility ─────────────────────────────────────────────────
+// ─── Utility ──────────────────────────────────────────────────
 
 function slugify(text: string): string {
   return text
@@ -247,6 +244,5 @@ function slugify(text: string): string {
     .slice(0, 80)
 }
 
-// Delay helper to avoid rate limiting
 export const delay = (ms: number) =>
-  new Promise(resolve => setTimeout(resolve, ms))
+  new Promise((resolve) => setTimeout(resolve, ms))

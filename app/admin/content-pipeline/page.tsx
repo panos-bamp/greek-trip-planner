@@ -1,9 +1,8 @@
 'use client'
 
 // ============================================================
-// Content Pipeline Dashboard
+// Content Pipeline Dashboard — Review & Rewrite
 // Path: app/admin/content-pipeline/page.tsx
-// Uses your existing design tokens (DM Serif, cream palette)
 // ============================================================
 
 import { useEffect, useState, useCallback } from 'react'
@@ -14,7 +13,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-// ─── Types ───────────────────────────────────────────────────
+// ─── Types ────────────────────────────────────────────────────
 
 interface Article {
   id: string
@@ -25,7 +24,9 @@ interface Article {
   original_url: string
   original_title: string
   original_excerpt: string | null
+  original_content: string | null
   relevance_score: number | null
+  relevance_reason: string | null
   is_relevant: boolean
   rewritten_title: string | null
   rewritten_excerpt: string | null
@@ -56,61 +57,71 @@ interface Stats {
   from_industry: number
 }
 
-type FilterTab = 'all' | 'ready' | 'needs_research' | 'published' | 'error'
+type FilterTab = 'review' | 'ready' | 'needs_research' | 'all' | 'published'
 
 const COUNTRY_FLAGS: Record<string, string> = {
   GR: '🇬🇷', UK: '🇬🇧', DE: '🇩🇪', US: '🇺🇸', INDUSTRY: '🌍',
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  ready: 'bg-emerald-100 text-emerald-800',
-  published: 'bg-blue-100 text-blue-800',
+  scored:    'bg-blue-100 text-blue-800',
+  ready:     'bg-emerald-100 text-emerald-800',
+  published: 'bg-purple-100 text-purple-700',
   rewriting: 'bg-amber-100 text-amber-800',
-  pending: 'bg-gray-100 text-gray-600',
-  error: 'bg-red-100 text-red-700',
-  rejected: 'bg-gray-200 text-gray-500',
-  scoring: 'bg-purple-100 text-purple-700',
+  pending:   'bg-gray-100 text-gray-500',
+  error:     'bg-red-100 text-red-700',
+  rejected:  'bg-gray-200 text-gray-400',
 }
 
-// ─── Main Dashboard Component ─────────────────────────────────
+// ─── Main Dashboard ───────────────────────────────────────────
 
 export default function ContentPipelineDashboard() {
   const [articles, setArticles] = useState<Article[]>([])
   const [stats, setStats] = useState<Stats | null>(null)
-  const [activeTab, setActiveTab] = useState<FilterTab>('all')
+  const [activeTab, setActiveTab] = useState<FilterTab>('review')
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
   const [isRunning, setIsRunning] = useState(false)
+  const [isRewriting, setIsRewriting] = useState(false)
   const [lastRun, setLastRun] = useState<string | null>(null)
   const [runLog, setRunLog] = useState<string[]>([])
   const [showLog, setShowLog] = useState(false)
   const [loading, setLoading] = useState(true)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
+  const [rewriteStatus, setRewriteStatus] = useState<string>('')
 
+  // ── Fetch data ──────────────────────────────────────────────
   const fetchData = useCallback(async () => {
     setLoading(true)
     try {
-      // Fetch stats from view
       const { data: statsData } = await supabase
         .from('content_pipeline_stats')
         .select('*')
         .single()
       if (statsData) setStats(statsData)
 
-      // Fetch articles
       let query = supabase
         .from('crawled_articles')
         .select('*')
+        .order('relevance_score', { ascending: false })
         .order('crawled_at', { ascending: false })
-        .limit(100)
+        .limit(150)
 
-      if (activeTab === 'ready') query = query.eq('status', 'ready')
-      else if (activeTab === 'needs_research') query = query.eq('needs_research', true)
-      else if (activeTab === 'published') query = query.eq('status', 'published')
-      else if (activeTab === 'error') query = query.eq('status', 'error')
-      else query = query.gte('crawled_at', new Date(Date.now() - 7 * 86400000).toISOString())
+      if (activeTab === 'review') {
+        query = query.eq('status', 'scored').eq('is_relevant', true)
+      } else if (activeTab === 'ready') {
+        query = query.eq('status', 'ready')
+      } else if (activeTab === 'needs_research') {
+        query = query.eq('needs_research', true)
+      } else if (activeTab === 'published') {
+        query = query.eq('status', 'published')
+      } else {
+        query = query.gte('crawled_at', new Date(Date.now() - 7 * 86400000).toISOString())
+      }
 
       const { data } = await query
       setArticles(data || [])
+      setSelectedIds(new Set()) // clear selection on tab change
     } finally {
       setLoading(false)
     }
@@ -118,7 +129,7 @@ export default function ContentPipelineDashboard() {
 
   useEffect(() => { fetchData() }, [fetchData])
 
-  // ── Manual pipeline trigger ───────────────────────────────
+  // ── Pipeline trigger ────────────────────────────────────────
   const triggerPipeline = async () => {
     setIsRunning(true)
     setRunLog(['Starting pipeline...'])
@@ -134,22 +145,78 @@ export default function ContentPipelineDashboard() {
       setLastRun(new Date().toLocaleTimeString())
       await fetchData()
     } catch {
-      setRunLog(prev => [...prev, '❌ Pipeline request failed'])
+      setRunLog((prev) => [...prev, '❌ Pipeline request failed'])
     } finally {
       setIsRunning(false)
     }
   }
 
-  // ── Publish to Sanity ─────────────────────────────────────
-  const publishArticle = async (article: Article) => {
-    const { error } = await supabase
-      .from('crawled_articles')
-      .update({ status: 'published', published_at: new Date().toISOString() })
-      .eq('id', article.id)
-    if (!error) await fetchData()
+  // ── Selection ───────────────────────────────────────────────
+  const toggleSelect = (id: string) => {
+    setSelectedIds((prev) => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return next
+    })
   }
 
-  // ── Reject article ────────────────────────────────────────
+  const selectAll = () => {
+    const visible = filteredArticles.map((a) => a.id)
+    setSelectedIds(new Set(visible))
+  }
+
+  const clearSelection = () => setSelectedIds(new Set())
+
+  // ── Rewrite selected articles ───────────────────────────────
+  const rewriteSelected = async (mode: 'single' | 'combine') => {
+    if (selectedIds.size === 0) return
+    if (mode === 'combine' && selectedIds.size < 2) {
+      alert('Select at least 2 articles to combine.')
+      return
+    }
+
+    setIsRewriting(true)
+    setRewriteStatus(
+      mode === 'combine'
+        ? `Combining ${selectedIds.size} articles into one insight...`
+        : `Rewriting ${selectedIds.size} article${selectedIds.size > 1 ? 's' : ''}...`
+    )
+
+    try {
+      const res = await fetch('/api/pipeline/rewrite', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_PIPELINE_MANUAL_TOKEN || ''}`,
+        },
+        body: JSON.stringify({
+          ids: Array.from(selectedIds),
+          mode,
+        }),
+      })
+
+      const data = await res.json()
+
+      if (data.success) {
+        if (mode === 'combine') {
+          setRewriteStatus(`✅ Combined into: "${data.rewrittenTitle}" — draft in Sanity`)
+        } else {
+          const titles = data.results?.map((r: any) => r.rewrittenTitle).join(', ')
+          setRewriteStatus(`✅ Rewritten: ${titles}`)
+        }
+        await fetchData()
+      } else {
+        setRewriteStatus(`❌ Error: ${data.error}`)
+      }
+    } catch (err) {
+      setRewriteStatus(`❌ Request failed: ${String(err)}`)
+    } finally {
+      setIsRewriting(false)
+      setTimeout(() => setRewriteStatus(''), 8000)
+    }
+  }
+
+  // ── Reject ──────────────────────────────────────────────────
   const rejectArticle = async (id: string) => {
     await supabase
       .from('crawled_articles')
@@ -158,41 +225,44 @@ export default function ContentPipelineDashboard() {
     await fetchData()
   }
 
-  // ── Filter articles by search ─────────────────────────────
-  const filteredArticles = articles.filter(a => {
+  // ── Filter by search ────────────────────────────────────────
+  const filteredArticles = articles.filter((a) => {
     if (!searchQuery) return true
     const q = searchQuery.toLowerCase()
     return (
-      (a.rewritten_title || a.original_title).toLowerCase().includes(q) ||
+      a.original_title.toLowerCase().includes(q) ||
       a.source_name.toLowerCase().includes(q) ||
-      a.country.toLowerCase().includes(q)
+      (a.relevance_reason || '').toLowerCase().includes(q)
     )
   })
+
+  const selectedArticles = filteredArticles.filter((a) => selectedIds.has(a.id))
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--color-cream-DEFAULT)', fontFamily: 'var(--font-sans)' }}>
 
-      {/* ── Header ─────────────────────────────────────────── */}
+      {/* ── Header ───────────────────────────────────────────── */}
       <div style={{ background: 'var(--color-dark-DEFAULT)' }} className="px-6 py-5 pt-20">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-7xl mx-auto flex items-center justify-between flex-wrap gap-4">
           <div>
             <h1 style={{ fontFamily: 'var(--font-serif)', color: 'white' }} className="text-2xl font-normal">
               Content Pipeline
             </h1>
-            <p className="text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.55)' }}>
-              Greece Tourism Intelligence · {new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}
+            <p className="text-sm mt-0.5" style={{ color: 'rgba(255,255,255,0.45)' }}>
+              Review · Select · Rewrite · Publish &nbsp;·&nbsp;
+              {new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}
             </p>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-3 flex-wrap">
             {lastRun && (
-              <span className="text-xs" style={{ color: 'rgba(255,255,255,0.45)' }}>
+              <span className="text-xs" style={{ color: 'rgba(255,255,255,0.35)' }}>
                 Last run: {lastRun}
               </span>
             )}
             <button
               onClick={() => fetchData()}
               className="px-3 py-2 rounded-lg text-sm border transition-all"
-              style={{ borderColor: 'rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.7)' }}
+              style={{ borderColor: 'rgba(255,255,255,0.2)', color: 'rgba(255,255,255,0.6)' }}
             >
               ↻ Refresh
             </button>
@@ -200,12 +270,9 @@ export default function ContentPipelineDashboard() {
               onClick={triggerPipeline}
               disabled={isRunning}
               className="px-4 py-2 rounded-lg text-sm font-medium transition-all disabled:opacity-60"
-              style={{
-                background: isRunning ? 'rgba(255,86,53,0.6)' : 'var(--color-accent-DEFAULT)',
-                color: 'white',
-              }}
+              style={{ background: isRunning ? 'rgba(255,86,53,0.5)' : 'var(--color-accent-DEFAULT)', color: 'white' }}
             >
-              {isRunning ? '⟳ Running...' : '▶ Run Pipeline Now'}
+              {isRunning ? '⟳ Fetching...' : '▶ Run Pipeline'}
             </button>
           </div>
         </div>
@@ -213,78 +280,107 @@ export default function ContentPipelineDashboard() {
 
       <div className="max-w-7xl mx-auto px-6 py-8">
 
-        {/* ── Stats Grid ─────────────────────────────────────── */}
+        {/* ── Stats ────────────────────────────────────────────── */}
         {stats && (
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mb-6">
             {[
-              { label: 'Found Today', value: stats.total_today, color: '#180204', sub: 'total articles' },
-              { label: 'Relevant', value: stats.relevant_today, color: '#2C73FF', sub: 'to Greece tourism' },
-              { label: 'Ready', value: stats.ready_to_publish, color: '#10b981', sub: 'to publish' },
-              { label: 'Published', value: stats.published_today, color: '#8b5cf6', sub: 'today' },
-              { label: 'Need Research', value: stats.needs_research_count, color: '#FF5635', sub: 'flagged' },
-              { label: 'Errors', value: stats.errors_today, color: '#ef4444', sub: 'failed' },
-            ].map(s => (
+              { label: 'Found Today', value: stats.total_today, color: '#180204' },
+              { label: 'To Review', value: stats.relevant_today, color: '#2C73FF' },
+              { label: 'Ready', value: stats.ready_to_publish, color: '#10b981' },
+              { label: 'Published', value: stats.published_today, color: '#8b5cf6' },
+              { label: 'Research', value: stats.needs_research_count, color: '#FF5635' },
+              { label: 'Errors', value: stats.errors_today, color: '#ef4444' },
+            ].map((s) => (
               <div key={s.label} className="rounded-2xl p-4" style={{ background: 'white', border: '1px solid var(--color-cream-200)' }}>
-                <div className="text-3xl font-bold" style={{ color: s.color }}>
-                  {s.value ?? 0}
-                </div>
-                <div className="text-xs font-semibold mt-1" style={{ color: 'var(--color-dark-DEFAULT)' }}>
-                  {s.label}
-                </div>
-                <div className="text-xs" style={{ color: 'rgba(24,2,4,0.4)' }}>{s.sub}</div>
+                <div className="text-2xl font-bold" style={{ color: s.color }}>{s.value ?? 0}</div>
+                <div className="text-xs font-medium mt-0.5" style={{ color: 'rgba(24,2,4,0.5)' }}>{s.label}</div>
               </div>
             ))}
           </div>
         )}
 
-        {/* ── Source breakdown ───────────────────────────────── */}
-        {stats && (
-          <div className="rounded-2xl p-4 mb-6 flex gap-6 flex-wrap" style={{ background: 'white', border: '1px solid var(--color-cream-200)' }}>
-            <span className="text-xs font-semibold" style={{ color: 'rgba(24,2,4,0.4)' }}>BY MARKET:</span>
-            {[
-              { flag: '🇬🇷', label: 'Greece', value: stats.from_greece },
-              { flag: '🇬🇧', label: 'UK', value: stats.from_uk },
-              { flag: '🇩🇪', label: 'Germany', value: stats.from_germany },
-              { flag: '🇺🇸', label: 'US', value: stats.from_us },
-              { flag: '🌍', label: 'Industry', value: stats.from_industry },
-            ].map(m => (
-              <div key={m.label} className="flex items-center gap-1.5">
-                <span>{m.flag}</span>
-                <span className="text-sm font-medium" style={{ color: 'var(--color-dark-DEFAULT)' }}>{m.value ?? 0}</span>
-                <span className="text-xs" style={{ color: 'rgba(24,2,4,0.4)' }}>{m.label}</span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* ── Run Log ────────────────────────────────────────── */}
+        {/* ── Pipeline log ─────────────────────────────────────── */}
         {showLog && runLog.length > 0 && (
-          <div className="rounded-2xl p-4 mb-6" style={{ background: '#0f172a', border: '1px solid #1e293b' }}>
-            <div className="flex items-center justify-between mb-3">
+          <div className="rounded-2xl p-4 mb-6" style={{ background: '#0f172a' }}>
+            <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-semibold text-emerald-400">PIPELINE LOG</span>
-              <button onClick={() => setShowLog(false)} className="text-xs text-slate-500 hover:text-slate-300">✕ close</button>
+              <button onClick={() => setShowLog(false)} className="text-xs text-slate-500 hover:text-slate-300">✕</button>
             </div>
-            <div className="space-y-0.5 max-h-48 overflow-y-auto">
+            <div className="space-y-0.5 max-h-40 overflow-y-auto">
               {runLog.map((line, i) => (
                 <div key={i} className="text-xs font-mono text-slate-300">{line}</div>
               ))}
-              {isRunning && (
-                <div className="text-xs font-mono text-emerald-400 animate-pulse">▌</div>
-              )}
+              {isRunning && <div className="text-xs font-mono text-emerald-400 animate-pulse">▌</div>}
             </div>
           </div>
         )}
 
-        {/* ── Tabs + Search ──────────────────────────────────── */}
+        {/* ── Action Bar (shows when articles selected) ────────── */}
+        {selectedIds.size > 0 && (
+          <div className="rounded-2xl p-4 mb-4 flex items-center justify-between flex-wrap gap-3"
+            style={{ background: '#eff6ff', border: '2px solid #2C73FF' }}>
+            <div className="flex items-center gap-3">
+              <span className="text-sm font-semibold" style={{ color: '#1d4ed8' }}>
+                {selectedIds.size} article{selectedIds.size > 1 ? 's' : ''} selected
+              </span>
+              {selectedIds.size > 1 && (
+                <span className="text-xs" style={{ color: '#3b82f6' }}>
+                  {selectedArticles.map(a => a.source_name).join(', ')}
+                </span>
+              )}
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
+              <button
+                onClick={clearSelection}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium"
+                style={{ background: 'white', color: '#6b7280', border: '1px solid #e5e7eb' }}
+              >
+                Clear
+              </button>
+              {selectedIds.size > 1 && (
+                <button
+                  onClick={() => rewriteSelected('combine')}
+                  disabled={isRewriting}
+                  className="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all disabled:opacity-60 flex items-center gap-1.5"
+                  style={{ background: '#7c3aed', color: 'white' }}
+                >
+                  🔀 Combine into One Article
+                </button>
+              )}
+              <button
+                onClick={() => rewriteSelected('single')}
+                disabled={isRewriting}
+                className="px-4 py-1.5 rounded-lg text-xs font-semibold transition-all disabled:opacity-60 flex items-center gap-1.5"
+                style={{ background: 'var(--color-primary-DEFAULT)', color: 'white' }}
+              >
+                {isRewriting ? '⟳ Rewriting...' : `✍️ Rewrite ${selectedIds.size > 1 ? 'Each' : 'Article'}`}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* ── Rewrite status message ────────────────────────────── */}
+        {rewriteStatus && (
+          <div className="rounded-xl px-4 py-3 mb-4 text-sm font-medium"
+            style={{
+              background: rewriteStatus.startsWith('✅') ? '#f0fdf4' : rewriteStatus.startsWith('❌') ? '#fef2f2' : '#fffbeb',
+              color: rewriteStatus.startsWith('✅') ? '#166534' : rewriteStatus.startsWith('❌') ? '#991b1b' : '#92400e',
+              border: `1px solid ${rewriteStatus.startsWith('✅') ? '#bbf7d0' : rewriteStatus.startsWith('❌') ? '#fecaca' : '#fde68a'}`,
+            }}>
+            {rewriteStatus}
+          </div>
+        )}
+
+        {/* ── Tabs + Search ─────────────────────────────────────── */}
         <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
           <div className="flex gap-1 p-1 rounded-xl" style={{ background: 'white', border: '1px solid var(--color-cream-200)' }}>
             {([
-              { key: 'all', label: 'All (7d)' },
-              { key: 'ready', label: `Ready ${stats ? `(${stats.ready_to_publish})` : ''}` },
-              { key: 'needs_research', label: `Research ${stats ? `(${stats.needs_research_count})` : ''}` },
-              { key: 'published', label: 'Published' },
-              { key: 'error', label: 'Errors' },
-            ] as { key: FilterTab; label: string }[]).map(tab => (
+              { key: 'review', label: `📋 Review (${stats?.relevant_today ?? 0})` },
+              { key: 'ready', label: `✅ Ready (${stats?.ready_to_publish ?? 0})` },
+              { key: 'needs_research', label: `🔬 Research` },
+              { key: 'published', label: `📤 Published` },
+              { key: 'all', label: `All (7d)` },
+            ] as { key: FilterTab; label: string }[]).map((tab) => (
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
@@ -298,56 +394,65 @@ export default function ContentPipelineDashboard() {
               </button>
             ))}
           </div>
-          <input
-            type="text"
-            placeholder="Search articles..."
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            className="px-4 py-2 rounded-xl text-sm outline-none"
-            style={{
-              background: 'white',
-              border: '1px solid var(--color-cream-200)',
-              color: 'var(--color-dark-DEFAULT)',
-              width: '240px',
-            }}
-          />
+
+          <div className="flex items-center gap-2">
+            {activeTab === 'review' && filteredArticles.length > 0 && (
+              <button
+                onClick={selectedIds.size === filteredArticles.length ? clearSelection : selectAll}
+                className="px-3 py-2 rounded-xl text-sm font-medium"
+                style={{ background: 'white', border: '1px solid var(--color-cream-200)', color: 'var(--color-dark-400)' }}
+              >
+                {selectedIds.size === filteredArticles.length ? '☐ Deselect All' : '☑ Select All'}
+              </button>
+            )}
+            <input
+              type="text"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="px-4 py-2 rounded-xl text-sm outline-none"
+              style={{ background: 'white', border: '1px solid var(--color-cream-200)', width: '200px' }}
+            />
+          </div>
         </div>
 
-        {/* ── Research Queue Banner ──────────────────────────── */}
-        {activeTab === 'needs_research' && filteredArticles.length > 0 && (
-          <div className="rounded-2xl p-4 mb-4 flex items-start gap-3" style={{ background: '#fff7ed', border: '1px solid #fed7aa' }}>
-            <span className="text-xl">🔬</span>
+        {/* ── Review tab instructions ───────────────────────────── */}
+        {activeTab === 'review' && filteredArticles.length > 0 && (
+          <div className="rounded-2xl p-4 mb-4 flex items-start gap-3"
+            style={{ background: '#f0f9ff', border: '1px solid #bae6fd' }}>
+            <span className="text-lg">💡</span>
             <div>
-              <p className="text-sm font-semibold" style={{ color: '#9a3412' }}>Research Queue</p>
-              <p className="text-xs mt-0.5" style={{ color: '#c2410c' }}>
-                These articles contain topics that deserve deeper original research — new data, policy changes, emerging destinations, or market shifts. Turn them into high-value long-form content.
+              <p className="text-sm font-semibold" style={{ color: '#0369a1' }}>How to use</p>
+              <p className="text-xs mt-0.5" style={{ color: '#0284c7' }}>
+                Review each article, check the ones worth publishing, then click <strong>Rewrite Each</strong> for individual articles or <strong>Combine into One</strong> to merge related articles into a single comprehensive insight.
               </p>
             </div>
           </div>
         )}
 
-        {/* ── Article Cards ──────────────────────────────────── */}
+        {/* ── Article Cards ─────────────────────────────────────── */}
         {loading ? (
           <div className="flex items-center justify-center py-20">
-            <div className="text-center">
-              <div className="text-4xl mb-3">⟳</div>
-              <p className="text-sm" style={{ color: 'rgba(24,2,4,0.4)' }}>Loading articles...</p>
-            </div>
+            <p className="text-sm" style={{ color: 'rgba(24,2,4,0.4)' }}>Loading articles...</p>
           </div>
         ) : filteredArticles.length === 0 ? (
-          <div className="flex items-center justify-center py-20 rounded-2xl" style={{ background: 'white', border: '1px solid var(--color-cream-200)' }}>
-            <div className="text-center">
-              <div className="text-4xl mb-3">📭</div>
-              <p className="font-medium" style={{ fontFamily: 'var(--font-serif)', color: 'var(--color-dark-DEFAULT)' }}>No articles here yet</p>
-              <p className="text-sm mt-1" style={{ color: 'rgba(24,2,4,0.4)' }}>Run the pipeline to fetch today's content</p>
+          <div className="flex flex-col items-center justify-center py-20 rounded-2xl"
+            style={{ background: 'white', border: '1px solid var(--color-cream-200)' }}>
+            <div className="text-4xl mb-3">
+              {activeTab === 'review' ? '📭' : '✅'}
             </div>
+            <p className="font-medium" style={{ fontFamily: 'var(--font-serif)', color: 'var(--color-dark-DEFAULT)' }}>
+              {activeTab === 'review' ? 'No articles to review' : 'Nothing here yet'}
+            </p>
+            <p className="text-sm mt-1" style={{ color: 'rgba(24,2,4,0.4)' }}>
+              {activeTab === 'review' ? 'Run the pipeline to fetch today\'s content' : 'Switch to the Review tab'}
+            </p>
           </div>
         ) : (
-          <div className="space-y-3">
-            {filteredArticles.map(article => {
+          <div className="space-y-2">
+            {filteredArticles.map((article) => {
+              const isSelected = selectedIds.has(article.id)
               const isExpanded = expandedId === article.id
-              const displayTitle = article.rewritten_title || article.original_title
-              const displayExcerpt = article.rewritten_excerpt || article.original_excerpt
 
               return (
                 <div
@@ -355,95 +460,110 @@ export default function ContentPipelineDashboard() {
                   className="rounded-2xl overflow-hidden transition-all"
                   style={{
                     background: 'white',
-                    border: `1px solid ${article.needs_research ? '#fed7aa' : 'var(--color-cream-200)'}`,
+                    border: `2px solid ${isSelected ? '#2C73FF' : article.needs_research ? '#fed7aa' : 'var(--color-cream-200)'}`,
+                    boxShadow: isSelected ? '0 0 0 3px rgba(44,115,255,0.1)' : 'none',
                   }}
                 >
-                  {/* Card Header */}
                   <div className="p-4">
-                    <div className="flex items-start justify-between gap-4">
-                      {/* Left content */}
+                    <div className="flex items-start gap-3">
+
+                      {/* Checkbox (only on review tab) */}
+                      {activeTab === 'review' && (
+                        <button
+                          onClick={() => toggleSelect(article.id)}
+                          className="mt-0.5 flex-shrink-0 w-5 h-5 rounded border-2 flex items-center justify-center transition-all"
+                          style={{
+                            background: isSelected ? '#2C73FF' : 'white',
+                            borderColor: isSelected ? '#2C73FF' : '#d1d5db',
+                          }}
+                        >
+                          {isSelected && (
+                            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                            </svg>
+                          )}
+                        </button>
+                      )}
+
+                      {/* Article content */}
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-2 flex-wrap">
-                          <span className="text-base">{COUNTRY_FLAGS[article.country] || '🌐'}</span>
-                          <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{ background: 'var(--color-cream-200)', color: 'var(--color-dark-400)' }}>
+                        <div className="flex items-center gap-2 mb-1.5 flex-wrap">
+                          <span>{COUNTRY_FLAGS[article.country] || '🌐'}</span>
+                          <span className="text-xs font-medium px-2 py-0.5 rounded-full"
+                            style={{ background: 'var(--color-cream-200)', color: 'var(--color-dark-400)' }}>
                             {article.source_name}
                           </span>
                           <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_COLORS[article.status] || 'bg-gray-100'}`}>
                             {article.status}
                           </span>
-                          {article.needs_research && (
-                            <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-orange-100 text-orange-700">
-                              🔬 needs research
+                          {article.relevance_score !== null && (
+                            <span className="text-xs font-semibold px-2 py-0.5 rounded-full"
+                              style={{
+                                background: article.relevance_score >= 80 ? '#dcfce7' : '#fef9c3',
+                                color: article.relevance_score >= 80 ? '#166534' : '#713f12',
+                              }}>
+                              {article.relevance_score}%
                             </span>
                           )}
-                          {article.relevance_score !== null && (
-                            <span className="text-xs font-medium px-2 py-0.5 rounded-full" style={{
-                              background: article.relevance_score >= 80 ? '#dcfce7' : article.relevance_score >= 60 ? '#fef9c3' : '#f1f5f9',
-                              color: article.relevance_score >= 80 ? '#166534' : article.relevance_score >= 60 ? '#713f12' : '#475569',
-                            }}>
-                              {article.relevance_score}% relevant
+                          {article.needs_research && (
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-orange-100 text-orange-700">
+                              🔬 research needed
+                            </span>
+                          )}
+                          {article.language !== 'en' && (
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-violet-100 text-violet-700">
+                              {article.language === 'el' ? '🇬🇷 Greek' : '🇩🇪 German'} → will translate
                             </span>
                           )}
                         </div>
 
+                        {/* Title */}
                         <h3
-                          className="text-base font-medium leading-snug cursor-pointer hover:opacity-75 transition-opacity"
+                          className="text-base font-medium leading-snug cursor-pointer hover:opacity-70 transition-opacity"
                           style={{ fontFamily: 'var(--font-serif)', color: 'var(--color-dark-DEFAULT)' }}
                           onClick={() => setExpandedId(isExpanded ? null : article.id)}
                         >
-                          {displayTitle}
+                          {article.original_title}
                         </h3>
 
-                        {displayExcerpt && (
-                          <p className="text-sm mt-1.5 line-clamp-2" style={{ color: 'rgba(24,2,4,0.55)' }}>
-                            {displayExcerpt}
+                        {/* Relevance reason */}
+                        {article.relevance_reason && (
+                          <p className="text-xs mt-1 italic" style={{ color: 'rgba(24,2,4,0.45)' }}>
+                            {article.relevance_reason}
                           </p>
                         )}
 
-                        {/* Keywords */}
-                        {article.target_keywords && article.target_keywords.length > 0 && (
-                          <div className="flex flex-wrap gap-1.5 mt-2">
-                            {article.target_keywords.map(kw => (
-                              <span key={kw} className="text-xs px-2 py-0.5 rounded-full" style={{ background: '#eff6ff', color: '#1d4ed8' }}>
-                                {kw}
-                              </span>
-                            ))}
-                          </div>
+                        {/* Excerpt preview */}
+                        {article.original_excerpt && (
+                          <p className="text-sm mt-1.5 line-clamp-2" style={{ color: 'rgba(24,2,4,0.55)' }}>
+                            {article.original_excerpt}
+                          </p>
                         )}
                       </div>
 
                       {/* Actions */}
-                      <div className="flex flex-col gap-2 flex-shrink-0">
-                        {article.status === 'ready' && (
-                          <button
-                            onClick={() => publishArticle(article)}
-                            className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
-                            style={{ background: 'var(--color-primary-DEFAULT)', color: 'white' }}
-                          >
-                            ✓ Mark Published
-                          </button>
-                        )}
+                      <div className="flex flex-col gap-1.5 flex-shrink-0">
                         <a
                           href={article.original_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="px-3 py-1.5 rounded-lg text-xs font-medium text-center transition-all"
+                          className="px-3 py-1.5 rounded-lg text-xs font-medium text-center"
                           style={{ background: 'var(--color-cream-200)', color: 'var(--color-dark-400)' }}
                         >
-                          View Source ↗
+                          Source ↗
                         </a>
                         {article.sanity_draft_id && (
                           <a
-                            href={`https://greek-trip-planner.sanity.studio/structure/post;${article.sanity_draft_id}`}
+                            href={`https://greek-trip-planner.sanity.studio/structure/insight;${article.sanity_draft_id}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="px-3 py-1.5 rounded-lg text-xs font-medium text-center"
                             style={{ background: '#fdf4ff', color: '#7e22ce' }}
                           >
-                            Open in Sanity ↗
+                            Sanity ↗
                           </a>
                         )}
-                        {article.status !== 'rejected' && article.status !== 'published' && (
+                        {article.status === 'scored' && (
                           <button
                             onClick={() => rejectArticle(article.id)}
                             className="px-3 py-1.5 rounded-lg text-xs font-medium"
@@ -456,73 +576,52 @@ export default function ContentPipelineDashboard() {
                     </div>
 
                     {/* Expand toggle */}
-                    <button
-                      onClick={() => setExpandedId(isExpanded ? null : article.id)}
-                      className="mt-2 text-xs flex items-center gap-1 transition-opacity hover:opacity-60"
-                      style={{ color: 'rgba(24,2,4,0.35)' }}
-                    >
-                      {isExpanded ? '▲ Collapse' : '▼ Show rewritten content'}
-                    </button>
+                    {(article.original_content || article.original_excerpt) && (
+                      <button
+                        onClick={() => setExpandedId(isExpanded ? null : article.id)}
+                        className="mt-2 text-xs flex items-center gap-1 hover:opacity-60 transition-opacity"
+                        style={{ color: 'rgba(24,2,4,0.3)' }}
+                      >
+                        {isExpanded ? '▲ Collapse' : '▼ Preview content'}
+                      </button>
+                    )}
                   </div>
 
-                  {/* Expanded: rewritten content preview */}
+                  {/* Expanded: original content preview */}
                   {isExpanded && (
-                    <div className="px-4 pb-4 pt-0 border-t" style={{ borderColor: 'var(--color-cream-200)' }}>
-                      <div className="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        {/* Rewritten content */}
+                    <div className="px-4 pb-4 border-t" style={{ borderColor: 'var(--color-cream-200)' }}>
+                      <div className="mt-3 grid md:grid-cols-2 gap-4">
                         <div>
-                          <p className="text-xs font-semibold mb-2 uppercase tracking-wide" style={{ color: 'rgba(24,2,4,0.35)' }}>
-                            Rewritten Content
-                          </p>
-                          {article.rewritten_title && (
-                            <p className="text-sm font-semibold mb-1" style={{ fontFamily: 'var(--font-serif)', color: 'var(--color-dark-DEFAULT)' }}>
-                              {article.rewritten_title}
-                            </p>
-                          )}
-                          <div
-                            className="text-xs rounded-xl p-3 max-h-48 overflow-y-auto"
-                            style={{ background: 'var(--color-cream-100)', color: 'rgba(24,2,4,0.7)', lineHeight: '1.6' }}
-                            dangerouslySetInnerHTML={{
-                              __html: article.rewritten_content?.slice(0, 1000) + (article.rewritten_content && article.rewritten_content.length > 1000 ? '...' : '') || '<em>Not yet rewritten</em>',
-                            }}
-                          />
+                          <p className="text-xs font-semibold uppercase tracking-wide mb-2"
+                            style={{ color: 'rgba(24,2,4,0.35)' }}>Original Content</p>
+                          <div className="text-xs rounded-xl p-3 max-h-48 overflow-y-auto leading-relaxed"
+                            style={{ background: 'var(--color-cream-100)', color: 'rgba(24,2,4,0.65)' }}>
+                            {article.original_content?.slice(0, 1500) || article.original_excerpt || 'No content available'}
+                          </div>
                         </div>
-
-                        {/* Research notes */}
                         <div>
-                          <p className="text-xs font-semibold mb-2 uppercase tracking-wide" style={{ color: 'rgba(24,2,4,0.35)' }}>
-                            Research Notes
-                          </p>
-                          {article.needs_research ? (
-                            <div className="rounded-xl p-3" style={{ background: '#fff7ed', border: '1px solid #fed7aa' }}>
-                              <p className="text-xs font-semibold text-orange-700 mb-1">🔬 Topics to research:</p>
-                              <ul className="space-y-1">
-                                {(article.research_topics || []).map((t, i) => (
-                                  <li key={i} className="text-xs text-orange-600">• {t}</li>
+                          <p className="text-xs font-semibold uppercase tracking-wide mb-2"
+                            style={{ color: 'rgba(24,2,4,0.35)' }}>Details</p>
+                          <div className="space-y-2 text-xs" style={{ color: 'rgba(24,2,4,0.55)' }}>
+                            <p>📅 Crawled: {new Date(article.crawled_at).toLocaleString('en-GB')}</p>
+                            <p>🌐 Language: {article.language}</p>
+                            <p>📊 Relevance: {article.relevance_score}% — {article.relevance_reason}</p>
+                            {article.needs_research && article.research_topics && (
+                              <div className="rounded-lg p-2 mt-2"
+                                style={{ background: '#fff7ed', border: '1px solid #fed7aa' }}>
+                                <p className="font-semibold text-orange-700">🔬 Research topics:</p>
+                                {article.research_topics.map((t, i) => (
+                                  <p key={i} className="text-orange-600">• {t}</p>
                                 ))}
-                              </ul>
-                              {article.research_notes && (
-                                <p className="text-xs text-orange-600 mt-2 italic">{article.research_notes}</p>
-                              )}
-                            </div>
-                          ) : (
-                            <div className="rounded-xl p-3" style={{ background: '#f0fdf4', border: '1px solid #bbf7d0' }}>
-                              <p className="text-xs text-emerald-600">✓ No additional research needed</p>
-                            </div>
-                          )}
-
-                          {/* Meta */}
-                          <div className="mt-3 space-y-1">
-                            <p className="text-xs" style={{ color: 'rgba(24,2,4,0.4)' }}>
-                              📅 Crawled: {new Date(article.crawled_at).toLocaleString('en-GB')}
-                            </p>
-                            {article.processed_at && (
-                              <p className="text-xs" style={{ color: 'rgba(24,2,4,0.4)' }}>
-                                ✍️ Processed: {new Date(article.processed_at).toLocaleString('en-GB')}
-                              </p>
+                              </div>
                             )}
-                            {article.error_message && (
-                              <p className="text-xs text-red-500">⚠️ {article.error_message}</p>
+                            {/* Rewritten content if available */}
+                            {article.rewritten_title && (
+                              <div className="rounded-lg p-2 mt-2"
+                                style={{ background: '#f0fdf4', border: '1px solid #bbf7d0' }}>
+                                <p className="font-semibold text-emerald-700">✍️ Rewritten as:</p>
+                                <p className="text-emerald-600">{article.rewritten_title}</p>
+                              </div>
                             )}
                           </div>
                         </div>
