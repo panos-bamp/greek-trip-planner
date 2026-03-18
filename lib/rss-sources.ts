@@ -1,7 +1,5 @@
 // ============================================================
-// RSS Sources Configuration
-// 15 curated sources across 5 markets
-// Add new sources here — no other file needs to change
+// RSS Sources Configuration — verified working feeds
 // ============================================================
 
 export type Country = 'GR' | 'UK' | 'DE' | 'US' | 'INDUSTRY'
@@ -14,13 +12,12 @@ export interface RSSSource {
   language: Language
   flag: string
   rssUrl: string
-  // Optional: fallback scrape URL if RSS fails
   fallbackUrl?: string
-  // Weight for relevance (higher = more trusted source)
   trustScore: number
 }
 
 export const RSS_SOURCES: RSSSource[] = [
+
   // ─── 🇬🇷 Greek (4 sources) ───────────────────────────────────
   {
     id: 'ekathimerini',
@@ -28,7 +25,8 @@ export const RSS_SOURCES: RSSSource[] = [
     country: 'GR',
     language: 'en',
     flag: '🇬🇷',
-    rssUrl: 'https://www.ekathimerini.com/rss/',
+    rssUrl: 'https://www.ekathimerini.com/feed/',       // updated path
+    fallbackUrl: 'https://www.ekathimerini.com/rss.xml',
     trustScore: 95,
   },
   {
@@ -37,7 +35,8 @@ export const RSS_SOURCES: RSSSource[] = [
     country: 'GR',
     language: 'el',
     flag: '🇬🇷',
-    rssUrl: 'https://www.kathimerini.gr/rss/',
+    rssUrl: 'https://www.kathimerini.gr/feed/',          // updated path
+    fallbackUrl: 'https://www.kathimerini.gr/rss.xml',
     trustScore: 90,
   },
   {
@@ -46,17 +45,16 @@ export const RSS_SOURCES: RSSSource[] = [
     country: 'GR',
     language: 'el',
     flag: '🇬🇷',
-    rssUrl: 'https://www.travel.gr/feed/',
+    rssUrl: 'https://www.travel.gr/feed/',               // confirmed working
     trustScore: 85,
   },
   {
     id: 'protothema',
-    name: 'Protothema Travel',
+    name: 'Protothema',
     country: 'GR',
     language: 'el',
     flag: '🇬🇷',
-    rssUrl: 'https://www.protothema.gr/rss/travelling/',
-    fallbackUrl: 'https://www.protothema.gr/rss/',
+    rssUrl: 'https://www.protothema.gr/rss/',            // fixed path (was /rss/travelling/)
     trustScore: 80,
   },
 
@@ -67,27 +65,27 @@ export const RSS_SOURCES: RSSSource[] = [
     country: 'UK',
     language: 'en',
     flag: '🇬🇧',
-    rssUrl: 'https://www.theguardian.com/travel/rss',
+    rssUrl: 'https://www.theguardian.com/travel/rss',    // confirmed working
     trustScore: 95,
   },
   {
-    id: 'telegraph_travel',
-    name: 'Telegraph Travel',
+    id: 'independent_travel',
+    name: 'The Independent Travel',                      // replaces Telegraph (403)
     country: 'UK',
     language: 'en',
     flag: '🇬🇧',
-    rssUrl: 'https://www.telegraph.co.uk/rss.xml',
-    trustScore: 88,
+    rssUrl: 'https://www.independent.co.uk/travel/rss',
+    fallbackUrl: 'https://www.independent.co.uk/rss',
+    trustScore: 85,
   },
   {
-    id: 'lonelyplanet',
-    name: 'Lonely Planet',
+    id: 'roughguides',
+    name: 'Rough Guides',                                // replaces Lonely Planet (404)
     country: 'UK',
     language: 'en',
     flag: '🇬🇧',
-    rssUrl: 'https://www.lonelyplanet.com/news/feed',
-    fallbackUrl: 'https://www.lonelyplanet.com/feed',
-    trustScore: 92,
+    rssUrl: 'https://www.roughguides.com/feed/',
+    trustScore: 82,
   },
 
   // ─── 🇩🇪 German (3 sources) ──────────────────────────────────
@@ -97,26 +95,28 @@ export const RSS_SOURCES: RSSSource[] = [
     country: 'DE',
     language: 'de',
     flag: '🇩🇪',
-    rssUrl: 'https://www.spiegel.de/reise/index.rss',
+    rssUrl: 'https://www.spiegel.de/reise/index.rss',    // confirmed working
     trustScore: 93,
   },
   {
-    id: 'geo_reise',
-    name: 'Geo.de Reisen',
+    id: 'stern_reise',
+    name: 'Stern Reise',                                 // replaces Geo.de (404)
     country: 'DE',
     language: 'de',
     flag: '🇩🇪',
-    rssUrl: 'https://www.geo.de/rss',
-    trustScore: 85,
+    rssUrl: 'https://www.stern.de/reise/rss.xml',
+    fallbackUrl: 'https://www.stern.de/feed/rss.xml',
+    trustScore: 82,
   },
   {
-    id: 'reisereporter',
-    name: 'Reisereporter',
+    id: 'faz_reise',
+    name: 'FAZ Reise',                                   // replaces Reisereporter (404)
     country: 'DE',
     language: 'de',
     flag: '🇩🇪',
-    rssUrl: 'https://www.reisereporter.de/feed/',
-    trustScore: 78,
+    rssUrl: 'https://www.faz.net/rss/aktuell/reise/',
+    fallbackUrl: 'https://www.faz.net/aktuell/reise.rss',
+    trustScore: 88,
   },
 
   // ─── 🇺🇸 US (3 sources) ──────────────────────────────────────
@@ -126,27 +126,27 @@ export const RSS_SOURCES: RSSSource[] = [
     country: 'US',
     language: 'en',
     flag: '🇺🇸',
-    rssUrl: 'https://www.cntraveler.com/feed/rss',
+    rssUrl: 'https://www.cntraveler.com/feed/rss',       // confirmed working
     trustScore: 92,
   },
   {
-    id: 'travelandleisure',
-    name: 'Travel + Leisure',
+    id: 'fodors',
+    name: "Fodor's Travel",                              // replaces T+L (403) and AFAR (403)
     country: 'US',
     language: 'en',
     flag: '🇺🇸',
-    rssUrl: 'https://www.travelandleisure.com/rss/all.rss',
-    trustScore: 90,
+    rssUrl: 'https://www.fodors.com/feed',
+    fallbackUrl: 'https://www.fodors.com/rss.xml',
+    trustScore: 83,
   },
   {
-    id: 'afar',
-    name: 'AFAR Magazine',
+    id: 'frommers',
+    name: "Frommer's Travel",
     country: 'US',
     language: 'en',
     flag: '🇺🇸',
-    rssUrl: 'https://www.afar.com/magazine/rss/recent',
-    fallbackUrl: 'https://www.afar.com/feeds/afar.rss',
-    trustScore: 85,
+    rssUrl: 'https://www.frommers.com/feed',
+    trustScore: 80,
   },
 
   // ─── 🌍 Industry (2 sources) ─────────────────────────────────
@@ -156,24 +156,23 @@ export const RSS_SOURCES: RSSSource[] = [
     country: 'INDUSTRY',
     language: 'en',
     flag: '🌍',
-    rssUrl: 'https://skift.com/feed/',
+    rssUrl: 'https://skift.com/feed/',                   // confirmed working
     trustScore: 95,
   },
   {
-    id: 'phocuswire',
-    name: 'Phocuswire',
+    id: 'travelweekly',
+    name: 'Travel Weekly',                               // replaces Phocuswire (403)
     country: 'INDUSTRY',
     language: 'en',
     flag: '🌍',
-    rssUrl: 'https://www.phocuswire.com/rss',
-    trustScore: 90,
+    rssUrl: 'https://www.travelweekly.com/rss',
+    fallbackUrl: 'https://www.travelweekly.com/feed',
+    trustScore: 88,
   },
 ]
 
-// Helper: get sources by country
 export const getSourcesByCountry = (country: Country) =>
   RSS_SOURCES.filter(s => s.country === country)
 
-// Helper: get all non-English sources (need translation)
 export const getNonEnglishSources = () =>
   RSS_SOURCES.filter(s => s.language !== 'en')
