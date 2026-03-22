@@ -48,6 +48,58 @@ function anthropicHeaders() {
   }
 }
 
+// ─── HTML Entity Decoder ─────────────────────────────────────
+// Decodes HTML entities and strips tags from source content
+// Handles Greek (&#928; &Pi;), German, and standard HTML entities
+function decodeHtmlContent(html: string): string {
+  if (!html) return ''
+
+  return html
+    // Named HTML entities
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&shy;/g, '')
+    .replace(/&ndash;/g, '–')
+    .replace(/&mdash;/g, '—')
+    .replace(/&laquo;/g, '«')
+    .replace(/&raquo;/g, '»')
+    .replace(/&hellip;/g, '...')
+    // Numeric HTML entities (covers Greek: &#928; = Π, etc.)
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(parseInt(code, 10)))
+    // Hex HTML entities
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
+    // Named Greek entities (&Pi; &Sigma; etc.) — catch-all for any remaining
+    .replace(/&[A-Za-z]+;/g, (entity) => {
+      const entities: Record<string, string> = {
+        '&Alpha;': 'Α', '&Beta;': 'Β', '&Gamma;': 'Γ', '&Delta;': 'Δ',
+        '&Epsilon;': 'Ε', '&Zeta;': 'Ζ', '&Eta;': 'Η', '&Theta;': 'Θ',
+        '&Iota;': 'Ι', '&Kappa;': 'Κ', '&Lambda;': 'Λ', '&Mu;': 'Μ',
+        '&Nu;': 'Ν', '&Xi;': 'Ξ', '&Omicron;': 'Ο', '&Pi;': 'Π',
+        '&Rho;': 'Ρ', '&Sigma;': 'Σ', '&Tau;': 'Τ', '&Upsilon;': 'Υ',
+        '&Phi;': 'Φ', '&Chi;': 'Χ', '&Psi;': 'Ψ', '&Omega;': 'Ω',
+        '&alpha;': 'α', '&beta;': 'β', '&gamma;': 'γ', '&delta;': 'δ',
+        '&epsilon;': 'ε', '&zeta;': 'ζ', '&eta;': 'η', '&theta;': 'θ',
+        '&iota;': 'ι', '&kappa;': 'κ', '&lambda;': 'λ', '&mu;': 'μ',
+        '&nu;': 'ν', '&xi;': 'ξ', '&omicron;': 'ο', '&pi;': 'π',
+        '&rho;': 'ρ', '&sigma;': 'σ', '&tau;': 'τ', '&upsilon;': 'υ',
+        '&phi;': 'φ', '&chi;': 'χ', '&psi;': 'ψ', '&omega;': 'ω',
+        '&sigmaf;': 'ς',
+      }
+      return entities[entity] || entity
+    })
+    // Strip remaining HTML tags
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+    .replace(/<[^>]+>/g, ' ')
+    // Clean up whitespace
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+}
+
 // ─── Relevance Scoring (batched) ─────────────────────────────
 
 export async function scoreArticlesBatch(
@@ -58,7 +110,7 @@ export async function scoreArticlesBatch(
   const articlesPayload = articles.map((a, i) => ({
     index: i,
     title: a.title,
-    excerpt: a.excerpt?.slice(0, 300) || '',
+    excerpt: decodeHtmlContent(a.excerpt || '').slice(0, 300),
     source: a.sourceName,
     country: a.country,
     language: a.language,
@@ -208,7 +260,7 @@ Title: ${article.title}
 Source: ${article.sourceName} (${article.country})
 Language: ${article.language}
 URL: ${article.url}
-Content: ${(article.content || article.excerpt || article.title).slice(0, 3000)}
+Content: ${decodeHtmlContent(article.content || article.excerpt || article.title).slice(0, 3000)}
 ${needsTranslation ? '\n[TRANSLATE from Greek/German — use as starting point only, do not copy]\n' : ''}
 Relevance Score: ${article.relevanceScore}/100
 ${internalLinksBlock}

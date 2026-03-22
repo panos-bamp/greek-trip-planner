@@ -127,20 +127,17 @@ export async function createSanityDraft(
     canonicalUrl: `https://greektriplanner.me/insights/${article.suggestedSlug}`,
 
     // ── Schema markup ──────────────────────────────────────────
-    // Article schema — always enabled for all pipeline insights
-    enableArticleSchema: true,
-    articleSchema: {
-      headline: (article.rewrittenTitle || article.title).slice(0, 110),
-      description: (article.rewrittenExcerpt || article.excerpt || '').slice(0, 300),
-      author: 'Greek Trip Planner Research',
-      publisher: 'Greek Trip Planner',
-      datePublished: new Date().toISOString(),
-    },
+    // Article schema type — field name in Sanity is schemaArticleType
+    // Detect best type based on insightType
+    schemaArticleType: (['market-report', 'statistics'].includes(insightType))
+      ? 'NewsArticle'
+      : 'Article',
 
     // FAQ schema — enabled when Claude generated FAQ items
+    // Field names match insight.ts exactly: enableFaqSchema + faqItems
     enableFaqSchema: (article.faqItems && article.faqItems.length > 0),
-    faqItems: (article.faqItems || []).map((item: FaqItem, idx: number) => ({
-      _type: 'object',
+    faqItems: (article.faqItems || []).map((item: FaqItem) => ({
+      _type: 'faqItem',      // must match schema array item name
       _key: randomKey(),
       question: item.question,
       answer: item.answer,
