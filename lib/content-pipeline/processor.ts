@@ -1,6 +1,8 @@
 // ============================================================
 // Article Processor
-// Handles: relevance scoring, translation, rewriting, flagging
+// Handles: relevance scoring, translation, deep research rewriting
+// Rewrite uses web_search tool for live research before writing
+// Output: 2000-5000 words depending on topic depth
 // ============================================================
 
 export interface RawArticle {
@@ -44,7 +46,7 @@ function anthropicHeaders() {
   }
 }
 
-// ─── Relevance Scoring ────────────────────────────────────────
+// ─── Relevance Scoring (batched) ─────────────────────────────
 
 export async function scoreArticlesBatch(
   articles: RawArticle[]
@@ -114,7 +116,7 @@ Respond ONLY with valid JSON array (no markdown, no explanation):
     }> = JSON.parse(clean)
 
     return articles.map((article, i) => {
-      const score = scores.find((s) => s.index === i)
+      const score = scores.find(s => s.index === i)
       return {
         ...article,
         relevanceScore: score?.relevance_score ?? 0,
@@ -124,7 +126,7 @@ Respond ONLY with valid JSON array (no markdown, no explanation):
     })
   } catch (err) {
     console.error('Batch scoring error:', err)
-    return articles.map((a) => ({
+    return articles.map(a => ({
       ...a,
       relevanceScore: 0,
       relevanceReason: 'Scoring failed',
@@ -133,7 +135,26 @@ Respond ONLY with valid JSON array (no markdown, no explanation):
   }
 }
 
-// ─── Article Rewrite ──────────────────────────────────────────
+// ─── Deep Research Rewrite ────────────────────────────────────
+//
+// How it works:
+// 1. Claude receives the source article as a starting point
+// 2. It uses web_search to research the topic deeply:
+//    - Finds similar articles to understand coverage gaps
+//    - Searches for current stats, prices, seasonal data
+//    - Finds practical travel info (transport, booking, costs)
+// 3. Claude writes a 2000-5000 word comprehensive article
+// 4. We run an agentic loop until Claude stops using tools
+//
+// Word count scales with relevance score:
+//   90%+  → 4000-5000 words
+//   70-89% → 3000-4000 words
+//   55-69% → 2000-3000 words
+
+const WEB_SEARCH_TOOL = {
+  type: 'web_search_20250305',
+  name: 'web_search',
+}
 
 export async function rewriteArticle(
   article: ScoredArticle,
@@ -141,68 +162,170 @@ export async function rewriteArticle(
 ): Promise<ProcessedArticle> {
   const needsTranslation = article.language !== 'en'
 
+  const wordCount = article.relevanceScore >= 90
+    ? '4000-5000'
+    : article.relevanceScore >= 70
+      ? '3000-4000'
+      : '2000-3000'
+
   const combinedNote = isCombined
-    ? `\nIMPORTANT: This content comes from MULTIPLE sources that have been combined. Your task is to synthesize them into ONE cohesive, comprehensive insight article. Do not repeat points — merge overlapping information and create a unified narrative.\n`
+    ? `\nIMPORTANT: This content comes from MULTIPLE sources. Synthesize them into ONE cohesive comprehensive article — merge overlapping information, do not repeat points.\n`
     : ''
 
-  const prompt = `You are an expert travel content writer specializing in Greek tourism. Your task is to rewrite and significantly enhance this article for an English-language Greece travel planning website (greektriplanner.me).
-${combinedNote}
-SOURCE ARTICLE:
+  const systemPrompt = `You are a senior travel journalist and SEO content strategist specializing in Greece inbound tourism. You write for greektriplanner.me — an authoritative English-language resource for international visitors planning trips to Greece.
+
+Your writing principles:
+- Stay strictly on the topic and angle of the source article — do not expand into unrelated areas
+- Write with authority, depth, and genuine expertise
+- Be data-driven: include specific statistics, numbers, dates, and named sources
+- Use natural SEO keyword integration — never keyword-stuffing
+- Structure with clear H2/H3 headings optimized for featured snippets
+
+IMPORTANT: greektriplanner.me already has dedicated blog posts covering Getting There,
+Best Time to Visit, Where to Stay, Food & Dining, and Day Trips for major destinations.
+Do NOT write generic travel guide sections. Stay focused on the specific topic,
+angle, or news story the source article covers. Go deep on that topic — not wide.`
+
+  const userPrompt = `${combinedNote}
+SOURCE ARTICLE (defines the topic and angle — stay focused on this):
 Title: ${article.title}
 Source: ${article.sourceName} (${article.country})
 Language: ${article.language}
 URL: ${article.url}
-Content: ${article.content || article.excerpt || article.title}
-${needsTranslation && !isCombined ? '\n[NOTE: Content may be in Greek or German — translate AND rewrite]' : ''}
+Content: ${(article.content || article.excerpt || article.title).slice(0, 3000)}
+${needsTranslation ? '\n[TRANSLATE from Greek/German — use as starting point only, do not copy]\n' : ''}
+Relevance Score: ${article.relevanceScore}/100
 
-YOUR TASK:
-Rewrite this into a high-quality, original insight article that:
-1. Is written in fluent, engaging English
-2. Adds value beyond the original (context, data interpretation, booking advice, local insights)
-3. Is SEO-optimized for travelers and travel professionals searching for Greece travel intelligence
-4. Is 500-700 words
-5. Has a compelling, keyword-rich title
-6. Uses <h2>, <h3>, <p>, <ul> HTML tags in the body
+─────────────────────────────────────────
+STEP 1 — RESEARCH
 
-Also identify:
-- 3-5 target SEO keywords (long-tail, high intent)
-- 3-5 content tags
-- Whether this topic needs DEEPER RESEARCH (new data, price changes, policy updates, emerging destinations, hotel/tour openings, ferry changes, regulatory news)
+Always run these 2 searches:
+• Search 1: Top existing articles on this exact topic — what angle do they take, what are the gaps?
+• Search 2: Current 2025-2026 data, statistics, or news directly about this topic
 
-Respond ONLY with valid JSON (no markdown, no explanation):
+Only run these IF the source article touches on these areas:
+• Search 3 (costs/booking): Only if source mentions prices, fees, bookings, or commercial aspects
+• Search 4 (local specifics): Only if source mentions specific places, experiences, or local culture
+• Search 5 (recent developments): Only if source mentions new openings, changes, policy updates, or emerging trends
+
+─────────────────────────────────────────
+STEP 2 — WRITE a ${wordCount} word article
+
+Stay focused on the specific topic and angle from the source article.
+Build depth within that topic using what you found in Step 1.
+
+Let the content determine the sections — not a template.
+Structure your article around what THIS specific topic requires.
+
+Examples:
+- Marine reserve article → the reserve, marine life, diving specifics, conservation status, visitor experience
+- Tourism statistics article → trend analysis, source market breakdown, YoY comparison, industry implications  
+- New hotel/development article → property details, market context, pricing tier, what it means for visitors
+- Policy/regulation article → what changed, who it affects, timeline, practical impact on travelers
+
+Every section must add real depth:
+• Use specific numbers, names, and sources from your research
+• Include official data or expert context where found
+• Explain WHY this matters — to travelers or to the industry
+• End with a concise Key Takeaways section (5 bullet points max)
+
+Use HTML: <h2>, <h3>, <p>, <ul>, <li>, <strong>. No <html>, <body>, or <head> tags.
+
+─────────────────────────────────────────
+STEP 3 — After research and writing, output ONLY this JSON (no markdown fences):
+
 {
-  "rewritten_title": "...",
-  "rewritten_excerpt": "2-3 sentence meta description (max 160 chars)",
-  "rewritten_content": "Full article HTML...",
-  "suggested_slug": "url-friendly-slug",
-  "target_keywords": ["keyword 1", "keyword 2", "keyword 3"],
-  "suggested_tags": ["tag1", "tag2", "tag3"],
+  "rewritten_title": "SEO title 60-70 characters with primary keyword",
+  "rewritten_excerpt": "Meta description 150-160 chars — specific, enticing, includes keyword",
+  "rewritten_content": "THE FULL ARTICLE HTML — minimum ${wordCount.split('-')[0]} words",
+  "suggested_slug": "primary-keyword-greece-guide",
+  "target_keywords": ["primary keyword", "secondary keyword", "long-tail phrase 1", "long-tail phrase 2", "long-tail phrase 3"],
+  "suggested_tags": ["tag1", "tag2", "tag3", "tag4", "tag5"],
   "needs_research": true/false,
-  "research_topics": ["topic 1", "topic 2"],
-  "research_notes": "Brief note on what additional research would add value"
+  "research_topics": ["specific data point still missing", "expert source that would add value"],
+  "research_notes": "One sentence on what would make this article even stronger"
 }`
 
   try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: anthropicHeaders(),
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-5',
-        max_tokens: 3000,
-        messages: [{ role: 'user', content: prompt }],
-      }),
-    })
+    const messages: object[] = [
+      { role: 'user', content: userPrompt }
+    ]
 
-    if (!response.ok) {
-      const errText = await response.text()
-      console.error(`Anthropic rewrite API error ${response.status}:`, errText)
-      throw new Error(`API ${response.status}: ${errText}`)
+    let finalText = ''
+    let iterations = 0
+    const MAX_ITERATIONS = 12
+
+    while (iterations < MAX_ITERATIONS) {
+      iterations++
+      console.log(`  Research iteration ${iterations}/${MAX_ITERATIONS}...`)
+
+      const response = await fetch('https://api.anthropic.com/v1/messages', {
+        method: 'POST',
+        headers: anthropicHeaders(),
+        body: JSON.stringify({
+          model: 'claude-sonnet-4-5',
+          max_tokens: 16000,
+          system: systemPrompt,
+          tools: [WEB_SEARCH_TOOL],
+          messages,
+        }),
+      })
+
+      if (!response.ok) {
+        const errText = await response.text()
+        console.error(`Anthropic rewrite API error ${response.status}:`, errText)
+        throw new Error(`API ${response.status}: ${errText}`)
+      }
+
+      const data = await response.json()
+      const stopReason = data.stop_reason
+
+      // Add assistant turn to history
+      messages.push({ role: 'assistant', content: data.content })
+
+      // Done — extract final text
+      if (stopReason === 'end_turn') {
+        const textBlock = data.content.find((b: any) => b.type === 'text')
+        if (textBlock?.text) finalText = textBlock.text
+        break
+      }
+
+      // Tool use — feed results back and continue
+      if (stopReason === 'tool_use') {
+        const toolUseBlocks = data.content.filter((b: any) => b.type === 'tool_use')
+
+        // Web search results are embedded in the tool_result blocks
+        // returned by the API — we acknowledge each one
+        const toolResults = toolUseBlocks.map((toolUse: any) => ({
+          type: 'tool_result',
+          tool_use_id: toolUse.id,
+          // The actual search results come back via the API automatically
+          // We just need to continue the loop
+          content: 'Search results received. Continue research or proceed to writing.',
+        }))
+
+        messages.push({ role: 'user', content: toolResults })
+        continue
+      }
+
+      // Fallback — try to get text and exit
+      const textBlock = data.content?.find((b: any) => b.type === 'text')
+      if (textBlock?.text) finalText = textBlock.text
+      break
     }
 
-    const data = await response.json()
-    const text = data.content?.[0]?.text || '{}'
-    const clean = text.replace(/```json|```/g, '').trim()
-    const result = JSON.parse(clean)
+    if (!finalText) throw new Error('No output produced after research loop')
+
+    // Extract JSON — handle any leading text before the JSON object
+    const clean = finalText.replace(/```json|```/g, '').trim()
+    const jsonStart = clean.indexOf('{')
+    const jsonEnd = clean.lastIndexOf('}')
+
+    if (jsonStart === -1 || jsonEnd === -1) {
+      throw new Error('No JSON object found in Claude output')
+    }
+
+    const result = JSON.parse(clean.slice(jsonStart, jsonEnd + 1))
 
     return {
       ...article,
@@ -216,6 +339,7 @@ Respond ONLY with valid JSON (no markdown, no explanation):
       researchTopics: result.research_topics || [],
       researchNotes: result.research_notes || '',
     }
+
   } catch (err) {
     console.error(`Rewrite error for "${article.title}":`, err)
     return {
@@ -226,9 +350,9 @@ Respond ONLY with valid JSON (no markdown, no explanation):
       suggestedSlug: slugify(article.title),
       targetKeywords: [],
       suggestedTags: [],
-      needsResearch: false,
-      researchTopics: [],
-      researchNotes: '',
+      needsResearch: true,
+      researchTopics: ['Rewrite failed — manual rewrite needed'],
+      researchNotes: String(err),
     }
   }
 }
@@ -245,4 +369,4 @@ function slugify(text: string): string {
 }
 
 export const delay = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms))
+  new Promise(resolve => setTimeout(resolve, ms))
