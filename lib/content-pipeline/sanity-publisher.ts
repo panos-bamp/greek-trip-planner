@@ -7,6 +7,9 @@
 
 import type { ProcessedArticle } from './processor'
 
+// FAQ item type
+interface FaqItem { question: string; answer: string }
+
 const SANITY_PROJECT_ID = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!
 const SANITY_DATASET   = process.env.NEXT_PUBLIC_SANITY_DATASET || 'production'
 const SANITY_TOKEN     = process.env.SANITY_API_TOKEN! // needs Editor or Admin role
@@ -123,9 +126,30 @@ export async function createSanityDraft(
     focusKeyword: article.targetKeywords?.[0] || '',
     canonicalUrl: `https://greektriplanner.me/insights/${article.suggestedSlug}`,
 
-    // Schema markup defaults
+    // ── Schema markup ──────────────────────────────────────────
+    // Article schema — always enabled for all pipeline insights
     enableArticleSchema: true,
+    articleSchema: {
+      headline: (article.rewrittenTitle || article.title).slice(0, 110),
+      description: (article.rewrittenExcerpt || article.excerpt || '').slice(0, 300),
+      author: 'Greek Trip Planner Research',
+      publisher: 'Greek Trip Planner',
+      datePublished: new Date().toISOString(),
+    },
+
+    // FAQ schema — enabled when Claude generated FAQ items
+    enableFaqSchema: (article.faqItems && article.faqItems.length > 0),
+    faqItems: (article.faqItems || []).map((item: FaqItem, idx: number) => ({
+      _type: 'object',
+      _key: randomKey(),
+      question: item.question,
+      answer: item.answer,
+    })),
+
+    // Breadcrumb schema — always enabled
     enableBreadcrumbSchema: true,
+
+    // Speakable — off by default
     enableSpeakableSchema: false,
 
     ctaType: 'subscribe',

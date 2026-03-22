@@ -1,5 +1,6 @@
 // ============================================================
 // Article Processor
+import { findRelevantLinks, formatLinksForPrompt } from '@/lib/content-pipeline/internal-links'
 // Handles: relevance scoring, translation, deep research rewriting
 // Rewrite uses web_search tool for live research before writing
 // Output: 2000-5000 words depending on topic depth
@@ -35,6 +36,7 @@ export interface ProcessedArticle extends ScoredArticle {
   needsResearch: boolean
   researchTopics: string[]
   researchNotes: string
+  faqItems: Array<{ question: string; answer: string }>
 }
 
 // ─── Shared Anthropic headers ─────────────────────────────────
@@ -168,6 +170,20 @@ export async function rewriteArticle(
       ? '3000-4000'
       : '2000-3000'
 
+  // Find relevant internal links from the site's existing content
+  const sourceText = `${article.title} ${article.excerpt || ''} ${article.content || ''}`
+  const relevantLinks = findRelevantLinks(sourceText, 8)
+  const internalLinksBlock = relevantLinks.length > 0
+    ? `\n─────────────────────────────────────────
+INTERNAL LINKS TO INCLUDE:
+Naturally embed 3-6 of these links within the article body where contextually relevant.
+Use them as anchor text on natural phrases — not "click here" or bare URLs.
+Only use links that genuinely relate to the section content.
+
+${formatLinksForPrompt(relevantLinks)}
+─────────────────────────────────────────`
+    : ''
+
   const combinedNote = isCombined
     ? `\nIMPORTANT: This content comes from MULTIPLE sources. Synthesize them into ONE cohesive comprehensive article — merge overlapping information, do not repeat points.\n`
     : ''
@@ -195,7 +211,7 @@ URL: ${article.url}
 Content: ${(article.content || article.excerpt || article.title).slice(0, 3000)}
 ${needsTranslation ? '\n[TRANSLATE from Greek/German — use as starting point only, do not copy]\n' : ''}
 Relevance Score: ${article.relevanceScore}/100
-
+${internalLinksBlock}
 ─────────────────────────────────────────
 STEP 1 — RESEARCH
 
@@ -243,8 +259,21 @@ STEP 3 — After research and writing, output ONLY this JSON (no markdown fences
   "suggested_tags": ["tag1", "tag2", "tag3", "tag4", "tag5"],
   "needs_research": true/false,
   "research_topics": ["specific data point still missing", "expert source that would add value"],
-  "research_notes": "One sentence on what would make this article even stronger"
-}`
+  "research_notes": "One sentence on what would make this article even stronger",
+  "faq_items": [
+    {"question": "Question travelers commonly ask about this topic?", "answer": "Detailed answer in 2-3 sentences."},
+    {"question": "Another common question?", "answer": "Detailed answer."},
+    {"question": "Third question?", "answer": "Detailed answer."},
+    {"question": "Fourth question?", "answer": "Detailed answer."},
+    {"question": "Fifth question?", "answer": "Detailed answer."}
+  ]
+}
+
+RULES FOR FAQ:
+- 5 questions minimum, 8 maximum
+- Questions must be real things travelers or industry professionals ask about THIS specific topic
+- Answers must be specific and useful — not generic
+- Do not duplicate content already in the article body`
 
   try {
     const messages: object[] = [
@@ -338,6 +367,7 @@ STEP 3 — After research and writing, output ONLY this JSON (no markdown fences
       needsResearch: result.needs_research || false,
       researchTopics: result.research_topics || [],
       researchNotes: result.research_notes || '',
+      faqItems: result.faq_items || [],
     }
 
   } catch (err) {
@@ -353,6 +383,7 @@ STEP 3 — After research and writing, output ONLY this JSON (no markdown fences
       needsResearch: true,
       researchTopics: ['Rewrite failed — manual rewrite needed'],
       researchNotes: String(err),
+      faqItems: [],
     }
   }
 }
