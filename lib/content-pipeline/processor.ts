@@ -147,7 +147,7 @@ Respond ONLY with valid JSON array (no markdown, no explanation):
       method: 'POST',
       headers: anthropicHeaders(),
       body: JSON.stringify({
-        model: 'claude-sonnet-4-5',
+        model: 'claude-sonnet-4-5-20251001',
         max_tokens: 2000,
         messages: [{ role: 'user', content: prompt }],
       }),
@@ -205,9 +205,13 @@ Respond ONLY with valid JSON array (no markdown, no explanation):
 //   70-89% → 3000-4000 words
 //   55-69% → 2000-3000 words
 
+// web_search_20250305 is a server-side built-in tool.
+// Anthropic executes the search automatically — no tool_result needed from us.
+// The search results are embedded directly in the assistant's response content.
 const WEB_SEARCH_TOOL = {
   type: 'web_search_20250305',
   name: 'web_search',
+  max_uses: 5,
 }
 
 export async function rewriteArticle(
@@ -344,7 +348,7 @@ RULES FOR FAQ:
         method: 'POST',
         headers: anthropicHeaders(),
         body: JSON.stringify({
-          model: 'claude-sonnet-4-5',
+          model: 'claude-sonnet-4-5-20251001',
           max_tokens: 16000,
           system: systemPrompt,
           tools: [WEB_SEARCH_TOOL],
@@ -355,7 +359,13 @@ RULES FOR FAQ:
       if (!response.ok) {
         const errText = await response.text()
         console.error(`Anthropic rewrite API error ${response.status}:`, errText)
-        throw new Error(`API ${response.status}: ${errText}`)
+        // Parse for cleaner error message
+        try {
+          const errJson = JSON.parse(errText)
+          throw new Error(`API ${response.status}: ${errJson?.error?.message || errText}`)
+        } catch {
+          throw new Error(`API ${response.status}: ${errText}`)
+        }
       }
 
       const data = await response.json()
@@ -395,7 +405,10 @@ RULES FOR FAQ:
       break
     }
 
-    if (!finalText) throw new Error('No output produced after research loop')
+    if (!finalText) {
+      console.error('No final text after', iterations, 'iterations. Last messages:', JSON.stringify(messages.slice(-2)))
+      throw new Error('No output produced after research loop — check Vercel logs for details')
+    }
 
     // Extract JSON — handle any leading text before the JSON object
     const clean = finalText.replace(/```json|```/g, '').trim()
@@ -423,7 +436,9 @@ RULES FOR FAQ:
     }
 
   } catch (err) {
-    console.error(`Rewrite error for "${article.title}":`, err)
+    const errMsg = String(err)
+    console.error(`Rewrite error for "${article.title}": ${errMsg}`)
+    // Surface the actual error in researchNotes so it's visible in the dashboard
     return {
       ...article,
       rewrittenTitle: article.title,
@@ -433,8 +448,8 @@ RULES FOR FAQ:
       targetKeywords: [],
       suggestedTags: [],
       needsResearch: true,
-      researchTopics: ['Rewrite failed — manual rewrite needed'],
-      researchNotes: String(err),
+      researchTopics: [`Rewrite failed: ${errMsg}`],
+      researchNotes: errMsg,
       faqItems: [],
     }
   }

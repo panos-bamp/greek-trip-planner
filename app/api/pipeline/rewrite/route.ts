@@ -159,9 +159,10 @@ export async function POST(request: NextRequest) {
       })
     }
   } catch (err) {
-    console.error('Rewrite error:', err)
+    const errMsg = String(err)
+    console.error('Rewrite error:', errMsg)
     return NextResponse.json(
-      { success: false, error: String(err) },
+      { success: false, error: errMsg },
       { status: 500 }
     )
   }
