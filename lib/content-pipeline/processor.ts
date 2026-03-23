@@ -147,7 +147,7 @@ Respond ONLY with valid JSON array (no markdown, no explanation):
       method: 'POST',
       headers: anthropicHeaders(),
       body: JSON.stringify({
-        model: 'claude-sonnet-4-5-20251001',
+        model: 'claude-sonnet-4-6',
         max_tokens: 2000,
         messages: [{ role: 'user', content: prompt }],
       }),
@@ -348,7 +348,7 @@ RULES FOR FAQ:
         method: 'POST',
         headers: anthropicHeaders(),
         body: JSON.stringify({
-          model: 'claude-sonnet-4-5-20251001',
+          model: 'claude-sonnet-4-6',
           max_tokens: 16000,
           system: systemPrompt,
           tools: [WEB_SEARCH_TOOL],
