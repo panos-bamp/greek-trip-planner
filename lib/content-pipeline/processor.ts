@@ -361,35 +361,35 @@ RULES FOR FAQ:
       const data = await response.json()
       const stopReason = data.stop_reason
 
-      // Add assistant turn to history
+      // ── How web_search_20250305 works ──────────────────────────
+      // This is a SERVER-SIDE tool — Anthropic executes the search
+      // automatically. The real search results are already embedded
+      // inside data.content as tool_result blocks alongside tool_use.
+      // We MUST NOT send fake tool_result messages back — doing so
+      // overwrites the real results and breaks translation/research.
+      //
+      // Correct flow:
+      //   1. Add the full assistant message (tool_use + tool_result) to history
+      //   2. Call the API again — Claude reads the real results and continues
+      //   3. Repeat until stop_reason === 'end_turn'
+
+      // Add the full assistant turn (includes real search results) to history
       messages.push({ role: 'assistant', content: data.content })
 
-      // Done — extract final text
       if (stopReason === 'end_turn') {
+        // Claude is done — find the final text block
         const textBlock = data.content.find((b: any) => b.type === 'text')
         if (textBlock?.text) finalText = textBlock.text
         break
       }
 
-      // Tool use — feed results back and continue
       if (stopReason === 'tool_use') {
-        const toolUseBlocks = data.content.filter((b: any) => b.type === 'tool_use')
-
-        // Web search results are embedded in the tool_result blocks
-        // returned by the API — we acknowledge each one
-        const toolResults = toolUseBlocks.map((toolUse: any) => ({
-          type: 'tool_result',
-          tool_use_id: toolUse.id,
-          // The actual search results come back via the API automatically
-          // We just need to continue the loop
-          content: 'Search results received. Continue research or proceed to writing.',
-        }))
-
-        messages.push({ role: 'user', content: toolResults })
+        // Search was executed — real results are in data.content
+        // Just loop: call API again so Claude can read results and continue
         continue
       }
 
-      // Fallback — try to get text and exit
+      // Any other stop reason — try to extract text and exit
       const textBlock = data.content?.find((b: any) => b.type === 'text')
       if (textBlock?.text) finalText = textBlock.text
       break
