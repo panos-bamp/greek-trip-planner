@@ -502,11 +502,6 @@ function extractClaudeOutput(raw: string): Record<string, any> | null {
     // Restore the real HTML content
     if (htmlContent) {
       parsed.rewritten_content = htmlContent
-        .replace(/\n/g, '
-')
-        .replace(/\t/g, '	')
-        .replace(/\"/g, '"')
-        .replace(/\\/g, '\')
     }
 
     return parsed
