@@ -48,54 +48,66 @@ function anthropicHeaders() {
   }
 }
 
-// ─── HTML Entity Decoder ─────────────────────────────────────
-// Decodes HTML entities and strips tags from source content
-// Handles Greek (&#928; &Pi;), German, and standard HTML entities
+// ─── Content Cleaner ─────────────────────────────────────────
+// Decodes HTML entities, strips tags, and extracts meaningful text.
+// Handles full HTML pages (<!DOCTYPE>) by extracting body/article content.
+// Handles Greek (&#928; &Pi;), German, and standard HTML entities.
 function decodeHtmlContent(html: string): string {
   if (!html) return ''
 
-  return html
-    // Named HTML entities
+  let text = html
+
+  // If this looks like a full HTML page, extract just the article body
+  if (text.includes('<!DOCTYPE') || text.includes('<html') || text.includes('<body')) {
+    // Try to extract content between <article> or <main> or <div class="content">
+    const articleMatch = text.match(/<article[^>]*>([\s\S]*?)<\/article>/i)
+    const mainMatch = text.match(/<main[^>]*>([\s\S]*?)<\/main>/i)
+    const bodyMatch = text.match(/<body[^>]*>([\s\S]*?)<\/body>/i)
+    // Use the most specific match available
+    text = articleMatch?.[1] || mainMatch?.[1] || bodyMatch?.[1] || text
+  }
+
+  return text
+    // Remove script/style blocks first
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+    .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, '')
+    .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, '')
+    .replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, '')
+    // Decode numeric entities (covers all Unicode: Greek &#928;=Π, etc.)
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(parseInt(code, 10)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
+    // Decode named entities
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&apos;/g, "'")
     .replace(/&nbsp;/g, ' ')
-    .replace(/&shy;/g, '')
     .replace(/&ndash;/g, '–')
     .replace(/&mdash;/g, '—')
+    .replace(/&hellip;/g, '...')
     .replace(/&laquo;/g, '«')
     .replace(/&raquo;/g, '»')
-    .replace(/&hellip;/g, '...')
-    // Numeric HTML entities (covers Greek: &#928; = Π, etc.)
-    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(parseInt(code, 10)))
-    // Hex HTML entities
-    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
-    // Named Greek entities (&Pi; &Sigma; etc.) — catch-all for any remaining
+    // Named Greek entities — catches any remaining after numeric decode
     .replace(/&[A-Za-z]+;/g, (entity) => {
-      const entities: Record<string, string> = {
-        '&Alpha;': 'Α', '&Beta;': 'Β', '&Gamma;': 'Γ', '&Delta;': 'Δ',
-        '&Epsilon;': 'Ε', '&Zeta;': 'Ζ', '&Eta;': 'Η', '&Theta;': 'Θ',
-        '&Iota;': 'Ι', '&Kappa;': 'Κ', '&Lambda;': 'Λ', '&Mu;': 'Μ',
-        '&Nu;': 'Ν', '&Xi;': 'Ξ', '&Omicron;': 'Ο', '&Pi;': 'Π',
-        '&Rho;': 'Ρ', '&Sigma;': 'Σ', '&Tau;': 'Τ', '&Upsilon;': 'Υ',
-        '&Phi;': 'Φ', '&Chi;': 'Χ', '&Psi;': 'Ψ', '&Omega;': 'Ω',
-        '&alpha;': 'α', '&beta;': 'β', '&gamma;': 'γ', '&delta;': 'δ',
-        '&epsilon;': 'ε', '&zeta;': 'ζ', '&eta;': 'η', '&theta;': 'θ',
-        '&iota;': 'ι', '&kappa;': 'κ', '&lambda;': 'λ', '&mu;': 'μ',
-        '&nu;': 'ν', '&xi;': 'ξ', '&omicron;': 'ο', '&pi;': 'π',
-        '&rho;': 'ρ', '&sigma;': 'σ', '&tau;': 'τ', '&upsilon;': 'υ',
-        '&phi;': 'φ', '&chi;': 'χ', '&psi;': 'ψ', '&omega;': 'ω',
-        '&sigmaf;': 'ς',
+      const map: Record<string, string> = {
+        '&Alpha;':'Α','&Beta;':'Β','&Gamma;':'Γ','&Delta;':'Δ','&Epsilon;':'Ε',
+        '&Zeta;':'Ζ','&Eta;':'Η','&Theta;':'Θ','&Iota;':'Ι','&Kappa;':'Κ',
+        '&Lambda;':'Λ','&Mu;':'Μ','&Nu;':'Ν','&Xi;':'Ξ','&Omicron;':'Ο',
+        '&Pi;':'Π','&Rho;':'Ρ','&Sigma;':'Σ','&Tau;':'Τ','&Upsilon;':'Υ',
+        '&Phi;':'Φ','&Chi;':'Χ','&Psi;':'Ψ','&Omega;':'Ω',
+        '&alpha;':'α','&beta;':'β','&gamma;':'γ','&delta;':'δ','&epsilon;':'ε',
+        '&zeta;':'ζ','&eta;':'η','&theta;':'θ','&iota;':'ι','&kappa;':'κ',
+        '&lambda;':'λ','&mu;':'μ','&nu;':'ν','&xi;':'ξ','&omicron;':'ο',
+        '&pi;':'π','&rho;':'ρ','&sigma;':'σ','&sigmaf;':'ς','&tau;':'τ',
+        '&upsilon;':'υ','&phi;':'φ','&chi;':'χ','&psi;':'ψ','&omega;':'ω',
       }
-      return entities[entity] || entity
+      return map[entity] || ''
     })
     // Strip remaining HTML tags
-    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
     .replace(/<[^>]+>/g, ' ')
-    // Clean up whitespace
+    // Clean whitespace
     .replace(/\s{2,}/g, ' ')
     .trim()
 }
@@ -406,8 +418,9 @@ RULES FOR FAQ:
     }
 
     if (!finalText) {
-      console.error('No final text after', iterations, 'iterations. Last messages:', JSON.stringify(messages.slice(-2)))
-      throw new Error('No output produced after research loop — check Vercel logs for details')
+      console.error('No final text after', iterations, 'iterations.')
+      // Fallback: try a simple rewrite without web search
+      return await simpleRewrite(article)
     }
 
     // Extract JSON — handle any leading text before the JSON object
@@ -416,10 +429,17 @@ RULES FOR FAQ:
     const jsonEnd = clean.lastIndexOf('}')
 
     if (jsonStart === -1 || jsonEnd === -1) {
-      throw new Error('No JSON object found in Claude output')
+      console.error('No JSON in Claude output, falling back to simple rewrite')
+      return await simpleRewrite(article)
     }
 
-    const result = JSON.parse(clean.slice(jsonStart, jsonEnd + 1))
+    let result: any
+    try {
+      result = JSON.parse(clean.slice(jsonStart, jsonEnd + 1))
+    } catch (parseErr) {
+      console.error('JSON parse failed, falling back to simple rewrite:', parseErr)
+      return await simpleRewrite(article)
+    }
 
     return {
       ...article,
@@ -450,6 +470,94 @@ RULES FOR FAQ:
       needsResearch: true,
       researchTopics: [`Rewrite failed: ${errMsg}`],
       researchNotes: errMsg,
+      faqItems: [],
+    }
+  }
+}
+
+// ─── Simple Rewrite Fallback ─────────────────────────────────
+// Used when web-search rewrite fails (no JSON output, token limit, etc.)
+// Straightforward single API call — no tools, clean prompt, reliable output
+
+async function simpleRewrite(article: ScoredArticle): Promise<ProcessedArticle> {
+  const needsTranslation = article.language !== 'en'
+  const cleanContent = decodeHtmlContent(article.content || article.excerpt || article.title).slice(0, 2000)
+
+  const prompt = `You are a travel content writer specializing in Greece tourism. Write an English article for greektriplanner.me based on this source.
+${needsTranslation ? 'IMPORTANT: The source is in Greek or German. Translate it and write the article in English.' : ''}
+
+SOURCE:
+Title: ${article.title}
+Content: ${cleanContent}
+
+Write a 1500-2000 word article. Stay focused on the specific topic. Use HTML: <h2>, <h3>, <p>, <ul>, <li>.
+
+Output ONLY this JSON (no markdown):
+{
+  "rewritten_title": "SEO title with primary keyword",
+  "rewritten_excerpt": "Meta description 150-160 chars",
+  "rewritten_content": "Full article HTML",
+  "suggested_slug": "url-slug",
+  "target_keywords": ["keyword1", "keyword2", "keyword3"],
+  "suggested_tags": ["tag1", "tag2", "tag3"],
+  "needs_research": false,
+  "research_topics": [],
+  "research_notes": "Written via simple fallback — no web search used",
+  "faq_items": [
+    {"question": "Common question about this topic?", "answer": "Specific answer."},
+    {"question": "Another question?", "answer": "Specific answer."},
+    {"question": "Third question?", "answer": "Specific answer."}
+  ]
+}`
+
+  try {
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: anthropicHeaders(),
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-6',
+        max_tokens: 8000,
+        messages: [{ role: 'user', content: prompt }],
+      }),
+    })
+
+    if (!response.ok) {
+      throw new Error(`Simple rewrite API error ${response.status}: ${await response.text()}`)
+    }
+
+    const data = await response.json()
+    const text = data.content?.[0]?.text || ''
+    const clean = text.replace(/```json|```/g, '').trim()
+    const jsonStart = clean.indexOf('{')
+    const jsonEnd = clean.lastIndexOf('}')
+    const result = JSON.parse(clean.slice(jsonStart, jsonEnd + 1))
+
+    return {
+      ...article,
+      rewrittenTitle: result.rewritten_title || article.title,
+      rewrittenExcerpt: result.rewritten_excerpt || '',
+      rewrittenContent: result.rewritten_content || '',
+      suggestedSlug: result.suggested_slug || slugify(article.title),
+      targetKeywords: result.target_keywords || [],
+      suggestedTags: result.suggested_tags || [],
+      needsResearch: result.needs_research || false,
+      researchTopics: result.research_topics || [],
+      researchNotes: result.research_notes || 'Written via simple fallback — no web search used',
+      faqItems: result.faq_items || [],
+    }
+  } catch (err) {
+    // Total failure — return original with error noted
+    return {
+      ...article,
+      rewrittenTitle: article.title,
+      rewrittenExcerpt: article.excerpt || '',
+      rewrittenContent: decodeHtmlContent(article.content || article.excerpt || ''),
+      suggestedSlug: slugify(article.title),
+      targetKeywords: [],
+      suggestedTags: [],
+      needsResearch: true,
+      researchTopics: [`Both rewrites failed: ${String(err)}`],
+      researchNotes: String(err),
       faqItems: [],
     }
   }
