@@ -292,16 +292,30 @@ h1, h2, h3, .font-serif {
   color: var(--color-dark-DEFAULT);
 }
 
+/* ─── All links in blog content ───────────────────────────────────────────────
+   Covers both internal links AND affiliate text links — same color intentionally.
+   Using font-weight: 500 (medium) ensures links are visually distinct from both
+   regular body text (400) and bold text (600), without looking like an ad.       */
 .prose-insight a {
   color: #2C73FF;
+  font-weight: 500;
   text-decoration: underline;
   text-decoration-color: rgba(44, 115, 255, 0.3);
+  text-underline-offset: 2px;
   transition: all 0.2s ease;
 }
 
 .prose-insight a:hover {
   color: #0052E0;
   text-decoration-color: #0052E0;
+}
+
+/* When an editor bolds an anchor (strong + link mark in Sanity), ensure the
+   link colour still wins over the dark strong colour.                            */
+.prose-insight a strong,
+.prose-insight strong a {
+  color: inherit;       /* inherit the #2C73FF from the parent <a> */
+  font-weight: 600;     /* keep bold weight */
 }
 
 .prose-insight strong {
@@ -345,7 +359,7 @@ h1, h2, h3, .font-serif {
   font-style: italic;
 }
 
-/* Tables inside insight articles */
+/* ─── Tables inside insight articles ─────────────────────────────────────── */
 .prose-insight table {
   width: 100%;
   border-collapse: collapse;
@@ -385,12 +399,91 @@ h1, h2, h3, .font-serif {
   color: var(--color-dark-DEFAULT);
 }
 
-/* HTML embeds inside insights */
+/* ─── HTML embed container (affiliate widgets + custom tables) ────────────── */
 .prose-insight .html-embed-container {
   margin: 2rem 0;
   overflow-x: auto;
+  /* Prevents Travelpayouts iframe overflow causing scroll bars */
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
+/* ─── Travelpayouts widget responsive wrapper ─────────────────────────────────
+   The automation wraps every widget in this div. It clips the iframe to
+   the article column width on all screen sizes, eliminating scroll bars.         */
+.prose-insight .html-embed-container > div[style*="overflow:hidden"],
+.prose-insight > div[style*="overflow:hidden"][style*="max-width:100%"] {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* ─── HTML embed tables (from html-embed-table-styles.css)  ──────────────────
+   Uses site palette tokens instead of generic blue. Applied to any <table>
+   rendered inside an htmlEmbed block in Sanity.                                  */
+.html-embed-container table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  border: 1px solid #E6DAD1;     /* cream-300 — matches prose-insight tables */
+}
+
+.html-embed-container thead tr {
+  background-color: #180204;     /* dark — matches prose-insight thead */
+  color: white;
+}
+
+.html-embed-container th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  border-bottom: 2px solid #3a1012;
+}
+
+.html-embed-container td {
+  padding: 0.75rem 1rem;
+  color: rgba(24, 2, 4, 0.7);
+  border-bottom: 1px solid #F0E8E2;  /* cream-200 */
+}
+
+.html-embed-container tbody tr:nth-child(even) {
+  background-color: #FAF6F3;    /* cream — warm alternating rows */
+}
+
+.html-embed-container tbody tr:nth-child(odd) {
+  background-color: #FFFFFF;
+}
+
+.html-embed-container tbody tr:hover {
+  background-color: #EBF1FF;    /* primary-50 — blue tint on hover */
+  transition: background-color 0.15s ease;
+}
+
+/* First column bold (destination names, hotel names, etc.) */
+.html-embed-container td:first-child {
+  font-weight: 600;
+  color: var(--color-dark-DEFAULT);
+}
+
+/* Links inside embed tables */
+.html-embed-container a {
+  color: #2C73FF;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(44, 115, 255, 0.3);
+}
+
+.html-embed-container a:hover {
+  color: #0052E0;
+}
+
+/* ─── Mobile ──────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .prose-insight h2 {
     font-size: 1.5rem;
@@ -400,5 +493,24 @@ h1, h2, h3, .font-serif {
   }
   .prose-insight p {
     font-size: 1rem;
+  }
+
+  /* Table horizontal scroll on mobile — pulls to edge of screen */
+  .html-embed-container {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    overflow-x: auto;
+  }
+
+  .html-embed-container table {
+    font-size: 0.85rem;
+    min-width: 520px;   /* forces scroll instead of squishing columns */
+  }
+
+  .html-embed-container th,
+  .html-embed-container td {
+    padding: 0.6rem 0.75rem;
   }
 }
