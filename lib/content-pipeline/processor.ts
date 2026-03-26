@@ -48,66 +48,54 @@ function anthropicHeaders() {
   }
 }
 
-// ─── Content Cleaner ─────────────────────────────────────────
-// Decodes HTML entities, strips tags, and extracts meaningful text.
-// Handles full HTML pages (<!DOCTYPE>) by extracting body/article content.
-// Handles Greek (&#928; &Pi;), German, and standard HTML entities.
+// ─── HTML Entity Decoder ─────────────────────────────────────
+// Decodes HTML entities and strips tags from source content
+// Handles Greek (&#928; &Pi;), German, and standard HTML entities
 function decodeHtmlContent(html: string): string {
   if (!html) return ''
 
-  let text = html
-
-  // If this looks like a full HTML page, extract just the article body
-  if (text.includes('<!DOCTYPE') || text.includes('<html') || text.includes('<body')) {
-    // Try to extract content between <article> or <main> or <div class="content">
-    const articleMatch = text.match(/<article[^>]*>([\s\S]*?)<\/article>/i)
-    const mainMatch = text.match(/<main[^>]*>([\s\S]*?)<\/main>/i)
-    const bodyMatch = text.match(/<body[^>]*>([\s\S]*?)<\/body>/i)
-    // Use the most specific match available
-    text = articleMatch?.[1] || mainMatch?.[1] || bodyMatch?.[1] || text
-  }
-
-  return text
-    // Remove script/style blocks first
-    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
-    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
-    .replace(/<nav[^>]*>[\s\S]*?<\/nav>/gi, '')
-    .replace(/<header[^>]*>[\s\S]*?<\/header>/gi, '')
-    .replace(/<footer[^>]*>[\s\S]*?<\/footer>/gi, '')
-    // Decode numeric entities (covers all Unicode: Greek &#928;=Π, etc.)
-    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(parseInt(code, 10)))
-    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
-    // Decode named entities
+  return html
+    // Named HTML entities
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&apos;/g, "'")
     .replace(/&nbsp;/g, ' ')
+    .replace(/&shy;/g, '')
     .replace(/&ndash;/g, '–')
     .replace(/&mdash;/g, '—')
-    .replace(/&hellip;/g, '...')
     .replace(/&laquo;/g, '«')
     .replace(/&raquo;/g, '»')
-    // Named Greek entities — catches any remaining after numeric decode
+    .replace(/&hellip;/g, '...')
+    // Numeric HTML entities (covers Greek: &#928; = Π, etc.)
+    .replace(/&#(\d+);/g, (_, code) => String.fromCharCode(parseInt(code, 10)))
+    // Hex HTML entities
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
+    // Named Greek entities (&Pi; &Sigma; etc.) — catch-all for any remaining
     .replace(/&[A-Za-z]+;/g, (entity) => {
-      const map: Record<string, string> = {
-        '&Alpha;':'Α','&Beta;':'Β','&Gamma;':'Γ','&Delta;':'Δ','&Epsilon;':'Ε',
-        '&Zeta;':'Ζ','&Eta;':'Η','&Theta;':'Θ','&Iota;':'Ι','&Kappa;':'Κ',
-        '&Lambda;':'Λ','&Mu;':'Μ','&Nu;':'Ν','&Xi;':'Ξ','&Omicron;':'Ο',
-        '&Pi;':'Π','&Rho;':'Ρ','&Sigma;':'Σ','&Tau;':'Τ','&Upsilon;':'Υ',
-        '&Phi;':'Φ','&Chi;':'Χ','&Psi;':'Ψ','&Omega;':'Ω',
-        '&alpha;':'α','&beta;':'β','&gamma;':'γ','&delta;':'δ','&epsilon;':'ε',
-        '&zeta;':'ζ','&eta;':'η','&theta;':'θ','&iota;':'ι','&kappa;':'κ',
-        '&lambda;':'λ','&mu;':'μ','&nu;':'ν','&xi;':'ξ','&omicron;':'ο',
-        '&pi;':'π','&rho;':'ρ','&sigma;':'σ','&sigmaf;':'ς','&tau;':'τ',
-        '&upsilon;':'υ','&phi;':'φ','&chi;':'χ','&psi;':'ψ','&omega;':'ω',
+      const entities: Record<string, string> = {
+        '&Alpha;': 'Α', '&Beta;': 'Β', '&Gamma;': 'Γ', '&Delta;': 'Δ',
+        '&Epsilon;': 'Ε', '&Zeta;': 'Ζ', '&Eta;': 'Η', '&Theta;': 'Θ',
+        '&Iota;': 'Ι', '&Kappa;': 'Κ', '&Lambda;': 'Λ', '&Mu;': 'Μ',
+        '&Nu;': 'Ν', '&Xi;': 'Ξ', '&Omicron;': 'Ο', '&Pi;': 'Π',
+        '&Rho;': 'Ρ', '&Sigma;': 'Σ', '&Tau;': 'Τ', '&Upsilon;': 'Υ',
+        '&Phi;': 'Φ', '&Chi;': 'Χ', '&Psi;': 'Ψ', '&Omega;': 'Ω',
+        '&alpha;': 'α', '&beta;': 'β', '&gamma;': 'γ', '&delta;': 'δ',
+        '&epsilon;': 'ε', '&zeta;': 'ζ', '&eta;': 'η', '&theta;': 'θ',
+        '&iota;': 'ι', '&kappa;': 'κ', '&lambda;': 'λ', '&mu;': 'μ',
+        '&nu;': 'ν', '&xi;': 'ξ', '&omicron;': 'ο', '&pi;': 'π',
+        '&rho;': 'ρ', '&sigma;': 'σ', '&tau;': 'τ', '&upsilon;': 'υ',
+        '&phi;': 'φ', '&chi;': 'χ', '&psi;': 'ψ', '&omega;': 'ω',
+        '&sigmaf;': 'ς',
       }
-      return map[entity] || ''
+      return entities[entity] || entity
     })
     // Strip remaining HTML tags
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '')
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, '')
     .replace(/<[^>]+>/g, ' ')
-    // Clean whitespace
+    // Clean up whitespace
     .replace(/\s{2,}/g, ' ')
     .trim()
 }
@@ -418,27 +406,14 @@ RULES FOR FAQ:
     }
 
     if (!finalText) {
-      console.error('No final text after', iterations, 'iterations.')
-      // Fallback: try a simple rewrite without web search
-      return await simpleRewrite(article)
+      console.error('No final text after', iterations, 'iterations — falling back to simple rewrite')
+      return await simpleRewriteArticle(article)
     }
 
-    // Extract JSON — handle any leading text before the JSON object
-    const clean = finalText.replace(/```json|```/g, '').trim()
-    const jsonStart = clean.indexOf('{')
-    const jsonEnd = clean.lastIndexOf('}')
-
-    if (jsonStart === -1 || jsonEnd === -1) {
-      console.error('No JSON in Claude output, falling back to simple rewrite')
-      return await simpleRewrite(article)
-    }
-
-    let result: any
-    try {
-      result = JSON.parse(clean.slice(jsonStart, jsonEnd + 1))
-    } catch (parseErr) {
-      console.error('JSON parse failed, falling back to simple rewrite:', parseErr)
-      return await simpleRewrite(article)
+    // Robust extraction — HTML content inside JSON breaks standard JSON.parse
+    const result = extractClaudeOutput(finalText)
+    if (!result) {
+      throw new Error('No JSON object found in Claude output — check Vercel logs')
     }
 
     return {
@@ -458,7 +433,13 @@ RULES FOR FAQ:
   } catch (err) {
     const errMsg = String(err)
     console.error(`Rewrite error for "${article.title}": ${errMsg}`)
-    // Surface the actual error in researchNotes so it's visible in the dashboard
+    // Try simple rewrite before giving up completely
+    try {
+      console.log('Attempting simple rewrite fallback...')
+      return await simpleRewriteArticle(article)
+    } catch {
+      // Both failed — return original with error
+    }
     return {
       ...article,
       rewrittenTitle: article.title,
@@ -475,91 +456,135 @@ RULES FOR FAQ:
   }
 }
 
+// ─── Robust Claude Output Parser ────────────────────────────
+// Problem: JSON.parse fails when rewritten_content contains unescaped
+// HTML quotes/special chars. Solution: extract rewritten_content via
+// regex separately, parse everything else as JSON, then recombine.
+
+function extractClaudeOutput(raw: string): Record<string, any> | null {
+  try {
+    const text = raw.replace(/```json[\s\S]*?```|```/g, '').trim()
+    const start = text.indexOf('{')
+    const end = text.lastIndexOf('}')
+    if (start === -1 || end === -1) return null
+
+    const jsonStr = text.slice(start, end + 1)
+
+    // Extract rewritten_content separately using regex
+    // It sits between "rewritten_content": " and the closing ", "next_key"
+    const contentRegex = /"rewritten_content"\s*:\s*"([\s\S]*?)"\s*,\s*"(?:suggested_slug|target_keywords|needs_research|faq_items|research_notes|research_topics)"/
+    const contentMatch = jsonStr.match(contentRegex)
+    const htmlContent = contentMatch ? contentMatch[1] : ''
+
+    // Build a sanitized JSON string with a safe placeholder
+    let sanitized: string
+    if (contentMatch) {
+      const nextKey = contentMatch[0].match(/"(suggested_slug|target_keywords|needs_research|faq_items|research_notes|research_topics)"/)![1]
+      sanitized = jsonStr.replace(
+        contentMatch[0],
+        `"rewritten_content": "PLACEHOLDER", "${nextKey}"`
+      )
+    } else {
+      sanitized = jsonStr
+    }
+
+    // Parse the sanitized JSON
+    let parsed: Record<string, any>
+    try {
+      parsed = JSON.parse(sanitized)
+    } catch (e1) {
+      // Aggressive cleanup for control characters
+      const superClean = sanitized
+        .replace(/[ --]/g, '')
+      parsed = JSON.parse(superClean)
+    }
+
+    // Restore the real HTML content
+    if (htmlContent) {
+      parsed.rewritten_content = htmlContent
+        .replace(/\n/g, '
+')
+        .replace(/\t/g, '	')
+        .replace(/\"/g, '"')
+        .replace(/\\/g, '\')
+    }
+
+    return parsed
+  } catch (err) {
+    console.error('extractClaudeOutput failed:', String(err))
+    return null
+  }
+}
+
 // ─── Simple Rewrite Fallback ─────────────────────────────────
-// Used when web-search rewrite fails (no JSON output, token limit, etc.)
-// Straightforward single API call — no tools, clean prompt, reliable output
+// Used when web-search rewrite fails. Single API call, no tools,
+// clean prompt. Handles Greek/German translation reliably.
 
-async function simpleRewrite(article: ScoredArticle): Promise<ProcessedArticle> {
+async function simpleRewriteArticle(article: ScoredArticle): Promise<ProcessedArticle> {
   const needsTranslation = article.language !== 'en'
-  const cleanContent = decodeHtmlContent(article.content || article.excerpt || article.title).slice(0, 2000)
+  const cleanContent = decodeHtmlContent(
+    article.content || article.excerpt || article.title
+  ).slice(0, 2000)
 
-  const prompt = `You are a travel content writer specializing in Greece tourism. Write an English article for greektriplanner.me based on this source.
-${needsTranslation ? 'IMPORTANT: The source is in Greek or German. Translate it and write the article in English.' : ''}
+  const prompt = `You are a travel content writer specializing in Greece tourism. Write an English article for greektriplanner.me.
+${needsTranslation ? 'SOURCE IS IN GREEK OR GERMAN. You MUST translate it and write entirely in English.' : ''}
 
 SOURCE:
 Title: ${article.title}
 Content: ${cleanContent}
 
-Write a 1500-2000 word article. Stay focused on the specific topic. Use HTML: <h2>, <h3>, <p>, <ul>, <li>.
+Write a detailed 1500-2000 word insight article in English. Stay focused on the topic. Use HTML tags: <h2>, <h3>, <p>, <ul>, <li>, <strong>.
 
-Output ONLY this JSON (no markdown):
+Respond with ONLY this JSON object. Escape all quotes inside strings with backslash. No markdown fences:
 {
-  "rewritten_title": "SEO title with primary keyword",
+  "rewritten_title": "SEO title with primary keyword (60-70 chars)",
   "rewritten_excerpt": "Meta description 150-160 chars",
-  "rewritten_content": "Full article HTML",
+  "rewritten_content": "Full article HTML here",
   "suggested_slug": "url-slug",
   "target_keywords": ["keyword1", "keyword2", "keyword3"],
   "suggested_tags": ["tag1", "tag2", "tag3"],
   "needs_research": false,
   "research_topics": [],
-  "research_notes": "Written via simple fallback — no web search used",
+  "research_notes": "Simple fallback rewrite — no web search",
   "faq_items": [
-    {"question": "Common question about this topic?", "answer": "Specific answer."},
-    {"question": "Another question?", "answer": "Specific answer."},
-    {"question": "Third question?", "answer": "Specific answer."}
+    {"question": "Relevant question 1?", "answer": "Specific answer."},
+    {"question": "Relevant question 2?", "answer": "Specific answer."},
+    {"question": "Relevant question 3?", "answer": "Specific answer."}
   ]
 }`
 
-  try {
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: anthropicHeaders(),
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 8000,
-        messages: [{ role: 'user', content: prompt }],
-      }),
-    })
+  const response = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: anthropicHeaders(),
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-6',
+      max_tokens: 8000,
+      messages: [{ role: 'user', content: prompt }],
+    }),
+  })
 
-    if (!response.ok) {
-      throw new Error(`Simple rewrite API error ${response.status}: ${await response.text()}`)
-    }
+  if (!response.ok) {
+    throw new Error(`Simple rewrite API ${response.status}: ${await response.text()}`)
+  }
 
-    const data = await response.json()
-    const text = data.content?.[0]?.text || ''
-    const clean = text.replace(/```json|```/g, '').trim()
-    const jsonStart = clean.indexOf('{')
-    const jsonEnd = clean.lastIndexOf('}')
-    const result = JSON.parse(clean.slice(jsonStart, jsonEnd + 1))
+  const data = await response.json()
+  const text = data.content?.[0]?.text || ''
+  const result = extractClaudeOutput(text)
 
-    return {
-      ...article,
-      rewrittenTitle: result.rewritten_title || article.title,
-      rewrittenExcerpt: result.rewritten_excerpt || '',
-      rewrittenContent: result.rewritten_content || '',
-      suggestedSlug: result.suggested_slug || slugify(article.title),
-      targetKeywords: result.target_keywords || [],
-      suggestedTags: result.suggested_tags || [],
-      needsResearch: result.needs_research || false,
-      researchTopics: result.research_topics || [],
-      researchNotes: result.research_notes || 'Written via simple fallback — no web search used',
-      faqItems: result.faq_items || [],
-    }
-  } catch (err) {
-    // Total failure — return original with error noted
-    return {
-      ...article,
-      rewrittenTitle: article.title,
-      rewrittenExcerpt: article.excerpt || '',
-      rewrittenContent: decodeHtmlContent(article.content || article.excerpt || ''),
-      suggestedSlug: slugify(article.title),
-      targetKeywords: [],
-      suggestedTags: [],
-      needsResearch: true,
-      researchTopics: [`Both rewrites failed: ${String(err)}`],
-      researchNotes: String(err),
-      faqItems: [],
-    }
+  if (!result) throw new Error('Simple rewrite: could not parse output')
+
+  return {
+    ...article,
+    rewrittenTitle: result.rewritten_title || article.title,
+    rewrittenExcerpt: result.rewritten_excerpt || '',
+    rewrittenContent: result.rewritten_content || '',
+    suggestedSlug: result.suggested_slug || slugify(article.title),
+    targetKeywords: result.target_keywords || [],
+    suggestedTags: result.suggested_tags || [],
+    needsResearch: result.needs_research || false,
+    researchTopics: result.research_topics || [],
+    researchNotes: result.research_notes || 'Simple fallback rewrite',
+    faqItems: result.faq_items || [],
   }
 }
 
