@@ -296,26 +296,49 @@ h1, h2, h3, .font-serif {
    Covers both internal links AND affiliate text links — same color intentionally.
    Using font-weight: 500 (medium) ensures links are visually distinct from both
    regular body text (400) and bold text (600), without looking like an ad.       */
-.prose-insight a {
+/* ─── Article content links (text links + affiliate links) ───────────────────
+   Scoped to block-level text only (.prose-insight p, li, blockquote).
+   Explicitly excluded from .html-embed-container so widget inline styles win.   */
+.prose-insight p a,
+.prose-insight li a,
+.prose-insight blockquote a,
+.prose-insight td a {
   color: #2C73FF;
   font-weight: 500;
   text-decoration: underline;
   text-decoration-color: rgba(44, 115, 255, 0.3);
   text-underline-offset: 2px;
-  transition: all 0.2s ease;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
 }
 
-.prose-insight a:hover {
+.prose-insight p a:hover,
+.prose-insight li a:hover,
+.prose-insight blockquote a:hover,
+.prose-insight td a:hover {
   color: #0052E0;
   text-decoration-color: #0052E0;
 }
 
 /* When an editor bolds an anchor (strong + link mark in Sanity), ensure the
-   link colour still wins over the dark strong colour.                            */
-.prose-insight a strong,
-.prose-insight strong a {
-  color: inherit;       /* inherit the #2C73FF from the parent <a> */
-  font-weight: 600;     /* keep bold weight */
+   link colour wins over the dark strong colour regardless of nesting order.      */
+.prose-insight p a strong,
+.prose-insight p strong a,
+.prose-insight li a strong,
+.prose-insight li strong a {
+  color: inherit;     /* inherit #2C73FF from the parent <a> */
+  font-weight: 600;
+}
+
+/* ─── HTML embed containers: reset all link overrides ────────────────────────
+   Widgets (Travelpayouts CTAs, quick-pick boxes, insurance blocks) use their own
+   inline styles for link colours. Prevent .prose-insight a from overriding them. */
+.prose-insight .html-embed-container a,
+.prose-insight .html-embed-container a:hover {
+  color: inherit;
+  font-weight: inherit;
+  text-decoration: none;
+  text-underline-offset: initial;
+  transition: none;
 }
 
 .prose-insight strong {
