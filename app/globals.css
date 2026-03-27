@@ -537,3 +537,15 @@ h1, h2, h3, .font-serif {
     padding: 0.6rem 0.75rem;
   }
 }
+
+/* ─── GTP affiliate widget button overrides ─────────────────────────────────
+   Inline styles on widget <a> tags use !important, but this provides a matching
+   specificity backstop for any CMS stripping of inline styles.                 */
+.prose-insight .html-embed-container a.gtp-aicta-end-btn,
+.prose-insight .html-embed-container a.gtp-aicta-inline-btn,
+.html-embed-container a.gtp-aicta-end-btn,
+.html-embed-container a.gtp-aicta-inline-btn {
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-weight: 700;
+}

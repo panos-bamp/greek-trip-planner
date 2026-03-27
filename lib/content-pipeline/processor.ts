@@ -322,7 +322,13 @@ ARTICLE REQUIREMENTS:
   NOT: "Nestled in the heart of the Mediterranean, Greece offers..." (scene-setting, cut immediately)
 • Body sections: Each H2 advances the story. Every paragraph has at least one specific,
   attributed data point. Include complications and counterpoints — not just positive news.
+  DESCRIPTION TEST: Read each descriptive sentence. If it could appear in a hotel brochure
+  or a Wikipedia article, replace it with a market implication, price data, booking trend,
+  or infrastructure fact. "Chania's old harbour is architecturally compelling" fails the test.
+  "Chania's old harbour district drove a 23% accommodation price rise between 2023-2025" passes.
 • Closing: Concrete implication or forward-looking analysis. What should the reader think or do?
+  STRUCTURE TEST: Read your closing paragraph. If it is stronger than your opening, swap them.
+  The sharpest insight belongs at the top, not saved for the end.
 
 ABSOLUTE RULES:
 No promotional language: no "stunning", "magnificent", "paradise", "gem", "hidden gem", "idyllic"
