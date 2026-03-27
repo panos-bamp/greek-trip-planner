@@ -239,7 +239,18 @@ async function injectAffiliateLinksIntoBody(
   titleLower: string,
 ): Promise<string> {
   try {
-    const raw = getAffiliatesForArticle(insightType, tags[0] || 'Greece', tags, titleLower)
+    // Detect destination from title/slug
+    const knownDests = [
+      'santorini','mykonos','athens','crete','rhodes','corfu','zakynthos',
+      'kefalonia','naxos','paros','milos','thessaloniki','heraklion','chania',
+      'kos','skiathos','skopelos','hydra','sifnos','ikaria','samos','kavala',
+    ]
+    const destMatch = knownDests.find(d => titleLower.includes(d))
+    const dest = destMatch
+      ? destMatch.charAt(0).toUpperCase() + destMatch.slice(1)
+      : 'Greece'
+
+    const raw = getAffiliatesForArticle(insightType, dest, tags, titleLower)
     const affiliates = await resolveArticleAffiliates(raw)
 
     const links = [affiliates.primary, affiliates.secondary, affiliates.tertiary]
@@ -248,16 +259,65 @@ async function injectAffiliateLinksIntoBody(
 
     if (links.length === 0) return html
 
-    // Build a clean "Plan Your Trip" section appended to the article
-    const linkItems = links
-      .map(l => `<li><a href="${l.affiliateUrl}" target="_blank" rel="noopener sponsored"><strong>${l.label}</strong> — ${l.cta}</a></li>`)
-      .join('')
+    // ── Contextual injection ──────────────────────────────────────────────────
+    // Each link is injected into the FIRST paragraph that contains a
+    // matching keyword. We inject at the END of that paragraph's last sentence,
+    // as a natural "read more" anchor — no forced anchor text.
+    //
+    // Keyword → affiliate link mapping:
+    //   hotel/accommodation/stay/book → Booking / Agoda
+    //   tour/activity/excursion/experience/guided → GetYourGuide / Viator
+    //   ferry/island hop/sailing/boat → Ferryhopper
+    //   car/rental/driving/hire → DiscoverCars
+    //   flight/fly/airline → Kiwi
+    //   transfer/pickup/taxi/airport → Welcome Pickups
+    //   insurance/cover → EKTA
 
-    const affiliateBlock = `<h2>Plan Your Trip</h2><ul>${linkItems}</ul>`
+    const PATTERNS: Array<{ regex: RegExp; linkIndex: number }> = [
+      { regex: /hotel|accommodation|stay|resort|villa|book|package/i, linkIndex: 0 },
+      { regex: /tour|activit|excursion|experience|guided|visit|explore/i, linkIndex: 1 },
+      { regex: /ferry|island.hop|sailing|boat/i, linkIndex: 2 },
+      { regex: /car|rental|driving|hire/i, linkIndex: 2 },
+      { regex: /flight|fly|airline|airfare/i, linkIndex: 0 },
+      { regex: /transfer|pickup|airport.taxi/i, linkIndex: 1 },
+    ]
 
-    return html + affiliateBlock
+    let result = html
+    const injected = new Set<number>()  // track which link indices have been used
+
+    // Split into paragraphs, scan each, inject at most one link per paragraph
+    const paragraphs = result.match(/<p[^>]*>[\s\S]*?<\/p>/gi) || []
+
+    for (const para of paragraphs) {
+      if (injected.size >= links.length) break
+
+      for (const { regex, linkIndex } of PATTERNS) {
+        if (injected.has(linkIndex)) continue
+        if (linkIndex >= links.length) continue
+
+        if (regex.test(para)) {
+          const link = links[linkIndex]
+          // Insert link before closing </p> tag
+          const anchor = ` <a href="${link.affiliateUrl}" target="_blank" rel="noopener sponsored">${link.cta}</a>`
+          const modified = para.replace(/<\/p>/i, anchor + '</p>')
+          result = result.replace(para, modified)
+          injected.add(linkIndex)
+          break
+        }
+      }
+    }
+
+    // If no contextual match found for any link, append a minimal section
+    if (injected.size === 0) {
+      const linkItems = links
+        .map(l => `<li><a href="${l.affiliateUrl}" target="_blank" rel="noopener sponsored">${l.cta}</a></li>`)
+        .join('')
+      result += `<h2>Plan Your Trip</h2><ul>${linkItems}</ul>`
+    }
+
+    return result
   } catch {
-    return html  // fail silently — article publishes without affiliate block
+    return html
   }
 }
 
@@ -307,7 +367,8 @@ function makeSpanBlock(html: string, style: string, isBullet: boolean): object {
   // Split on <a> tags to extract links
   const parts = html.split(/(<a[^>]*>[\s\S]*?<\/a>)/gi)
 
-  for (const part of parts) {
+  for (let i = 0; i < parts.length; i++) {
+    const part = parts[i]
     const linkMatch = part.match(/<a[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/i)
     if (linkMatch) {
       const href = linkMatch[1]
@@ -316,7 +377,19 @@ function makeSpanBlock(html: string, style: string, isBullet: boolean): object {
       const key = randomKey()
       const markKey = randomKey()
       markDefs.push({ _key: markKey, _type: 'link', href })
+      // Ensure space before link if previous span doesn't end with space
+      if (children.length > 0) {
+        const prev = children[children.length - 1] as any
+        if (prev?.text && !prev.text.endsWith(' ')) {
+          prev.text = prev.text + ' '
+        }
+      }
       children.push({ _type: 'span', _key: key, text, marks: [markKey] })
+      // Ensure space after link — peek at next part
+      const nextPart = parts[i + 1]
+      if (nextPart && !nextPart.startsWith(' ') && !nextPart.startsWith(',') && !nextPart.startsWith('.')) {
+        children.push({ _type: 'span', _key: randomKey(), text: ' ', marks: [] })
+      }
     } else {
       const text = stripTags(part).trim()
       if (text) children.push({ _type: 'span', _key: randomKey(), text, marks: [] })
@@ -360,12 +433,14 @@ function makeBullet(text: string): object {
 
 function stripTags(html: string): string {
   return html
-    .replace(/<[^>]+>/g, '')
+    .replace(/<\/[^>]+>/g, ' ')   // closing tags → space (prevents "aGreece" merging)
+    .replace(/<[^>]+>/g, ' ')       // opening/self-closing tags → space
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&nbsp;/g, ' ')
     .replace(/&quot;/g, '"')
+    .replace(/\s{2,}/g, ' ')       // collapse multiple spaces
     .trim()
 }
 
