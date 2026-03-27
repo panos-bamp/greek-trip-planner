@@ -6,6 +6,7 @@
 // ============================================================
 
 import type { ProcessedArticle } from './processor'
+import { getAffiliatesForArticle, resolveArticleAffiliates } from './affiliate-links'
 
 // FAQ item type
 interface FaqItem { question: string; answer: string }
@@ -150,6 +151,34 @@ export async function createSanityDraft(
     enableSpeakableSchema: false,
 
     ctaType: 'subscribe',
+
+    // ── Affiliate links (resolved via TP API) ────────────────────
+    ...(await (async () => {
+      const dest = article.suggestedTags?.[0] || 'Greece'
+      const titleLow = (article.rewrittenTitle || article.title).toLowerCase()
+      const raw = getAffiliatesForArticle(
+        insightType,
+        dest,
+        article.suggestedTags || [],
+        titleLow
+      )
+      // Resolve canonical URLs to tracked partner_urls via TP API
+      const affiliates = await resolveArticleAffiliates(raw)
+      const fmt = (l: any) => l ? {
+        url: l.affiliateUrl,
+        canonicalUrl: l.canonicalUrl,
+        widget: l.widget,
+        label: l.label,
+        cta: l.cta,
+        program: l.program,
+        commission: l.commission,
+      } : null
+      return {
+        affiliatePrimary:   fmt(affiliates.primary),
+        affiliateSecondary: fmt(affiliates.secondary),
+        affiliateTertiary:  fmt(affiliates.tertiary),
+      }
+    })()),
   }
 
   try {

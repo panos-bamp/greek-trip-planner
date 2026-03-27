@@ -37,6 +37,12 @@ export interface ProcessedArticle extends ScoredArticle {
   researchTopics: string[]
   researchNotes: string
   faqItems: Array<{ question: string; answer: string }>
+  affiliateSuggestions: Array<{
+    anchorText: string
+    destination: string
+    type: string
+    context: string
+  }>
 }
 
 // ─── Shared Anthropic headers ─────────────────────────────────
@@ -220,14 +226,15 @@ export async function rewriteArticle(
 ): Promise<ProcessedArticle> {
   const needsTranslation = article.language !== 'en'
 
-  const wordCount = article.relevanceScore >= 90
-    ? '4000-5000'
+  // Word count: scales with relevance score, minimum 2000, maximum 5000
+  const wordCount = article.relevanceScore >= 85
+    ? '3500-5000'
     : article.relevanceScore >= 70
-      ? '3000-4000'
-      : '2000-3000'
+      ? '2500-3500'
+      : '2000-2500'
 
-  // Find relevant internal links from the site's existing content
-  const sourceText = `${article.title} ${article.excerpt || ''} ${article.content || ''}`
+  // Find relevant internal links — use decoded text so Greek/German content matches properly
+  const sourceText = `${article.title} ${decodeHtmlContent(article.excerpt || '')} ${decodeHtmlContent(article.content || '')}`
   const relevantLinks = findRelevantLinks(sourceText, 8)
   const internalLinksBlock = relevantLinks.length > 0
     ? `\n─────────────────────────────────────────
@@ -313,6 +320,7 @@ BEFORE WRITING — answer these internally:
 1. What is the real story? (not just the topic — the specific insight, tension, or implication)
 2. What does the reader know after reading this that they did not know before?
 3. Is my opening sentence something that would make a senior editor keep reading?
+4. Which 3-5 internal links from the list above will I embed, and in which sections?
 
 ARTICLE REQUIREMENTS:
 • Opening paragraph: Lead with your single sharpest research finding.
@@ -329,6 +337,11 @@ ARTICLE REQUIREMENTS:
 • Closing: Concrete implication or forward-looking analysis. What should the reader think or do?
   STRUCTURE TEST: Read your closing paragraph. If it is stronger than your opening, swap them.
   The sharpest insight belongs at the top, not saved for the end.
+• Practical anchor (ONE paragraph only, for destination/site articles): If the article covers
+  a specific place a reader might visit — a site, a destination, a neighbourhood — include
+  one concise paragraph with access information: nearest town, transport, opening season,
+  admission. This is NOT a travel guide section. It is one paragraph of practical intelligence
+  that completes the picture without turning the article into a generic guide.
 
 ABSOLUTE RULES:
 No promotional language: no "stunning", "magnificent", "paradise", "gem", "hidden gem", "idyllic"
@@ -338,6 +351,7 @@ No diplomatic openings: never start with "Despite..." or "In the context of..." 
 No year references before 2025: update all "in 2024" / "this year" to 2026 context
 No generic travel guide sections: no "Getting There", "Where to Stay", "Best Time to Visit"
 No summarising the source: use it as a trigger only
+INTERNAL LINKS ARE MANDATORY: You MUST embed 3-5 of the provided internal links as HTML anchor tags (<a href="URL">anchor text</a>) within the article body. Place them where contextually natural — on a relevant phrase, never as a standalone line. If you do not embed links, the article is incomplete.
 
 WHEN YOU CANNOT FIND SPECIFIC DATA:
 If a search returns no hard numbers for a claim, write what you DO know and flag the gap explicitly in research_topics. Do not write around missing data with vague language — acknowledge it and move on to what you can prove.
@@ -360,6 +374,14 @@ STEP 3 — After research and writing, output ONLY this JSON (no markdown fences
   "needs_research": true/false,
   "research_topics": ["specific data point still missing", "expert source that would add value"],
   "research_notes": "One sentence on what would make this article even stronger",
+  "affiliate_suggestions": [
+    {
+      "anchor_text": "natural phrase from article body where affiliate link fits",
+      "destination": "specific product/destination the link should point to",
+      "type": "ferry|hotel|tour|car_rental|insurance",
+      "context": "which paragraph or section this belongs in"
+    }
+  ],
   "faq_items": [
     {"question": "Question travelers commonly ask about this topic?", "answer": "Detailed answer in 2-3 sentences."},
     {"question": "Another common question?", "answer": "Detailed answer."},
@@ -373,7 +395,16 @@ RULES FOR FAQ:
 - 5 questions minimum, 8 maximum
 - Questions must be real things travelers or industry professionals ask about THIS specific topic
 - Answers must be specific and useful — not generic
-- Do not duplicate content already in the article body`
+- Do not duplicate content already in the article body
+
+RULES FOR AFFILIATE SUGGESTIONS:
+- Suggest 1-3 maximum — only where genuinely contextually relevant
+- Types: ferry (Ferryhopper links for island articles), hotel (Booking.com for accommodation articles),
+  tour (GetYourGuide for activity/site articles), car_rental (for island/driving articles),
+  insurance (for general Greece travel planning articles)
+- anchor_text must be a natural phrase already in the article — never "click here" or "book now"
+- Only suggest if the article topic directly implies a bookable action for the reader
+- If no natural affiliate fit exists, return an empty array`
 
   try {
     const messages: object[] = [
@@ -472,6 +503,12 @@ RULES FOR FAQ:
       researchTopics: result.research_topics || [],
       researchNotes: result.research_notes || '',
       faqItems: result.faq_items || [],
+      affiliateSuggestions: (result.affiliate_suggestions || []).map((s: any) => ({
+        anchorText: s.anchor_text || '',
+        destination: s.destination || '',
+        type: s.type || '',
+        context: s.context || '',
+      })),
     }
 
   } catch (err) {
@@ -494,6 +531,7 @@ RULES FOR FAQ:
       researchTopics: [`Rewrite failed: ${errMsg}`],
       researchNotes: errMsg,
       faqItems: [],
+      affiliateSuggestions: [],
     }
   }
 }
@@ -592,6 +630,7 @@ Output ONLY this JSON (no markdown, escape all quotes in HTML with backslash):
     researchTopics: result.research_topics || [],
     researchNotes: result.research_notes || 'Simple fallback rewrite',
     faqItems: result.faq_items || [],
+    affiliateSuggestions: [],
   }
 }
 
