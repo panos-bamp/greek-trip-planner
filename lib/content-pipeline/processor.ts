@@ -320,7 +320,8 @@ BEFORE WRITING — answer these internally:
 1. What is the real story? (not just the topic — the specific insight, tension, or implication)
 2. What does the reader know after reading this that they did not know before?
 3. Is my opening sentence something that would make a senior editor keep reading?
-4. Which 3-5 internal links from the list above will I embed, and in which sections?
+4. Which 3-5 internal links from the list above will I embed?
+   (If no list was provided above, skip this — but if links ARE listed, embedding them is NOT optional)
 
 ARTICLE REQUIREMENTS:
 • Opening paragraph: Lead with your single sharpest research finding.
@@ -351,7 +352,10 @@ No diplomatic openings: never start with "Despite..." or "In the context of..." 
 No year references before 2025: update all "in 2024" / "this year" to 2026 context
 No generic travel guide sections: no "Getting There", "Where to Stay", "Best Time to Visit"
 No summarising the source: use it as a trigger only
-INTERNAL LINKS ARE MANDATORY: You MUST embed 3-5 of the provided internal links as HTML anchor tags (<a href="URL">anchor text</a>) within the article body. Place them where contextually natural — on a relevant phrase, never as a standalone line. If you do not embed links, the article is incomplete.
+INTERNAL LINKS ARE MANDATORY: You MUST embed 3-5 of the provided internal links as HTML <a> tags in the article body.
+CORRECT: <p>Travelers planning a visit should review the <a href="https://greektriplanner.me/blog/corfu-travel-guide">Corfu travel guide</a> before booking.</p>
+WRONG: listing links at the end, using bare URLs, or skipping them entirely.
+If you do not embed at least 3 links, the article FAILS the editorial check.
 
 WHEN YOU CANNOT FIND SPECIFIC DATA:
 If a search returns no hard numbers for a claim, write what you DO know and flag the gap explicitly in research_topics. Do not write around missing data with vague language — acknowledge it and move on to what you can prove.
@@ -489,7 +493,7 @@ RULES FOR AFFILIATE SUGGESTIONS:
 
     if (!finalText) {
       console.error('No final text after', iterations, 'iterations — using simple rewrite fallback')
-      return await simpleRewriteArticle(article)
+      return await simpleRewriteArticle(article, formatLinksForPrompt(relevantLinks))
     }
 
     // Robust extraction — HTML inside JSON breaks standard JSON.parse
@@ -522,7 +526,7 @@ RULES FOR AFFILIATE SUGGESTIONS:
     const errMsg = String(err)
     console.error(`Rewrite error for "${article.title}": ${errMsg}`)
     try {
-      return await simpleRewriteArticle(article)
+      return await simpleRewriteArticle(article, formatLinksForPrompt(relevantLinks))
     } catch {
       // both failed
     }
@@ -591,7 +595,7 @@ function extractClaudeOutput(raw: string): Record<string, any> | null {
 // ─── Simple Rewrite Fallback ─────────────────────────────────
 // Single API call, no web search. Used when main rewrite fails.
 
-async function simpleRewriteArticle(article: ScoredArticle): Promise<ProcessedArticle> {
+async function simpleRewriteArticle(article: ScoredArticle, internalLinks: string = ''): Promise<ProcessedArticle> {
   const needsTranslation = article.language !== 'en'
   const cleanContent = decodeHtmlContent(
     article.content || article.excerpt || article.title
@@ -604,7 +608,10 @@ SOURCE:
 Title: ${article.title}
 Content: ${cleanContent}
 
-Write a 1500-word journalist-quality insight article. Use specific data, no promotional language, no generic travel advice. Use HTML: <h2>, <h3>, <p>, <ul>, <li>.
+Write a 1500-word journalist-quality insight article. Use specific data, no promotional language, no generic travel advice.
+${internalLinks ? `INTERNAL LINKS — embed 3-5 of these as <a href> tags on natural phrases in the body:
+${internalLinks}` : ''}
+HTML: <h2>, <h3>, <p>, <ul>, <li>. Every <p> must be 1-3 sentences. No literal \n in output.
 
 Output ONLY this JSON (no markdown, escape all quotes in HTML with backslash):
 {"rewritten_title":"SEO title","rewritten_excerpt":"Meta 150-160 chars","rewritten_content":"HTML here","suggested_slug":"url-slug","target_keywords":["kw1","kw2","kw3"],"suggested_tags":["t1","t2","t3"],"needs_research":false,"research_topics":[],"research_notes":"Simple fallback","faq_items":[{"question":"Q1?","answer":"A1."},{"question":"Q2?","answer":"A2."},{"question":"Q3?","answer":"A3."}]}`

@@ -159,8 +159,23 @@ export async function createSanityDraft(
 
     // ── Affiliate links (resolved via TP API) ────────────────────
     ...(await (async () => {
-      const dest = article.suggestedTags?.[0] || 'Greece'
+      // Extract a real destination from slug or title — not from tags
+      // Tags are topic labels ('Norwegian Tourism') not place names
+      const slug = article.suggestedSlug || ''
+      const knownDests = [
+        'santorini','mykonos','athens','crete','rhodes','corfu','zakynthos',
+        'kefalonia','naxos','paros','milos','thessaloniki','heraklion','chania',
+        'kos','skiathos','skopelos','hydra','sifnos','folegandros','ikaria',
+        'lesbos','chios','samos','rhodes','kavala','meteora','delphi',
+      ]
       const titleLow = (article.rewrittenTitle || article.title).toLowerCase()
+      const slugWords = slug.replace(/-/g, ' ')
+      const destMatch = knownDests.find(d =>
+        titleLow.includes(d) || slugWords.includes(d)
+      )
+      const dest = destMatch
+        ? destMatch.charAt(0).toUpperCase() + destMatch.slice(1)
+        : 'Greece'
       const raw = getAffiliatesForArticle(
         insightType,
         dest,
@@ -251,14 +266,11 @@ async function injectAffiliateLinksIntoBody(
 
 function htmlToPortableText(html: string): object[] {
   if (!html) return []
-
   if (!html.includes('<')) return [makeBlock(html, 'normal')]
 
   const blocks: object[] = []
-
   const cleaned = html.replace(/<\/?(ul|ol)>/gi, '')
 
-  // [\s\S]*? used instead of .*? with /s flag — compatible with all TS targets
   const segments = cleaned
     .split(/(<h[23][^>]*>[\s\S]*?<\/h[23]>|<p[^>]*>[\s\S]*?<\/p>|<li[^>]*>[\s\S]*?<\/li>)/gi)
     .filter(s => s.trim())
@@ -271,12 +283,57 @@ function htmlToPortableText(html: string): object[] {
 
     if (h2)      { const t = stripTags(h2[1]).trim(); if (t) blocks.push(makeBlock(t, 'h2')) }
     else if (h3) { const t = stripTags(h3[1]).trim(); if (t) blocks.push(makeBlock(t, 'h3')) }
-    else if (p)  { const t = stripTags(p[1]).trim();  if (t) blocks.push(makeBlock(t, 'normal')) }
-    else if (li) { const t = stripTags(li[1]).trim(); if (t) blocks.push(makeBullet(t)) }
+    else if (p)  { const t = stripTags(p[1]).trim();  if (t) blocks.push(makeBlockWithLinks(p[1])) }
+    else if (li) { const t = stripTags(li[1]).trim();  if (t) blocks.push(makeBulletWithLinks(li[1])) }
     else         { const t = stripTags(segment).trim(); if (t) blocks.push(makeBlock(t, 'normal')) }
   }
 
   return blocks.length > 0 ? blocks : [makeBlock(stripTags(html), 'normal')]
+}
+
+// Parses inline <a href> tags and creates proper Portable Text spans with link marks
+function makeBlockWithLinks(html: string, style = 'normal'): object {
+  return makeSpanBlock(html, style, false)
+}
+
+function makeBulletWithLinks(html: string): object {
+  return makeSpanBlock(html, 'normal', true)
+}
+
+function makeSpanBlock(html: string, style: string, isBullet: boolean): object {
+  const markDefs: object[] = []
+  const children: object[] = []
+
+  // Split on <a> tags to extract links
+  const parts = html.split(/(<a[^>]*>[\s\S]*?<\/a>)/gi)
+
+  for (const part of parts) {
+    const linkMatch = part.match(/<a[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/i)
+    if (linkMatch) {
+      const href = linkMatch[1]
+      const text = stripTags(linkMatch[2]).trim()
+      if (!text) continue
+      const key = randomKey()
+      const markKey = randomKey()
+      markDefs.push({ _key: markKey, _type: 'link', href })
+      children.push({ _type: 'span', _key: key, text, marks: [markKey] })
+    } else {
+      const text = stripTags(part).trim()
+      if (text) children.push({ _type: 'span', _key: randomKey(), text, marks: [] })
+    }
+  }
+
+  if (children.length === 0) return makeBlock(stripTags(html), style)
+
+  const block: any = {
+    _type: 'block', _key: randomKey(), style,
+    children, markDefs,
+  }
+  if (isBullet) {
+    block.listItem = 'bullet'
+    block.level = 1
+  }
+  return block
 }
 
 function makeBlock(text: string, style: string): object {
