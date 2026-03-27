@@ -105,7 +105,12 @@ export async function createSanityDraft(
     readingTime: estimateReadingTime(article.rewrittenContent || ''),
     showTableOfContents: true,
 
-    body: htmlToPortableText(article.rewrittenContent || ''),
+    body: htmlToPortableText(await injectAffiliateLinksIntoBody(
+      article.rewrittenContent || '',
+      insightType,
+      article.suggestedTags || [],
+      (article.rewrittenTitle || article.title).toLowerCase()
+    )),
 
     keyTakeaways: (article.researchTopics || []).map(
       (t: string) => `Research opportunity: ${t}`
@@ -204,6 +209,40 @@ export async function createSanityDraft(
   } catch (err) {
     console.error('Sanity publish error:', err)
     return null
+  }
+}
+
+// ─── Affiliate Link Injection ────────────────────────────────
+// Appends a "Book It" affiliate block to the end of the article HTML.
+// Uses 1-3 contextual links based on article type.
+// Called before htmlToPortableText so links appear in the body.
+
+async function injectAffiliateLinksIntoBody(
+  html: string,
+  insightType: string,
+  tags: string[],
+  titleLower: string,
+): Promise<string> {
+  try {
+    const raw = getAffiliatesForArticle(insightType, tags[0] || 'Greece', tags, titleLower)
+    const affiliates = await resolveArticleAffiliates(raw)
+
+    const links = [affiliates.primary, affiliates.secondary, affiliates.tertiary]
+      .filter((l): l is NonNullable<typeof l> => !!l)
+      .slice(0, 3)
+
+    if (links.length === 0) return html
+
+    // Build a clean "Plan Your Trip" section appended to the article
+    const linkItems = links
+      .map(l => `<li><a href="${l.affiliateUrl}" target="_blank" rel="noopener sponsored"><strong>${l.label}</strong> — ${l.cta}</a></li>`)
+      .join('')
+
+    const affiliateBlock = `<h2>Plan Your Trip</h2><ul>${linkItems}</ul>`
+
+    return html + affiliateBlock
+  } catch {
+    return html  // fail silently — article publishes without affiliate block
   }
 }
 

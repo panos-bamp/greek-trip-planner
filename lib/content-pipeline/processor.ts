@@ -359,7 +359,14 @@ If a search returns no hard numbers for a claim, write what you DO know and flag
 OPENING SENTENCE TEST:
 Read your first sentence. Would a senior travel editor at The Economist or FT Weekend keep reading? If it starts with "Despite", "Greece is", "In recent years", or any variation of scene-setting — rewrite it. Lead with a number, a tension, or a counterintuitive finding.
 
-HTML: <h2>, <h3>, <p>, <ul>, <li>, <strong> only. No structural HTML.
+HTML RULES — READ CAREFULLY:
+- Use ONLY: <h2>, <h3>, <p>, <ul>, <li>, <strong>. No structural HTML.
+- Every <p> tag must contain 1-3 sentences maximum. Never write a paragraph longer than 3 sentences.
+- NEVER use \n or \n\n inside the JSON string. Use <p> tags to separate paragraphs.
+- Each sentence in the HTML must end with a period inside the <p> tag, not outside it.
+- WRONG: "First sentence.\n\nSecond sentence." 
+- RIGHT: "<p>First sentence.</p><p>Second sentence.</p>"
+- The JSON string must be a single continuous line of HTML with no literal newlines.
 
 ─────────────────────────────────────────
 STEP 3 — After research and writing, output ONLY this JSON (no markdown fences):
