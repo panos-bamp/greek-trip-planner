@@ -244,22 +244,43 @@ ${formatLinksForPrompt(relevantLinks)}
     ? `\nIMPORTANT: This content comes from MULTIPLE sources. Synthesize them into ONE cohesive comprehensive article — merge overlapping information, do not repeat points.\n`
     : ''
 
-  const systemPrompt = `You are a senior travel journalist and SEO content strategist specializing in Greece inbound tourism. You write for greektriplanner.me — an authoritative English-language resource for international visitors planning trips to Greece.
+    const systemPrompt = `You are a senior travel journalist writing for greektriplanner.me, an authoritative English-language publication covering Greece inbound tourism. Your readers are international travelers and travel industry professionals who want intelligence, not inspiration.
 
-Your writing principles:
-- Stay strictly on the topic and angle of the source article — do not expand into unrelated areas
-- Write with authority, depth, and genuine expertise
-- Be data-driven: include specific statistics, numbers, dates, and named sources
-- Use natural SEO keyword integration — never keyword-stuffing
-- Structure with clear H2/H3 headings optimized for featured snippets
+WRITING STANDARDS:
 
-IMPORTANT: greektriplanner.me already has dedicated blog posts covering Getting There,
-Best Time to Visit, Where to Stay, Food & Dining, and Day Trips for major destinations.
-Do NOT write generic travel guide sections. Stay focused on the specific topic,
-angle, or news story the source article covers. Go deep on that topic — not wide.`
+1. JOURNALIST VOICE, NOT BROCHURE COPY
+Write like you are reporting a story — with a point of view, tension, and narrative drive.
+BAD: "Greece in May is simply magnificent with warm temperatures and fewer crowds."
+GOOD: "May has quietly become Greece's most fiercely contested shoulder season — and the numbers prove it."
+Avoid all promotional language: never write "stunning", "magnificent", "simply beautiful", "paradise".
+
+2. SOURCE ARTICLE IS A TRIGGER, NOT YOUR CONTENT
+Use the source as the news hook that tells you WHAT to write about.
+Your article must go significantly beyond it — with new 2026 data, expert context, counterpoints, and original analysis.
+A reader who already read the source should find your article a major upgrade.
+
+3. CRITICAL: ALWAYS USE CURRENT YEAR 2026
+The source may be from 2024 or earlier. You MUST update all year references to 2026.
+Never publish "in 2024" or "this year (2024)". If the source discusses past forecasts or scenarios,
+reframe them: what actually happened, and what does the 2026 outlook look like now?
+
+4. DEPTH REQUIRES SPECIFICITY
+BAD: "Tourism numbers were strong."
+GOOD: "Greece welcomed 35.6 million visitors in 2024 according to INSETE — a 7.2% increase that defied early forecasts."
+Every claim needs a source, number, or named authority behind it.
+
+5. HEADINGS TELL A STORY
+BAD: "Tourism Statistics" / "Best Destinations" / "Practical Tips"
+GOOD: "Why 2026 Is Greece's Most Polarised Season Yet" / "The Islands Gaining Ground on Santorini"
+
+6. GREEKTRIPLANNER.ME HAS GENERIC TRAVEL GUIDES ALREADY
+Do not write "Getting There", "Where to Stay", "Best Time to Visit" sections.
+Write analysis, market intelligence, and perspective that a travel guide cannot provide.`
 
   const userPrompt = `${combinedNote}
-SOURCE ARTICLE (defines the topic and angle — stay focused on this):
+TODAY'S DATE: March 2026. CURRENT YEAR: 2026. Update ALL year references in your article to 2026.
+
+SOURCE ARTICLE (your news hook — do not summarise, use as trigger only — stay focused on this):
 Title: ${article.title}
 Source: ${article.sourceName} (${article.country})
 Language: ${article.language}
@@ -269,39 +290,45 @@ ${needsTranslation ? '\n[TRANSLATE from Greek/German — use as starting point o
 Relevance Score: ${article.relevanceScore}/100
 ${internalLinksBlock}
 ─────────────────────────────────────────
-STEP 1 — RESEARCH
-
-Always run these 2 searches:
-• Search 1: Top existing articles on this exact topic — what angle do they take, what are the gaps?
-• Search 2: Current 2025-2026 data, statistics, or news directly about this topic
-
-Only run these IF the source article touches on these areas:
-• Search 3 (costs/booking): Only if source mentions prices, fees, bookings, or commercial aspects
-• Search 4 (local specifics): Only if source mentions specific places, experiences, or local culture
-• Search 5 (recent developments): Only if source mentions new openings, changes, policy updates, or emerging trends
+TODAY'S DATE: March 2026. CURRENT YEAR IS 2026. Update all year references accordingly.
 
 ─────────────────────────────────────────
-STEP 2 — WRITE a ${wordCount} word article
+STEP 1 — RESEARCH (run 2-5 searches)
 
-Stay focused on the specific topic and angle from the source article.
-Build depth within that topic using what you found in Step 1.
+MANDATORY:
+• Search 1: Latest 2025-2026 data, official statistics, or news on this topic
+• Search 2: Best existing articles on this topic — identify what they cover and what gap you can fill
 
-Let the content determine the sections — not a template.
-Structure your article around what THIS specific topic requires.
+CONDITIONAL (only if the source mentions these):
+• Search 3: Prices, booking trends, commercial data — only if source mentions costs or commercial aspects
+• Search 4: Specific places, local detail, cultural context — only if source mentions named locations
+• Search 5: Policy changes, new openings, emerging trends — only if source mentions recent developments
 
-Examples:
-- Marine reserve article → the reserve, marine life, diving specifics, conservation status, visitor experience
-- Tourism statistics article → trend analysis, source market breakdown, YoY comparison, industry implications  
-- New hotel/development article → property details, market context, pricing tier, what it means for visitors
-- Policy/regulation article → what changed, who it affects, timeline, practical impact on travelers
+After researching, ask: What is the most surprising or significant thing I found that the source did NOT cover? That is your lead.
 
-Every section must add real depth:
-• Use specific numbers, names, and sources from your research
-• Include official data or expert context where found
-• Explain WHY this matters — to travelers or to the industry
-• End with a concise Key Takeaways section (5 bullet points max)
+─────────────────────────────────────────
+STEP 2 — WRITE a ${wordCount} word JOURNALISM PIECE
 
-Use HTML: <h2>, <h3>, <p>, <ul>, <li>, <strong>. No <html>, <body>, or <head> tags.
+BEFORE WRITING — answer these internally:
+1. What is the real story? (not just the topic — the specific insight, tension, or implication)
+2. What does the reader know after reading this that they did not know before?
+3. Is my opening sentence something that would make a senior editor keep reading?
+
+ARTICLE REQUIREMENTS:
+• Opening paragraph: Lead with your most interesting research finding — a specific statistic,
+  a surprising development, a market tension. NOT a scene-setting description of Greece.
+• Body sections: Each H2 advances the story. Every paragraph has at least one specific,
+  attributed data point. Include complications and counterpoints — not just positive news.
+• Closing: Concrete implication or forward-looking analysis. What should the reader think or do?
+
+ABSOLUTE RULES:
+No promotional language: no "stunning", "magnificent", "paradise", "gem", "hidden gem"
+No vague claims: every assertion needs a number, name, or source
+No year references before 2025: update all "in 2024" / "this year" to 2026 context
+No generic travel guide sections: no "Getting There", "Where to Stay", "Best Time to Visit"
+No summarising the source: use it as a trigger only
+
+HTML: <h2>, <h3>, <p>, <ul>, <li>, <strong> only. No structural HTML.
 
 ─────────────────────────────────────────
 STEP 3 — After research and writing, output ONLY this JSON (no markdown fences):
@@ -406,14 +433,14 @@ RULES FOR FAQ:
     }
 
     if (!finalText) {
-      console.error('No final text after', iterations, 'iterations — falling back to simple rewrite')
+      console.error('No final text after', iterations, 'iterations — using simple rewrite fallback')
       return await simpleRewriteArticle(article)
     }
 
-    // Robust extraction — HTML content inside JSON breaks standard JSON.parse
+    // Robust extraction — HTML inside JSON breaks standard JSON.parse
     const result = extractClaudeOutput(finalText)
     if (!result) {
-      throw new Error('No JSON object found in Claude output — check Vercel logs')
+      throw new Error('No parseable JSON in Claude output — check Vercel logs')
     }
 
     return {
@@ -433,12 +460,10 @@ RULES FOR FAQ:
   } catch (err) {
     const errMsg = String(err)
     console.error(`Rewrite error for "${article.title}": ${errMsg}`)
-    // Try simple rewrite before giving up completely
     try {
-      console.log('Attempting simple rewrite fallback...')
       return await simpleRewriteArticle(article)
     } catch {
-      // Both failed — return original with error
+      // both failed
     }
     return {
       ...article,
@@ -457,9 +482,8 @@ RULES FOR FAQ:
 }
 
 // ─── Robust Claude Output Parser ────────────────────────────
-// Problem: JSON.parse fails when rewritten_content contains unescaped
-// HTML quotes/special chars. Solution: extract rewritten_content via
-// regex separately, parse everything else as JSON, then recombine.
+// Extracts rewritten_content separately to avoid JSON.parse failures
+// caused by unescaped quotes inside HTML strings.
 
 function extractClaudeOutput(raw: string): Record<string, any> | null {
   try {
@@ -467,39 +491,30 @@ function extractClaudeOutput(raw: string): Record<string, any> | null {
     const start = text.indexOf('{')
     const end = text.lastIndexOf('}')
     if (start === -1 || end === -1) return null
-
     const jsonStr = text.slice(start, end + 1)
 
-    // Extract rewritten_content separately using regex
-    // It sits between "rewritten_content": " and the closing ", "next_key"
+    // Extract rewritten_content value before parsing
     const contentRegex = /"rewritten_content"\s*:\s*"([\s\S]*?)"\s*,\s*"(?:suggested_slug|target_keywords|needs_research|faq_items|research_notes|research_topics)"/
     const contentMatch = jsonStr.match(contentRegex)
     const htmlContent = contentMatch ? contentMatch[1] : ''
 
-    // Build a sanitized JSON string with a safe placeholder
     let sanitized: string
     if (contentMatch) {
-      const nextKey = contentMatch[0].match(/"(suggested_slug|target_keywords|needs_research|faq_items|research_notes|research_topics)"/)![1]
-      sanitized = jsonStr.replace(
-        contentMatch[0],
-        `"rewritten_content": "PLACEHOLDER", "${nextKey}"`
-      )
+      const nextKeyMatch = contentMatch[0].match(/"(suggested_slug|target_keywords|needs_research|faq_items|research_notes|research_topics)"/)
+      const nextKey = nextKeyMatch ? nextKeyMatch[1] : 'suggested_slug'
+      sanitized = jsonStr.replace(contentMatch[0], `"rewritten_content": "PLACEHOLDER", "${nextKey}"`)
     } else {
       sanitized = jsonStr
     }
 
-    // Parse the sanitized JSON
     let parsed: Record<string, any>
     try {
       parsed = JSON.parse(sanitized)
-    } catch (e1) {
-      // Aggressive cleanup for control characters
-      const superClean = sanitized
-        .replace(/[ --]/g, '')
+    } catch {
+      const superClean = sanitized.replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, '')
       parsed = JSON.parse(superClean)
     }
 
-    // Restore the real HTML content
     if (htmlContent) {
       parsed.rewritten_content = htmlContent
     }
@@ -512,8 +527,7 @@ function extractClaudeOutput(raw: string): Record<string, any> | null {
 }
 
 // ─── Simple Rewrite Fallback ─────────────────────────────────
-// Used when web-search rewrite fails. Single API call, no tools,
-// clean prompt. Handles Greek/German translation reliably.
+// Single API call, no web search. Used when main rewrite fails.
 
 async function simpleRewriteArticle(article: ScoredArticle): Promise<ProcessedArticle> {
   const needsTranslation = article.language !== 'en'
@@ -521,32 +535,17 @@ async function simpleRewriteArticle(article: ScoredArticle): Promise<ProcessedAr
     article.content || article.excerpt || article.title
   ).slice(0, 2000)
 
-  const prompt = `You are a travel content writer specializing in Greece tourism. Write an English article for greektriplanner.me.
-${needsTranslation ? 'SOURCE IS IN GREEK OR GERMAN. You MUST translate it and write entirely in English.' : ''}
+  const prompt = `You are a travel journalist writing for greektriplanner.me. Write a professional news/insight article in English. Current year: 2026.
+${needsTranslation ? 'SOURCE IS IN GREEK OR GERMAN. Translate and write entirely in fluent English.' : ''}
 
 SOURCE:
 Title: ${article.title}
 Content: ${cleanContent}
 
-Write a detailed 1500-2000 word insight article in English. Stay focused on the topic. Use HTML tags: <h2>, <h3>, <p>, <ul>, <li>, <strong>.
+Write a 1500-word journalist-quality insight article. Use specific data, no promotional language, no generic travel advice. Use HTML: <h2>, <h3>, <p>, <ul>, <li>.
 
-Respond with ONLY this JSON object. Escape all quotes inside strings with backslash. No markdown fences:
-{
-  "rewritten_title": "SEO title with primary keyword (60-70 chars)",
-  "rewritten_excerpt": "Meta description 150-160 chars",
-  "rewritten_content": "Full article HTML here",
-  "suggested_slug": "url-slug",
-  "target_keywords": ["keyword1", "keyword2", "keyword3"],
-  "suggested_tags": ["tag1", "tag2", "tag3"],
-  "needs_research": false,
-  "research_topics": [],
-  "research_notes": "Simple fallback rewrite — no web search",
-  "faq_items": [
-    {"question": "Relevant question 1?", "answer": "Specific answer."},
-    {"question": "Relevant question 2?", "answer": "Specific answer."},
-    {"question": "Relevant question 3?", "answer": "Specific answer."}
-  ]
-}`
+Output ONLY this JSON (no markdown, escape all quotes in HTML with backslash):
+{"rewritten_title":"SEO title","rewritten_excerpt":"Meta 150-160 chars","rewritten_content":"HTML here","suggested_slug":"url-slug","target_keywords":["kw1","kw2","kw3"],"suggested_tags":["t1","t2","t3"],"needs_research":false,"research_topics":[],"research_notes":"Simple fallback","faq_items":[{"question":"Q1?","answer":"A1."},{"question":"Q2?","answer":"A2."},{"question":"Q3?","answer":"A3."}]}`
 
   const response = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
@@ -558,14 +557,10 @@ Respond with ONLY this JSON object. Escape all quotes inside strings with backsl
     }),
   })
 
-  if (!response.ok) {
-    throw new Error(`Simple rewrite API ${response.status}: ${await response.text()}`)
-  }
+  if (!response.ok) throw new Error(`Simple rewrite ${response.status}: ${await response.text()}`)
 
   const data = await response.json()
-  const text = data.content?.[0]?.text || ''
-  const result = extractClaudeOutput(text)
-
+  const result = extractClaudeOutput(data.content?.[0]?.text || '')
   if (!result) throw new Error('Simple rewrite: could not parse output')
 
   return {
