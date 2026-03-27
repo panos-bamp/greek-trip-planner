@@ -315,18 +315,29 @@ BEFORE WRITING — answer these internally:
 3. Is my opening sentence something that would make a senior editor keep reading?
 
 ARTICLE REQUIREMENTS:
-• Opening paragraph: Lead with your most interesting research finding — a specific statistic,
-  a surprising development, a market tension. NOT a scene-setting description of Greece.
+• Opening paragraph: Lead with your single sharpest research finding.
+  Format: [Specific number or fact], [context], [why it matters or what's surprising].
+  Example: "Greece captured the second slot in British Airways Holidays' short-haul rankings for the third consecutive year — a position it is now actively defending against a resurgent Turkey."
+  NOT: "Greece continues to attract British tourists despite global uncertainty." (vague, unsurprising)
+  NOT: "Nestled in the heart of the Mediterranean, Greece offers..." (scene-setting, cut immediately)
 • Body sections: Each H2 advances the story. Every paragraph has at least one specific,
   attributed data point. Include complications and counterpoints — not just positive news.
 • Closing: Concrete implication or forward-looking analysis. What should the reader think or do?
 
 ABSOLUTE RULES:
-No promotional language: no "stunning", "magnificent", "paradise", "gem", "hidden gem"
-No vague claims: every assertion needs a number, name, or source
+No promotional language: no "stunning", "magnificent", "paradise", "gem", "hidden gem", "idyllic"
+No vague attribution: NEVER write "industry analysts noted", "experts say", "data shows" without naming the specific analyst, report, or data source. If you cannot name it, do not write the claim.
+No padding sections: do not explain what an event or organisation IS if the reader clearly knows (e.g. do not explain what a trade forum is). Use those words to go deeper on the story.
+No diplomatic openings: never start with "Despite..." or "In the context of..." — lead with the sharpest specific fact you found.
 No year references before 2025: update all "in 2024" / "this year" to 2026 context
 No generic travel guide sections: no "Getting There", "Where to Stay", "Best Time to Visit"
 No summarising the source: use it as a trigger only
+
+WHEN YOU CANNOT FIND SPECIFIC DATA:
+If a search returns no hard numbers for a claim, write what you DO know and flag the gap explicitly in research_topics. Do not write around missing data with vague language — acknowledge it and move on to what you can prove.
+
+OPENING SENTENCE TEST:
+Read your first sentence. Would a senior travel editor at The Economist or FT Weekend keep reading? If it starts with "Despite", "Greece is", "In recent years", or any variation of scene-setting — rewrite it. Lead with a number, a tension, or a counterintuitive finding.
 
 HTML: <h2>, <h3>, <p>, <ul>, <li>, <strong> only. No structural HTML.
 
