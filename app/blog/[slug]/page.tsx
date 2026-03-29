@@ -16,6 +16,8 @@ import AffiliateDisclosure from '@/components/affiliate/AffiliateDisclosure'
 import HotelCard from '@/components/affiliate/HotelCard'
 import TourCard from '@/components/affiliate/TourCard'
 import Navbar from '@/components/Navbar'
+import AffiliateDisclaimer from '@/components/AffiliateDisclaimer'
+import AuthorBox from '@/components/AuthorBox'
 
 const BASE_URL = 'https://greektriplanner.me'
 
@@ -198,6 +200,53 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     console.error('Schema generation error:', error)
   }
 
+  // Organization schema — hardcoded, identical on every post
+  const organizationSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Greek Trip Planner',
+    url: 'https://greektriplanner.me',
+    description: 'AI-powered Greece travel planner built by 5 Greek tourism experts with 50+ years of combined field experience.',
+    member: [
+      {
+        '@type': 'Person',
+        name: 'Panos',
+        jobTitle: 'Founder & Lead Author',
+        url: 'https://greektriplanner.me/about',
+        knowsAbout: ['Athens travel', 'Saronic Islands', 'Greece trip planning'],
+      },
+      {
+        '@type': 'Person',
+        name: 'Vaggelis',
+        jobTitle: 'Tour Operator — Peloponnese',
+        url: 'https://greektriplanner.me/about',
+        knowsAbout: ['Peloponnese', 'Epidaurus', 'Nafplio', 'Monemvasia', 'Mani'],
+      },
+      {
+        '@type': 'Person',
+        name: 'Panagiotis',
+        jobTitle: 'Transfer & Logistics Specialist',
+        url: 'https://greektriplanner.me/about',
+        knowsAbout: ['Athens transfers', 'Mykonos', 'Santorini', 'Greek ferry routes'],
+      },
+      {
+        '@type': 'Person',
+        name: 'Kostas',
+        jobTitle: 'Hotel Owner & Tour Operator — Crete',
+        url: 'https://greektriplanner.me/about',
+        knowsAbout: ['Crete', 'Chania', 'Heraklion', 'Samaria Gorge', 'Elafonissi'],
+      },
+      {
+        '@type': 'Person',
+        name: 'Tasos',
+        jobTitle: 'Hotel Supplier — Northern Greece',
+        url: 'https://greektriplanner.me/about',
+        knowsAbout: ['Thessaloniki', 'Meteora', 'Zagori', 'Pelion', 'Halkidiki'],
+      },
+    ],
+  }
+  schemas.push(organizationSchema)
+
   const publishDate = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
     : null
@@ -321,6 +370,13 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       )}
 
       {/* ═══════════════════════════════════════════
+          AFFILIATE DISCLAIMER — hardcoded, every post
+          ═══════════════════════════════════════════ */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <AffiliateDisclaimer />
+      </div>
+
+      {/* ═══════════════════════════════════════════
           3. ARTICLE BODY + TABLE OF CONTENTS SIDEBAR
           ═══════════════════════════════════════════ */}
       <section className="py-12 md:py-16">
@@ -389,6 +445,9 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                   <PortableText value={post.body} components={portableTextComponents} />
                 )}
               </div>
+
+              {/* ===== AUTHOR BOX — hardcoded, every post ===== */}
+              <AuthorBox />
 
               {/* ===== FAQ SECTION (matching insights page format) ===== */}
               {post.faqSchema?.enabled && post.faqSchema?.faqs && post.faqSchema.faqs.length > 0 && (
