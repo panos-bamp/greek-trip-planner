@@ -353,9 +353,19 @@ No year references before 2025: update all "in 2024" / "this year" to 2026 conte
 No generic travel guide sections: no "Getting There", "Where to Stay", "Best Time to Visit"
 No summarising the source: use it as a trigger only
 INTERNAL LINKS ARE MANDATORY: You MUST embed 3-5 of the provided internal links as HTML <a> tags in the article body.
-CORRECT: <p>Travelers planning a visit should review the <a href="https://greektriplanner.me/blog/corfu-travel-guide">Corfu travel guide</a> before booking.</p>
-WRONG: listing links at the end, using bare URLs, or skipping them entirely.
-If you do not embed at least 3 links, the article FAILS the editorial check.
+
+CORRECT EXAMPLES (note the spaces around anchor tags):
+<p>Travellers planning a first visit should consult the <a href="https://greektriplanner.me/blog/corfu-travel-guide">Corfu travel guide</a> before booking.</p>
+<p>The island offers experiences that a <a href="https://greektriplanner.me/blog/greece-itinerary-7-days">7-day Greece itinerary</a> can only begin to cover.</p>
+
+WRONG (these all fail):
+- "our<a href="...">guide</a>covers" — missing spaces around tag
+- "see the<a href="...">Santorini guide</a>for details" — no space before tag
+- listing links as a separate block at the end of the article
+- using bare URLs instead of anchor tags
+
+The <a> tag must always be surrounded by spaces within the sentence.
+If you do not embed at least 3 links with correct spacing, the article FAILS the editorial check.
 
 WHEN YOU CANNOT FIND SPECIFIC DATA:
 If a search returns no hard numbers for a claim, write what you DO know and flag the gap explicitly in research_topics. Do not write around missing data with vague language — acknowledge it and move on to what you can prove.
@@ -364,13 +374,21 @@ OPENING SENTENCE TEST:
 Read your first sentence. Would a senior travel editor at The Economist or FT Weekend keep reading? If it starts with "Despite", "Greece is", "In recent years", or any variation of scene-setting — rewrite it. Lead with a number, a tension, or a counterintuitive finding.
 
 HTML RULES — READ CAREFULLY:
-- Use ONLY: <h2>, <h3>, <p>, <ul>, <li>, <strong>. No structural HTML.
+- Use ONLY: <h2>, <h3>, <p>, <ul>, <li>, <strong>, <a>. No structural HTML.
 - Every <p> tag must contain 1-3 sentences maximum. Never write a paragraph longer than 3 sentences.
 - NEVER use \n or \n\n inside the JSON string. Use <p> tags to separate paragraphs.
-- Each sentence in the HTML must end with a period inside the <p> tag, not outside it.
-- WRONG: "First sentence.\n\nSecond sentence." 
-- RIGHT: "<p>First sentence.</p><p>Second sentence.</p>"
 - The JSON string must be a single continuous line of HTML with no literal newlines.
+
+INTERNAL LINK SPACING — CRITICAL:
+Links must always have a space before and after the anchor text within the surrounding sentence.
+WRONG: "Travellers spending<a href="...">3 Days in Athens</a>will find"
+WRONG: "Our<a href="...">Greece Guide</a>covers this"
+WRONG: "visit<a href="...">Santorini</a>or Athens"
+RIGHT:  "Travellers spending <a href="...">3 Days in Athens</a> will find"
+RIGHT:  "Our <a href="...">Greece Guide</a> covers this"
+RIGHT:  "visit <a href="...">Santorini</a> or Athens"
+The anchor tag must be preceded by a space and followed by a space (or punctuation).
+Always write the full sentence first, then place the <a> tag around an existing phrase — never concatenate text directly against an anchor tag.
 
 ─────────────────────────────────────────
 STEP 3 — After research and writing, output ONLY this JSON (no markdown fences):
@@ -385,14 +403,6 @@ STEP 3 — After research and writing, output ONLY this JSON (no markdown fences
   "needs_research": true/false,
   "research_topics": ["specific data point still missing", "expert source that would add value"],
   "research_notes": "One sentence on what would make this article even stronger",
-  "affiliate_suggestions": [
-    {
-      "anchor_text": "natural phrase from article body where affiliate link fits",
-      "destination": "specific product/destination the link should point to",
-      "type": "ferry|hotel|tour|car_rental|insurance",
-      "context": "which paragraph or section this belongs in"
-    }
-  ],
   "faq_items": [
     {"question": "Question travelers commonly ask about this topic?", "answer": "Detailed answer in 2-3 sentences."},
     {"question": "Another common question?", "answer": "Detailed answer."},
@@ -407,15 +417,7 @@ RULES FOR FAQ:
 - Questions must be real things travelers or industry professionals ask about THIS specific topic
 - Answers must be specific and useful — not generic
 - Do not duplicate content already in the article body
-
-RULES FOR AFFILIATE SUGGESTIONS:
-- Suggest 1-3 maximum — only where genuinely contextually relevant
-- Types: ferry (Ferryhopper links for island articles), hotel (Booking.com for accommodation articles),
-  tour (GetYourGuide for activity/site articles), car_rental (for island/driving articles),
-  insurance (for general Greece travel planning articles)
-- anchor_text must be a natural phrase already in the article — never "click here" or "book now"
-- Only suggest if the article topic directly implies a bookable action for the reader
-- If no natural affiliate fit exists, return an empty array`
+`
 
   try {
     const messages: object[] = [
@@ -611,7 +613,8 @@ Content: ${cleanContent}
 Write a 1500-word journalist-quality insight article. Use specific data, no promotional language, no generic travel advice.
 ${internalLinks ? `INTERNAL LINKS — embed 3-5 of these as <a href> tags on natural phrases in the body:
 ${internalLinks}` : ''}
-HTML: <h2>, <h3>, <p>, <ul>, <li>. Every <p> must be 1-3 sentences. No literal \n in output.
+HTML: <h2>, <h3>, <p>, <ul>, <li>, <a>. Every <p> must be 1-3 sentences. No literal \n in output.
+SPACING: Always put a space before and after any <a> tag within a sentence. WRONG: "visit<a>link</a>today" RIGHT: "visit <a>link</a> today".
 
 Output ONLY this JSON (no markdown, escape all quotes in HTML with backslash):
 {"rewritten_title":"SEO title","rewritten_excerpt":"Meta 150-160 chars","rewritten_content":"HTML here","suggested_slug":"url-slug","target_keywords":["kw1","kw2","kw3"],"suggested_tags":["t1","t2","t3"],"needs_research":false,"research_topics":[],"research_notes":"Simple fallback","faq_items":[{"question":"Q1?","answer":"A1."},{"question":"Q2?","answer":"A2."},{"question":"Q3?","answer":"A3."}]}`

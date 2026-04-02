@@ -105,12 +105,7 @@ export async function createSanityDraft(
     readingTime: estimateReadingTime(article.rewrittenContent || ''),
     showTableOfContents: true,
 
-    body: htmlToPortableText(await injectAffiliateLinksIntoBody(
-      article.rewrittenContent || '',
-      insightType,
-      article.suggestedTags || [],
-      (article.rewrittenTitle || article.title).toLowerCase()
-    )),
+    body: htmlToPortableText(article.rewrittenContent || ''),
 
     keyTakeaways: (article.researchTopics || []).map(
       (t: string) => `Research opportunity: ${t}`
