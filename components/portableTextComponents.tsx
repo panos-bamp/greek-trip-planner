@@ -3,12 +3,76 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { PortableTextComponents } from '@portabletext/react'
+import { getPartnerName, trackAffiliateClick } from '@/lib/trackAffiliate'
+import { usePathname } from 'next/navigation'
 
 // Helper function to build Sanity image URLs without external dependency
 function getSanityImageUrl(ref: string): string {
   if (!ref) return ''
   const [, id, dimensions, format] = ref.split('-')
   return `https://cdn.sanity.io/images/puhk8qa7/production/${id}-${dimensions}.${format}`
+}
+
+// Affiliate domains — any external link matching these gets tracked
+const AFFILIATE_DOMAINS = [
+  'booking.com',
+  'getyourguide.com',
+  'viator.com',
+  'discovercars.com',
+  'welcomepickups.com',
+  'airalo.com',
+  'yesim.app',
+  'klook.com',
+  'agoda.com',
+  'kiwi.com',
+  'airhelp.com',
+  'ekta.life',
+  'nordvpn.com',
+  // Travelpayouts redirect domains
+  'tp.media',
+  'travelpayouts.com',
+  'emrld.ltd',
+]
+
+function isAffiliateLink(href: string): boolean {
+  return AFFILIATE_DOMAINS.some(domain => href.includes(domain))
+}
+
+// Separate component so we can use usePathname() hook
+function TrackedExternalLink({
+  href,
+  blank,
+  children,
+  className,
+}: {
+  href: string
+  blank?: boolean
+  children: React.ReactNode
+  className: string
+}) {
+  const pathname = usePathname()
+
+  const handleClick = () => {
+    if (isAffiliateLink(href)) {
+      trackAffiliateClick({
+        partner: getPartnerName(href),
+        linkUrl: href,
+        pagePath: pathname,
+      })
+    }
+  }
+
+  return (
+    <a
+      href={href}
+      target={blank ? '_blank' : undefined}
+      rel={blank ? 'noopener noreferrer sponsored' : undefined}
+      onClick={handleClick}
+      className={className}
+    >
+      {children}
+    </a>
+  )
 }
 
 export const portableTextComponents: PortableTextComponents = {
@@ -121,24 +185,23 @@ export const portableTextComponents: PortableTextComponents = {
       const href = value?.href || '#'
       const isExternal = href.startsWith('http')
 
+      const linkClass =
+        'text-blue-600 hover:text-blue-800 underline decoration-blue-300 hover:decoration-blue-600 transition-colors'
+
       if (isExternal) {
         return (
-          <a
+          <TrackedExternalLink
             href={href}
-            target={value?.blank ? '_blank' : undefined}
-            rel={value?.blank ? 'noopener noreferrer' : undefined}
-            className="text-blue-600 hover:text-blue-800 underline decoration-blue-300 hover:decoration-blue-600 transition-colors"
+            blank={value?.blank}
+            className={linkClass}
           >
             {children}
-          </a>
+          </TrackedExternalLink>
         )
       }
 
       return (
-        <Link
-          href={href}
-          className="text-blue-600 hover:text-blue-800 underline decoration-blue-300 hover:decoration-blue-600 transition-colors"
-        >
+        <Link href={href} className={linkClass}>
           {children}
         </Link>
       )
