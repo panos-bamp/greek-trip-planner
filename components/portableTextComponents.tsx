@@ -13,8 +13,16 @@ function getSanityImageUrl(ref: string): string {
   return `https://cdn.sanity.io/images/puhk8qa7/production/${id}-${dimensions}.${format}`
 }
 
-// Affiliate domains — any external link matching these gets tracked
+// All domains that should fire affiliate_click when clicked.
+// Includes both direct partner domains and Travelpayouts short-link domains.
 const AFFILIATE_DOMAINS = [
+  // Travelpayouts short link domains — always check first
+  '.tpx.lt',
+  '.tp.lt',
+  'emrld.ltd',
+  'tp.media',
+  'travelpayouts.com',
+  // Direct partner domains
   'booking.com',
   'getyourguide.com',
   'viator.com',
@@ -28,17 +36,14 @@ const AFFILIATE_DOMAINS = [
   'airhelp.com',
   'ekta.life',
   'nordvpn.com',
-  // Travelpayouts redirect domains
-  'tp.media',
-  'travelpayouts.com',
-  'emrld.ltd',
 ]
 
 function isAffiliateLink(href: string): boolean {
   return AFFILIATE_DOMAINS.some(domain => href.includes(domain))
 }
 
-// Separate component so we can use usePathname() hook
+// Separate component so we can use usePathname() hook.
+// portableTextComponents is a plain object — hooks can't be called inside it directly.
 function TrackedExternalLink({
   href,
   blank,
@@ -66,7 +71,11 @@ function TrackedExternalLink({
     <a
       href={href}
       target={blank ? '_blank' : undefined}
-      rel={blank ? 'noopener noreferrer sponsored' : undefined}
+      // sponsored tells Google this is a paid link (required)
+      // data-tracked tells the layout.tsx document listener to skip this link
+      // so the same click doesn't fire affiliate_click twice
+      rel={blank ? 'noopener noreferrer sponsored' : 'sponsored'}
+      data-tracked="true"
       onClick={handleClick}
       className={className}
     >
@@ -101,7 +110,9 @@ export const portableTextComponents: PortableTextComponents = {
       )
     },
 
-    // ✅ HTML EMBED SERIALIZER - Renders pasted HTML (tables, embeds, etc.)
+    // HTML EMBED SERIALIZER - Renders pasted HTML (tables, embeds, etc.)
+    // Links inside htmlEmbed blocks bypass React events entirely.
+    // They are tracked by the document-level listener in layout.tsx.
     htmlEmbed: ({ value }: any) => {
       if (!value?.html) return null
 
