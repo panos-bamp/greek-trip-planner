@@ -8,7 +8,7 @@
  */
 
 import React from 'react'
-import Link from 'next/link'
+import { AffiliateLink } from '@/components/affiliate/AffiliateLink'
 
 interface HotelCardProps {
   name: string
@@ -116,14 +116,10 @@ export function HotelCard({
               )}
             </div>
             
-            <a 
-              href={bookingUrl} 
-              target="_blank" 
-              rel="noopener noreferrer sponsored"
-              className="cta-button"
-            >
+            {/* ↓ CHANGED: was <a href={bookingUrl} target="_blank" rel="..."> */}
+            <AffiliateLink href={bookingUrl} className="cta-button">
               {ctaText}
-            </a>
+            </AffiliateLink>
           </div>
         </div>
       </div>
@@ -331,7 +327,8 @@ export function HotelCard({
           margin-top: 0.25rem;
         }
         
-        .cta-button {
+        /* Style targets the <a> rendered by AffiliateLink */
+        .hotel-card :global(.cta-button) {
           display: inline-flex;
           align-items: center;
           padding: 1rem 2rem;
@@ -345,7 +342,7 @@ export function HotelCard({
           box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
         }
         
-        .cta-button:hover {
+        .hotel-card :global(.cta-button:hover) {
           transform: translateY(-2px);
           box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
         }
@@ -373,7 +370,7 @@ export function HotelCard({
             text-align: center;
           }
           
-          .cta-button {
+          .hotel-card :global(.cta-button) {
             width: 100%;
             justify-content: center;
           }

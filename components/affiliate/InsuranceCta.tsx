@@ -8,6 +8,7 @@
  */
 
 import React from 'react'
+import { AffiliateLink } from '@/components/affiliate/AffiliateLink'
 
 interface InsuranceCtaProps {
   title?: string
@@ -55,7 +56,7 @@ export function InsuranceCta({
         
         {testimonial && (
           <div className="testimonial">
-            <p className="testimonial-text">💬 <em>"{testimonial}"</em></p>
+            <p className="testimonial-text">💬 <em>&ldquo;{testimonial}&rdquo;</em></p>
             {testimonialAuthor && (
               <p className="testimonial-author">- {testimonialAuthor}</p>
             )}
@@ -79,14 +80,10 @@ export function InsuranceCta({
           </div>
           
           <div className="cta-action">
-            <a 
-              href={bookingUrl}
-              target="_blank"
-              rel="noopener noreferrer sponsored"
-              className="cta-button"
-            >
+            {/* ↓ CHANGED: was <a href={bookingUrl} target="_blank" rel="..."> */}
+            <AffiliateLink href={bookingUrl} className="cta-button">
               {buttonText}
-            </a>
+            </AffiliateLink>
             <p className="cta-subtext">2-minute application • Instant coverage</p>
           </div>
         </div>
@@ -211,8 +208,9 @@ export function InsuranceCta({
           flex: 1;
           text-align: right;
         }
-        
-        .cta-button {
+
+        /* Style targets the <a> rendered by AffiliateLink */
+        .insurance-cta :global(.cta-button) {
           display: inline-flex;
           align-items: center;
           padding: 1rem 2rem;
@@ -226,7 +224,7 @@ export function InsuranceCta({
           box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         }
         
-        .cta-button:hover {
+        .insurance-cta :global(.cta-button:hover) {
           transform: translateY(-2px);
           box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
         }
@@ -270,7 +268,7 @@ export function InsuranceCta({
             text-align: center;
           }
           
-          .cta-button {
+          .insurance-cta :global(.cta-button) {
             width: 100%;
             justify-content: center;
           }

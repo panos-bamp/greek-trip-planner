@@ -8,6 +8,7 @@
  */
 
 import React from 'react'
+import { AffiliateLink } from '@/components/affiliate/AffiliateLink'
 
 interface TourCardProps {
   name: string
@@ -73,7 +74,7 @@ export function TourCard({
         
         {includes.length > 0 && (
           <div className="tour-includes">
-            <h4>What's Included:</h4>
+            <h4>What&apos;s Included:</h4>
             <ul>
               {includes.map((item, index) => (
                 <li key={index}>✓ {item}</li>
@@ -97,14 +98,10 @@ export function TourCard({
             <span className="price-person">/person</span>
           </div>
           
-          <a 
-            href={bookingUrl}
-            target="_blank"
-            rel="noopener noreferrer sponsored"
-            className="cta-button"
-          >
+          {/* ↓ CHANGED: was <a href={bookingUrl} target="_blank" rel="..."> */}
+          <AffiliateLink href={bookingUrl} className="cta-button">
             {ctaText}
-          </a>
+          </AffiliateLink>
         </div>
       </div>
       
@@ -278,8 +275,9 @@ export function TourCard({
           font-size: 0.75rem;
           color: #6B7280;
         }
-        
-        .cta-button {
+
+        /* Style targets the <a> rendered by AffiliateLink */
+        .tour-card :global(.cta-button) {
           display: inline-flex;
           align-items: center;
           padding: 0.875rem 1.75rem;
@@ -293,7 +291,7 @@ export function TourCard({
           box-shadow: 0 4px 12px rgba(255, 107, 157, 0.3);
         }
         
-        .cta-button:hover {
+        .tour-card :global(.cta-button:hover) {
           transform: translateY(-2px);
           box-shadow: 0 6px 20px rgba(255, 107, 157, 0.4);
         }
@@ -313,7 +311,7 @@ export function TourCard({
             text-align: center;
           }
           
-          .cta-button {
+          .tour-card :global(.cta-button) {
             width: 100%;
             justify-content: center;
           }
