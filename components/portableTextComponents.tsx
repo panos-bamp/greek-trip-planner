@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRef, useEffect } from 'react'
 import { PortableTextComponents } from '@portabletext/react'
 import { getPartnerName, trackAffiliateClick } from '@/lib/trackAffiliate'
 import { usePathname } from 'next/navigation'
@@ -14,9 +15,8 @@ function getSanityImageUrl(ref: string): string {
 }
 
 // All domains that should fire affiliate_click when clicked.
-// Includes both direct partner domains and Travelpayouts short-link domains.
 const AFFILIATE_DOMAINS = [
-  // Travelpayouts short link domains — always check first
+  // Travelpayouts short link domains — check first
   '.tpx.lt',
   '.tp.lt',
   'emrld.ltd',
@@ -42,8 +42,66 @@ function isAffiliateLink(href: string): boolean {
   return AFFILIATE_DOMAINS.some(domain => href.includes(domain))
 }
 
-// Separate component so we can use usePathname() hook.
-// portableTextComponents is a plain object — hooks can't be called inside it directly.
+// ─────────────────────────────────────────────────────────────────────────────
+// HtmlEmbedBlock
+// Renders raw HTML from Sanity and attaches a scoped click listener after mount.
+// This catches affiliate links inside dangerouslySetInnerHTML that bypass React's
+// event system. Uses useRef so it works even if the widget script re-renders links.
+// ─────────────────────────────────────────────────────────────────────────────
+function HtmlEmbedBlock({ html }: { html: string }) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+
+  useEffect(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    function handleClick(e: MouseEvent) {
+      const target = e.target as HTMLElement
+      const link = target.closest('a') as HTMLAnchorElement | null
+      if (!link || !link.href) return
+      if (!isAffiliateLink(link.href)) return
+
+      trackAffiliateClick({
+        partner: getPartnerName(link.href),
+        linkUrl: link.href,
+        pagePath: pathname,
+      })
+    }
+
+    container.addEventListener('click', handleClick)
+
+    // Re-attach if the widget script mutates the DOM after initial render.
+    // MutationObserver watches for new <a> tags injected by Travelpayouts widgets.
+    const observer = new MutationObserver(() => {
+      // Nothing to do — the click listener on the container catches all clicks
+      // including on dynamically injected children. Observer exists only to
+      // log widget activity during debugging if needed.
+    })
+    observer.observe(container, { childList: true, subtree: true })
+
+    return () => {
+      container.removeEventListener('click', handleClick)
+      observer.disconnect()
+    }
+  }, [pathname])
+
+  return (
+    <div
+      ref={containerRef}
+      className="my-8 html-embed-container overflow-x-auto"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  )
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// TrackedExternalLink
+// Handles affiliate links written directly in the Sanity body (marks.link).
+// Separate component so usePathname() hook can be called inside it.
+// data-tracked="true" prevents the layout.tsx document listener from
+// double-firing on the same click.
+// ─────────────────────────────────────────────────────────────────────────────
 function TrackedExternalLink({
   href,
   blank,
@@ -71,9 +129,6 @@ function TrackedExternalLink({
     <a
       href={href}
       target={blank ? '_blank' : undefined}
-      // sponsored tells Google this is a paid link (required)
-      // data-tracked tells the layout.tsx document listener to skip this link
-      // so the same click doesn't fire affiliate_click twice
       rel={blank ? 'noopener noreferrer sponsored' : 'sponsored'}
       data-tracked="true"
       onClick={handleClick}
@@ -110,18 +165,10 @@ export const portableTextComponents: PortableTextComponents = {
       )
     },
 
-    // HTML EMBED SERIALIZER - Renders pasted HTML (tables, embeds, etc.)
-    // Links inside htmlEmbed blocks bypass React events entirely.
-    // They are tracked by the document-level listener in layout.tsx.
+    // HTML EMBED — tracked via HtmlEmbedBlock ref+useEffect
     htmlEmbed: ({ value }: any) => {
       if (!value?.html) return null
-
-      return (
-        <div
-          className="my-8 html-embed-container overflow-x-auto"
-          dangerouslySetInnerHTML={{ __html: value.html }}
-        />
-      )
+      return <HtmlEmbedBlock html={value.html} />
     },
   },
 
