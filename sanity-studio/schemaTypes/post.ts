@@ -777,6 +777,96 @@ export default defineType({
       ],
     }),
     
+    // 11. ITEM LIST SCHEMA (for "best of" roundup articles)
+    defineField({
+      name: 'itemListSchema',
+      title: '📋 Item List Schema',
+      type: 'object',
+      group: 'schema',
+      description: 'Use for "best of" articles (best hotels, best beaches, best tours, etc.) — enables carousel rich results',
+      options: {
+        collapsible: true,
+        collapsed: true,
+      },
+      fields: [
+        {
+          name: 'enabled',
+          title: 'Enable Item List Schema',
+          type: 'boolean',
+          initialValue: false,
+        },
+        {
+          name: 'name',
+          type: 'string',
+          title: 'List Title',
+          description: 'e.g., "Best Hotels in Athens 2026" — leave empty to use post title',
+        },
+        {
+          name: 'description',
+          type: 'text',
+          title: 'List Description (optional)',
+          rows: 2,
+        },
+        {
+          name: 'items',
+          type: 'array',
+          title: 'List Items',
+          description: 'Add each item in the list in ranked order',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {
+                  name: 'position',
+                  type: 'number',
+                  title: 'Position (rank)',
+                  description: 'e.g., 1 for #1 pick',
+                  validation: (Rule: any) => Rule.required().min(1),
+                },
+                {
+                  name: 'name',
+                  type: 'string',
+                  title: 'Item Name',
+                  description: 'e.g., "Hotel Grande Bretagne"',
+                  validation: (Rule: any) => Rule.required(),
+                },
+                {
+                  name: 'url',
+                  type: 'url',
+                  title: 'Item URL',
+                  description: 'Link to the section anchor or external page, e.g., /blog/best-hotels-athens#grande-bretagne',
+                  validation: (Rule: any) => Rule.required(),
+                },
+                {
+                  name: 'image',
+                  type: 'url',
+                  title: 'Image URL (optional)',
+                },
+                {
+                  name: 'description',
+                  type: 'text',
+                  title: 'Short Description (optional)',
+                  rows: 2,
+                },
+              ],
+              preview: {
+                select: {
+                  title: 'name',
+                  subtitle: 'position',
+                },
+                prepare({ title, subtitle }: { title: string; subtitle: number }) {
+                  return {
+                    title: title,
+                    subtitle: `#${subtitle}`,
+                  }
+                },
+              },
+            },
+          ],
+        },
+      ],
+    }),
+
     // ============================================
     // AFFILIATE & MONETIZATION GROUP
     // ============================================

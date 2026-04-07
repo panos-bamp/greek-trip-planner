@@ -136,6 +136,19 @@ interface ProductSchemaProps {
   }
 }
 
+interface ItemListSchemaProps {
+  name: string
+  description?: string
+  url: string
+  items: {
+    position: number
+    name: string
+    url: string
+    image?: string
+    description?: string
+  }[]
+}
+
 // ============================================
 // SCHEMA GENERATORS
 // ============================================
@@ -157,7 +170,7 @@ export function generateArticleSchema({
 }: ArticleSchemaProps): BaseSchema {
   return {
     '@context': 'https://schema.org',
-    '@type': 'article',
+    '@type': articleType || 'Article',
     headline: title,
     description: description,
     image: image || '',
@@ -461,6 +474,35 @@ export function generateProductSchema({
 }
 
 /**
+ * 11. ITEM LIST SCHEMA (for "best of" roundup articles)
+ */
+export function generateItemListSchema({
+  name,
+  description,
+  url,
+  items,
+}: ItemListSchemaProps): BaseSchema | null {
+  if (!items || items.length === 0) return null
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: name,
+    description: description,
+    url: url,
+    numberOfItems: items.length,
+    itemListElement: items.map((item) => ({
+      '@type': 'ListItem',
+      position: item.position,
+      name: item.name,
+      url: item.url,
+      image: item.image,
+      description: item.description,
+    })),
+  } as BaseSchema
+}
+
+/**
  * 10. BREADCRUMB SCHEMA
  */
 export function generateBreadcrumbSchema(
@@ -569,6 +611,17 @@ export function generateAllSchemas(post: any, baseUrl: string) {
     post.productSchema.products.forEach((product: any) => {
       schemas.push(generateProductSchema(product))
     })
+  }
+
+  // 11. ItemList Schema (for "best of" roundup articles)
+  if (post.itemListSchema?.enabled && post.itemListSchema?.items?.length > 0) {
+    const itemListSchema = generateItemListSchema({
+      name: post.itemListSchema.name || post.title,
+      description: post.itemListSchema.description,
+      url: postUrl,
+      items: post.itemListSchema.items,
+    })
+    if (itemListSchema) schemas.push(itemListSchema)
   }
 
   // 10. Breadcrumb Schema
