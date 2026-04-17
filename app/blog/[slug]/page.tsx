@@ -144,7 +144,11 @@ const portableTextComponents = {
       const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
       return <h2 id={id} className="text-3xl sm:text-4xl text-[#180204] mt-12 mb-4 scroll-mt-24">{children}</h2>
     },
-    h3: ({ children }: any) => <h3 className="text-2xl text-[#180204] mt-8 mb-3">{children}</h3>,
+    h3: ({ children, value }: any) => {
+      const text = value?.children?.map((child: any) => child.text).join('') || ''
+      const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+      return <h3 id={id} className="text-2xl text-[#180204] mt-8 mb-3 scroll-mt-24">{children}</h3>
+    },
     h4: ({ children }: any) => <h4 className="text-xl text-[#180204] mt-6 mb-2 font-sans font-semibold">{children}</h4>,
     normal: ({ children }: any) => <p className="text-[#180204]/70 leading-relaxed mb-5 font-sans text-base">{children}</p>,
     bullet: ({ children }: any) => <li className="list-disc ml-6 text-[#180204]/70 leading-relaxed font-sans text-base mb-1">{children}</li>,
