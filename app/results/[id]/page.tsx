@@ -116,44 +116,117 @@ export default function ResultsPage() {
   }
 
   /* ─── Parse inline markdown links [text](url) ─── */
+  /* ─── Inline parser: handles **bold** + [text](url) markdown together ───
+     This unified parser walks through text once and emits React nodes for:
+     - Markdown bold: **word** → <strong>
+     - Markdown links: [text](url) → styled <a> based on domain
+     - Plain text: passthrough
+     Operators are matched in priority order — bold first (rarely contains
+     brackets), then links. Bare text fragments inside link labels are kept
+     plain to avoid double-processing. */
   const renderInlineLinks = (text: string) => {
-    const parts = text.split(/(\[.*?\]\(.*?\))/g)
-    return parts.map((part, i) => {
-      const linkMatch = part.match(/\[(.*?)\]\((.*?)\)/)
-      if (linkMatch) {
-        const [, linkText, url] = linkMatch
-        const isBooking = url.includes('booking.com')
-        const isGYG = url.includes('getyourguide.com')
+    if (!text) return null
+
+    // Step 1: remove accidental nested-link patterns the AI sometimes produces:
+    //   [[Text](url1)](url2) → keep only the outer link with the cleaner URL
+    //   [Text.com](http://Text.com) inside another link → just "Text.com"
+    let cleaned = text
+    // Repeatedly collapse any `[[Inner](u1)](u2)` into `[Inner](u2)`
+    let prev = ''
+    while (prev !== cleaned) {
+      prev = cleaned
+      cleaned = cleaned.replace(/\[\[([^\[\]]+?)\]\(([^)]+?)\)\]\(([^)]+?)\)/g, '[$1]($3)')
+    }
+
+    // Step 2: tokenize into a flat array of (kind, value) tuples
+    type Token =
+      | { kind: 'bold'; value: string }
+      | { kind: 'link'; text: string; url: string }
+      | { kind: 'text'; value: string }
+
+    const tokens: Token[] = []
+    let i = 0
+    while (i < cleaned.length) {
+      // Bold: **...**
+      if (cleaned[i] === '*' && cleaned[i + 1] === '*') {
+        const end = cleaned.indexOf('**', i + 2)
+        if (end !== -1) {
+          const inner = cleaned.slice(i + 2, end)
+          // Ignore empty `****`
+          if (inner.length > 0) {
+            tokens.push({ kind: 'bold', value: inner })
+            i = end + 2
+            continue
+          }
+        }
+      }
+      // Link: [text](url)
+      if (cleaned[i] === '[') {
+        const closeBracket = cleaned.indexOf(']', i + 1)
+        if (closeBracket !== -1 && cleaned[closeBracket + 1] === '(') {
+          const closeParen = cleaned.indexOf(')', closeBracket + 2)
+          if (closeParen !== -1) {
+            const linkText = cleaned.slice(i + 1, closeBracket)
+            const url = cleaned.slice(closeBracket + 2, closeParen)
+            // Avoid empty/malformed
+            if (linkText && url && !url.includes('[')) {
+              tokens.push({ kind: 'link', text: linkText, url })
+              i = closeParen + 1
+              continue
+            }
+          }
+        }
+      }
+      // Plain text — accumulate until next operator
+      const last = tokens[tokens.length - 1]
+      if (last && last.kind === 'text') {
+        last.value += cleaned[i]
+      } else {
+        tokens.push({ kind: 'text', value: cleaned[i] })
+      }
+      i++
+    }
+
+    // Step 3: render tokens
+    return tokens.map((tok, idx) => {
+      if (tok.kind === 'bold') {
+        return <strong key={idx} className="font-semibold text-[#180204]">{tok.value}</strong>
+      }
+      if (tok.kind === 'link') {
+        const url = tok.url
+        const linkText = tok.text
+        const isBooking = url.includes('booking.com') || url.includes('booking.tpx') || url.includes('hotellook')
+        const isGYG = url.includes('getyourguide.com') || url.includes('getyourguide.tpx') || url.includes('gyg.tpx')
 
         if (isBooking) {
           return (
-            <a key={i} href={url} target="_blank" rel="noopener noreferrer nofollow"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#003580]/8 text-[#003580] rounded-lg text-xs font-semibold hover:bg-[#003580]/15 transition-colors mt-1.5">
+            <a key={idx} href={url} target="_blank" rel="noopener noreferrer nofollow"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#003580]/8 text-[#003580] rounded-lg text-xs font-semibold hover:bg-[#003580]/15 transition-colors mt-1.5 max-w-full">
               <span>🏨</span>
-              <span>{linkText}</span>
-              <ExternalLink className="w-3 h-3" />
+              <span className="truncate">{linkText}</span>
+              <ExternalLink className="w-3 h-3 flex-shrink-0" />
             </a>
           )
         }
         if (isGYG) {
           return (
-            <a key={i} href={url} target="_blank" rel="noopener noreferrer nofollow"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FF5533]/8 text-[#FF5533] rounded-lg text-xs font-semibold hover:bg-[#FF5533]/15 transition-colors mt-1.5">
+            <a key={idx} href={url} target="_blank" rel="noopener noreferrer nofollow"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FF5533]/8 text-[#FF5533] rounded-lg text-xs font-semibold hover:bg-[#FF5533]/15 transition-colors mt-1.5 max-w-full">
               <span>🎟️</span>
-              <span>{linkText}</span>
-              <ExternalLink className="w-3 h-3" />
+              <span className="truncate">{linkText}</span>
+              <ExternalLink className="w-3 h-3 flex-shrink-0" />
             </a>
           )
         }
-        // Travel guide or generic link
+        // Travel guide / generic link
         return (
-          <a key={i} href={url} target="_blank" rel="noopener noreferrer"
+          <a key={idx} href={url} target="_blank" rel="noopener noreferrer"
             className="text-[#2C73FF] font-medium hover:text-[#FF5635] underline underline-offset-2 decoration-[#2C73FF]/30 hover:decoration-[#FF5635]/50 transition-colors">
             {linkText}
           </a>
         )
       }
-      return <span key={i}>{part}</span>
+      return <span key={idx}>{tok.value}</span>
     })
   }
 
@@ -161,6 +234,32 @@ export default function ResultsPage() {
   const renderLine = (line: string, index: number) => {
     const isDayHeader = line.match(/### Day (\d+)/)
     const dayNumber = isDayHeader ? isDayHeader[1] : null
+
+    // ── SIGN-OFF — italic line with emoji at end-of-trip ──
+    // Pattern: *Happy travels, Name — ... 🌊☀️* OR similar
+    // Must be ENTIRELY italic (starts AND ends with single *) and contain
+    // an emoji or sign-off keyword. Renders as bold, large, centered.
+    const signoffMatch = line.match(/^\s*\*([^*].*?[^*])\*\s*$/)
+    if (
+      signoffMatch &&
+      (
+        /\p{Extended_Pictographic}/u.test(signoffMatch[1]) ||
+        /happy travels|safe travels|enjoy|καλό ταξίδι/i.test(signoffMatch[1])
+      ) &&
+      // Avoid matching short italic phrases like "*Total: 7 days*"
+      signoffMatch[1].length > 20
+    ) {
+      return (
+        <div key={index} className="my-8 text-center">
+          <p
+            className="text-xl md:text-2xl font-bold text-[#180204] leading-snug"
+            style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontStyle: 'normal' }}
+          >
+            {signoffMatch[1]}
+          </p>
+        </div>
+      )
+    }
 
     // H1 — Main title
     if (line.startsWith('# ')) {
@@ -285,20 +384,6 @@ export default function ResultsPage() {
           <span className="w-1.5 h-1.5 rounded-full bg-[#FF5635] mt-2 flex-shrink-0" />
           <span>{renderInlineLinks(line.replace('- ', ''))}</span>
         </div>
-      )
-    }
-
-    // Bold text within paragraphs
-    if (line.includes('**') && line.trim()) {
-      const parts = line.split(/(\*\*.*?\*\*)/g)
-      return (
-        <p key={index} className="text-sm text-[#180204]/70 leading-relaxed">
-          {parts.map((part, i) =>
-            part.startsWith('**') && part.endsWith('**')
-              ? <strong key={i} className="text-[#180204] font-semibold">{part.replace(/\*\*/g, '')}</strong>
-              : <span key={i}>{renderInlineLinks(part)}</span>
-          )}
-        </p>
       )
     }
 
@@ -439,15 +524,103 @@ export default function ResultsPage() {
                 const lines = itinerary.split('\n')
                 const out: ReactNode[] = []
 
-                lines.forEach((line, index) => {
+                /* ── Markdown table detector ──
+                   Looks ahead from the current index to capture a complete
+                   table, returning either { rows, advance } or null. */
+                const tryConsumeTable = (startIdx: number): { node: ReactNode; advance: number } | null => {
+                  const headerLine = lines[startIdx]?.trim()
+                  const sepLine = lines[startIdx + 1]?.trim()
+                  // Header must be a pipe row, separator must be |---|---| pattern
+                  if (!headerLine || !sepLine) return null
+                  if (!headerLine.includes('|')) return null
+                  if (!/^\|?\s*:?-{2,}:?\s*(\|\s*:?-{2,}:?\s*)+\|?\s*$/.test(sepLine)) return null
+
+                  const splitRow = (raw: string) =>
+                    raw.replace(/^\||\|$/g, '').split('|').map((c) => c.trim())
+
+                  const headers = splitRow(headerLine)
+                  const bodyRows: string[][] = []
+                  let i = startIdx + 2
+                  while (i < lines.length) {
+                    const t = lines[i]?.trim() ?? ''
+                    if (!t || !t.includes('|')) break
+                    bodyRows.push(splitRow(t))
+                    i++
+                  }
+                  if (bodyRows.length === 0) return null
+
+                  // Detect "Total" rows by scanning for a "TOTAL" cell — get bold styling
+                  const isTotalRow = (cells: string[]) =>
+                    cells.some((c) => /^\s*\*\*?\s*total/i.test(c))
+
+                  const node = (
+                    <div
+                      key={`tbl-${startIdx}`}
+                      className="my-6 overflow-x-auto border border-[#E6DAD1] rounded-xl shadow-sm"
+                      style={{ WebkitOverflowScrolling: 'touch' }}
+                    >
+                      <table className="w-full border-collapse text-sm" style={{ minWidth: 480 }}>
+                        <thead>
+                          <tr style={{ background: '#180204' }}>
+                            {headers.map((h, hi) => (
+                              <th
+                                key={hi}
+                                className="text-left text-xs font-semibold uppercase tracking-wider text-white/85 px-4 py-3 whitespace-nowrap"
+                                style={{ borderBottom: '2px solid #3a1012', letterSpacing: '0.04em' }}
+                              >
+                                {h.replace(/^\*\*|\*\*$/g, '')}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {bodyRows.map((row, ri) => {
+                            const totalRow = isTotalRow(row)
+                            const evenRow = ri % 2 === 1
+                            return (
+                              <tr
+                                key={ri}
+                                style={{
+                                  background: totalRow ? '#180204' : evenRow ? '#FDFBF9' : '#FFFFFF',
+                                  borderBottom: '1px solid #F0E8E2',
+                                }}
+                              >
+                                {row.map((cell, ci) => (
+                                  <td
+                                    key={ci}
+                                    className="px-4 py-3 leading-relaxed"
+                                    style={{
+                                      color: totalRow ? '#fff' : '#374151',
+                                      fontWeight: totalRow ? 700 : 400,
+                                      verticalAlign: 'middle',
+                                      ...(ci === row.length - 1 && totalRow ? { textAlign: 'right' } : {}),
+                                    }}
+                                  >
+                                    {renderInlineLinks(cell)}
+                                  </td>
+                                ))}
+                              </tr>
+                            )
+                          })}
+                        </tbody>
+                      </table>
+                    </div>
+                  )
+                  return { node, advance: i - startIdx }
+                }
+
+                let idx = 0
+                while (idx < lines.length) {
+                  const line = lines[idx]
                   const trimmed = line.trim()
 
                   // Anchor 4 (PRE): inject Guide's Corner just before Final Tips
-                  if (!flags.guidesCorner && /^##\s*Final Tips\s*$/i.test(trimmed)) {
+                  // Match flexibly: "Final Tips" / "Final Tips for X" / "Final tips for X from..."
+                  if (!flags.guidesCorner && /^##\s*Final\s+[Tt]ips\b/.test(trimmed)) {
                     flags.guidesCorner = true
                     out.push(
                       <GuidesCornerInline
-                        key={`gc-${index}`}
+                        key={`gc-${idx}`}
                         userData={userData}
                         itinerary={itinerary}
                         locations={locations}
@@ -455,25 +628,29 @@ export default function ResultsPage() {
                     )
                   }
 
-                  // Always render the markdown line itself
-                  out.push(renderLine(line, index))
+                  // Markdown table detection — multi-line consumer
+                  if (trimmed.includes('|') && trimmed.startsWith('|')) {
+                    const tableResult = tryConsumeTable(idx)
+                    if (tableResult) {
+                      out.push(tableResult.node)
+                      idx += tableResult.advance
+                      continue
+                    }
+                  }
+
+                  // Default: render this single line
+                  out.push(renderLine(line, idx))
 
                   // Anchor 1 (POST): credential strip after Overview heading
                   if (!flags.credentialStrip && /^##\s*Overview\s*$/i.test(trimmed)) {
                     flags.credentialStrip = true
-                    out.push(
-                      <CredentialStrip key={`cs-${index}`} userData={userData} />
-                    )
+                    out.push(<CredentialStrip key={`cs-${idx}`} userData={userData} />)
                   }
 
-                  // Anchor 2 (POST): Yesim callout after the Route section's first
-                  // content line (which immediately follows "## Your Route")
+                  // Anchor 2 (POST): Yesim callout after the Route section
                   if (!flags.yesim && /^##\s*Your Route\s*$/i.test(trimmed)) {
                     flags.yesim = true
-                    // Yesim itself goes after the next non-empty line, so we render
-                    // a placeholder that injects on the next loop tick. Simplest: inject NOW.
-                    // The route line that follows will render after this.
-                    out.push(<YesimCallout key={`ys-${index}`} />)
+                    out.push(<YesimCallout key={`ys-${idx}`} />)
                   }
 
                   // Anchor 3 (POST): DiscoverCars after Transport heading
@@ -484,31 +661,47 @@ export default function ResultsPage() {
                     flags.discoverCars = true
                     out.push(
                       <DiscoverCarsCard
-                        key={`dc-${index}`}
+                        key={`dc-${idx}`}
                         userData={userData}
                         itinerary={itinerary}
                         locations={locations}
                       />
                     )
                   }
-                })
+
+                  idx++
+                }
 
                 return out
               })()}
             </div>
 
-            {/* CTA */}
+            {/* CTA — flights primary, blog secondary */}
             <div className="mt-12 rounded-2xl p-8 text-center text-white shadow-xl" style={{ background: 'linear-gradient(135deg, #FF5635 0%, #E03A1A 100%)' }}>
               <h3 className="text-2xl mb-2" style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
-                Ready to book your trip?
+                Make this trip happen
               </h3>
-              <p className="text-white/80 text-sm mb-5">
-                Start booking experiences, ferries & accommodations
+              <p className="text-white/80 text-sm mb-6">
+                Find flights, lock in your dates, and you're set.
               </p>
-              <Link href="/blog"
-                className="inline-flex px-8 py-3 bg-white text-[#FF5635] rounded-full font-bold text-sm hover:shadow-xl hover:scale-105 transition-all">
-                Browse Travel Guides →
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
+                <a
+                  href="https://trip.tpx.lt/k75QcbiI"
+                  target="_blank"
+                  rel="noopener noreferrer sponsored"
+                  className="inline-flex items-center gap-2 px-7 py-3 bg-white text-[#FF5635] rounded-full font-bold text-sm hover:shadow-xl hover:scale-105 transition-all"
+                >
+                  <span>✈️</span>
+                  <span>Find flights to Greece</span>
+                  <ExternalLink className="w-4 h-4" />
+                </a>
+                <Link
+                  href="/blog"
+                  className="inline-flex items-center gap-1.5 px-5 py-2 text-white/80 hover:text-white text-sm font-medium underline underline-offset-4 decoration-white/30 hover:decoration-white/70 transition-all"
+                >
+                  <span>Browse Greek travel guides</span>
+                </Link>
+              </div>
             </div>
 
             {/* Re-generate CTA */}

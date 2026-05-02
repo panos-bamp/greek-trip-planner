@@ -227,7 +227,7 @@ async function resolvePlaceholders(
       if (picked && picked.booking_url) {
         result.set(p.fullMatch, {
           rawUrl: picked.booking_url,
-          displayName: `🏨 ${picked.name}`,
+          displayName: buildHotelCta(picked),
         })
       } else {
         result.set(p.fullMatch, fallbackResolution(p))
@@ -238,7 +238,7 @@ async function resolvePlaceholders(
       if (picked && picked.booking_url) {
         result.set(p.fullMatch, {
           rawUrl: picked.booking_url,
-          displayName: `🎟️ ${picked.name}`,
+          displayName: buildTourCta(picked),
         })
       } else {
         result.set(p.fullMatch, fallbackResolution(p))
@@ -247,6 +247,72 @@ async function resolvePlaceholders(
   })
 
   return result
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CTA TEXT BUILDERS
+   The renderer renders a 🏨 / 🎟️ icon inside the link badge already,
+   so display names should NOT include emoji — the badge handles that.
+   Names are truncated for readability (long tour titles like "Zakynthos:
+   Shipwreck Beach with Blue Caves Land & Sea Tour" become "Shipwreck
+   Beach & Blue Caves Tour"). Action verbs are added to make the link
+   feel like a clear next step instead of a name dump.
+   ───────────────────────────────────────────────────────────── */
+
+/**
+ * Strips a leading destination prefix and trailing fluff from a long tour
+ * name so it reads as a punchy CTA. Examples:
+ *   "Zakynthos: Shipwreck Beach with Blue Caves Land & Sea Tour"
+ *     → "Shipwreck Beach & Blue Caves Tour"
+ *   "From Athens: Cape Sounion Half-Day Tour with Audio Guide"
+ *     → "Cape Sounion Half-Day Tour"
+ */
+function shortenTourName(name: string): string {
+  if (!name) return name
+  let s = name.trim()
+  // Strip leading "Destination:" or "From Destination:" prefix
+  s = s.replace(/^(?:From\s+)?[A-Za-zÀ-ÿ' -]+?:\s*/, '')
+  // Trim trailing "with X Y Z" fluff if name is long
+  if (s.length > 55) {
+    s = s.replace(/\s+with\s+.*$/i, '')
+  }
+  // Final hard truncation with ellipsis if still too long
+  if (s.length > 60) {
+    s = s.slice(0, 57).replace(/\s+\S*$/, '') + '…'
+  }
+  // Replace "Land & Sea Tour", "and" phrasings to keep it compact
+  s = s.replace(/\bLand\s*&\s*Sea\s*Tour\b/i, 'Tour')
+  return s
+}
+
+/**
+ * Build the link text for a HOTEL link. Format:
+ *   "Book Niche Hotel Athens →"   (short name)
+ *   "Book the Astra Suites →"     (longer name with article)
+ */
+function buildHotelCta(row: AccommodationRow): string {
+  const name = (row.name || '').trim()
+  if (!name) return 'Check availability →'
+  // For names that already include "Hotel" / "Suites" / "Villa", drop the article
+  const startsWithArticle = /^(the\s+|a\s+)/i.test(name)
+  const isFamiliar = /\b(hotel|suites?|villas?|apartments?|resort|inn|b&b|guesthouse|cove|house|rooms|residence|estate|retreat|lodge|palazzo)\b/i.test(name)
+  const article = startsWithArticle || isFamiliar ? '' : 'the '
+  // Hard cap on length so the badge stays clean
+  const display = name.length > 50 ? name.slice(0, 47).replace(/\s+\S*$/, '') + '…' : name
+  return `Book ${article}${display} →`
+}
+
+/**
+ * Build the link text for a TOUR link. Format:
+ *   "Book the Shipwreck Beach & Blue Caves Tour →"
+ *   "Book the Volcanic Islands Boat Tour →"
+ */
+function buildTourCta(row: ExperienceRow): string {
+  const short = shortenTourName(row.name || '')
+  if (!short) return 'See tour details →'
+  // Prepend article if it doesn't already have a leading determiner or "Tour"-like word
+  const leadsWithDeterminer = /^(the|a|an)\b/i.test(short)
+  return leadsWithDeterminer ? `Book ${short} →` : `Book the ${short} →`
 }
 
 /**
@@ -285,18 +351,26 @@ function fallbackResolution(p: PlaceholderMatch): ResolvedLink {
   if (p.kind === 'hotel') {
     return {
       rawUrl: `https://www.booking.com/searchresults.html?ss=${encodeURIComponent(destDisplay + ' Greece')}`,
-      displayName: `🏨 Search hotels on Booking.com`,
+      // Destination-specific CTA instead of generic "Search hotels on Booking.com"
+      displayName: destDisplay
+        ? `See top-rated hotels in ${destDisplay} →`
+        : `See top-rated hotels →`,
     }
   }
 
-  // Tour
+  // Tour fallback — vibe-aware when present
   const queryParts = [destDisplay]
   if (p.vibeHint) {
     queryParts.unshift(p.vibeHint.split(',')[0].replace(/-/g, ' '))
   }
+  const vibeReadable = p.vibeHint ? p.vibeHint.split(',')[0].replace(/-/g, ' ') : ''
   return {
     rawUrl: `https://www.getyourguide.com/s/?q=${encodeURIComponent(queryParts.join(' '))}`,
-    displayName: `🎟️ Find tours on GetYourGuide`,
+    displayName: vibeReadable && destDisplay
+      ? `See ${vibeReadable} tours in ${destDisplay} →`
+      : destDisplay
+        ? `See top tours in ${destDisplay} →`
+        : `See top tours →`,
   }
 }
 
