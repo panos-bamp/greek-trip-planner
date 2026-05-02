@@ -16,7 +16,7 @@
  * patterns and styles them by domain, so this just needs to output that format.
  */
 
-import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase'
 import { getAffiliateLinks } from '@/lib/travelpayouts'
 
 /* ─────────────────────────────────────────────────────────────
@@ -161,8 +161,8 @@ async function resolvePlaceholders(
 ): Promise<Map<string, ResolvedLink>> {
   const result = new Map<string, ResolvedLink>()
 
-  if (!supabase) {
-    // No Supabase configured — fall back for everything
+  if (!supabaseAdmin) {
+    console.warn('[postprocess] supabaseAdmin is null — using fallback URLs for all placeholders')
     placeholders.forEach((p) => {
       result.set(p.fullMatch, fallbackResolution(p))
     })
@@ -170,20 +170,27 @@ async function resolvePlaceholders(
   }
 
   // Group by destination_id to minimize Supabase round-trips
-  const hotelDests = new Set<string>()
-  const tourDests = new Set<string>()
+  const hotelDestsRaw = new Set<string>()
+  const tourDestsRaw = new Set<string>()
   placeholders.forEach((p) => {
-    if (p.kind === 'hotel') hotelDests.add(p.destinationId)
-    else tourDests.add(p.destinationId)
+    if (p.kind === 'hotel') hotelDestsRaw.add(p.destinationId)
+    else tourDestsRaw.add(p.destinationId)
   })
 
-  // Fetch all needed accommodations in one query
+  // Step 1: For each requested destination_id, build a candidate list
+  // including the original AND known prefixed/normalized variants.
+  // This handles the "heraklion" → "crete-heraklion" mismatch and similar.
+  const hotelCandidates = expandCandidates(Array.from(hotelDestsRaw))
+  const tourCandidates = expandCandidates(Array.from(tourDestsRaw))
+
+  // Fetch all needed accommodations in one query.
+  // We fetch the union of all candidate IDs, then match back.
   const accommodationsByDest = new Map<string, AccommodationRow[]>()
-  if (hotelDests.size > 0) {
-    const { data, error } = await supabase
+  if (hotelCandidates.allCandidates.size > 0) {
+    const { data, error } = await supabaseAdmin
       .from('accommodations')
       .select('id, destination_id, name, type, price_per_night_eur, booking_url, rating')
-      .in('destination_id', Array.from(hotelDests))
+      .in('destination_id', Array.from(hotelCandidates.allCandidates))
       .not('booking_url', 'is', null)
       .order('rating', { ascending: false })
 
@@ -200,11 +207,11 @@ async function resolvePlaceholders(
 
   // Fetch all needed experiences in one query
   const experiencesByDest = new Map<string, ExperienceRow[]>()
-  if (tourDests.size > 0) {
-    const { data, error } = await supabase
+  if (tourCandidates.allCandidates.size > 0) {
+    const { data, error } = await supabaseAdmin
       .from('experiences')
       .select('id, destination_id, name, type, cost_eur, vibe_tags, booking_url, rating')
-      .in('destination_id', Array.from(tourDests))
+      .in('destination_id', Array.from(tourCandidates.allCandidates))
       .not('booking_url', 'is', null)
       .order('rating', { ascending: false })
 
@@ -219,11 +226,37 @@ async function resolvePlaceholders(
     }
   }
 
-  // Resolve each placeholder
+  // Diagnostic: log what we found vs what was asked
+  const hotelSummary = Array.from(hotelDestsRaw).map((d) => {
+    const variants = hotelCandidates.byOriginal.get(d) ?? [d]
+    const matched = variants.find((v) => (accommodationsByDest.get(v) ?? []).length > 0)
+    return matched
+      ? `${d}→${matched}(${(accommodationsByDest.get(matched) ?? []).length})`
+      : `${d}(0)`
+  })
+  const tourSummary = Array.from(tourDestsRaw).map((d) => {
+    const variants = tourCandidates.byOriginal.get(d) ?? [d]
+    const matched = variants.find((v) => (experiencesByDest.get(v) ?? []).length > 0)
+    return matched
+      ? `${d}→${matched}(${(experiencesByDest.get(matched) ?? []).length})`
+      : `${d}(0)`
+  })
+  console.log(`[postprocess] Hotels: ${hotelSummary.join(', ') || '(none)'}`)
+  console.log(`[postprocess] Tours:  ${tourSummary.join(', ') || '(none)'}`)
+
+  // Resolve each placeholder using the candidate ladder
   placeholders.forEach((p) => {
     if (p.kind === 'hotel') {
-      const candidates = accommodationsByDest.get(p.destinationId) ?? []
-      const picked = candidates[0] // already sorted by rating desc
+      const variants = hotelCandidates.byOriginal.get(p.destinationId) ?? [p.destinationId]
+      // Try each variant in priority order; first one with rows wins
+      let picked: AccommodationRow | null = null
+      for (const variant of variants) {
+        const candidates = accommodationsByDest.get(variant) ?? []
+        if (candidates.length > 0) {
+          picked = candidates[0]
+          break
+        }
+      }
       if (picked && picked.booking_url) {
         result.set(p.fullMatch, {
           rawUrl: picked.booking_url,
@@ -233,12 +266,19 @@ async function resolvePlaceholders(
         result.set(p.fullMatch, fallbackResolution(p))
       }
     } else {
-      const candidates = experiencesByDest.get(p.destinationId) ?? []
-      const picked = pickBestTour(candidates, p.vibeHint)
-      if (picked && picked.booking_url) {
+      const variants = tourCandidates.byOriginal.get(p.destinationId) ?? [p.destinationId]
+      let pickedTour: ExperienceRow | null = null
+      for (const variant of variants) {
+        const candidates = experiencesByDest.get(variant) ?? []
+        if (candidates.length > 0) {
+          pickedTour = pickBestTour(candidates, p.vibeHint)
+          if (pickedTour) break
+        }
+      }
+      if (pickedTour && pickedTour.booking_url) {
         result.set(p.fullMatch, {
-          rawUrl: picked.booking_url,
-          displayName: buildTourCta(picked),
+          rawUrl: pickedTour.booking_url,
+          displayName: buildTourCta(pickedTour),
         })
       } else {
         result.set(p.fullMatch, fallbackResolution(p))
@@ -247,6 +287,71 @@ async function resolvePlaceholders(
   })
 
   return result
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DESTINATION_ID NORMALIZATION
+   The AI generates lowercase hyphenated IDs like "heraklion" or
+   "agios-nikolaos". The Supabase tables sometimes use prefixed
+   variants (e.g. "crete-heraklion") or alternate spellings.
+   This module returns a list of candidate IDs for each requested
+   one, in priority order — first the original, then known variants.
+
+   When you add new naming variants to Supabase, add them to
+   KNOWN_VARIANTS below — the lookup will pick them up automatically.
+   ───────────────────────────────────────────────────────────── */
+
+// Static map of known variants. Maps the AI's natural form → Supabase reality.
+// Add entries here as needed. Format: 'ai-form': ['supabase-variant-1', 'supabase-variant-2', ...]
+const KNOWN_VARIANTS: Record<string, string[]> = {
+  // Crete cities — Supabase prefixes them with "crete-"
+  'heraklion': ['crete-heraklion'],
+  'iraklio': ['crete-heraklion', 'heraklion'],
+  // Naoussa — Supabase has multiple naming conventions
+  'naousa': ['naousa-city', 'naousa-town-in-northern-greece'],
+  // Patmos — Supabase appends "-greece"
+  'patmos': ['patmos-greece'],
+  // Platamon — same pattern
+  'platamon': ['platamon-greece'],
+  // Crete general — when AI says just "crete", also try the overview row
+  'crete': ['crete-overview', 'crete-heraklion'],
+}
+
+interface CandidateExpansion {
+  /** Map: original requested ID → ordered list of candidate IDs to try */
+  byOriginal: Map<string, string[]>
+  /** Flat set of ALL candidate IDs (used for the IN query) */
+  allCandidates: Set<string>
+}
+
+function expandCandidates(originals: string[]): CandidateExpansion {
+  const byOriginal = new Map<string, string[]>()
+  const allCandidates = new Set<string>()
+
+  originals.forEach((orig) => {
+    const list: string[] = [orig]
+
+    // Add known variants from the static map
+    const known = KNOWN_VARIANTS[orig]
+    if (known) list.push(...known)
+
+    // Heuristic: if the original starts with "agios-" or "agia-",
+    // some tables may use "ag-" prefix or no prefix at all
+    // (Future: add similar heuristics here as patterns emerge)
+
+    // Deduplicate while preserving order
+    const seen = new Set<string>()
+    const ordered = list.filter((c) => {
+      if (seen.has(c)) return false
+      seen.add(c)
+      return true
+    })
+
+    byOriginal.set(orig, ordered)
+    ordered.forEach((c) => allCandidates.add(c))
+  })
+
+  return { byOriginal, allCandidates }
 }
 
 /* ─────────────────────────────────────────────────────────────

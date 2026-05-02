@@ -2,8 +2,14 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || ''
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || ''
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 
-// Lazy initialization - only create client when actually used
+// ─────────────────────────────────────────────────────────────
+// PUBLIC (ANON) CLIENT — unchanged from before
+// Used in client components and any code path that respects RLS.
+// Safe to expose: NEXT_PUBLIC_* values are visible in the browser.
+// ─────────────────────────────────────────────────────────────
+
 let _supabase: SupabaseClient | null = null
 
 export const getSupabase = () => {
@@ -28,7 +34,60 @@ export const getSupabase = () => {
 // For backwards compatibility
 export const supabase = getSupabase()
 
-// Database types (based on your schema)
+// ─────────────────────────────────────────────────────────────
+// ADMIN (SERVICE ROLE) CLIENT — new
+// Bypasses Row Level Security. SERVER-SIDE ONLY.
+// NEVER import this in client components or anywhere bundled to
+// the browser — it would expose the service role key.
+//
+// Use cases:
+//   - API routes (app/api/*)
+//   - Server components
+//   - Server-only library code (e.g. itinerary-postprocess)
+//
+// If SUPABASE_SERVICE_ROLE_KEY is missing, falls back to the anon
+// client so the app keeps working (queries may return less data
+// when RLS is enabled, but it won't crash).
+// ─────────────────────────────────────────────────────────────
+
+let _supabaseAdmin: SupabaseClient | null = null
+
+export const getSupabaseAdmin = () => {
+  // Validate URL is present
+  if (!supabaseUrl || supabaseUrl.includes('your_')) {
+    return null
+  }
+
+  // Prefer the service role key; fall back to anon if missing
+  const key = supabaseServiceKey && !supabaseServiceKey.includes('your_')
+    ? supabaseServiceKey
+    : supabaseAnonKey
+
+  if (!key) return null
+
+  if (!_supabaseAdmin) {
+    try {
+      _supabaseAdmin = createClient(supabaseUrl, key, {
+        auth: {
+          persistSession: false,
+          autoRefreshToken: false,
+        },
+      })
+    } catch (error) {
+      return null
+    }
+  }
+
+  return _supabaseAdmin
+}
+
+// Convenience export — null-safe; consumers should still handle the null case
+export const supabaseAdmin = getSupabaseAdmin()
+
+// ─────────────────────────────────────────────────────────────
+// DATABASE TYPES
+// ─────────────────────────────────────────────────────────────
+
 export interface Destination {
   id: string
   name: string

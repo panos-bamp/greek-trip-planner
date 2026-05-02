@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { generateItinerary } from '@/lib/claude'
-import { supabase } from '@/lib/supabase'
+import { supabaseAdmin } from '@/lib/supabase'
 import { postprocessItinerary } from '@/lib/itinerary-postprocess'
 
 export async function POST(request: NextRequest) {
@@ -15,10 +15,10 @@ export async function POST(request: NextRequest) {
     let accommodations = null
 
     // Only fetch from Supabase if it's configured
-    if (supabase) {
+    if (supabaseAdmin) {
       console.log('API: Fetching from Supabase...')
 
-      const destResult = await supabase
+      const destResult = await supabaseAdmin
         .from('destinations')
         .select('*')
         .limit(10)
@@ -27,7 +27,7 @@ export async function POST(request: NextRequest) {
 
       // Tours/activities — broaden the fetch so we feed the AI rich context
       // about every destination that has data, not just 20 random rows.
-      const expResult = await supabase
+      const expResult = await supabaseAdmin
         .from('experiences')
         .select('id, destination_id, name, type, cost_eur, vibe_tags, rating')
         .order('rating', { ascending: false })
@@ -35,7 +35,7 @@ export async function POST(request: NextRequest) {
       experiences = expResult.data
       if (expResult.error) console.error('Experiences error:', expResult.error)
 
-      const logResult = await supabase
+      const logResult = await supabaseAdmin
         .from('logistics')
         .select('*')
         .limit(15)
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
       // Accommodations — fetch broadly so the AI sees every covered destination.
       // The price filter that was here before was too aggressive and hid useful
       // data from the prompt. The post-processor picks the right hotel anyway.
-      const accResult = await supabase
+      const accResult = await supabaseAdmin
         .from('accommodations')
         .select('id, destination_id, name, type, price_per_night_eur, rating')
         .order('rating', { ascending: false })
