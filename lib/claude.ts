@@ -9,7 +9,7 @@ export async function generateItinerary(answers: any, dbData: any) {
 
   try {
     const message = await client.messages.create({
-      model: 'claude-sonnet-4-20250514',
+      model: 'claude-sonnet-4-6',
       max_tokens: 6000,
       messages: [{ role: 'user', content: prompt }],
     })
@@ -254,6 +254,49 @@ function matchDestinations(answers: any): Destination[] {
 }
 
 /* ─────────────────────────────────────────────
+   SUPABASE CONTEXT BUILDER
+   Tells the AI which destination_ids have real Supabase rows so it
+   uses the correct lowercase placeholder slugs in [HOTEL_LINK:xxx]
+   and [TOUR_LINK:xxx:vibe]. Only sends destination_ids and minimal
+   hints — the URLs themselves are injected by the post-processor.
+   ───────────────────────────────────────────── */
+function buildSupabaseContext(dbData: any): string {
+  if (!dbData || (!dbData.accommodations?.length && !dbData.experiences?.length)) {
+    return ''
+  }
+
+  // Collect unique destination_ids that have hotel data
+  const hotelDests = new Set<string>()
+  ;(dbData.accommodations || []).forEach((row: any) => {
+    if (row?.destination_id) hotelDests.add(String(row.destination_id).toLowerCase())
+  })
+
+  // Collect unique destination_ids + vibe tags from tour data
+  const tourDestVibes = new Map<string, Set<string>>()
+  ;(dbData.experiences || []).forEach((row: any) => {
+    const dest = row?.destination_id ? String(row.destination_id).toLowerCase() : null
+    if (!dest) return
+    if (!tourDestVibes.has(dest)) tourDestVibes.set(dest, new Set())
+    const tags = Array.isArray(row.vibe_tags) ? row.vibe_tags : []
+    tags.forEach((t: any) => tourDestVibes.get(dest)!.add(String(t).toLowerCase()))
+  })
+
+  const hotelList = Array.from(hotelDests).sort().join(', ')
+  const tourList = Array.from(tourDestVibes.entries())
+    .sort()
+    .map(([dest, vibes]) => `${dest} (vibes: ${Array.from(vibes).slice(0, 6).join(', ')})`)
+    .join('\n  ')
+
+  return `
+DATABASE COVERAGE (use these destination_ids in placeholders to get curated deep-link recommendations — for any destination not listed, the placeholder still works as a fallback):
+- Destinations with curated HOTEL data: ${hotelList || '(none — use lowercase destination names anyway)'}
+- Destinations with curated TOUR data:
+  ${tourList || '(none — use lowercase destination names anyway)'}
+`
+}
+
+
+/* ─────────────────────────────────────────────
    PROMPT BUILDER
    ───────────────────────────────────────────── */
 function buildPrompt(answers: any, dbData: any): string {
@@ -317,7 +360,7 @@ TRAVELER PROFILE:
 MATCHED DESTINATIONS (prioritized for this traveler):
 ${destList}
 
-${dbData.destinations ? `\nSUPABASE DATABASE CONTEXT:\nDestinations: ${JSON.stringify(dbData.destinations.slice(0, 5))}\nExperiences: ${JSON.stringify((dbData.experiences || []).slice(0, 8))}\nLogistics: ${JSON.stringify((dbData.logistics || []).slice(0, 5))}\nAccommodations: ${JSON.stringify((dbData.accommodations || []).slice(0, 5))}` : ''}
+${buildSupabaseContext(dbData)}
 
 CRITICAL PLANNING RULES:
 1. ROUTING: Only suggest destinations that are logistically connected. Don't mix Ionian islands with Cyclades in the same trip unless the traveler has 13+ days. Keep island-hopping within the same group.
@@ -327,8 +370,16 @@ CRITICAL PLANNING RULES:
 5. BUDGET ACCURACY: €50-100 = hostels/budget, street food, public transport. €100-200 = mid hotels, tavernas, some tours. €200-500 = boutique/luxury, fine dining, private tours.
 6. EXPERIENCE LEVEL: First-timers should include at least one iconic destination. Returning visitors can skip the classics. Frequent visitors want deep cuts.
 7. TRAVEL GUIDE LINKS: When the traveler FIRST arrives at a new destination, include the travel guide link INLINE using markdown format: [Destination travel guide](URL). Do NOT repeat the guide link on subsequent days at the same destination.
-8. ACCOMMODATION: Only include **Where to Stay:** on the FIRST day at each new destination. Do NOT repeat it on subsequent days at the same destination. Always include a Booking.com search link in this format: [Search hotels on Booking.com](https://www.booking.com/searchresults.html?ss=DESTINATION+Greece&aid=7677415)
-9. TOURS & ACTIVITIES: For 3-5 days across the itinerary, include a recommended bookable tour or activity with a GetYourGuide link in this format: [Book this tour on GetYourGuide](https://www.getyourguide.com/s/?q=ACTIVITY+DESTINATION&partner_id=QH4R87F). Place the tour link naturally inside the Morning, Afternoon, or Evening block where the activity happens.
+8. ACCOMMODATION (CRITICAL — placeholder syntax, do NOT write URLs yourself):
+   On the FIRST day at each new destination, end the **Where to Stay:** line with the placeholder [HOTEL_LINK:destination_id] — replacing destination_id with the lowercase destination ID (e.g., athens, santorini, milos, folegandros, naxos, mykonos, crete, rhodes, thessaloniki). Do NOT repeat **Where to Stay:** on subsequent days at the same destination. Use ONLY the placeholder format — never write Booking.com URLs yourself. Our system replaces these with curated, deep-link affiliate URLs to specific properties.
+
+   Correct example:  **Where to Stay:** Niche Hotel Athens (boutique, €200/night, walking distance to the Acropolis Museum). [HOTEL_LINK:athens]
+   Wrong example:    [Search hotels on Booking.com](https://www.booking.com/...)  ← never do this
+9. TOURS & ACTIVITIES (CRITICAL — placeholder syntax, do NOT write URLs yourself):
+   For 3-5 days across the itinerary, include ONE recommended bookable tour or activity. Use the placeholder [TOUR_LINK:destination_id:vibe_hint] inside the relevant Morning, Afternoon, or Evening block. The vibe_hint should be ONE word from the user's interests that matches the activity (e.g., beach, food, history, sailing, hiking, sunset, wine, swimming). Use ONLY the placeholder format — never write GetYourGuide URLs yourself. Our system replaces these with curated, deep-link affiliate URLs to specific tours.
+
+   Correct example:  **Afternoon:** Sail to the volcanic islands and swim in the hot springs (€35/person). [TOUR_LINK:santorini:sailing]
+   Wrong example:    [Book this tour on GetYourGuide](https://www.getyourguide.com/...)  ← never do this
 
 FORMAT YOUR RESPONSE EXACTLY AS:
 
@@ -343,10 +394,10 @@ FORMAT YOUR RESPONSE EXACTLY AS:
 ## Day-by-Day Itinerary
 
 ### Day 1: [Location] — [Theme]
-**Morning:** [Specific activity with approximate cost in €. If a bookable tour, include GetYourGuide link.]
+**Morning:** [Specific activity with approximate cost in €. If a bookable tour, end the line with [TOUR_LINK:destination_id:vibe_hint] placeholder.]
 **Afternoon:** [Activity]
 **Evening:** [Activity — dinner recommendation matching their dining preferences]
-**Where to Stay:** [Accommodation name and description matching their style/budget]. [Search hotels on Booking.com](https://www.booking.com/searchresults.html?ss=DESTINATION+Greece&aid=7677415)
+**Where to Stay:** [Accommodation name and description matching their style/budget]. [HOTEL_LINK:destination_id]
 **Insider Tip:** [Genuine local knowledge — not generic tourist advice]
 **Daily Budget:** €[amount] breakdown (accommodation: €X, food: €X, activities: €X, transport: €X)
 📖 Read our [Location travel guide](URL).

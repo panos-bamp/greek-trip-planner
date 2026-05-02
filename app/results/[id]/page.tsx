@@ -1,12 +1,16 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, type ReactNode } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Compass, Download, ArrowLeft, Calendar, Users, Euro, Share2, Bookmark, Sparkles, MapPin, ExternalLink } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import TripMap from '@/components/TripMap'
 import { extractLocationsFromText, getLocationData } from '@/lib/greece-locations'
+import CredentialStrip from '@/components/CredentialStrip'
+import YesimCallout from '@/components/YesimCallout'
+import DiscoverCarsCard from '@/components/DiscoverCarsCard'
+import GuidesCornerInline from '@/components/GuidesCornerInline'
 
 export default function ResultsPage() {
   const params = useParams()
@@ -409,7 +413,88 @@ export default function ResultsPage() {
           {/* Itinerary Content */}
           <div className="p-6 max-w-2xl mx-auto">
             <div className="space-y-3">
-              {itinerary.split('\n').map((line, index) => renderLine(line, index))}
+              {(() => {
+                /**
+                 * Multi-anchor injection — render the AI markdown line by line,
+                 * but inject our static React components at known section
+                 * boundaries. Anchors are detected on the heading lines so
+                 * components appear immediately AFTER (or BEFORE) the right
+                 * section in the reading flow.
+                 *
+                 *   1. CredentialStrip → after the "## Overview" heading
+                 *   2. YesimCallout    → after the "## Your Route" heading
+                 *   3. DiscoverCarsCard → after the "## Transport Between Destinations" heading
+                 *   4. GuidesCornerInline → just BEFORE the "## Final Tips" heading
+                 *
+                 * Once a flag fires, it doesn't fire again — the component is
+                 * rendered once per page even if the AI repeats a heading.
+                 */
+                const flags = {
+                  credentialStrip: false,
+                  yesim: false,
+                  discoverCars: false,
+                  guidesCorner: false,
+                }
+
+                const lines = itinerary.split('\n')
+                const out: ReactNode[] = []
+
+                lines.forEach((line, index) => {
+                  const trimmed = line.trim()
+
+                  // Anchor 4 (PRE): inject Guide's Corner just before Final Tips
+                  if (!flags.guidesCorner && /^##\s*Final Tips\s*$/i.test(trimmed)) {
+                    flags.guidesCorner = true
+                    out.push(
+                      <GuidesCornerInline
+                        key={`gc-${index}`}
+                        userData={userData}
+                        itinerary={itinerary}
+                        locations={locations}
+                      />
+                    )
+                  }
+
+                  // Always render the markdown line itself
+                  out.push(renderLine(line, index))
+
+                  // Anchor 1 (POST): credential strip after Overview heading
+                  if (!flags.credentialStrip && /^##\s*Overview\s*$/i.test(trimmed)) {
+                    flags.credentialStrip = true
+                    out.push(
+                      <CredentialStrip key={`cs-${index}`} userData={userData} />
+                    )
+                  }
+
+                  // Anchor 2 (POST): Yesim callout after the Route section's first
+                  // content line (which immediately follows "## Your Route")
+                  if (!flags.yesim && /^##\s*Your Route\s*$/i.test(trimmed)) {
+                    flags.yesim = true
+                    // Yesim itself goes after the next non-empty line, so we render
+                    // a placeholder that injects on the next loop tick. Simplest: inject NOW.
+                    // The route line that follows will render after this.
+                    out.push(<YesimCallout key={`ys-${index}`} />)
+                  }
+
+                  // Anchor 3 (POST): DiscoverCars after Transport heading
+                  if (
+                    !flags.discoverCars &&
+                    /^##\s*Transport Between Destinations\s*$/i.test(trimmed)
+                  ) {
+                    flags.discoverCars = true
+                    out.push(
+                      <DiscoverCarsCard
+                        key={`dc-${index}`}
+                        userData={userData}
+                        itinerary={itinerary}
+                        locations={locations}
+                      />
+                    )
+                  }
+                })
+
+                return out
+              })()}
             </div>
 
             {/* CTA */}

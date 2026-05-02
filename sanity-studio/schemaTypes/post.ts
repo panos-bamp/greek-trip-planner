@@ -832,9 +832,9 @@ export default defineType({
                 },
                 {
                   name: 'url',
-                  type: 'url',
+                  type: 'string',
                   title: 'Item URL',
-                  description: 'Link to the section anchor or external page, e.g., /blog/best-hotels-athens#grande-bretagne',
+                  description: 'Absolute or relative URL, e.g. /blog/best-hotels-athens#grande-bretagne or https://greektriplanner.me/blog/crete-travel-guide',
                   validation: (Rule: any) => Rule.required(),
                 },
                 {
