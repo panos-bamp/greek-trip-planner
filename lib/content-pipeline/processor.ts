@@ -355,19 +355,20 @@ No generic travel guide sections: no "Getting There", "Where to Stay", "Best Tim
 No summarising the source: use it as a trigger only
 INTERNAL LINKS ARE MANDATORY: You MUST embed 3-5 of the links listed at the top of STEP 2 as HTML <a> tags inside article body paragraphs. Not at the end — inside the body, woven into sentences naturally.
 
-CORRECT (spaces around every anchor tag):
-<p>Travellers planning a first visit should consult the <a href="https://greektriplanner.me/blog/corfu-travel-guide">Corfu travel guide</a> before booking.</p>
-<p>The island offers experiences that a <a href="https://greektriplanner.me/blog/greece-itinerary-7-days">7-day Greece itinerary</a> can only begin to cover.</p>
+SINGLE QUOTES IN HREF — CRITICAL RULE:
+Always use single quotes inside href attributes to prevent JSON parsing failures.
+RIGHT: <a href='https://greektriplanner.me/blog/crete-travel-guide'>Crete travel guide</a>
+WRONG: <a href="https://greektriplanner.me/blog/crete-travel-guide">Crete travel guide</a>
 
-WRONG (all of these fail the editorial check):
-✗ "our<a href="...">guide</a>covers" — no space before or after
-✗ "see<a href="...">Santorini guide</a>for details" — no space before
-✗ A list of links at the end of the article
-✗ Zero links in the body
+SPACING RULE — always a space before AND after the anchor tag:
+RIGHT: "The <a href='url'>Crete travel guide</a> covers this in detail."
+WRONG: "The<a href='url'>Crete travel guide</a>covers" — words merged into tag
 
-CHECKLIST before finalising: Have I embedded at least 3 links? Does each one have a space before and after the anchor tag? Are they woven into sentences, not appended as a block?
-If any answer is NO — go back and fix it before outputting the JSON.
-
+CHECKLIST before finalising:
+1. Have I embedded at least 3 links from the list? (if not — add them now)
+2. Does every link use single quotes in href='url'? (if not — fix them now)
+3. Is there a space before and after every <a> tag? (if not — fix them now)
+4. Are links woven into sentences, not listed at the end? (if not — move them now)
 WHEN YOU CANNOT FIND SPECIFIC DATA:
 If a search returns no hard numbers for a claim, write what you DO know and flag the gap explicitly in research_topics. Do not write around missing data with vague language — acknowledge it and move on to what you can prove.
 
@@ -585,7 +586,11 @@ function extractClaudeOutput(raw: string): Record<string, any> | null {
     }
 
     if (htmlContent) {
+      // Restore single-quoted href attributes to double-quoted for valid HTML
       parsed.rewritten_content = htmlContent
+        .replace(/href='([^']*)'/gi, 'href="$1"')
+        .replace(/target='([^']*)'/gi, 'target="$1"')
+        .replace(/rel='([^']*)'/gi, 'rel="$1"')
     }
 
     return parsed
@@ -616,6 +621,7 @@ ${internalLinks ? `INTERNAL LINKS — embed 3-5 of these as <a href> tags on nat
 ${internalLinks}` : ''}
 HTML: <h2>, <h3>, <p>, <ul>, <li>, <a>. Every <p> must be 1-3 sentences. No literal \n in output.
 SPACING: Always put a space before and after any <a> tag within a sentence. WRONG: "visit<a>link</a>today" RIGHT: "visit <a>link</a> today".
+SINGLE QUOTES ONLY in href: write href='url' never href="url" — double quotes break JSON output.
 
 Output ONLY this JSON (no markdown, escape all quotes in HTML with backslash):
 {"rewritten_title":"SEO title","rewritten_excerpt":"Meta 150-160 chars","rewritten_content":"HTML here","suggested_slug":"url-slug","target_keywords":["kw1","kw2","kw3"],"suggested_tags":["t1","t2","t3"],"needs_research":false,"research_topics":[],"research_notes":"Simple fallback","faq_items":[{"question":"Q1?","answer":"A1."},{"question":"Q2?","answer":"A2."},{"question":"Q3?","answer":"A3."}]}`
