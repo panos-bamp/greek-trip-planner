@@ -295,7 +295,7 @@ URL: ${article.url}
 Content: ${decodeHtmlContent(article.content || article.excerpt || article.title).slice(0, 3000)}
 ${needsTranslation ? '\n[TRANSLATE from Greek/German — use as starting point only, do not copy]\n' : ''}
 Relevance Score: ${article.relevanceScore}/100
-${internalLinksBlock}
+
 ─────────────────────────────────────────
 TODAY'S DATE: March 2026. CURRENT YEAR IS 2026. Update all year references accordingly.
 
@@ -316,12 +316,13 @@ After researching, ask: What is the most surprising or significant thing I found
 ─────────────────────────────────────────
 STEP 2 — WRITE a ${wordCount} word JOURNALISM PIECE
 
+${internalLinksBlock}
+
 BEFORE WRITING — answer these internally:
 1. What is the real story? (not just the topic — the specific insight, tension, or implication)
 2. What does the reader know after reading this that they did not know before?
 3. Is my opening sentence something that would make a senior editor keep reading?
-4. Which 3-5 internal links from the list above will I embed?
-   (If no list was provided above, skip this — but if links ARE listed, embedding them is NOT optional)
+4. INTERNAL LINKS: From the list above, identify exactly which 3-5 links you will embed and in which sentence of which section. This is not optional — every article must contain embedded links.
 
 ARTICLE REQUIREMENTS:
 • Opening paragraph: Lead with your single sharpest research finding.
@@ -352,20 +353,20 @@ No diplomatic openings: never start with "Despite..." or "In the context of..." 
 No year references before 2025: update all "in 2024" / "this year" to 2026 context
 No generic travel guide sections: no "Getting There", "Where to Stay", "Best Time to Visit"
 No summarising the source: use it as a trigger only
-INTERNAL LINKS ARE MANDATORY: You MUST embed 3-5 of the provided internal links as HTML <a> tags in the article body.
+INTERNAL LINKS ARE MANDATORY: You MUST embed 3-5 of the links listed at the top of STEP 2 as HTML <a> tags inside article body paragraphs. Not at the end — inside the body, woven into sentences naturally.
 
-CORRECT EXAMPLES (note the spaces around anchor tags):
+CORRECT (spaces around every anchor tag):
 <p>Travellers planning a first visit should consult the <a href="https://greektriplanner.me/blog/corfu-travel-guide">Corfu travel guide</a> before booking.</p>
 <p>The island offers experiences that a <a href="https://greektriplanner.me/blog/greece-itinerary-7-days">7-day Greece itinerary</a> can only begin to cover.</p>
 
-WRONG (these all fail):
-- "our<a href="...">guide</a>covers" — missing spaces around tag
-- "see the<a href="...">Santorini guide</a>for details" — no space before tag
-- listing links as a separate block at the end of the article
-- using bare URLs instead of anchor tags
+WRONG (all of these fail the editorial check):
+✗ "our<a href="...">guide</a>covers" — no space before or after
+✗ "see<a href="...">Santorini guide</a>for details" — no space before
+✗ A list of links at the end of the article
+✗ Zero links in the body
 
-The <a> tag must always be surrounded by spaces within the sentence.
-If you do not embed at least 3 links with correct spacing, the article FAILS the editorial check.
+CHECKLIST before finalising: Have I embedded at least 3 links? Does each one have a space before and after the anchor tag? Are they woven into sentences, not appended as a block?
+If any answer is NO — go back and fix it before outputting the JSON.
 
 WHEN YOU CANNOT FIND SPECIFIC DATA:
 If a search returns no hard numbers for a claim, write what you DO know and flag the gap explicitly in research_topics. Do not write around missing data with vague language — acknowledge it and move on to what you can prove.
