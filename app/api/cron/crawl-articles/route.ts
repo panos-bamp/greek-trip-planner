@@ -267,7 +267,12 @@ export async function GET(request: NextRequest) {
       status: a.isRelevant ? 'scored' : 'pending',  // 'scored' = awaiting your review
     }))
 
-    const { error } = await supabase.from('crawled_articles').insert(toInsert)
+    const { error } = await supabase
+      .from('crawled_articles')
+      .upsert(toInsert, {
+        onConflict: 'original_url',
+        ignoreDuplicates: true,
+      })
     if (error) log(`⚠️ Supabase insert error: ${error.message}`)
     else log(`💾 Saved ${toInsert.length} articles to Supabase`)
 
