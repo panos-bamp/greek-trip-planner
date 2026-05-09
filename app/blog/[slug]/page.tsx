@@ -353,32 +353,59 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       </section>
 
       {/* ═══════════════════════════════════════════
-          2. EXCERPT HIGHLIGHT BOX (replaces Key Metrics)
+          2. AUTHOR + AT-A-GLANCE + DISCLAIMER BLOCK
+          ───────────────────────────────────────────
+          Mobile (<768px): stacked. Author card → At-a-Glance → disclaimer.
+          Desktop (≥768px): two-column. Author LEFT, At-a-Glance + disclaimer RIGHT.
           ═══════════════════════════════════════════ */}
-      {post.excerpt && (
-        <section className="relative z-10 -mt-8">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white rounded-2xl shadow-lg border border-[#E6DAD1]/60 p-6 md:p-8">
-              <div className="flex items-start gap-3">
-                <Lightbulb className="w-5 h-5 text-[#FF5635] flex-shrink-0 mt-0.5" />
-                <div>
-                  <span className="text-sm font-sans font-semibold text-[#180204]/70 uppercase tracking-wide">At a Glance</span>
-                  <p className="text-[#180204]/65 font-sans leading-relaxed mt-2 text-base">
-                    {post.excerpt}
-                  </p>
-                </div>
+      <section className="relative z-10 pt-10 md:pt-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-5xl mx-auto flex flex-col md:flex-row md:items-start gap-4">
+
+            {/* ─── Author card (LEFT desktop / TOP mobile) ─── */}
+            <aside className="md:w-[200px] md:flex-shrink-0 bg-white rounded-2xl border border-[#E6DAD1]/60 p-5 flex flex-col items-center text-center">
+              <div className="relative w-[72px] h-[72px] rounded-full overflow-hidden border-2 border-[#FF5635]/20 mb-3">
+                <Image
+                  src="/team/panos.jpg"
+                  alt="Panos, founder of Greek Trip Planner"
+                  fill
+                  sizes="72px"
+                  className="object-cover"
+                />
               </div>
+              <div className="text-sm font-semibold text-[#180204] font-sans leading-tight mb-1">
+                Panos
+              </div>
+              <div className="text-xs text-[#180204]/55 font-sans leading-snug">
+                Founder<br className="hidden md:block" />
+                <span className="md:hidden"> · </span>
+                Greek Trip Planner
+              </div>
+            </aside>
+
+            {/* ─── At-a-Glance + disclaimer stack (RIGHT desktop / BELOW mobile) ─── */}
+            <div className="flex-1 min-w-0 flex flex-col gap-3">
+
+              {post.excerpt && (
+                <div className="bg-white rounded-2xl border border-[#E6DAD1]/60 p-5 md:p-6">
+                  <div className="flex items-start gap-3">
+                    <Lightbulb className="w-5 h-5 text-[#FF5635] flex-shrink-0 mt-0.5" />
+                    <div className="min-w-0">
+                      <span className="text-sm font-sans font-semibold text-[#180204]/70 uppercase tracking-wide">At a Glance</span>
+                      <p className="text-[#180204]/65 font-sans leading-relaxed mt-2 text-base">
+                        {post.excerpt}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <AffiliateDisclaimer />
+
             </div>
           </div>
-        </section>
-      )}
-
-      {/* ═══════════════════════════════════════════
-          AFFILIATE DISCLAIMER — hardcoded, every post
-          ═══════════════════════════════════════════ */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AffiliateDisclaimer />
-      </div>
+        </div>
+      </section>
 
       {/* ═══════════════════════════════════════════
           3. ARTICLE BODY + TABLE OF CONTENTS SIDEBAR
