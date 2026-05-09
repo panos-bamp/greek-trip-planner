@@ -78,7 +78,15 @@ export default function AboutPage() {
             {/* Panos */}
             <div className="bg-[#FAF6F3] rounded-2xl p-7 border border-[#E6DAD1]/40 lg:col-span-1 sm:col-span-2">
               <div className="flex items-center gap-4 mb-5">
-                <div className="w-14 h-14 bg-[#FF5635]/10 rounded-full flex items-center justify-center text-2xl">🧑‍💻</div>
+                <div className="relative w-14 h-14 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-[#FF5635]/15">
+                  <Image
+                    src="/team/panos.jpg"
+                    alt="Panos, founder of Greek Trip Planner"
+                    fill
+                    sizes="56px"
+                    className="object-cover"
+                  />
+                </div>
                 <div>
                   <h3 className="text-lg text-[#180204] font-sans font-semibold">Panos</h3>
                   <p className="text-[#FF5635] text-sm font-medium">Founder &middot; Engineer &middot; Athens</p>

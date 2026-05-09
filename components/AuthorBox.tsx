@@ -2,6 +2,7 @@
 // Editorial authorship model: Panos writes, 5-expert Greek team informs.
 // Strong EEAT signals: real people, real specialties, cross-references /about page.
 
+import Image from 'next/image'
 import Link from 'next/link'
 
 const TEAM = [
@@ -23,8 +24,14 @@ export default function AuthorBox() {
         </p>
 
         <div className="flex gap-4 items-start">
-          <div className="flex-shrink-0 w-12 h-12 rounded-full bg-[#FF5635]/10 border-2 border-[#FF5635]/20 flex items-center justify-center text-xl select-none">
-            🧑‍💻
+          <div className="flex-shrink-0 relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#FF5635]/20">
+            <Image
+              src="/team/panos.jpg"
+              alt="Panos, founder of Greek Trip Planner"
+              fill
+              sizes="48px"
+              className="object-cover"
+            />
           </div>
 
           <div className="flex-1 min-w-0">
