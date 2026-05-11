@@ -383,14 +383,16 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
         <div className="flex flex-col md:flex-row md:items-stretch gap-3">
 
-          {/* ─── Author card (LEFT desktop / TOP mobile) ─── */}
+          {/* ─── Author card (LEFT desktop / TOP mobile)
+              md:items-stretch on the parent ensures this card matches
+              the AffiliateDisclaimer's height on desktop. ─── */}
           <aside className="md:w-[260px] md:flex-shrink-0 bg-white rounded-2xl border border-[#E6DAD1]/60 p-4 flex items-center gap-3">
-            <div className="relative w-[56px] h-[56px] rounded-full overflow-hidden border-2 border-[#FF5635]/20 flex-shrink-0">
+            <div className="relative w-[80px] h-[80px] rounded-full overflow-hidden border-2 border-[#FF5635]/20 flex-shrink-0">
               <Image
                 src="/team/panos.jpg"
                 alt="Panos, founder of Greek Trip Planner"
                 fill
-                sizes="56px"
+                sizes="80px"
                 className="object-cover"
               />
             </div>
