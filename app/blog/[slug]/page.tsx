@@ -380,7 +380,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           Desktop (≥768px): side-by-side. Author LEFT, disclaimer RIGHT.
           Width matches the At-a-Glance section above (max-w-4xl).
           ═══════════════════════════════════════════ */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 mb-8">
         <div className="flex flex-col md:flex-row md:items-stretch gap-3">
 
           {/* ─── Author card (LEFT desktop / TOP mobile)
