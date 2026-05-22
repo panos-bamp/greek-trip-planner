@@ -7,12 +7,18 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
+import pLimit from 'p-limit'
 import { RSS_SOURCES } from '@/lib/rss-sources'
 import {
   scoreArticlesBatch,
-  delay,
   type RawArticle,
 } from '@/lib/content-pipeline/processor'
+
+// ─── Vercel runtime config ────────────────────────────────────
+// 300s is the Pro/Enterprise ceiling. Required because scoring N articles
+// in parallel batches can still take 60-120s on a heavy crawl day.
+export const maxDuration = 300
+export const dynamic = 'force-dynamic'
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -228,20 +234,33 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ success: true, stats, log: runLog })
     }
 
-    // ── PHASE 3: Score relevance ──────────────────────────────
+    // ── PHASE 3: Score relevance (parallelized) ───────────────
+    // Was sequential: 33 batches × ~9s = ~297s (hit Vercel 300s ceiling).
+    // Now parallel with pool of 5: ~33/5 × 9s ≈ 60s.
+    // Pool size 5 is safe under Anthropic Tier 1+ rate limits.
     log('\n🤖 Scoring relevance...')
     const BATCH_SIZE = 10
-    const scored = []
+    const CONCURRENCY = 5
+    const limit = pLimit(CONCURRENCY)
 
+    const batches: RawArticle[][] = []
     for (let i = 0; i < newArticles.length; i += BATCH_SIZE) {
-      const batch = newArticles.slice(i, i + BATCH_SIZE)
-      log(
-        `  Scoring batch ${Math.floor(i / BATCH_SIZE) + 1}/${Math.ceil(newArticles.length / BATCH_SIZE)}...`
-      )
-      const scoredBatch = await scoreArticlesBatch(batch)
-      scored.push(...scoredBatch)
-      if (i + BATCH_SIZE < newArticles.length) await delay(500)
+      batches.push(newArticles.slice(i, i + BATCH_SIZE))
     }
+    log(`  ${batches.length} batches × ${BATCH_SIZE} articles, concurrency ${CONCURRENCY}`)
+
+    let completed = 0
+    const scoredBatches = await Promise.all(
+      batches.map((batch, idx) =>
+        limit(async () => {
+          const result = await scoreArticlesBatch(batch)
+          completed++
+          log(`  ✓ batch ${idx + 1}/${batches.length} done (${completed}/${batches.length} total)`)
+          return result
+        })
+      )
+    )
+    const scored = scoredBatches.flat()
 
     const relevantArticles = scored.filter((a) => a.isRelevant)
     stats.articlesRelevant = relevantArticles.length

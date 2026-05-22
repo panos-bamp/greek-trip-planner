@@ -1,6 +1,18 @@
 // ============================================================
 // RSS Sources Configuration
-// Total: 38 sources across 9 markets
+// Total: 20 active sources across 8 markets (was 32)
+//
+// 2026-05-22 audit: 12 dead feeds removed after Vercel timeout caused by
+// HTTP 403/404/410/timeout errors on dead endpoints. Removed:
+//   • Greek (4): gazzeta, cnn_gr, skai, capital_gr
+//   • UK (2):    roughguides, ttg_media
+//   • DE (1):    stern_reise
+//   • US (1):    forbes_travel
+//   • FR (1):    routard
+//   • IT (1):    turismo_it
+//   • AU (1):    traveller_au  (entire AU section temporarily empty)
+//   • Industry (1): travelweekly
+// Fixed (URL drift): ekathimerini, kathimerini → now use FeedBurner / direct CMS feed
 // ============================================================
 
 export type Country =
@@ -41,8 +53,9 @@ export const RSS_SOURCES: RSSSource[] = [
     country: 'GR',
     language: 'en',
     flag: '🇬🇷',
-    rssUrl: 'https://www.ekathimerini.com/feed/',
-    fallbackUrl: 'https://www.ekathimerini.com/rss.xml',
+    // Direct CMS feed (confirmed live May 2026). FeedBurner kept as fallback.
+    rssUrl: 'https://www.ekathimerini.com/infeeds/rss/nx-rss-feed.xml',
+    fallbackUrl: 'https://feeds.feedburner.com/ekathimerini/sKip',
     trustScore: 95,
     focus: 'news',
   },
@@ -52,8 +65,8 @@ export const RSS_SOURCES: RSSSource[] = [
     country: 'GR',
     language: 'el',
     flag: '🇬🇷',
-    rssUrl: 'https://www.kathimerini.gr/feed/',
-    fallbackUrl: 'https://www.kathimerini.gr/rss.xml',
+    // FeedBurner URL (confirmed live May 2026). Both original URLs return 410/404.
+    rssUrl: 'https://feeds.feedburner.com/kathimerini',
     trustScore: 90,
     focus: 'news',
   },
@@ -98,49 +111,11 @@ export const RSS_SOURCES: RSSSource[] = [
     trustScore: 80,
     focus: 'business',  // covers tourism economics, hotel investment, sector revenue
   },
-  {
-    id: 'gazzeta',
-    name: 'Gazzeta.gr',
-    country: 'GR',
-    language: 'el',
-    flag: '🇬🇷',
-    rssUrl: 'https://www.gazzeta.gr/feed/',
-    trustScore: 72,
-    focus: 'news',
-  },
-  {
-    id: 'cnn_gr',
-    name: 'CNN Greece',
-    country: 'GR',
-    language: 'el',
-    flag: '🇬🇷',
-    rssUrl: 'https://www.cnn.gr/rss',
-    fallbackUrl: 'https://www.cnn.gr/feed',
-    trustScore: 80,
-    focus: 'news',
-  },
-  {
-    id: 'skai',
-    name: 'Skai.gr',
-    country: 'GR',
-    language: 'el',
-    flag: '🇬🇷',
-    rssUrl: 'https://www.skai.gr/feed/rss-news',
-    fallbackUrl: 'https://www.skai.gr/rss',
-    trustScore: 82,
-    focus: 'news',
-  },
-  {
-    id: 'capital_gr',
-    name: 'Capital.gr',
-    country: 'GR',
-    language: 'el',
-    flag: '🇬🇷',
-    rssUrl: 'https://www.capital.gr/rss',
-    fallbackUrl: 'https://www.capital.gr/feed',
-    trustScore: 82,
-    focus: 'business',  // financial/business — strong on tourism revenue, investment
-  },
+  // ─ REMOVED 2026-05-22: dead feeds (see comment block below) ─
+  // gazzeta — feed times out
+  // cnn_gr — both URLs return 404
+  // skai — both URLs return 404
+  // capital_gr — 403/404 (likely Cloudflare-walled, won't return without proxy)
 
   // ─── 🇬🇧 UK (4 sources) ──────────────────────────────────────
 
@@ -165,27 +140,7 @@ export const RSS_SOURCES: RSSSource[] = [
     trustScore: 85,
     focus: 'travel',
   },
-  {
-    id: 'roughguides',
-    name: 'Rough Guides',
-    country: 'UK',
-    language: 'en',
-    flag: '🇬🇧',
-    rssUrl: 'https://www.roughguides.com/feed/',
-    trustScore: 82,
-    focus: 'travel',
-  },
-  {
-    id: 'ttg_media',
-    name: 'TTG Media',           // UK travel trade — tour operators, retail travel
-    country: 'UK',
-    language: 'en',
-    flag: '🇬🇧',
-    rssUrl: 'https://www.ttgmedia.com/rss',
-    fallbackUrl: 'https://www.ttgmedia.com/feed',
-    trustScore: 88,
-    focus: 'industry',
-  },
+  // ─ REMOVED 2026-05-22: roughguides (404), ttg_media (404 both URLs) ─
 
   // ─── 🇩🇪 German (3 sources) ──────────────────────────────────
 
@@ -199,17 +154,7 @@ export const RSS_SOURCES: RSSSource[] = [
     trustScore: 93,
     focus: 'travel',
   },
-  {
-    id: 'stern_reise',
-    name: 'Stern Reise',
-    country: 'DE',
-    language: 'de',
-    flag: '🇩🇪',
-    rssUrl: 'https://www.stern.de/reise/rss.xml',
-    fallbackUrl: 'https://www.stern.de/feed/rss.xml',
-    trustScore: 82,
-    focus: 'travel',
-  },
+  // ─ REMOVED 2026-05-22: stern_reise — both URLs return 404 ─
   {
     id: 'faz_reise',
     name: 'FAZ Reise',
@@ -255,17 +200,7 @@ export const RSS_SOURCES: RSSSource[] = [
     trustScore: 80,
     focus: 'travel',
   },
-  {
-    id: 'forbes_travel',
-    name: 'Forbes Travel',        // covers luxury travel, hotel openings, market data
-    country: 'US',
-    language: 'en',
-    flag: '🇺🇸',
-    rssUrl: 'https://www.forbes.com/travel/feed/',
-    fallbackUrl: 'https://www.forbes.com/sites/travel/feed/',
-    trustScore: 87,
-    focus: 'travel',
-  },
+  // ─ REMOVED 2026-05-22: forbes_travel — 403 (Cloudflare-walled, needs proxy) ─
 
   // ─── 🇳🇴 Norway (2 sources) ──────────────────────────────────
   // Highest per-capita spending of all Scandinavian markets
@@ -307,16 +242,7 @@ export const RSS_SOURCES: RSSSource[] = [
     trustScore: 88,
     focus: 'travel',
   },
-  {
-    id: 'routard',
-    name: 'Le Routard',           // France's most-read travel guide brand
-    country: 'FR',
-    language: 'fr',
-    flag: '🇫🇷',
-    rssUrl: 'https://www.routard.com/rss/rss.xml',
-    trustScore: 82,
-    focus: 'travel',
-  },
+  // ─ REMOVED 2026-05-22: routard — 404 ─
 
   // ─── 🇮🇹 Italian (2 sources) ─────────────────────────────────
   // Italy is a growing source market — Italians are Greece's closest European neighbours
@@ -331,34 +257,14 @@ export const RSS_SOURCES: RSSSource[] = [
     trustScore: 85,
     focus: 'travel',
   },
-  {
-    id: 'turismo_it',
-    name: 'Turismo.it',
-    country: 'IT',
-    language: 'it',
-    flag: '🇮🇹',
-    rssUrl: 'https://www.turismo.it/rss.xml',
-    fallbackUrl: 'https://www.turismo.it/feed/',
-    trustScore: 75,
-    focus: 'travel',
-  },
+  // ─ REMOVED 2026-05-22: turismo_it — both URLs return 410 (gone permanently) ─
 
-  // ─── 🇦🇺 Australia (1 source) ────────────────────────────────
-  // Australians avg €958/trip to Greece — highest-spending long-haul market
+  // ─── 🇦🇺 Australia ────────────────────────────────────────────
+  // REMOVED 2026-05-22: traveller_au — both URLs 404. AU coverage temporarily
+  // suspended. Skift and eTurboNews still cover the AU→Greece market.
+  // TODO: find replacement (escape.com.au, news.com.au/travel)
 
-  {
-    id: 'traveller_au',
-    name: 'Traveller (Aus)',      // Australia's most-read travel publication
-    country: 'AU',
-    language: 'en',
-    flag: '🇦🇺',
-    rssUrl: 'https://www.traveller.com.au/rss.xml',
-    fallbackUrl: 'https://www.smh.com.au/travel/feed.xml',
-    trustScore: 82,
-    focus: 'travel',
-  },
-
-  // ─── 🌍 Industry (4 sources) ─────────────────────────────────
+  // ─── 🌍 Industry ─────────────────────────────────────────────
   // Travel trade, hotel industry, aviation, tourism research
 
   {
@@ -371,17 +277,7 @@ export const RSS_SOURCES: RSSSource[] = [
     trustScore: 95,
     focus: 'industry',
   },
-  {
-    id: 'travelweekly',
-    name: 'Travel Weekly',
-    country: 'INDUSTRY',
-    language: 'en',
-    flag: '🌍',
-    rssUrl: 'https://www.travelweekly.com/rss',
-    fallbackUrl: 'https://www.travelweekly.com/feed',
-    trustScore: 88,
-    focus: 'industry',
-  },
+  // ─ REMOVED 2026-05-22: travelweekly — 403 both URLs (Cloudflare-walled) ─
   {
     id: 'eturbonews',
     name: 'eTurboNews',           // daily global tourism trade wire — Greece coverage is strong
