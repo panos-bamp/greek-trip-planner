@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, Clock, MapPin, Star, CheckCircle, Sparkles, Calendar, Compass, Ship, ChevronDown, Sun, Utensils, Camera } from 'lucide-react'
-import Navbar from '@/components/Navbar'
 
 export const metadata = {
   title: 'AI Greece Trip Planner Tool | Free Personalized Itinerary Generator',
@@ -19,7 +18,6 @@ export const metadata = {
 export default function PlannerPage() {
   return (
     <main className="min-h-screen bg-[#FAF6F3]">
-      <Navbar />
 
       {/* ===== HERO — Tool Introduction ===== */}
       <section className="pt-28 pb-16 md:pt-36 md:pb-24 bg-[#FAF6F3]">
@@ -486,38 +484,6 @@ export default function PlannerPage() {
           </div>
         </div>
       </section>
-
-      {/* ===== FOOTER ===== */}
-      <footer className="bg-[#180204] py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center">
-            <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} className="brightness-0 invert mb-6" />
-            <div className="flex flex-wrap justify-center gap-6 mb-8">
-              <Link href="/how-it-works" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">How it Works</Link>
-              <Link href="/blog" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Blog</Link>
-              <Link href="/about" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
-            </div>
-            <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p className="text-white/40 text-sm font-sans">&copy; 2026 Greek Trip Planner. All rights reserved.</p>
-              <div className="flex items-center gap-4">
-                <a href="https://traveltourismdirectory.com/" className="text-white/40 hover:text-white/60 transition-colors text-sm font-sans" target="_blank" rel="noopener noreferrer">
-                  Travel and Tourism Directory
-                </a>
-                <a href="https://bookmarktravel.com/" target="_blank" rel="noopener noreferrer">
-                  <Image
-                    src="https://bookmarktravel.com/images/bookmarktravel-234.jpg"
-                    alt="Bookmark Travel"
-                    width={117}
-                    height={20}
-                    className="opacity-50 hover:opacity-80 transition-opacity"
-                    unoptimized
-                  />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
 
       {/* ===== SCHEMA MARKUP ===== */}
       <script
