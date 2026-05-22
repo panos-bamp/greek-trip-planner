@@ -1,11 +1,11 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, Shield, BookOpen, Heart, Star, ExternalLink, AlertCircle } from 'lucide-react'
+import { ArrowRight, Shield, BookOpen, Heart, Star, ExternalLink, AlertCircle, Sparkles, Tag, XCircle } from 'lucide-react'
 import Navbar from '@/components/Navbar'
 
 export const metadata = {
   title: 'Editorial Policy & Disclosure | Greek Trip Planner',
-  description: 'How we create content, handle affiliate relationships, and maintain editorial independence. Our commitment to honest, experience-based Greece travel advice.',
+  description: 'How we create content, handle affiliate relationships, run our Featured Partner program, and maintain editorial independence. Our commitment to honest, experience-based Greece travel advice.',
   openGraph: {
     title: 'Editorial Policy & Disclosure | Greek Trip Planner',
     description: 'How we create content, handle affiliate relationships, and maintain editorial independence.',
@@ -30,6 +30,9 @@ export default function EditorialPolicyPage() {
           <h1 className="text-4xl sm:text-5xl text-[#180204] mb-4">Editorial Policy & Disclosure</h1>
           <p className="text-[#180204]/60 text-lg max-w-2xl font-sans leading-relaxed">
             How we create content, make money, and keep our recommendations honest. We believe in full transparency &mdash; if you&apos;re curious enough to read this page, you deserve straight answers.
+          </p>
+          <p className="text-[#180204]/40 text-sm font-sans mt-4 italic">
+            Last updated: May 2026
           </p>
         </div>
       </section>
@@ -69,27 +72,139 @@ export default function EditorialPolicyPage() {
             </div>
             <div className="space-y-5 text-[#180204]/65 font-sans leading-relaxed">
               <p>
-                While all content on Greek Trip Planner is free, the site needs revenue to keep running. Here&apos;s exactly how we generate income:
+                While all content on Greek Trip Planner is free, the site needs revenue to keep running. We earn from three clearly separated revenue streams. We&apos;ve structured them this way deliberately so that you, the reader, can always tell what you&apos;re looking at and why it&apos;s there.
               </p>
 
+              {/* 1. Affiliate Commissions */}
               <div className="bg-[#FAF6F3] rounded-xl p-5 border border-[#E6DAD1]/40">
-                <h3 className="text-[#180204] font-semibold mb-2">Affiliate Commissions</h3>
-                <p className="text-[#180204]/60 text-sm">
-                  This is our primary revenue source. When we link to hotels, tours, ferry bookings, or travel products in our blog posts, some of those links are affiliate links. If you click one and make a purchase, we earn a small commission at no extra cost to you. We work with partners like GetYourGuide, Booking.com, Viator, and similar travel platforms.
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="inline-flex items-center justify-center w-6 h-6 bg-[#2C73FF]/10 text-[#2C73FF] rounded-full text-xs font-semibold font-sans">1</span>
+                  <h3 className="text-[#180204] font-semibold">Affiliate Commissions <span className="text-[#180204]/40 font-normal text-sm">— our primary revenue source</span></h3>
+                </div>
+                <div className="text-[#180204]/60 text-sm space-y-3">
+                  <p>
+                    When we link to hotels, tours, ferry bookings, travel insurance, or other travel products in our blog posts, some of those links are affiliate links. If you click one and make a purchase, we earn a small commission at no extra cost to you. We work with partners like GetYourGuide, Booking.com, Viator, DiscoverCars, EKTA Travel Insurance, and similar travel platforms.
+                  </p>
+                  <p>
+                    All affiliate links on our site carry the <code className="bg-white/80 px-1.5 py-0.5 rounded text-xs">rel=&quot;sponsored&quot;</code> attribute, which is the technical disclosure required by Google and aligned with current SEO best practices.
+                  </p>
+                  <p>
+                    The choice of <em>which</em> affiliate partner to link to is always made on editorial merit first &mdash; we recommend the option we&apos;d genuinely use ourselves, and only then check whether an affiliate link is available. If it isn&apos;t, the recommendation stays anyway.
+                  </p>
+                </div>
+              </div>
+
+              {/* 2. Featured Partner Placements */}
+              <div className="bg-[#FAF6F3] rounded-xl p-5 border border-[#E6DAD1]/40">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="inline-flex items-center justify-center w-6 h-6 bg-[#2C73FF]/10 text-[#2C73FF] rounded-full text-xs font-semibold font-sans">2</span>
+                  <h3 className="text-[#180204] font-semibold">Featured Partner Placements <span className="text-[#180204]/40 font-normal text-sm">— clearly labeled, never disguised</span></h3>
+                </div>
+                <div className="text-[#180204]/60 text-sm space-y-3">
+                  <p>
+                    A small number of travel companies pay to appear as <strong className="text-[#180204]">Featured Partners</strong> in specific sections of our site. These are visually distinct, clearly labeled inventory units &mdash; think of them like the sponsored listings on Booking.com or the partner cards on comparison sites, not like editorial recommendations.
+                  </p>
+
+                  <div>
+                    <p className="font-medium text-[#180204] mb-2">What this looks like in practice:</p>
+                    <ul className="space-y-1.5 pl-1">
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                        <span>Every Featured Partner placement carries a visible <strong className="text-[#180204]">&ldquo;Featured Partner&rdquo;</strong> label</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                        <span>Featured Partner cards have a distinct visual treatment that separates them from editorial picks</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                        <span>All links inside Featured Partner placements carry <code className="bg-white/80 px-1.5 py-0.5 rounded text-xs">rel=&quot;sponsored&quot;</code></span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                        <span>Featured Partners never replace, downgrade, or influence our editorial picks</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div>
+                    <p className="font-medium text-[#180204] mb-2">Where Featured Partners appear in our articles:</p>
+                    <ul className="space-y-1.5 pl-1">
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                        <span>The <strong className="text-[#180204]">top of every article stays editorial-only</strong>: the hero, the quick-answer summary, the &ldquo;best of by category&rdquo; box, and the Editor&apos;s Picks section. Featured Partners never appear above the fold or in the editorial summary.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                        <span>Featured Partners appear deeper in the article, in their <strong className="text-[#180204]">own section with its own heading</strong> (typically &ldquo;Also worth considering&rdquo; or &ldquo;Featured partners in [destination]&rdquo;), structurally separated from Editor&apos;s Picks.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                        <span>Featured Partners and Editor&apos;s Picks are <strong className="text-[#180204]">never interleaved or ranked together</strong>. A &ldquo;Top 5&rdquo; list will only contain Editor&apos;s Picks.</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                        <span>In our comparison tables, Featured Partners appear as additional rows clearly labeled.</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <p className="pt-1">
+                    Why we do this: Affiliate revenue alone doesn&apos;t fully fund the editorial work behind 133 destination guides. Featured Partner placements help us pay for the certified guides, the OSINT verification, the photography, and the ongoing updates that keep our content useful. We chose this model &mdash; clearly labeled inventory, structurally separated from editorial content &mdash; over the more common alternative of disguised paid recommendations because it&apos;s the only version we can defend to our readers.
+                  </p>
+
+                  <p className="pt-1">
+                    <Link href="/partners" className="text-[#2C73FF] hover:text-[#2C73FF]/80 inline-flex items-center gap-1 font-medium">
+                      See our Featured Partner program details <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
+                  </p>
+                </div>
+              </div>
+
+              {/* 3. Editor's Picks - Never For Sale */}
+              <div className="bg-[#FF5635]/5 rounded-xl p-5 border border-[#FF5635]/20">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="inline-flex items-center justify-center w-6 h-6 bg-[#FF5635]/10 text-[#FF5635] rounded-full text-xs font-semibold font-sans">3</span>
+                  <h3 className="text-[#180204] font-semibold">Editor&apos;s Picks <span className="text-[#FF5635] font-normal text-sm">— never for sale</span></h3>
+                </div>
+                <p className="text-[#180204]/65 text-sm">
+                  The <strong className="text-[#180204]">★ Editor&apos;s Picks</strong> in our restaurant, hotel, and tour guides are selected by our certified Greek tour guides based on personal visits and field verification. These designations are <strong className="text-[#180204]">never available for purchase under any circumstances</strong>. No payment, advertising spend, partnership relationship, or commercial arrangement can result in an Editor&apos;s Pick designation. If we ever decline a Featured Partner deal, it&apos;s usually because the operator wanted something we don&apos;t sell &mdash; most commonly, an Editor&apos;s Pick badge.
                 </p>
               </div>
 
-              <div className="bg-[#FAF6F3] rounded-xl p-5 border border-[#E6DAD1]/40">
-                <h3 className="text-[#180204] font-semibold mb-2">What We Don&apos;t Do</h3>
-                <p className="text-[#180204]/60 text-sm">
-                  We do not accept paid placements, sponsored blog posts, or payment from hotels, restaurants, or tour operators to appear in our planner or content. We don&apos;t run display advertising. We don&apos;t sell your data or email address.
-                </p>
-              </div>
-
-              <p>
-                We like affiliate links as a revenue model because they&apos;re relevant, helpful to you, and we maintain full editorial control. No one tells us what to write or what to link to. In most cases, we don&apos;t even have direct contact with the companies &mdash; the links use automated systems. We can recommend or un-recommend anything at any time.
-              </p>
             </div>
+          </div>
+
+          {/* What We Don't Do */}
+          <div className="bg-white rounded-2xl border border-[#E6DAD1]/60 p-8 md:p-10 mb-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-[#FF5635]/10 rounded-xl flex items-center justify-center">
+                <XCircle className="w-5 h-5 text-[#FF5635]" />
+              </div>
+              <h2 className="text-2xl text-[#180204]">What We Don&apos;t Do</h2>
+            </div>
+            <ul className="space-y-3 text-[#180204]/65 font-sans leading-relaxed">
+              <li className="flex items-start gap-3">
+                <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
+                <span><strong className="text-[#180204]">We don&apos;t accept payment in exchange for editorial recommendations.</strong> Editor&apos;s Picks, &ldquo;Best of&rdquo; rankings, and editorial endorsements are never for sale. Companies cannot pay to be recommended.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
+                <span><strong className="text-[#180204]">We don&apos;t publish sponsored articles disguised as editorial content.</strong> Any paid content is clearly labeled, attributed to the sponsor, and visually distinct from our editorial work. We do not ghostwrite or republish sponsor-supplied articles under our team&apos;s bylines.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
+                <span><strong className="text-[#180204]">We don&apos;t accept dofollow links on paid placements.</strong> All commercial links carry <code className="bg-[#FAF6F3] px-1.5 py-0.5 rounded text-xs">rel=&quot;sponsored&quot;</code> &mdash; this protects both us and our partners from Google policy issues. Any site that offers dofollow paid links is putting both parties at risk.</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
+                <span><strong className="text-[#180204]">We don&apos;t run display advertising or programmatic ads.</strong></span>
+              </li>
+              <li className="flex items-start gap-3">
+                <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
+                <span><strong className="text-[#180204]">We don&apos;t sell your data or email address.</strong></span>
+              </li>
+            </ul>
           </div>
 
           {/* Editorial Independence */}
@@ -102,26 +217,119 @@ export default function EditorialPolicyPage() {
             </div>
             <div className="space-y-5 text-[#180204]/65 font-sans leading-relaxed">
               <p>
-                This is the part we care about most. Our affiliate relationships never influence our recommendations. Here&apos;s how we ensure that:
+                This is the part we care about most. Our affiliate relationships and Featured Partner placements never influence our editorial recommendations. Here&apos;s how we ensure that:
               </p>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
-                  <span><strong className="text-[#180204]">We recommend first, monetize second.</strong> We choose what to recommend based on quality and experience. Only after making that editorial decision do we check if an affiliate link is available. If it isn&apos;t, the recommendation stays anyway.</span>
+                  <span><strong className="text-[#180204]">We recommend first, monetize second.</strong> We choose what to recommend based on quality and experience. Only after making that editorial decision do we check if an affiliate link is available.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
-                  <span><strong className="text-[#180204]">We include negative opinions.</strong> If a popular hotel is overpriced or a famous restaurant has declined, we say so &mdash; even if it means losing potential affiliate revenue.</span>
+                  <span><strong className="text-[#180204]">Featured Partners are visually separated from editorial content.</strong> A Featured Partner card in an article does not mean that operator is editorially recommended &mdash; it means they&apos;ve paid for visible placement under our clearly disclosed terms.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
-                  <span><strong className="text-[#180204]">We disclose clearly.</strong> Blog posts containing affiliate links include a disclosure notice at the top. You always know when links may generate revenue for us.</span>
+                  <span><strong className="text-[#180204]">We include negative opinions.</strong> If a popular hotel is overpriced or a famous restaurant has declined, we say so &mdash; even if it means losing potential affiliate or partnership revenue.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
-                  <span><strong className="text-[#180204]">We&apos;d give the same advice to family.</strong> This is our gut check. If we wouldn&apos;t recommend a place to our own parents or friends visiting Greece, it doesn&apos;t make it into our content.</span>
+                  <span><strong className="text-[#180204]">We disclose clearly, both technically and visibly.</strong> All commercial links carry <code className="bg-[#FAF6F3] px-1.5 py-0.5 rounded text-xs">rel=&quot;sponsored&quot;</code>. Featured Partner placements carry visible labels. Articles containing affiliate links include a disclosure notice at the top.</span>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
+                  <span><strong className="text-[#180204]">We&apos;d give the same advice to family.</strong> This is our gut check. If we wouldn&apos;t recommend a place to our own parents or friends visiting Greece, it doesn&apos;t make it into our editorial picks.</span>
                 </li>
               </ul>
+            </div>
+          </div>
+
+          {/* Featured Partner Program */}
+          <div className="bg-white rounded-2xl border border-[#E6DAD1]/60 p-8 md:p-10 mb-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-[#2C73FF]/10 rounded-xl flex items-center justify-center">
+                <Tag className="w-5 h-5 text-[#2C73FF]" />
+              </div>
+              <h2 className="text-2xl text-[#180204]">Featured Partner Program</h2>
+            </div>
+            <div className="space-y-5 text-[#180204]/65 font-sans leading-relaxed">
+              <p>
+                For complete transparency about what kinds of Featured Partner relationships we accept:
+              </p>
+
+              <div className="bg-[#FAF6F3] rounded-xl p-5 border border-[#E6DAD1]/40">
+                <h3 className="text-[#180204] font-semibold mb-3 text-sm">We work with:</h3>
+                <ul className="space-y-2 text-sm text-[#180204]/65">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                    <span>Travel-related companies operating legitimately in Greece or serving travelers to Greece</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                    <span>Hotels, tours, transfers, car rentals, restaurants, travel insurance, connectivity, and related travel services</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                    <span>Brands whose offering we would be willing to use ourselves or recommend to a friend</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-[#FAF6F3] rounded-xl p-5 border border-[#E6DAD1]/40">
+                <h3 className="text-[#180204] font-semibold mb-3 text-sm">We don&apos;t work with:</h3>
+                <ul className="space-y-2 text-sm text-[#180204]/65">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FF5635] mt-1 text-xs">●</span>
+                    <span>Gambling, crypto, adult content, CBD, weapons, or predatory financial products</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FF5635] mt-1 text-xs">●</span>
+                    <span>Companies operating outside the travel and tourism vertical</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FF5635] mt-1 text-xs">●</span>
+                    <span>Pure link-buying intermediaries or SEO agencies acquiring links on behalf of undisclosed clients</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FF5635] mt-1 text-xs">●</span>
+                    <span>Operators with significant unresolved consumer complaints or reputation issues</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#FF5635] mt-1 text-xs">●</span>
+                    <span>Anyone requesting dofollow links, exact-match commercial anchor text, or undisclosed sponsorship</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="bg-[#FAF6F3] rounded-xl p-5 border border-[#E6DAD1]/40">
+                <h3 className="text-[#180204] font-semibold mb-3 text-sm">Editorial rules we always apply:</h3>
+                <ul className="space-y-2 text-sm text-[#180204]/65">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                    <span>Featured Partner content is reviewed and edited by our team before publication</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                    <span>Anchor text is limited to brand name, brand + descriptor, or generic phrases</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                    <span>We retain the right to remove a Featured Partner placement if the operator&apos;s quality, reviews, or operations deteriorate significantly</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#2C73FF] mt-1 text-xs">●</span>
+                    <span>A pro-rated refund applies if we initiate removal</span>
+                  </li>
+                </ul>
+              </div>
+
+              <p>
+                If you&apos;re a travel operator interested in our Featured Partner program, our{' '}
+                <Link href="/partners" className="text-[#2C73FF] hover:text-[#2C73FF]/80 font-medium inline-flex items-center gap-1">
+                  partner page <ArrowRight className="w-3.5 h-3.5" />
+                </Link>
+                {' '}has the details.
+              </p>
             </div>
           </div>
 
@@ -190,15 +398,44 @@ export default function EditorialPolicyPage() {
             </div>
           </div>
 
+          {/* Policy Change Note */}
+          <div className="bg-white rounded-2xl border border-[#E6DAD1]/60 p-8 md:p-10 mb-8">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-10 h-10 bg-[#FF5635]/10 rounded-xl flex items-center justify-center">
+                <Sparkles className="w-5 h-5 text-[#FF5635]" />
+              </div>
+              <h2 className="text-2xl text-[#180204]">A Note on This Policy Change</h2>
+            </div>
+            <div className="space-y-5 text-[#180204]/65 font-sans leading-relaxed">
+              <p>
+                If you&apos;ve read our editorial policy before May 2026, you&apos;ll notice we&apos;ve evolved how we describe our revenue model. The earlier version said we don&apos;t accept &ldquo;paid placements.&rdquo; That was true at the time, but as the site has grown we&apos;ve introduced a transparent Featured Partner program with clear labeling, separation from editorial picks, and the same <code className="bg-[#FAF6F3] px-1.5 py-0.5 rounded text-xs">rel=&quot;sponsored&quot;</code> standards we already applied to affiliate links.
+              </p>
+              <p>
+                We chose to add this category &mdash; and tell you about it openly &mdash; because the alternative was either (a) declining to ever introduce sponsored inventory, which would have limited what we could fund editorially, or (b) doing it quietly without telling you. Option (b) is what most sites do. Option (a) is what idealists do. We chose a third option: transparent labeled inventory with clear rules, which we think is the honest version.
+              </p>
+              <p>
+                If you spot anywhere on the site where the Featured Partner labeling isn&apos;t clear, or where you can&apos;t easily tell editorial from paid, please let us know. That&apos;s the system we&apos;re trying to maintain.
+              </p>
+            </div>
+          </div>
+
           {/* Contact */}
           <div className="bg-[#180204] rounded-2xl p-8 md:p-10 text-center">
             <h2 className="text-2xl text-white mb-3">Questions About Our Policies?</h2>
             <p className="text-white/60 font-sans mb-6 max-w-lg mx-auto">
-              If you have questions about our editorial approach, affiliate relationships, or anything else on this page, we&apos;re happy to talk.
+              If you have questions about our editorial approach, affiliate relationships, Featured Partner program, or anything else on this page, we&apos;re happy to talk.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/about" className="text-white/70 hover:text-white transition-colors font-sans text-sm inline-flex items-center gap-2">
                 Learn more about us <ArrowRight className="w-4 h-4" />
+              </Link>
+              <span className="hidden sm:inline text-white/30">·</span>
+              <Link href="/partners" className="text-white/70 hover:text-white transition-colors font-sans text-sm inline-flex items-center gap-2">
+                Featured Partner program <ArrowRight className="w-4 h-4" />
+              </Link>
+              <span className="hidden sm:inline text-white/30">·</span>
+              <Link href="/contact" className="text-white/70 hover:text-white transition-colors font-sans text-sm inline-flex items-center gap-2">
+                Contact <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </div>
@@ -217,6 +454,7 @@ export default function EditorialPolicyPage() {
               <Link href="/insights" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Insights</Link>
               <Link href="/about" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
               <Link href="/editorial-policy" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Editorial Policy</Link>
+              <Link href="/partners" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Partners</Link>
             </div>
             <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-white/40 text-sm font-sans">&copy; 2026 Greek Trip Planner. All rights reserved.</p>

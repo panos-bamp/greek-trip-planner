@@ -14,7 +14,13 @@ function getSanityImageUrl(ref: string): string {
   return `https://cdn.sanity.io/images/puhk8qa7/production/${id}-${dimensions}.${format}`
 }
 
-// All domains that should fire affiliate_click when clicked.
+// Our own domain — links to these stay as internal Next.js <Link>
+// for client-side navigation and SEO juice (default dofollow).
+const INTERNAL_DOMAINS = ['greektriplanner.me']
+
+// All domains that should fire affiliate_click when clicked AND
+// carry rel="sponsored" per Google's link-attribution guidelines.
+// Keep this list in sync with lib/trackAffiliate (single source of truth).
 const AFFILIATE_DOMAINS = [
   // Travelpayouts short link domains — check first
   '.tpx.lt',
@@ -36,10 +42,41 @@ const AFFILIATE_DOMAINS = [
   'airhelp.com',
   'ekta.life',
   'nordvpn.com',
+  // Non-Travelpayouts affiliate partners
+  'ferryhopper.com',
 ]
 
 function isAffiliateLink(href: string): boolean {
   return AFFILIATE_DOMAINS.some(domain => href.includes(domain))
+}
+
+function isInternalLink(href: string): boolean {
+  if (href.startsWith('/') || href.startsWith('#')) return true
+  return INTERNAL_DOMAINS.some(domain => href.includes(domain))
+}
+
+/**
+ * Build the rel attribute for an outbound link.
+ *
+ * Rules:
+ *   - Affiliate link, new tab    → "noopener sponsored"
+ *   - Affiliate link, same tab   → "sponsored"
+ *   - Plain external, new tab    → "noopener noreferrer"
+ *   - Plain external, same tab   → "" (no rel)
+ *
+ * "sponsored" must NEVER be applied to non-affiliate links — doing so
+ * misrepresents the link relationship to Google and erodes the value
+ * of the legitimate sponsored signals elsewhere on the site.
+ */
+function buildRel(href: string, opensInNewTab: boolean): string {
+  const parts: string[] = []
+  if (opensInNewTab) parts.push('noopener')
+  if (isAffiliateLink(href)) {
+    parts.push('sponsored')
+  } else if (opensInNewTab) {
+    parts.push('noreferrer')
+  }
+  return parts.join(' ')
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -101,6 +138,12 @@ function HtmlEmbedBlock({ html }: { html: string }) {
 // Separate component so usePathname() hook can be called inside it.
 // data-tracked="true" prevents the layout.tsx document listener from
 // double-firing on the same click.
+//
+// rel attribute is built conditionally:
+//   - Affiliate links get rel="noopener sponsored" (or "sponsored" if same tab)
+//   - Plain external links get rel="noopener noreferrer" (no "sponsored")
+// This matches Google's link-attribution policy: "sponsored" identifies
+// commercial relationships, not all outbound links.
 // ─────────────────────────────────────────────────────────────────────────────
 function TrackedExternalLink({
   href,
@@ -114,9 +157,10 @@ function TrackedExternalLink({
   className: string
 }) {
   const pathname = usePathname()
+  const isAffiliate = isAffiliateLink(href)
 
   const handleClick = () => {
-    if (isAffiliateLink(href)) {
+    if (isAffiliate) {
       trackAffiliateClick({
         partner: getPartnerName(href),
         linkUrl: href,
@@ -125,12 +169,15 @@ function TrackedExternalLink({
     }
   }
 
+  const opensInNewTab = !!blank
+  const rel = buildRel(href, opensInNewTab)
+
   return (
     <a
       href={href}
-      target={blank ? '_blank' : undefined}
-      rel={blank ? 'noopener noreferrer sponsored' : 'sponsored'}
-      data-tracked="true"
+      target={opensInNewTab ? '_blank' : undefined}
+      rel={rel || undefined}
+      data-tracked={isAffiliate ? 'true' : undefined}
       onClick={handleClick}
       className={className}
     >
@@ -241,12 +288,15 @@ export const portableTextComponents: PortableTextComponents = {
     ),
     link: ({ children, value }: any) => {
       const href = value?.href || '#'
-      const isExternal = href.startsWith('http')
+      // Internal links (relative paths, anchors, or greektriplanner.me URLs)
+      // get rendered as Next.js <Link> for client-side navigation and
+      // default dofollow behavior. Everything else is external.
+      const isInternal = isInternalLink(href)
 
       const linkClass =
         'text-blue-600 hover:text-blue-800 underline decoration-blue-300 hover:decoration-blue-600 transition-colors'
 
-      if (isExternal) {
+      if (!isInternal) {
         return (
           <TrackedExternalLink
             href={href}
@@ -258,8 +308,12 @@ export const portableTextComponents: PortableTextComponents = {
         )
       }
 
+      // Strip the domain from internal absolute URLs so Next.js routes
+      // them client-side instead of doing a full reload.
+      const internalHref = href.replace(/^https?:\/\/greektriplanner\.me/, '') || '/'
+
       return (
-        <Link href={href} className={linkClass}>
+        <Link href={internalHref} className={linkClass}>
           {children}
         </Link>
       )
