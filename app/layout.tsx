@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Script from 'next/script'
 import './globals.css'
 import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: 'AI Greek Trip Planner - Your Perfect Greece Adventure',
@@ -70,7 +71,8 @@ export default function RootLayout({
                 'booking.com', 'getyourguide.com', 'viator.com',
                 'discovercars.com', 'welcomepickups.com', 'airalo.com',
                 'yesim.app', 'klook.com', 'agoda.com', 'kiwi.com',
-                'airhelp.com', 'ekta.life', 'nordvpn.com'
+                'airhelp.com', 'ekta.life', 'nordvpn.com',
+                'ferryhopper.com'
               ];
 
               function isAffiliate(href) {
@@ -129,6 +131,7 @@ export default function RootLayout({
                 if (href.indexOf('airhelp.com')        !== -1) return 'airhelp';
                 if (href.indexOf('ekta.life')          !== -1) return 'ekta';
                 if (href.indexOf('nordvpn.com')        !== -1) return 'nordvpn';
+                if (href.indexOf('ferryhopper.com')    !== -1) return 'ferryhopper';
 
                 return 'unknown';
               }
@@ -160,6 +163,7 @@ export default function RootLayout({
       <body className="antialiased">
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   )
