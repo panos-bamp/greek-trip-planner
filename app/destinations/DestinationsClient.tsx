@@ -13,54 +13,10 @@ import {
 } from './data'
 
 // ─── NAV ─────────────────────────────────────────────────────────────────────
-
-function Nav() {
-  const navRef = useRef<HTMLElement>(null)
-
-  useEffect(() => {
-    const handler = () => {
-      navRef.current?.classList.toggle('shadow-md', window.scrollY > 60)
-    }
-    window.addEventListener('scroll', handler, { passive: true })
-    return () => window.removeEventListener('scroll', handler)
-  }, [])
-
-  return (
-    <nav
-      ref={navRef}
-      className="fixed top-0 w-full bg-white/90 backdrop-blur-md z-50 border-b border-[#E6DAD1] transition-shadow duration-300"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <Link href="/" className="flex items-center">
-          <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} priority />
-        </Link>
-        <div className="hidden md:flex items-center gap-8">
-          <Link href="/how-it-works" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">
-            How it Works
-          </Link>
-          <Link href="/destinations" className="text-[#180204] font-semibold text-sm transition-colors border-b-2 border-[#FF5635] pb-0.5">
-            Destinations
-          </Link>
-          <Link href="/blog" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">
-            Blog
-          </Link>
-          <Link href="/about" className="text-[#180204]/70 hover:text-[#FF5635] transition-colors text-sm font-medium">
-            About
-          </Link>
-          <Link
-            href="/ai-trip-planner"
-            className="btn-accent px-5 py-2.5 rounded-full text-sm font-semibold flex items-center gap-2"
-          >
-            Start Planning <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-        <Link href="/ai-trip-planner" className="md:hidden btn-accent px-4 py-2 rounded-full text-sm font-semibold">
-          Start Planning
-        </Link>
-      </div>
-    </nav>
-  )
-}
+// Navbar is rendered globally by app/layout.tsx — no local component needed.
+// (Previously this file defined a custom Nav with scroll-shadow + active-state
+//  styling. If you want those behaviors back, add them to components/Navbar.tsx
+//  so every page benefits, rather than maintaining a per-page nav component.)
 
 // ─── HERO ─────────────────────────────────────────────────────────────────────
 
@@ -572,7 +528,7 @@ function CtaSection() {
 export default function DestinationsClient() {
   return (
     <main className="min-h-screen bg-[#FAF6F3]">
-      <Nav />
+      {/* Navbar is rendered globally by app/layout.tsx */}
       <Hero />
       <PopularSection />
       <IslandGroupsSection />
@@ -581,29 +537,7 @@ export default function DestinationsClient() {
       <HiddenGemsSection />
       <CtaSection />
 
-      {/* Footer — matches homepage */}
-      <footer className="bg-[#180204] py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center">
-            <Image
-              src="/logo.png"
-              alt="Greek Trip Planner"
-              width={70}
-              height={21}
-              className="brightness-0 invert mb-6"
-            />
-            <div className="flex flex-wrap justify-center gap-6 mb-8">
-              <Link href="/how-it-works" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">How it Works</Link>
-              <Link href="/destinations" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Destinations</Link>
-              <Link href="/blog" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Blog</Link>
-              <Link href="/about" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
-            </div>
-            <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p className="text-white/40 text-sm font-sans">© 2026 Greek Trip Planner. All rights reserved.</p>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/* Footer is rendered globally by app/layout.tsx */}
     </main>
   )
 }

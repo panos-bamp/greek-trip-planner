@@ -1,11 +1,9 @@
 // app/blog/page.tsx
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { ArrowRight, BookOpen } from 'lucide-react'
 import { Metadata } from 'next'
 import { client } from '@/sanity/lib/client'
-import Navbar from '@/components/Navbar'
 import BlogClient from './BlogClient'
 
 export const metadata: Metadata = {
@@ -46,7 +44,7 @@ export default async function BlogPage() {
 
   return (
     <main className="min-h-screen bg-[#FAF6F3]">
-      <Navbar />
+      {/* Navbar is rendered globally by app/layout.tsx */}
 
       {/* ===== HERO ===== */}
       <section className="relative pt-16">
@@ -100,29 +98,7 @@ export default async function BlogPage() {
         </div>
       </section>
 
-      {/* ===== FOOTER ===== */}
-      <footer className="bg-[#180204] py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center">
-            <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} className="brightness-0 invert mb-6" />
-            <div className="flex flex-wrap justify-center gap-6 mb-8">
-              <Link href="/how-it-works" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">How it Works</Link>
-              <Link href="/blog"         className="text-[#FF5635] text-sm font-sans font-semibold">Blog</Link>
-              <Link href="/insights"     className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Insights</Link>
-              <Link href="/about"        className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
-            </div>
-            <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p className="text-white/40 text-sm font-sans">&copy; 2026 Greek Trip Planner. All rights reserved.</p>
-              <div className="flex items-center gap-4">
-                <a href="https://traveltourismdirectory.com/" className="text-white/40 hover:text-white/60 transition-colors text-sm font-sans" target="_blank" rel="noopener noreferrer">Travel and Tourism Directory</a>
-                <a href="https://bookmarktravel.com/" target="_blank" rel="noopener noreferrer">
-                  <Image src="https://bookmarktravel.com/images/bookmarktravel-234.jpg" alt="Bookmark Travel" width={117} height={20} className="opacity-50 hover:opacity-80 transition-opacity" unoptimized />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/* Footer is rendered globally by app/layout.tsx */}
 
       {/* ===== SCHEMA ===== */}
       <script

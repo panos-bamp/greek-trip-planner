@@ -1,7 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, MapPin, Compass, Heart, Ship, Utensils, Clock, Mountain } from 'lucide-react'
-import Navbar from '@/components/Navbar'
 
 export const metadata = {
   title: 'About Us | The People Behind Greek Trip Planner',
@@ -18,7 +17,7 @@ export const metadata = {
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-[#FAF6F3]">
-      <Navbar />
+      {/* Navbar is rendered globally by app/layout.tsx */}
 
       {/* ===== HERO ===== */}
       <section className="relative pt-16">
@@ -219,12 +218,16 @@ export default function AboutPage() {
 
           <div className="mt-10 space-y-6">
             <div className="bg-white rounded-2xl p-6 border border-[#E6DAD1]/60">
-              <h3 className="text-lg text-[#180204] font-sans font-semibold mb-2">No Paid Placements</h3>
-              <p className="text-[#180204]/60 font-sans leading-relaxed">No hotel, restaurant, or tour operator pays to appear in our planner or guides. Recommendations come from personal experience. If a team member wouldn&apos;t send their own family there, it doesn&apos;t make the list.</p>
+              <h3 className="text-lg text-[#180204] font-sans font-semibold mb-2">Editor&apos;s Picks Are Never for Sale</h3>
+              <p className="text-[#180204]/60 font-sans leading-relaxed">Our top recommendations &mdash; the ones marked with a star &mdash; come from personal visits by our team. No restaurant, hotel, or operator can pay to become an Editor&apos;s Pick. If a team member wouldn&apos;t send their own family there, it doesn&apos;t get the star.</p>
+            </div>
+            <div className="bg-white rounded-2xl p-6 border border-[#E6DAD1]/60">
+              <h3 className="text-lg text-[#180204] font-sans font-semibold mb-2">Featured Partners Are Clearly Labeled</h3>
+              <p className="text-[#180204]/60 font-sans leading-relaxed">Some restaurants, hotels, and operators appear as Featured Partners. They pay for their placement, but the relationship is shown openly &mdash; clear labels, separate sections, never mixed in with our editorial picks. We only feature businesses we&apos;d be willing to recommend, and we retain full editorial control of what gets said. Full details on the <Link href="/partners" className="text-[#FF5635] hover:underline">Featured Partner program</Link>.</p>
             </div>
             <div className="bg-white rounded-2xl p-6 border border-[#E6DAD1]/60">
               <h3 className="text-lg text-[#180204] font-sans font-semibold mb-2">Affiliate Links &mdash; Fully Disclosed</h3>
-              <p className="text-[#180204]/60 font-sans leading-relaxed">Some links in our guides earn a small commission if you book through them &mdash; for accommodations, tours, and ferry tickets. This never influences what we recommend. We suggest the same places to our own friends and families. Full details in our <Link href="/editorial-policy" className="text-[#FF5635] hover:underline">editorial policy</Link>.</p>
+              <p className="text-[#180204]/60 font-sans leading-relaxed">Some links in our guides earn a small commission if you book through them &mdash; for accommodations, tours, ferries, car rental, and travel essentials. This never influences what we recommend. Every commercial link carries the standard <code className="bg-[#FAF6F3] px-1.5 py-0.5 rounded text-xs">rel=&quot;sponsored&quot;</code> attribute so search engines and readers know it&apos;s a paid link. Full details in our <Link href="/editorial-policy" className="text-[#FF5635] hover:underline">editorial policy</Link>.</p>
             </div>
             <div className="bg-white rounded-2xl p-6 border border-[#E6DAD1]/60">
               <h3 className="text-lg text-[#180204] font-sans font-semibold mb-2">Written from Experience, Not Research</h3>
@@ -252,7 +255,7 @@ export default function AboutPage() {
               Honestly, this started because all five of us were already doing it &mdash; answering WhatsApp messages from friends of friends, writing emails with itinerary advice, drawing routes on napkins at dinner. We just decided to put it all in one place and let anyone access it.
             </p>
             <p>
-              The platform sustains itself through transparent affiliate partnerships with booking platforms. That means we never need to charge you, upsell you, or hide the best recommendations behind a paywall.
+              The platform sustains itself two ways: transparent affiliate partnerships with booking platforms (small commissions when you book through our links), and a small number of clearly labeled Featured Partner placements from restaurants, hotels, and operators we&apos;re willing to recommend. Both revenue streams are visible to you, and neither lets anyone buy their way into our editorial Picks. That means we never need to charge you, upsell you, or hide the best recommendations behind a paywall.
             </p>
             <p>
               And selfishly &mdash; when more people discover the real Greece, the kind of tourism we believe in grows. Travelers who visit Tinos instead of only Mykonos. Who drive through Mani instead of just flying to Santorini. Who eat at the village taverna instead of the port tourist trap. That&apos;s the Greece we love, and it benefits from more informed visitors.
@@ -286,30 +289,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* ===== FOOTER ===== */}
-      <footer className="bg-[#180204] py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-center">
-            <Image src="/logo.png" alt="Greek Trip Planner" width={70} height={21} className="brightness-0 invert mb-6" />
-            <div className="flex flex-wrap justify-center gap-6 mb-8">
-              <Link href="/how-it-works" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">How it Works</Link>
-              <Link href="/blog" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Blog</Link>
-              <Link href="/insights" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Insights</Link>
-              <Link href="/about" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">About</Link>
-              <Link href="/editorial-policy" className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans">Editorial Policy</Link>
-            </div>
-            <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p className="text-white/40 text-sm font-sans">&copy; 2026 Greek Trip Planner. All rights reserved.</p>
-              <div className="flex items-center gap-4">
-                <a href="https://traveltourismdirectory.com/" className="text-white/40 hover:text-white/60 transition-colors text-sm font-sans" target="_blank" rel="noopener noreferrer">Travel and Tourism Directory</a>
-                <a href="https://bookmarktravel.com/" target="_blank" rel="noopener noreferrer">
-                  <Image src="https://bookmarktravel.com/images/bookmarktravel-234.jpg" alt="Bookmark Travel" width={117} height={20} className="opacity-50 hover:opacity-80 transition-opacity" unoptimized />
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </footer>
+      {/* Footer is rendered globally by app/layout.tsx */}
     </main>
   )
 }

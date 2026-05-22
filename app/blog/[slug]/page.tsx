@@ -97,6 +97,69 @@ function extractHeadings(body: any[]): { text: string; key: string }[] {
     })
 }
 
+// ─── Affiliate Link Helpers ───
+// Single source of truth for which outbound links carry rel="sponsored".
+// Keep this list in sync with /components/portableTextComponents.tsx and
+// the AFFILIATE_DOMAINS array in app/layout.tsx.
+const INTERNAL_DOMAINS = ['greektriplanner.me']
+
+const AFFILIATE_DOMAINS = [
+  // Travelpayouts short link domains — check first
+  '.tpx.lt',
+  '.tp.lt',
+  'emrld.ltd',
+  'tp.media',
+  'travelpayouts.com',
+  // Direct partner domains
+  'booking.com',
+  'getyourguide.com',
+  'viator.com',
+  'discovercars.com',
+  'welcomepickups.com',
+  'airalo.com',
+  'yesim.app',
+  'klook.com',
+  'agoda.com',
+  'kiwi.com',
+  'airhelp.com',
+  'ekta.life',
+  'nordvpn.com',
+  // Non-Travelpayouts affiliate partners
+  'ferryhopper.com',
+]
+
+function isAffiliateLink(href: string): boolean {
+  return AFFILIATE_DOMAINS.some(domain => href.includes(domain))
+}
+
+function isInternalLink(href: string): boolean {
+  if (href.startsWith('/') || href.startsWith('#')) return true
+  return INTERNAL_DOMAINS.some(domain => href.includes(domain))
+}
+
+/**
+ * Build the rel attribute for an outbound link.
+ *
+ * Rules:
+ *   - Affiliate link, new tab    → "noopener sponsored"
+ *   - Affiliate link, same tab   → "sponsored"
+ *   - Plain external, new tab    → "noopener noreferrer"
+ *   - Plain external, same tab   → "" (no rel)
+ *
+ * "sponsored" must NEVER be applied to non-affiliate links — doing so
+ * misrepresents the link relationship to Google.
+ */
+function buildRel(href: string, opensInNewTab: boolean): string {
+  const parts: string[] = []
+  if (opensInNewTab) parts.push('noopener')
+  if (isAffiliateLink(href)) {
+    parts.push('sponsored')
+  } else if (opensInNewTab) {
+    parts.push('noreferrer')
+  }
+  return parts.join(' ')
+}
+
 // ─── Portable Text Components (inline) ───
 const portableTextComponents = {
   types: {
@@ -165,12 +228,38 @@ const portableTextComponents = {
     underline: ({ children }: any) => <span className="underline">{children}</span>,
     link: ({ value, children }: any) => {
       const href = value?.href || ''
-      const isExternal = href.startsWith('http')
+
+      // Internal links (relative paths, anchors, or greektriplanner.me URLs)
+      // → render as Next.js <Link> for client-side navigation and default dofollow.
+      const isInternal = isInternalLink(href)
+
+      const linkClass =
+        'text-[#2C73FF] hover:text-[#0052E0] underline transition-colors'
+
+      if (isInternal) {
+        // Strip the domain from internal absolute URLs so Next.js routes
+        // them client-side instead of doing a full reload.
+        const internalHref = href.replace(/^https?:\/\/greektriplanner\.me/, '') || '/'
+        return (
+          <Link href={internalHref} className={linkClass}>
+            {children}
+          </Link>
+        )
+      }
+
+      // External link — affiliate links get rel="sponsored", others get noreferrer.
+      // Body links from Sanity always open in a new tab.
+      const opensInNewTab = true
+      const rel = buildRel(href, opensInNewTab)
+      const isAffiliate = isAffiliateLink(href)
+
       return (
         <a
           href={href}
-          className="text-[#2C73FF] hover:text-[#0052E0] underline transition-colors"
-          {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+          target="_blank"
+          rel={rel || undefined}
+          data-tracked={isAffiliate ? 'true' : undefined}
+          className={linkClass}
         >
           {children}
         </a>
