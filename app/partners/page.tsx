@@ -100,26 +100,26 @@ export default function PartnersPage() {
             </div>
           </div>
 
-          {/* Where Featured Partners Appear */}
+          {/* How Featured Partners Appear */}
           <div className="bg-white rounded-2xl border border-[#E6DAD1]/60 p-8 md:p-10 mb-8">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 bg-[#FF5635]/10 rounded-xl flex items-center justify-center">
                 <MapPin className="w-5 h-5 text-[#FF5635]" />
               </div>
-              <h2 className="text-2xl text-[#180204]">Where Featured Partners Appear in Our Articles</h2>
+              <h2 className="text-2xl text-[#180204]">How Featured Partners Appear in Our Articles</h2>
             </div>
             <div className="space-y-5 text-[#180204]/65 font-sans leading-relaxed">
               <p>
-                So you know exactly what you&apos;re buying, here&apos;s the placement rule we follow on every article:
+                So you know exactly what you&apos;re buying, here are the rules we follow on every article:
               </p>
               <ul className="space-y-3">
                 <li className="flex items-start gap-3">
                   <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
-                  <span>The <strong className="text-[#180204]">top of every article is editorial-only</strong> &mdash; the hero, the quick-answer summary, the &ldquo;best of by category&rdquo; box, and the Editor&apos;s Picks section. Featured Partners do not appear above the fold or in the editorial summary.</span>
+                  <span>Every Featured Partner placement carries a <strong className="text-[#180204]">visible &ldquo;Featured Partner&rdquo; label</strong> and a distinct visual treatment that separates it from editorial content.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
-                  <span>Featured Partners appear <strong className="text-[#180204]">deeper in the article, in their own clearly-headed section</strong> (typically &ldquo;Also worth considering&rdquo; or &ldquo;Featured partners in [destination]&rdquo;), structurally separated from Editor&apos;s Picks.</span>
+                  <span>Featured Partner cards appear in their <strong className="text-[#180204]">own clearly labeled sections</strong>, visually and structurally separate from our Editor&apos;s Picks.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
@@ -129,12 +129,11 @@ export default function PartnersPage() {
                   <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
                   <span>Featured Partners appear as additional rows in our comparison tables, clearly labeled.</span>
                 </li>
+                <li className="flex items-start gap-3">
+                  <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
+                  <span>Placement within the article is determined by <strong className="text-[#180204]">our editorial team based on what serves readers best</strong> &mdash; the goal is visibility for partners alongside clarity for readers.</span>
+                </li>
               </ul>
-              <div className="bg-[#FFF8F6] border border-[#FF5635]/20 rounded-xl p-5 mt-4">
-                <p className="text-sm text-[#180204]/70">
-                  <strong className="text-[#180204]">The trade-off this creates:</strong> Featured Partners get less prominence than a &ldquo;top of article&rdquo; placement would, but they sit in a context that protects reader trust. We&apos;ve found that placements readers actually trust outperform placements readers ignore &mdash; even when the trusted placement is lower on the page.
-                </p>
-              </div>
             </div>
           </div>
 
@@ -287,10 +286,6 @@ export default function PartnersPage() {
                 <li className="flex items-start gap-3">
                   <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
                   <span><strong className="text-[#180204]">Exact-match commercial anchor text.</strong> Anchors are brand name, brand + descriptor, or generic phrases. We don&apos;t accept anchors like &ldquo;cheap car rental Athens&rdquo; &mdash; they&apos;re an obvious paid-link footprint that puts both sides at risk.</span>
-                </li>
-                <li className="flex items-start gap-3">
-                  <span className="text-[#FF5635] mt-1.5 text-sm">●</span>
-                  <span><strong className="text-[#180204]">Placements above the editorial fold.</strong> The hero, summary, quick-answer box, and Editor&apos;s Picks section of any article stay editorial. Featured Partners appear deeper in the article only.</span>
                 </li>
                 <li className="flex items-start gap-3">
                   <span className="text-[#FF5635] mt-1.5 text-sm">●</span>

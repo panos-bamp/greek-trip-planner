@@ -126,23 +126,11 @@ export default function EditorialPolicyPage() {
                   </div>
 
                   <div>
-                    <p className="font-medium text-[#180204] mb-2">Where Featured Partners appear in our articles:</p>
+                    <p className="font-medium text-[#180204] mb-2">How Featured Partners are kept separate from editorial content:</p>
                     <ul className="space-y-1.5 pl-1">
                       <li className="flex items-start gap-2">
                         <span className="text-[#2C73FF] mt-1 text-xs">●</span>
-                        <span>The <strong className="text-[#180204]">top of every article stays editorial-only</strong>: the hero, the quick-answer summary, the &ldquo;best of by category&rdquo; box, and the Editor&apos;s Picks section. Featured Partners never appear above the fold or in the editorial summary.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-[#2C73FF] mt-1 text-xs">●</span>
-                        <span>Featured Partners appear deeper in the article, in their <strong className="text-[#180204]">own section with its own heading</strong> (typically &ldquo;Also worth considering&rdquo; or &ldquo;Featured partners in [destination]&rdquo;), structurally separated from Editor&apos;s Picks.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-[#2C73FF] mt-1 text-xs">●</span>
-                        <span>Featured Partners and Editor&apos;s Picks are <strong className="text-[#180204]">never interleaved or ranked together</strong>. A &ldquo;Top 5&rdquo; list will only contain Editor&apos;s Picks.</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <span className="text-[#2C73FF] mt-1 text-xs">●</span>
-                        <span>In our comparison tables, Featured Partners appear as additional rows clearly labeled.</span>
+                        <span>Featured Partner cards appear in their <strong className="text-[#180204]">own clearly labeled sections</strong>, visually and structurally separate from our Editor&apos;s Picks. They are never mixed into ranked editorial lists.</span>
                       </li>
                     </ul>
                   </div>
