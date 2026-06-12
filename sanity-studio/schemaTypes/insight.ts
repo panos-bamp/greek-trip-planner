@@ -614,6 +614,43 @@ export default defineType({
           type: 'string',
           description: 'e.g., "https://creativecommons.org/licenses/by/4.0/"',
         },
+        {
+          name: 'distributions',
+          title: 'Dataset Files (downloads)',
+          type: 'array',
+          description: 'The downloadable files. REQUIRED for Google Dataset Search — a dataset without downloads ranks far weaker.',
+          of: [
+            {
+              type: 'object',
+              fields: [
+                {
+                  name: 'url',
+                  title: 'File URL or path',
+                  type: 'string',
+                  description: 'e.g. /data/greece-tourism-dataset-2019-2025.xlsx (relative path is fine — site URL is added automatically)',
+                  validation: (Rule: any) => Rule.required(),
+                },
+                {
+                  name: 'format',
+                  title: 'Format',
+                  type: 'string',
+                  description: 'Leave blank to auto-detect from the file extension.',
+                  options: {
+                    list: [
+                      { title: 'Auto-detect from extension', value: '' },
+                      { title: 'CSV', value: 'text/csv' },
+                      { title: 'Excel (XLSX)', value: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' },
+                      { title: 'JSON', value: 'application/json' },
+                    ],
+                  },
+                },
+              ],
+              preview: {
+                select: { title: 'url', subtitle: 'format' },
+              },
+            },
+          ],
+        },
       ],
     }),
 

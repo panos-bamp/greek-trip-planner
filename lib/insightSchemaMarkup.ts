@@ -28,6 +28,7 @@ interface InsightPost {
     temporalCoverage?: string
     spatialCoverage?: string
     license?: string
+    distributions?: Array<{ url: string; format?: string }>
   }
   enableSpeakableSchema?: boolean
   speakableSections?: string[]
@@ -174,12 +175,36 @@ function generateDatasetSchema(post: InsightPost): object | null {
   }
   if (post.datasetInfo.license) {
     dataset.license = post.datasetInfo.license
+    dataset.isAccessibleForFree = true
   }
   if (post.publishedAt) {
     dataset.datePublished = post.publishedAt
   }
   if (post.updatedAt) {
     dataset.dateModified = post.updatedAt
+  }
+
+  // Distribution — the actual downloadable files (key signal for Dataset Search)
+  if (post.datasetInfo.distributions && post.datasetInfo.distributions.length > 0) {
+    const mimeByExt: Record<string, string> = {
+      csv: 'text/csv',
+      xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      json: 'application/json',
+    }
+    const downloads = post.datasetInfo.distributions
+      .filter((d) => d.url)
+      .map((d) => {
+        const ext = d.url.split('.').pop()?.toLowerCase() || ''
+        const encodingFormat = d.format || mimeByExt[ext]
+        return {
+          '@type': 'DataDownload',
+          ...(encodingFormat && { encodingFormat }),
+          contentUrl: d.url.startsWith('http') ? d.url : `${SITE_URL}${d.url}`,
+        }
+      })
+    if (downloads.length > 0) {
+      dataset.distribution = downloads
+    }
   }
 
   return dataset
