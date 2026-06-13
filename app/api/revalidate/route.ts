@@ -1,6 +1,6 @@
 import { revalidatePath } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
-import { parseBody } from '@sanity/webhook'
+import { isValidSignature, SIGNATURE_HEADER_NAME } from '@sanity/webhook'
 
 type WebhookPayload = {
   _type: string
@@ -9,14 +9,22 @@ type WebhookPayload = {
 
 export async function POST(req: NextRequest) {
   try {
-    const { isValidSignature, body } = await parseBody<WebhookPayload>(
-      req,
-      process.env.SANITY_REVALIDATE_SECRET
+    // Read the raw body as text — the signature is computed over this exact string,
+    // so we must NOT parse it before verifying.
+    const signature = req.headers.get(SIGNATURE_HEADER_NAME) || ''
+    const bodyText = await req.text()
+
+    const valid = await isValidSignature(
+      bodyText,
+      signature,
+      process.env.SANITY_REVALIDATE_SECRET as string
     )
 
-    if (!isValidSignature) {
+    if (!valid) {
       return new Response('Invalid signature', { status: 401 })
     }
+
+    const body = JSON.parse(bodyText) as WebhookPayload
 
     if (!body?._type) {
       return new Response('Bad request', { status: 400 })
