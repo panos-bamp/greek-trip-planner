@@ -82,7 +82,7 @@ export async function generateStaticParams() {
   return slugs.map((s: any) => ({ slug: s.slug }))
 }
 
-export const revalidate = 60
+export const revalidate = 86400
 
 // ─── Extract H2 headings from body for TOC ───
 function extractHeadings(body: any[]): { text: string; key: string }[] {
