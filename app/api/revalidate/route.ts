@@ -1,8 +1,6 @@
 import { revalidatePath } from 'next/cache'
 import { type NextRequest, NextResponse } from 'next/server'
-import { parseBody } from 'next-sanity/webhook'
-// If you don't have `next-sanity` installed, install `@sanity/webhook` instead
-// and change the import above to:  import { parseBody } from '@sanity/webhook'
+import { parseBody } from '@sanity/webhook'
 
 type WebhookPayload = {
   _type: string
