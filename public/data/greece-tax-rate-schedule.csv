@@ -1,0 +1,7 @@
+Accommodation type,Peak (Apr–Oct),Off-peak (Nov–Mar),Reduction
+1–2 star hotel,€2.00,€0.50,75%
+3 star hotel,€5.00,€1.50,70%
+4 star hotel,€10.00,€3.00,70%
+5 star hotel,€15.00,€4.00,73%
+Short-term rental (<80 m²),€8.00,€2.00,75%
+Short-term rental (≥80 m²),€15.00,€4.00,73%
