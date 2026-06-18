@@ -12,6 +12,7 @@ export const revalidate = 86400
 const REDIRECTED_BLOG_SLUGS = new Set<string>([
   'best-greek-islands-cruise-guide',
   'best-greek-islands-for-families',
+  'trip-to-mykonos-greece', // → /blog/mykonos-travel-guide
 ])
 
 // ─── Sanity fetchers ───────────────────────────────────────────────────────────
@@ -93,7 +94,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]
 
   // ── /blog/[slug] pages ───────────────────────────────────────────────────────
-  // Defence-in-depth: explicitly exclude the two redirected slugs even if
+  // Defence-in-depth: explicitly exclude the redirected slugs even if
   // they somehow re-appear in Sanity (cached version, accidental restore, etc.)
   const blogEntries: MetadataRoute.Sitemap = blogPosts
     .filter((post) => !REDIRECTED_BLOG_SLUGS.has(post.slug))

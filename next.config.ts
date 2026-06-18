@@ -32,6 +32,17 @@ const nextConfig: NextConfig = {
         destination: '/blog/best-places-to-visit-in-greece-with-family',
         permanent: true,
       },
+
+      // Mykonos guide: duplicate guide → canonical keyword-aligned slug (in nav)
+      // Consolidating the two competing "Mykonos travel guide" pages.
+      // NOTE: port any unique/ranking sections from the source page into the
+      // destination BEFORE unpublishing the source in Sanity (source had the
+      // higher impressions — 655 vs 160 — so keep its query coverage).
+      {
+        source: '/blog/trip-to-mykonos-greece',
+        destination: '/blog/mykonos-travel-guide',
+        permanent: true,
+      },
     ];
   },
 };
