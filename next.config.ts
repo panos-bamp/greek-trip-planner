@@ -43,6 +43,18 @@ const nextConfig: NextConfig = {
         destination: '/blog/mykonos-travel-guide',
         permanent: true,
       },
+
+      // Pelion: things-to-do sibling → main travel guide (cannibalization fix)
+      // things-to-do-in-pelion: 2,793 impr, pos 11.38
+      // pelion-travel-guide:    5,313 impr, pos  8.76
+      // Consolidating authority into the stronger URL. Port any unique
+      // sections from things-to-do-in-pelion into pelion-travel-guide
+      // in Sanity BEFORE unpublishing the source page.
+      {
+        source: '/blog/things-to-do-in-pelion',
+        destination: '/blog/pelion-travel-guide',
+        permanent: true,
+      },
     ];
   },
 };
