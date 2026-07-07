@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import TripMap from '@/components/TripMap'
 import { extractLocationsFromText, getLocationData } from '@/lib/greece-locations'
+import { supabase } from '@/lib/supabase'
 import CredentialStrip from '@/components/CredentialStrip'
 import YesimCallout from '@/components/YesimCallout'
 import DiscoverCarsCard from '@/components/DiscoverCarsCard'
@@ -22,13 +23,69 @@ export default function ResultsPage() {
   const [selectedDay, setSelectedDay] = useState(1)
 
   useEffect(() => {
-    const stored = localStorage.getItem(`itinerary-${params.id}`)
-    if (stored) {
-      const data = JSON.parse(stored)
-      setItinerary(data.itinerary || '')
-      setUserData(data.answers)
+    let cancelled = false
+
+    // Two-step load:
+    //   1. localStorage (fast — the user who generated it)
+    //   2. Supabase fallback (shared link, new device, or cleared browser)
+    // The public anon client is safe here — the "Anyone can read by ID"
+    // RLS policy allows SELECT for the anon role, and the 8-char random
+    // ID acts as an unguessable password.
+    const loadItinerary = async () => {
+      // Step 1: try localStorage
+      try {
+        const stored = localStorage.getItem(`itinerary-${params.id}`)
+        if (stored) {
+          const data = JSON.parse(stored)
+          if (!cancelled) {
+            setItinerary(data.itinerary || '')
+            setUserData(data.answers)
+            setIsLoading(false)
+          }
+          return
+        }
+      } catch (err) {
+        // localStorage may be blocked (Safari private, quota, etc.) — fall through
+        console.warn('[results] localStorage read failed, falling back to Supabase:', err)
+      }
+
+      // Step 2: fetch from Supabase
+      if (!supabase) {
+        if (!cancelled) setIsLoading(false)
+        return
+      }
+      try {
+        const { data, error } = await supabase
+          .from('itineraries')
+          .select('itinerary_markdown, answers_json')
+          .eq('id', params.id)
+          .maybeSingle()
+        if (error) {
+          console.error('[results] Supabase fetch error:', error.message)
+        } else if (data && !cancelled) {
+          setItinerary(data.itinerary_markdown || '')
+          setUserData(data.answers_json)
+          // Also warm localStorage so subsequent loads on this device are instant
+          try {
+            localStorage.setItem(
+              `itinerary-${params.id}`,
+              JSON.stringify({
+                id: params.id,
+                itinerary: data.itinerary_markdown,
+                answers: data.answers_json,
+              })
+            )
+          } catch { /* quota/blocked — no-op */ }
+        }
+      } catch (err) {
+        console.error('[results] Supabase fetch exception:', err)
+      } finally {
+        if (!cancelled) setIsLoading(false)
+      }
     }
-    setIsLoading(false)
+
+    loadItinerary()
+    return () => { cancelled = true }
   }, [params.id])
 
   // Extract locations from itinerary text

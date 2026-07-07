@@ -91,6 +91,30 @@ export async function POST(request: NextRequest) {
       console.error('API: Post-processing failed, returning raw output:', err)
     }
 
+    // Persist to Supabase so the itinerary can be viewed on any device
+    // (shared links, "open on my phone", or later PDF/email delivery).
+    // Failure here is non-blocking — the user still gets their itinerary,
+    // it just won't be viewable outside their current browser session.
+    if (supabaseAdmin) {
+      try {
+        const { error: insertError } = await supabaseAdmin
+          .from('itineraries')
+          .insert({
+            id,
+            first_name: answers?.firstName ?? null,
+            itinerary_markdown: itinerary,
+            answers_json: answers,
+          })
+        if (insertError) {
+          console.error('API: Persistence insert failed:', insertError.message)
+        } else {
+          console.log('API: Persisted itinerary', id)
+        }
+      } catch (err) {
+        console.error('API: Persistence exception:', err)
+      }
+    }
+
     const result = {
       id,
       itinerary,
