@@ -10,6 +10,7 @@ import { extractLocationsFromText, getLocationData } from '@/lib/greece-location
 import CredentialStrip from '@/components/CredentialStrip'
 import YesimCallout from '@/components/YesimCallout'
 import DiscoverCarsCard from '@/components/DiscoverCarsCard'
+import FerryscannerCard from '@/components/FerryscannerCard'
 import GuidesCornerInline from '@/components/GuidesCornerInline'
 
 export default function ResultsPage() {
@@ -197,6 +198,7 @@ export default function ResultsPage() {
         const linkText = tok.text
         const isBooking = url.includes('booking.com') || url.includes('booking.tpx') || url.includes('hotellook')
         const isGYG = url.includes('getyourguide.com') || url.includes('getyourguide.tpx') || url.includes('gyg.tpx')
+        const isFerryscanner = url.includes('fas.st')
 
         if (isBooking) {
           return (
@@ -215,6 +217,24 @@ export default function ResultsPage() {
               <span>🎟️</span>
               <span className="truncate">{linkText}</span>
               <ExternalLink className="w-3 h-3 flex-shrink-0" />
+            </a>
+          )
+        }
+        if (isFerryscanner) {
+          // Ferry route mentions are inline natural-language phrases
+          // ("ferry from Piraeus to Santorini") — 5-10 words long.
+          // A pill-style badge would break prose flow, so use a subtle
+          // inline underlined link with a small ⛴️ suffix marker.
+          return (
+            <a
+              key={idx}
+              href={url}
+              target="_blank"
+              rel="noopener noreferrer sponsored"
+              className="inline text-[#2C73FF] font-semibold hover:text-[#180204] underline underline-offset-2 decoration-[#2C73FF]/40 hover:decoration-[#180204]/60 transition-colors"
+            >
+              {linkText}
+              <span className="ml-1 text-[10px] opacity-70" aria-hidden="true">⛴️</span>
             </a>
           )
         }
@@ -518,6 +538,7 @@ export default function ResultsPage() {
                   credentialStrip: false,
                   yesim: false,
                   discoverCars: false,
+                  ferryscanner: false,
                   guidesCorner: false,
                 }
 
@@ -662,6 +683,24 @@ export default function ResultsPage() {
                     out.push(
                       <DiscoverCarsCard
                         key={`dc-${idx}`}
+                        userData={userData}
+                        itinerary={itinerary}
+                        locations={locations}
+                      />
+                    )
+                  }
+
+                  // Anchor 5 (POST): Ferryscanner immediately after DiscoverCars
+                  // Fires on the same anchor (Transport heading) since land + sea
+                  // logistics belong side by side in the reader's mental model.
+                  if (
+                    !flags.ferryscanner &&
+                    /^##\s*Transport Between Destinations\s*$/i.test(trimmed)
+                  ) {
+                    flags.ferryscanner = true
+                    out.push(
+                      <FerryscannerCard
+                        key={`fs-${idx}`}
                         userData={userData}
                         itinerary={itinerary}
                         locations={locations}

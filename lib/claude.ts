@@ -431,6 +431,7 @@ FORMAT YOUR RESPONSE EXACTLY AS:
 CRITICAL FORMATTING RULES (do not deviate):
 - For inline emphasis use **bold** (not single asterisks). Single asterisks render as italic and are reserved for the closing sign-off line only.
 - When mentioning a website by name, write a human-readable label, never a bare URL. Example: "Use Ferryhopper" not "[Ferryhopper.com](https://ferryhopper.com)". If a link to a third-party site is genuinely needed inline, write it as plain text "Ferryhopper" without markdown link syntax — only OUR system-generated links (HOTEL_LINK / TOUR_LINK placeholders + travel guide links) should appear in [text](url) markdown form.
+- When mentioning ferry or boat routes, write them naturally as prose (e.g. "Take the early ferry from Piraeus to Santorini" or "the boat from Kissamos to Balos"). Do NOT wrap ferry mentions in markdown links — our system detects and links them automatically. Do NOT recommend specific ferry booking websites by name.
 - Never write the same URL twice. Never nest brackets like [[X](url)](url). 
 - The closing sign-off (Καλό ταξίδι... line) must be ONE single line, italic with single asterisks at start and end, ending with at least one emoji.
 

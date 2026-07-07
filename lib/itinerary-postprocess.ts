@@ -110,6 +110,11 @@ export async function postprocessItinerary(
     result = result.split(fullMatch).join(markdown)
   })
 
+  // Step 5: Ferry route linking — detect natural-prose ferry mentions like
+  // "ferry from Piraeus to Santorini" and inject Ferryscanner affiliate links.
+  // Runs AFTER placeholder resolution so it doesn't collide with tour/hotel links.
+  result = injectFerryLinks(result)
+
   return result
 }
 
@@ -485,4 +490,121 @@ function capitalize(s: string): string {
     .split(' ')
     .map((w) => (w ? w[0].toUpperCase() + w.slice(1) : w))
     .join(' ')
+}
+
+/* ─────────────────────────────────────────────────────────────
+   FERRY LINK INJECTION
+   Detects ferry-route mentions in natural prose and wraps them
+   as markdown links to Ferryscanner.
+
+   Design decisions:
+   - We use a single global affiliate URL (fas.st/t/4tMSDaRg) for
+     every match. Route-specific deep links would require per-route
+     Ferryscanner URLs — not worth the maintenance overhead.
+   - Capped at 3 replacements per itinerary to avoid spam.
+   - Only matches inside DAY BLOCKS and TRANSPORT SECTION —
+     never inside markdown tables or headings.
+   - Never replaces text already inside a markdown link — the
+     regex explicitly requires the phrase to NOT be inside [...](...).
+   - Case-insensitive matching, but the ORIGINAL casing is preserved
+     in the output (so "Ferry from Athens" stays "Ferry from Athens").
+   ───────────────────────────────────────────────────────────── */
+
+const FERRYSCANNER_INLINE_URL = 'https://fas.st/t/4tMSDaRg'
+const MAX_FERRY_LINKS_PER_ITINERARY = 3
+
+/**
+ * Matches natural-language ferry route phrases. Examples that match:
+ *   "ferry from Piraeus to Santorini"
+ *   "ferry from Piraeus (Athens) to Santorini"
+ *   "the ferry to Naxos"
+ *   "boat from Kissamos to Balos"
+ *   "high-speed ferry to Milos"
+ *   "morning ferry from Milos to Folegandros"
+ *
+ * Deliberately does NOT match:
+ *   - "the ferry ride" (no destination)
+ *   - "ferry tickets" (no destination)
+ *   - "ferryhopper.com" or "ferryscanner" (brand mentions)
+ *
+ * The (?<!]\()...(?!\)) negative lookbehind/lookahead avoids matching
+ * text already inside a markdown link.
+ */
+const FERRY_ROUTE_PATTERN = new RegExp(
+  // Not immediately after markdown link opener
+  '(?<!\\]\\()' +
+  // Optional adjective prefix (high-speed, early, morning, etc.)
+  '((?:(?:high-speed|fast|conventional|early|late|morning|afternoon|evening|night|direct|overnight|hydrofoil|catamaran)\\s+)*)' +
+  // Core noun: "ferry" or "boat" (with optional "the" article)
+  '(?:the\\s+)?' +
+  '(ferry|boat)\\s+' +
+  // Optional "from X" where X is a capitalized name that may contain
+  // a parenthetical clarifier like "Piraeus (Athens)"
+  '(?:from\\s+([A-Z][A-Za-zÀ-ÿ\'\\-\\s]{2,30}?(?:\\s*\\([^)]{2,20}\\))?)\\s+)?' +
+  'to\\s+' +
+  // Destination: capitalized name, optionally with parenthetical
+  '([A-Z][A-Za-zÀ-ÿ\'\\-\\s]{2,30}?(?:\\s*\\([^)]{2,20}\\))?)' +
+  // Terminator: punctuation, closing paren (of an outer paren), or end-of-word markers
+  '(?=[\\s.,;:!?]|$)',
+  'g'
+)
+
+function injectFerryLinks(markdown: string): string {
+  let replacements = 0
+  const alreadyLinkedRanges: Array<[number, number]> = []
+
+  // First, catalog all existing markdown-link ranges so we don't inject inside them
+  const linkRe = /\[[^\]]*\]\([^)]*\)/g
+  let lm: RegExpExecArray | null
+  while ((lm = linkRe.exec(markdown)) !== null) {
+    alreadyLinkedRanges.push([lm.index, lm.index + lm[0].length])
+  }
+
+  const isInsideExistingLink = (idx: number): boolean =>
+    alreadyLinkedRanges.some(([start, end]) => idx >= start && idx < end)
+
+  // Also skip lines that are markdown tables (contain unescaped pipes) or headings
+  const isInsideProtectedContext = (idx: number): boolean => {
+    // Find the start of the current line
+    const lineStart = markdown.lastIndexOf('\n', idx) + 1
+    const lineEnd = markdown.indexOf('\n', idx)
+    const line = markdown.slice(lineStart, lineEnd === -1 ? undefined : lineEnd).trim()
+    // Skip table rows (pipe-separated) and headings
+    if (line.startsWith('|') || line.startsWith('#')) return true
+    return false
+  }
+
+  // Do the replacement in a single pass, tracking offsets
+  let result = ''
+  let cursor = 0
+  FERRY_ROUTE_PATTERN.lastIndex = 0
+  let m: RegExpExecArray | null
+
+  while ((m = FERRY_ROUTE_PATTERN.exec(markdown)) !== null) {
+    if (replacements >= MAX_FERRY_LINKS_PER_ITINERARY) break
+
+    const matchStart = m.index
+    const matchEnd = m.index + m[0].length
+    const fullPhrase = m[0]
+
+    // Skip if inside existing link or protected context
+    if (isInsideExistingLink(matchStart) || isInsideProtectedContext(matchStart)) {
+      continue
+    }
+
+    // Emit everything up to this match untouched
+    result += markdown.slice(cursor, matchStart)
+    // Emit the linked version
+    result += `[${fullPhrase}](${FERRYSCANNER_INLINE_URL})`
+    cursor = matchEnd
+    replacements++
+  }
+  // Emit the tail
+  result += markdown.slice(cursor)
+
+  if (replacements > 0) {
+    console.log(`[postprocess] Injected ${replacements} Ferryscanner link${replacements === 1 ? '' : 's'}`)
+  }
+
+  return result
 }
