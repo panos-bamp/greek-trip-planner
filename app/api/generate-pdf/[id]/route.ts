@@ -85,6 +85,22 @@ export async function GET(
       // Recommended settings — see @sparticuz/chromium README
       chromium.setHeadlessMode = true
       chromium.setGraphicsMode = false
+
+      // Get the executable path FIRST (this triggers extraction of the tar
+      // to /tmp/chromium and unpacks all the shared libraries alongside it).
+      const executablePath = await chromium.executablePath()
+
+      // CRITICAL: Tell the Linux dynamic linker where to find libnss3.so
+      // and other shared libraries. Without this env var, Chromium fails
+      // to launch with "error while loading shared libraries: libnss3.so".
+      // See: https://github.com/Sparticuz/chromium/issues/254
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const path = await import('path')
+      const execDir = path.dirname(executablePath)
+      process.env.LD_LIBRARY_PATH = execDir + (process.env.LD_LIBRARY_PATH
+        ? ':' + process.env.LD_LIBRARY_PATH
+        : '')
+
       browser = await puppeteer.launch({
         args: [
           ...chromium.args,
@@ -92,10 +108,9 @@ export async function GET(
           '--disable-setuid-sandbox',
         ],
         defaultViewport: chromium.defaultViewport,
-        executablePath: await chromium.executablePath(),
+        executablePath,
         headless: chromium.headless,
         // Ignore certificate errors on internal Vercel routing
-        // (Puppeteer navigates to our own domain, which is fine)
         // Cast: puppeteer-core types don't always include this legacy option
         ignoreHTTPSErrors: true,
       } as any)
