@@ -4,5 +4,11 @@
       "path": "/api/cron/crawl-articles",
       "schedule": "0 7 * * *"
     }
-  ]
+  ],
+  "functions": {
+    "app/api/generate-pdf/[id]/route.ts": {
+      "maxDuration": 60,
+      "memory": 1024
+    }
+  }
 }

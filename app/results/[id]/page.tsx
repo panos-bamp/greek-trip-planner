@@ -35,6 +35,7 @@ export default function ResultsPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [selectedDay, setSelectedDay] = useState(1)
   const [isSaved, setIsSaved] = useState(false)
+  const [isPdfLoading, setIsPdfLoading] = useState(false)
   const [toast, setToast] = useState<{ message: string; kind: 'success' | 'info' } | null>(null)
 
   useEffect(() => {
@@ -192,6 +193,53 @@ export default function ResultsPage() {
       setToast({ message: 'Saved to My Trips', kind: 'success' })
     } catch {
       setToast({ message: 'Could not save — storage blocked', kind: 'info' })
+    }
+  }
+
+  // ─── PDF handler ───
+  // Triggers server-side PDF generation via /api/generate-pdf/[id].
+  // On Vercel Pro this takes 3-10 seconds (cold start slower); button
+  // disables during generation to prevent double-clicks.
+  const handlePdf = async () => {
+    if (!params.id || isPdfLoading) return
+    setIsPdfLoading(true)
+    setToast({ message: 'Generating your PDF…', kind: 'info' })
+    try {
+      const res = await fetch(`/api/generate-pdf/${encodeURIComponent(String(params.id))}`, {
+        method: 'GET',
+      })
+      if (!res.ok) {
+        let msg = 'PDF generation failed'
+        try {
+          const body = await res.json()
+          if (body?.error) msg = body.error
+        } catch { /* not json */ }
+        throw new Error(msg)
+      }
+      // Extract filename from Content-Disposition if present
+      const disp = res.headers.get('Content-Disposition') || ''
+      const nameMatch = disp.match(/filename="?([^"]+)"?/)
+      const filename = nameMatch?.[1] || 'greek-trip-itinerary.pdf'
+
+      const blob = await res.blob()
+      // Trigger browser download
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = filename
+      document.body.appendChild(a)
+      a.click()
+      document.body.removeChild(a)
+      URL.revokeObjectURL(url)
+      setToast({ message: 'PDF downloaded', kind: 'success' })
+    } catch (err: any) {
+      console.error('[results] PDF error:', err)
+      setToast({
+        message: err?.message || 'PDF generation failed — try again',
+        kind: 'info',
+      })
+    } finally {
+      setIsPdfLoading(false)
     }
   }
 
@@ -621,8 +669,44 @@ export default function ResultsPage() {
               <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-current' : ''}`} />
               <span className="hidden md:inline">{isSaved ? 'Saved' : 'Save'}</span>
             </button>
-            <button className="px-4 py-2 bg-[#FF5635] text-white rounded-full hover:bg-[#E03A1A] transition flex items-center gap-1.5 font-semibold text-xs shadow-sm shadow-[#FF5635]/20">
-              <Download className="w-3.5 h-3.5" /><span>PDF</span>
+            <button
+              onClick={handlePdf}
+              disabled={isPdfLoading}
+              className={`px-4 py-2 rounded-full transition flex items-center gap-1.5 font-semibold text-xs shadow-sm shadow-[#FF5635]/20 ${
+                isPdfLoading
+                  ? 'bg-[#FF5635]/60 text-white cursor-wait'
+                  : 'bg-[#FF5635] text-white hover:bg-[#E03A1A]'
+              }`}
+              aria-label={isPdfLoading ? 'Generating PDF' : 'Download PDF'}
+              aria-busy={isPdfLoading}
+            >
+              {isPdfLoading ? (
+                <>
+                  <svg
+                    className="w-3.5 h-3.5 animate-spin"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      cx="10" cy="10" r="7"
+                      stroke="currentColor" strokeWidth="2"
+                      strokeDasharray="30 30" strokeLinecap="round"
+                      opacity="0.4"
+                    />
+                    <path
+                      d="M10 3a7 7 0 0 1 7 7"
+                      stroke="currentColor" strokeWidth="2" strokeLinecap="round"
+                    />
+                  </svg>
+                  <span>Preparing…</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-3.5 h-3.5" />
+                  <span>PDF</span>
+                </>
+              )}
             </button>
           </div>
         </div>
