@@ -25,9 +25,12 @@ export const dynamic = 'force-dynamic' // never cache PDF responses
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> | { id: string } }
 ) {
-  const { id } = params
+  // Next.js 15 makes params a Promise; Next.js 14 keeps it as an object.
+  // This works transparently on both — `await` on a plain object just returns it.
+  const resolvedParams = await Promise.resolve(params)
+  const { id } = resolvedParams
 
   if (!id || typeof id !== 'string' || id.length > 32) {
     return NextResponse.json({ error: 'Invalid itinerary ID' }, { status: 400 })
