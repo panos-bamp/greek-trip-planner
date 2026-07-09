@@ -1,6 +1,15 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Prevent Next.js 15+ from bundling Puppeteer + Chromium into the serverless
+  // function code. These packages ship native binaries that must be loaded from
+  // node_modules at runtime; bundling them causes the classic "libnss3.so:
+  // cannot open shared object file" error on Vercel.
+  //
+  // Only affects /api/generate-pdf/[id]/route.ts — the only file that imports
+  // these packages. All other routes are unaffected.
+  serverExternalPackages: ['puppeteer-core', '@sparticuz/chromium'],
+
   images: {
     remotePatterns: [
       {

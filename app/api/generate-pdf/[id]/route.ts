@@ -22,6 +22,7 @@ import { supabaseAdmin } from '@/lib/supabase'
 
 export const maxDuration = 60         // Vercel Pro allows up to 60s
 export const dynamic = 'force-dynamic' // never cache PDF responses
+export const runtime = 'nodejs'        // must run in Node runtime (not edge) — Puppeteer needs full Node APIs
 
 export async function GET(
   request: NextRequest,
@@ -85,11 +86,19 @@ export async function GET(
       chromium.setHeadlessMode = true
       chromium.setGraphicsMode = false
       browser = await puppeteer.launch({
-        args: chromium.args,
+        args: [
+          ...chromium.args,
+          '--no-sandbox',
+          '--disable-setuid-sandbox',
+        ],
         defaultViewport: chromium.defaultViewport,
         executablePath: await chromium.executablePath(),
         headless: chromium.headless,
-      })
+        // Ignore certificate errors on internal Vercel routing
+        // (Puppeteer navigates to our own domain, which is fine)
+        // Cast: puppeteer-core types don't always include this legacy option
+        ignoreHTTPSErrors: true,
+      } as any)
     } else {
       // Local dev: try common Chrome paths.
       // Adjust CHROME_EXECUTABLE_PATH env var if none match.
