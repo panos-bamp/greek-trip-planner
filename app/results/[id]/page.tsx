@@ -14,6 +14,19 @@ import DiscoverCarsCard from '@/components/DiscoverCarsCard'
 import FerryscannerCard from '@/components/FerryscannerCard'
 import GuidesCornerInline from '@/components/GuidesCornerInline'
 
+/**
+ * Extract the "Your Route" line from an itinerary — used for My Trips previews.
+ * Example match: "Santorini (2 days) → Naxos (2 days) → Milos (1 day)"
+ * Returns null if no route line found.
+ */
+function extractRouteFromItinerary(itinerary: string): string | null {
+  if (!itinerary) return null
+  const match = itinerary.match(/##\s*Your Route\s*\n([\s\S]+?)(?:\n##|\n###|$)/i)
+  if (!match || !match[1]) return null
+  const firstLine = match[1].trim().split('\n')[0]
+  return firstLine || null
+}
+
 export default function ResultsPage() {
   const params = useParams()
   const router = useRouter()
@@ -21,6 +34,8 @@ export default function ResultsPage() {
   const [userData, setUserData] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [selectedDay, setSelectedDay] = useState(1)
+  const [isSaved, setIsSaved] = useState(false)
+  const [toast, setToast] = useState<{ message: string; kind: 'success' | 'info' } | null>(null)
 
   useEffect(() => {
     let cancelled = false
@@ -87,6 +102,98 @@ export default function ResultsPage() {
     loadItinerary()
     return () => { cancelled = true }
   }, [params.id])
+
+  // Check saved state on load
+  useEffect(() => {
+    if (!params.id) return
+    try {
+      const raw = localStorage.getItem('gtp:saved-trips')
+      const list: string[] = raw ? JSON.parse(raw) : []
+      setIsSaved(list.includes(String(params.id)))
+    } catch { /* localStorage unavailable */ }
+  }, [params.id])
+
+  // Auto-dismiss toast after 3s
+  useEffect(() => {
+    if (!toast) return
+    const t = setTimeout(() => setToast(null), 3000)
+    return () => clearTimeout(t)
+  }, [toast])
+
+  // ─── Share handler ───
+  // Uses Web Share API on mobile (native share sheet), falls back to
+  // clipboard copy on desktop. If both fail (rare), shows the URL for
+  // manual copy.
+  const handleShare = async () => {
+    if (typeof window === 'undefined') return
+    const url = window.location.href
+    const title = userData?.firstName
+      ? `${userData.firstName}'s Greek trip itinerary`
+      : 'My Greek trip itinerary'
+    const text = `Check out this ${userData?.duration || '7'}-day Greek trip plan I made with Greek Trip Planner.`
+
+    // Try Web Share API first (mobile)
+    const nav = window.navigator as any
+    if (nav.share && typeof nav.share === 'function') {
+      try {
+        await nav.share({ title, text, url })
+        return // user completed native share, no toast needed
+      } catch (err: any) {
+        // User cancelled — silently return, no toast
+        if (err?.name === 'AbortError') return
+        // Any other error — fall through to clipboard
+      }
+    }
+
+    // Clipboard fallback
+    try {
+      await navigator.clipboard.writeText(url)
+      setToast({ message: 'Link copied to clipboard', kind: 'success' })
+    } catch {
+      // Last-resort fallback
+      setToast({ message: url, kind: 'info' })
+    }
+  }
+
+  // ─── Save handler ───
+  // Adds this trip's ID to a personal list in localStorage. The persistent
+  // itinerary already lives in Supabase, so this is just a "starred" flag
+  // that My Trips page reads. Idempotent.
+  const handleSave = () => {
+    if (!params.id) return
+    try {
+      const raw = localStorage.getItem('gtp:saved-trips')
+      const list: string[] = raw ? JSON.parse(raw) : []
+      const idStr = String(params.id)
+      if (list.includes(idStr)) {
+        setToast({ message: 'Already in your saved trips', kind: 'info' })
+        return
+      }
+      // Prepend so newest saves appear first on the My Trips page
+      list.unshift(idStr)
+      // Also cache summary metadata to render the My Trips list without hitting Supabase
+      const meta = {
+        id: idStr,
+        savedAt: new Date().toISOString(),
+        firstName: userData?.firstName || null,
+        duration: userData?.duration || null,
+        travelWith: userData?.travelWith || null,
+        budget: userData?.budget || null,
+        month: userData?.month || null,
+        // Extract Route line for a nice preview
+        route: extractRouteFromItinerary(itinerary),
+      }
+      const metasRaw = localStorage.getItem('gtp:saved-trips-meta')
+      const metas = metasRaw ? JSON.parse(metasRaw) : {}
+      metas[idStr] = meta
+      localStorage.setItem('gtp:saved-trips', JSON.stringify(list))
+      localStorage.setItem('gtp:saved-trips-meta', JSON.stringify(metas))
+      setIsSaved(true)
+      setToast({ message: 'Saved to My Trips', kind: 'success' })
+    } catch {
+      setToast({ message: 'Could not save — storage blocked', kind: 'info' })
+    }
+  }
 
   // Extract locations from itinerary text
   const locations = useMemo(() => {
@@ -494,11 +601,25 @@ export default function ResultsPage() {
             </div>
           </div>
           <div className="flex items-center gap-1.5">
-            <button className="px-3 py-2 text-xs text-[#180204]/60 hover:bg-[#FAF6F3] rounded-lg transition flex items-center gap-1.5 font-medium">
+            <button
+              onClick={handleShare}
+              className="px-3 py-2 text-xs text-[#180204]/60 hover:bg-[#FAF6F3] rounded-lg transition flex items-center gap-1.5 font-medium"
+              aria-label="Share this itinerary"
+            >
               <Share2 className="w-3.5 h-3.5" /><span className="hidden md:inline">Share</span>
             </button>
-            <button className="px-3 py-2 text-xs text-[#180204]/60 hover:bg-[#FAF6F3] rounded-lg transition flex items-center gap-1.5 font-medium">
-              <Bookmark className="w-3.5 h-3.5" /><span className="hidden md:inline">Save</span>
+            <button
+              onClick={handleSave}
+              className={`px-3 py-2 text-xs rounded-lg transition flex items-center gap-1.5 font-medium ${
+                isSaved
+                  ? 'text-[#FF5635] bg-[#FF5635]/8 hover:bg-[#FF5635]/12'
+                  : 'text-[#180204]/60 hover:bg-[#FAF6F3]'
+              }`}
+              aria-label={isSaved ? 'Already saved' : 'Save this itinerary'}
+              aria-pressed={isSaved}
+            >
+              <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-current' : ''}`} />
+              <span className="hidden md:inline">{isSaved ? 'Saved' : 'Save'}</span>
             </button>
             <button className="px-4 py-2 bg-[#FF5635] text-white rounded-full hover:bg-[#E03A1A] transition flex items-center gap-1.5 font-semibold text-xs shadow-sm shadow-[#FF5635]/20">
               <Download className="w-3.5 h-3.5" /><span>PDF</span>
@@ -506,6 +627,47 @@ export default function ResultsPage() {
           </div>
         </div>
       </header>
+
+      {/* Toast — global feedback for Share/Save actions.
+          Fixed at top-center, auto-dismisses after 3s (see useEffect above). */}
+      {toast && (
+        <div
+          className="fixed top-16 left-1/2 -translate-x-1/2 z-[100] pointer-events-auto"
+          role="status"
+          aria-live="polite"
+        >
+          <div
+            className={`px-4 py-2.5 rounded-full shadow-lg text-sm font-medium flex items-center gap-2 border ${
+              toast.kind === 'success'
+                ? 'bg-white text-[#180204] border-[#E6DAD1]'
+                : 'bg-white text-[#180204]/80 border-[#E6DAD1]'
+            }`}
+            style={{ animation: 'gtp-toast-in 200ms ease-out' }}
+          >
+            {toast.kind === 'success' && (
+              <span className="text-[#22C55E]" aria-hidden="true">✓</span>
+            )}
+            {toast.kind === 'info' && (
+              <span className="text-[#2C73FF]" aria-hidden="true">ℹ</span>
+            )}
+            <span>{toast.message}</span>
+            {toast.kind === 'success' && toast.message === 'Saved to My Trips' && (
+              <Link
+                href="/my-trips"
+                className="ml-1 text-[#FF5635] hover:text-[#E03A1A] underline underline-offset-2 font-semibold"
+              >
+                View
+              </Link>
+            )}
+          </div>
+          <style>{`
+            @keyframes gtp-toast-in {
+              from { opacity: 0; transform: translate(-50%, -8px); }
+              to { opacity: 1; transform: translate(-50%, 0); }
+            }
+          `}</style>
+        </div>
+      )}
 
       {/* ── Day Tabs ── */}
       {days.length > 0 && (
