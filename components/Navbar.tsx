@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ArrowRight, X, Compass, BookOpen, BarChart3, Users, Sparkles, ChevronDown, MapPin, Map, Mail } from 'lucide-react'
+import { ArrowRight, X, Compass, BookOpen, BarChart3, Users, Sparkles, ChevronDown, MapPin, Map, Mail, Bookmark } from 'lucide-react'
 
 const topDestinations = [
   { name: 'Athens',    slug: 'athens',    emoji: '🏛️', desc: 'History & culture' },
@@ -21,6 +21,7 @@ const navLinks = [
   { href: '/insights',     label: 'Insights',     icon: BarChart3,   desc: 'Greece tourism data & analysis' },
   { href: '/about',        label: 'About',        icon: Users,       desc: 'Meet the 5 Greeks behind the planner' },
   { href: '/contact',      label: 'Contact',      icon: Mail,        desc: 'Get in touch with Panos' },
+  { href: '/my-trips',     label: 'My Trips',     icon: Bookmark,    desc: 'Your saved Greek trip itineraries' },
 ]
 
 // ─── DESTINATIONS DROPDOWN (desktop only) ────────────────────────────────────
@@ -194,7 +195,7 @@ export default function Navbar() {
 
             {/* Blog, Insights, About, Contact */}
             {navLinks
-              .filter((l) => !['how-it-works', 'destinations'].some((s) => l.href.includes(s)))
+              .filter((l) => !['how-it-works', 'destinations', 'my-trips'].some((s) => l.href.includes(s)))
               .map((link) => (
                 <Link
                   key={link.href}
@@ -206,6 +207,19 @@ export default function Navbar() {
                   {link.label}
                 </Link>
               ))}
+
+            {/* My Trips — styled as personal/account link, distinct from marketing links.
+                Icon + text, subtle chip on the right of the marketing links,
+                but before the primary Start Planning CTA. */}
+            <Link
+              href="/my-trips"
+              className={`flex items-center gap-1.5 transition-colors text-sm font-medium ${
+                isActive('/my-trips') ? 'text-[#FF5635]' : 'text-[#180204]/70 hover:text-[#FF5635]'
+              }`}
+            >
+              <Bookmark className={`w-3.5 h-3.5 ${isActive('/my-trips') ? 'fill-current' : ''}`} />
+              My Trips
+            </Link>
 
             <Link
               href="/ai-trip-planner"
