@@ -24,6 +24,12 @@
 import { useState, useEffect, useMemo, type ReactNode } from 'react'
 import { useParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
+import { extractLocationsFromText, getLocationData } from '@/lib/greece-locations'
+import CredentialStrip from '@/components/CredentialStrip'
+import YesimCallout from '@/components/YesimCallout'
+import DiscoverCarsCard from '@/components/DiscoverCarsCard'
+import FerryscannerCard from '@/components/FerryscannerCard'
+import GuidesCornerInline from '@/components/GuidesCornerInline'
 
 /* ─────────────────────────────────────────────────────────────
    MAIN COMPONENT
@@ -68,6 +74,37 @@ export default function ResultsPdfPage() {
     return () => { cancelled = true }
   }, [params.id])
 
+  // Extract locations from itinerary — needed by DiscoverCarsCard, FerryscannerCard, GuidesCornerInline
+  const locations = useMemo(() => {
+    if (!itinerary) return []
+    const extractedNames = extractLocationsFromText(itinerary)
+    const lines = itinerary.split('\n')
+    const locationObjects: any[] = []
+    let currentDay = 1
+    lines.forEach((line) => {
+      const dayMatch = line.match(/Day (\d+)|DAY (\d+)/i)
+      if (dayMatch) currentDay = parseInt(dayMatch[1] || dayMatch[2])
+      extractedNames.forEach((locationName) => {
+        if (
+          line.toLowerCase().includes(locationName) &&
+          !locationObjects.find((loc) => loc.name === locationName && loc.day === currentDay)
+        ) {
+          const locData = getLocationData(locationName)
+          if (locData) {
+            locationObjects.push({
+              name: locationName.charAt(0).toUpperCase() + locationName.slice(1),
+              lat: locData.lat,
+              lng: locData.lng,
+              day: currentDay,
+              type: locData.type,
+            })
+          }
+        }
+      })
+    })
+    return locationObjects
+  }, [itinerary])
+
   // The PDF generator waits for this element to appear before printing.
   // See /api/generate-pdf/[id]/route.ts — it uses `waitForSelector('[data-pdf-ready="true"]')`
   const readyAttr = status === 'ready' ? 'true' : 'false'
@@ -96,6 +133,10 @@ export default function ResultsPdfPage() {
           h1, h2, h3 { break-after: avoid; page-break-after: avoid; }
           table { break-inside: avoid; page-break-inside: avoid; }
         }
+        /* Belt-and-suspenders: forcibly hide the shared Navbar/Footer if
+           the layout header detection failed to skip them for this route.
+           These wrappers are added by app/layout.tsx. */
+        .site-navbar-wrapper, .site-footer-wrapper { display: none !important; }
         /* Screen preview mimics A4 for consistency */
         @media screen {
           .pdf-container {
@@ -129,8 +170,8 @@ export default function ResultsPdfPage() {
 
         {status === 'ready' && (
           <>
-            {/* Header — logo + credential strip in one clean row */}
-            <header className="mb-8 pb-4 border-b border-[#E6DAD1]">
+            {/* Header — logo + prepared-for line */}
+            <header className="mb-6 pb-4 border-b border-[#E6DAD1]">
               <div className="flex items-center justify-between gap-4">
                 <div>
                   <p
@@ -140,7 +181,7 @@ export default function ResultsPdfPage() {
                     Greek Trip Planner
                   </p>
                   <p className="text-[9px] text-[#180204]/50 mt-1">
-                    Personalized itinerary curated by Vaggelis (Certified Greek Tourist Guide) &amp; Panos (Founder)
+                    greektriplanner.me
                   </p>
                 </div>
                 {userData?.firstName && (
@@ -164,10 +205,31 @@ export default function ResultsPdfPage() {
               {(() => {
                 const lines = itinerary.split('\n')
                 const out: ReactNode[] = []
+                // Track which components have been injected — same pattern as main results page
+                const flags = {
+                  credentialStrip: false,
+                  yesim: false,
+                  discoverCars: false,
+                  ferryscanner: false,
+                  guidesCorner: false,
+                }
                 let i = 0
                 while (i < lines.length) {
                   const line = lines[i]
                   const trimmed = line.trim()
+
+                  // Anchor 4 (PRE): Guide's Corner just before Final Tips
+                  if (!flags.guidesCorner && /^##\s*Final\s+[Tt]ips\b/.test(trimmed)) {
+                    flags.guidesCorner = true
+                    out.push(
+                      <GuidesCornerInline
+                        key={`gc-${i}`}
+                        userData={userData}
+                        itinerary={itinerary}
+                        locations={locations}
+                      />
+                    )
+                  }
 
                   // Multi-line table detection
                   if (trimmed.startsWith('|') && trimmed.includes('|')) {
@@ -180,6 +242,51 @@ export default function ResultsPdfPage() {
                   }
 
                   out.push(renderPdfLine(line, i))
+
+                  // Anchor 1 (POST): CredentialStrip after Overview heading
+                  if (!flags.credentialStrip && /^##\s*Overview\s*$/i.test(trimmed)) {
+                    flags.credentialStrip = true
+                    out.push(<CredentialStrip key={`cs-${i}`} userData={userData} />)
+                  }
+
+                  // Anchor 2 (POST): Yesim after "Your Route" heading
+                  if (!flags.yesim && /^##\s*Your Route\s*$/i.test(trimmed)) {
+                    flags.yesim = true
+                    out.push(<YesimCallout key={`ys-${i}`} />)
+                  }
+
+                  // Anchor 3 (POST): DiscoverCars after "Transport Between Destinations"
+                  if (
+                    !flags.discoverCars &&
+                    /^##\s*Transport Between Destinations\s*$/i.test(trimmed)
+                  ) {
+                    flags.discoverCars = true
+                    out.push(
+                      <DiscoverCarsCard
+                        key={`dc-${i}`}
+                        userData={userData}
+                        itinerary={itinerary}
+                        locations={locations}
+                      />
+                    )
+                  }
+
+                  // Anchor 5 (POST): Ferryscanner immediately after DiscoverCars
+                  if (
+                    !flags.ferryscanner &&
+                    /^##\s*Transport Between Destinations\s*$/i.test(trimmed)
+                  ) {
+                    flags.ferryscanner = true
+                    out.push(
+                      <FerryscannerCard
+                        key={`fs-${i}`}
+                        userData={userData}
+                        itinerary={itinerary}
+                        locations={locations}
+                      />
+                    )
+                  }
+
                   i++
                 }
                 return out

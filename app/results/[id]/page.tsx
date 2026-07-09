@@ -482,13 +482,80 @@ export default function ResultsPage() {
       signoffMatch[1].length > 20
     ) {
       return (
-        <div key={index} className="my-8 text-center">
+        <div
+          key={index}
+          className="my-10 px-6 py-8 md:px-8 md:py-10 rounded-2xl text-center relative overflow-hidden"
+          style={{
+            background: 'linear-gradient(180deg, #FAF6F3 0%, #FFFFFF 100%)',
+            border: '1px solid #E6DAD1',
+          }}
+        >
+          {/* Decorative flourish — subtle top-left ornament */}
+          <div
+            className="absolute top-3 left-1/2 -translate-x-1/2 text-[#FF5635]/40 text-lg"
+            aria-hidden="true"
+            style={{ fontFamily: 'Georgia, serif', letterSpacing: '0.5em' }}
+          >
+            · · ·
+          </div>
+
+          {/* The sign-off itself — same styling as before, just centered inside the bookend */}
           <p
-            className="text-xl md:text-2xl font-bold text-[#180204] leading-snug"
+            className="text-xl md:text-2xl font-bold text-[#180204] leading-snug mt-2 mb-5 md:mb-6"
             style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontStyle: 'normal' }}
           >
             {signoffMatch[1]}
           </p>
+
+          {/* Emotional bookend — the "take it with you" moment */}
+          <div className="max-w-md mx-auto">
+            <p
+              className="text-[13px] md:text-sm text-[#180204]/60 leading-relaxed mb-5"
+              style={{ fontStyle: 'italic' }}
+            >
+              Take your trip with you — offline, on the plane, in a taverna with no signal.
+            </p>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5">
+              {/* Primary — Download PDF */}
+              <button
+                onClick={handlePdf}
+                disabled={isPdfLoading}
+                className={`inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-all ${
+                  isPdfLoading
+                    ? 'bg-[#FF5635]/60 text-white cursor-wait'
+                    : 'bg-[#FF5635] text-white hover:bg-[#E03A1A] hover:shadow-lg hover:scale-[1.02]'
+                }`}
+                aria-label={isPdfLoading ? 'Generating PDF' : 'Download itinerary as PDF'}
+                aria-busy={isPdfLoading}
+              >
+                {isPdfLoading ? (
+                  <>
+                    <svg className="w-4 h-4 animate-spin" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                      <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="2" strokeDasharray="30 30" strokeLinecap="round" opacity="0.4" />
+                      <path d="M10 3a7 7 0 0 1 7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                    </svg>
+                    <span>Preparing…</span>
+                  </>
+                ) : (
+                  <>
+                    <Download className="w-4 h-4" />
+                    <span>Download as PDF</span>
+                  </>
+                )}
+              </button>
+
+              {/* Secondary — Share */}
+              <button
+                onClick={handleShare}
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium text-[#180204]/70 hover:text-[#FF5635] hover:bg-[#FAF6F3] transition-all"
+                aria-label="Share this itinerary"
+              >
+                <Share2 className="w-4 h-4" />
+                <span>Share with a friend</span>
+              </button>
+            </div>
+          </div>
         </div>
       )
     }
@@ -839,6 +906,7 @@ export default function ResultsPage() {
                  */
                 const flags = {
                   credentialStrip: false,
+                  overviewCta: false,
                   yesim: false,
                   discoverCars: false,
                   ferryscanner: false,
@@ -990,6 +1058,84 @@ export default function ResultsPage() {
                         itinerary={itinerary}
                         locations={locations}
                       />
+                    )
+                  }
+
+                  // Anchor 6 (PRE, injected via POST-check): Overview CTA
+                  // Fires just before "## Day-by-Day Itinerary" — the moment reader
+                  // decides "yes, I'll commit to reading this full plan". Compact
+                  // utility bar with 3 actions. Doesn't sell — offers tools.
+                  if (
+                    !flags.overviewCta &&
+                    /^##\s*Day-by-Day Itinerary\s*$/i.test(trimmed)
+                  ) {
+                    flags.overviewCta = true
+                    out.push(
+                      <div
+                        key={`ovcta-${idx}`}
+                        className="my-6 px-5 py-4 rounded-2xl border border-[#E6DAD1]"
+                        style={{
+                          background: 'linear-gradient(135deg, #FFFFFF 0%, #FAF6F3 100%)',
+                        }}
+                      >
+                        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+                          <div className="flex-1 min-w-0">
+                            <p className="text-[11px] font-bold tracking-wider uppercase text-[#FF5635] mb-1"
+                              style={{ letterSpacing: '0.08em' }}>
+                              Keep this itinerary handy
+                            </p>
+                            <p className="text-sm text-[#180204]/70 leading-relaxed m-0">
+                              Download the PDF for offline reading, or send the link to whoever you're traveling with.
+                            </p>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
+                            <button
+                              onClick={handlePdf}
+                              disabled={isPdfLoading}
+                              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+                                isPdfLoading
+                                  ? 'bg-[#FF5635]/60 text-white cursor-wait'
+                                  : 'bg-[#FF5635] text-white hover:bg-[#E03A1A] hover:shadow-md'
+                              }`}
+                              aria-busy={isPdfLoading}
+                            >
+                              {isPdfLoading ? (
+                                <>
+                                  <svg className="w-3.5 h-3.5 animate-spin" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                                    <circle cx="10" cy="10" r="7" stroke="currentColor" strokeWidth="2" strokeDasharray="30 30" strokeLinecap="round" opacity="0.4" />
+                                    <path d="M10 3a7 7 0 0 1 7 7" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+                                  </svg>
+                                  <span>Preparing…</span>
+                                </>
+                              ) : (
+                                <>
+                                  <Download className="w-3.5 h-3.5" />
+                                  <span>PDF</span>
+                                </>
+                              )}
+                            </button>
+                            <button
+                              onClick={handleShare}
+                              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium text-[#180204]/70 hover:text-[#FF5635] hover:bg-white transition-all border border-[#E6DAD1]"
+                            >
+                              <Share2 className="w-3.5 h-3.5" />
+                              <span>Share</span>
+                            </button>
+                            <button
+                              onClick={handleSave}
+                              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium transition-all border ${
+                                isSaved
+                                  ? 'text-[#FF5635] bg-[#FF5635]/8 border-[#FF5635]/30'
+                                  : 'text-[#180204]/70 hover:text-[#FF5635] hover:bg-white border-[#E6DAD1]'
+                              }`}
+                              aria-pressed={isSaved}
+                            >
+                              <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-current' : ''}`} />
+                              <span>{isSaved ? 'Saved' : 'Save'}</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     )
                   }
 

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Script from 'next/script'
+import { headers } from 'next/headers'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -19,11 +20,26 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  // Detect if the current URL is a PDF-oriented route so we can skip the
+  // shared Navbar/Footer chrome when Puppeteer (or a human) navigates there.
+  // The x-pathname header is set by Next.js middleware convention; if it's
+  // not present, we fall back to x-invoke-path which Next.js also populates
+  // for App Router requests. Neither is guaranteed — safe default is to
+  // render the chrome.
+  const h = await headers()
+  const pathname =
+    h.get('x-pathname') ||
+    h.get('x-invoke-path') ||
+    h.get('next-url') ||
+    ''
+  // Match routes that end in /pdf (e.g. /results/xxx/pdf) — these are
+  // print-only pages that render themselves without site chrome.
+  const isPrintRoute = /\/pdf(?:\/|$|\?)/.test(pathname)
   return (
     <html lang="en">
       <head>
@@ -161,9 +177,17 @@ export default function RootLayout({
         </Script>
       </head>
       <body className="antialiased">
-        <Navbar />
+        {!isPrintRoute && (
+          <div className="site-navbar-wrapper">
+            <Navbar />
+          </div>
+        )}
         {children}
-        <Footer />
+        {!isPrintRoute && (
+          <div className="site-footer-wrapper">
+            <Footer />
+          </div>
+        )}
       </body>
     </html>
   )
