@@ -84,7 +84,7 @@ export default async function RootLayout({
               var AFFILIATE_DOMAINS = [
                 '.tpx.lt', '.tp.lt',
                 'emrld.ltd', 'tp.media', 'travelpayouts.com',
-                'fas.st',                              // Travelpayouts short link (ferryscanner etc.)
+                'fas.st',                              // Ferryscanner affiliate short link
                 'tidd.ly',                             // Awin/SimLocal affiliate short link
                 'booking.com', 'getyourguide.com', 'viator.com',
                 'discovercars.com', 'welcomepickups.com', 'airalo.com',
@@ -117,11 +117,9 @@ export default async function RootLayout({
                 try { decoded = decodeURIComponent(href); } catch(e) { decoded = href; }
                 var combined = href + ' ' + decoded;
 
-                // fas.st — Travelpayouts short link (ferryscanner, etc.)
+                // fas.st — Ferryscanner affiliate short link
                 if (href.indexOf('fas.st') !== -1) {
-                  if (combined.indexOf('ferryscanner') !== -1) return 'ferryscanner';
-                  if (combined.indexOf('ferryhopper')  !== -1) return 'ferryhopper';
-                  return 'travelpayouts';
+                  return 'ferryscanner';
                 }
 
                 // tidd.ly — Awin short link (simlocal, etc.)

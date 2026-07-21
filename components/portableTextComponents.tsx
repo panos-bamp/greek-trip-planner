@@ -28,7 +28,7 @@ const AFFILIATE_DOMAINS = [
   'emrld.ltd',
   'tp.media',
   'travelpayouts.com',
-  'fas.st',           // Travelpayouts short link (ferryscanner etc.)
+  'fas.st',           // Ferryscanner affiliate short link
   'tidd.ly',          // Awin short link (simlocal etc.)
   // Direct partner domains
   'booking.com',
