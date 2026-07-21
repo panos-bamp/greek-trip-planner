@@ -84,12 +84,26 @@ export default async function RootLayout({
               var AFFILIATE_DOMAINS = [
                 '.tpx.lt', '.tp.lt',
                 'emrld.ltd', 'tp.media', 'travelpayouts.com',
+                'fas.st',                              // Travelpayouts short link (ferryscanner etc.)
+                'tidd.ly',                             // Awin/SimLocal affiliate short link
                 'booking.com', 'getyourguide.com', 'viator.com',
                 'discovercars.com', 'welcomepickups.com', 'airalo.com',
                 'yesim.app', 'klook.com', 'agoda.com', 'kiwi.com',
                 'airhelp.com', 'ekta.life', 'nordvpn.com',
                 'ferryhopper.com'
               ];
+
+              // Partners whose links must NEVER pass PageRank (nofollow).
+              // These are editorial/directory partners, not commission affiliates.
+              var NOFOLLOW_DOMAINS = [
+                'musicofourdesire.com'
+              ];
+
+              function isNofollow(href) {
+                return NOFOLLOW_DOMAINS.some(function(d) {
+                  return href.indexOf(d) !== -1;
+                });
+              }
 
               function isAffiliate(href) {
                 return AFFILIATE_DOMAINS.some(function(d) {
@@ -102,6 +116,19 @@ export default async function RootLayout({
                 var decoded = '';
                 try { decoded = decodeURIComponent(href); } catch(e) { decoded = href; }
                 var combined = href + ' ' + decoded;
+
+                // fas.st — Travelpayouts short link (ferryscanner, etc.)
+                if (href.indexOf('fas.st') !== -1) {
+                  if (combined.indexOf('ferryscanner') !== -1) return 'ferryscanner';
+                  if (combined.indexOf('ferryhopper')  !== -1) return 'ferryhopper';
+                  return 'travelpayouts';
+                }
+
+                // tidd.ly — Awin short link (simlocal, etc.)
+                if (href.indexOf('tidd.ly') !== -1) {
+                  if (combined.indexOf('simlocal') !== -1) return 'simlocal';
+                  return 'awin';
+                }
 
                 // Travelpayouts short links — subdomain is the partner
                 if (href.indexOf('.tpx.lt') !== -1 || href.indexOf('.tp.lt') !== -1) {
@@ -159,6 +186,9 @@ export default async function RootLayout({
                 // Skip links already handled by React onClick in portableTextComponents
                 // (those have data-tracked attribute set — see note below)
                 if (link.dataset.tracked) return;
+
+                // Nofollow partners — not affiliates, no tracking needed
+                if (isNofollow(link.href)) return;
 
                 if (!isAffiliate(link.href)) return;
 

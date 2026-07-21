@@ -28,6 +28,8 @@ const AFFILIATE_DOMAINS = [
   'emrld.ltd',
   'tp.media',
   'travelpayouts.com',
+  'fas.st',           // Travelpayouts short link (ferryscanner etc.)
+  'tidd.ly',          // Awin short link (simlocal etc.)
   // Direct partner domains
   'booking.com',
   'getyourguide.com',
@@ -50,6 +52,14 @@ function isAffiliateLink(href: string): boolean {
   return AFFILIATE_DOMAINS.some(domain => href.includes(domain))
 }
 
+// Partners that must carry rel="nofollow" — editorial/directory partners
+// that are NOT commission affiliates. These never get "sponsored".
+const NOFOLLOW_DOMAINS = ['musicofourdesire.com']
+
+function isNofollowLink(href: string): boolean {
+  return NOFOLLOW_DOMAINS.some(domain => href.includes(domain))
+}
+
 function isInternalLink(href: string): boolean {
   if (href.startsWith('/') || href.startsWith('#')) return true
   return INTERNAL_DOMAINS.some(domain => href.includes(domain))
@@ -59,6 +69,8 @@ function isInternalLink(href: string): boolean {
  * Build the rel attribute for an outbound link.
  *
  * Rules:
+ *   - Nofollow partner, new tab  → "noopener noreferrer nofollow"
+ *   - Nofollow partner, same tab → "nofollow"
  *   - Affiliate link, new tab    → "noopener sponsored"
  *   - Affiliate link, same tab   → "sponsored"
  *   - Plain external, new tab    → "noopener noreferrer"
@@ -71,7 +83,12 @@ function isInternalLink(href: string): boolean {
 function buildRel(href: string, opensInNewTab: boolean): string {
   const parts: string[] = []
   if (opensInNewTab) parts.push('noopener')
-  if (isAffiliateLink(href)) {
+
+  if (isNofollowLink(href)) {
+    // Editorial/directory partners — nofollow, never sponsored
+    if (opensInNewTab) parts.push('noreferrer')
+    parts.push('nofollow')
+  } else if (isAffiliateLink(href)) {
     parts.push('sponsored')
   } else if (opensInNewTab) {
     parts.push('noreferrer')
@@ -158,9 +175,10 @@ function TrackedExternalLink({
 }) {
   const pathname = usePathname()
   const isAffiliate = isAffiliateLink(href)
+  const isNofollow = isNofollowLink(href)
 
   const handleClick = () => {
-    if (isAffiliate) {
+    if (isAffiliate && !isNofollow) {
       trackAffiliateClick({
         partner: getPartnerName(href),
         linkUrl: href,
@@ -177,7 +195,7 @@ function TrackedExternalLink({
       href={href}
       target={opensInNewTab ? '_blank' : undefined}
       rel={rel || undefined}
-      data-tracked={isAffiliate ? 'true' : undefined}
+      data-tracked={isAffiliate && !isNofollow ? 'true' : undefined}
       onClick={handleClick}
       className={className}
     >
