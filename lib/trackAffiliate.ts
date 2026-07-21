@@ -21,10 +21,22 @@ export type AffiliatePartner =
   | 'airhelp'
   | 'ekta'
   | 'nordvpn'
+  | 'ferryscanner'
+  | 'simlocal'
+  | 'awin'
   | 'travelpayouts'
   | 'unknown';
 
 export function getPartnerName(url: string): AffiliatePartner {
+  // ─── fas.st — Ferryscanner affiliate short link ───
+  if (url.includes('fas.st')) return 'ferryscanner';
+
+  // ─── tidd.ly — Awin short link (SimLocal etc.) ───
+  if (url.includes('tidd.ly')) {
+    if (url.includes('simlocal')) return 'simlocal';
+    return 'awin';
+  }
+
   // ─── Travelpayouts short links (e.g. getyourguide.tpx.lt/xxxxx) ───
   // Check these FIRST because the subdomain identifies the partner.
   // Pattern: [partner].tpx.lt or [partner].tp.lt
