@@ -64,6 +64,20 @@ const nextConfig: NextConfig = {
         destination: '/blog/pelion-travel-guide',
         permanent: true,
       },
+
+      // Symi: things-to-do sibling → main travel guide (cannibalization fix)
+      // things-to-do-in-symi:  <32 impr (absent from 1,000-row GSC pages export)
+      // symi-travel-guide:     1,020 impr, pos 21.15 (head terms at 60+)
+      // Ahrefs parent keyword for "what to do in symi" resolves to "symi greece"
+      // — i.e. the same page should win both. Smallest of the four Symi
+      // clusters (1,920 global vol) and the only one with a dedicated URL.
+      // Port the Kastro / beaches / Panormitis content into symi-travel-guide
+      // in Sanity BEFORE unpublishing the source page.
+      {
+        source: '/blog/things-to-do-in-symi',
+        destination: '/blog/symi-travel-guide',
+        permanent: true,
+      },
     ];
   },
 };
