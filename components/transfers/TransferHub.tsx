@@ -71,8 +71,8 @@ export default async function TransferHub({ page }: Props) {
 
   return (
     <>
-      {/* Breadcrumb — pt-16 clears the fixed 64px nav exactly, matching /blog's convention */}
-      <div className="max-w-[1040px] mx-auto px-5 sm:px-8 pt-16 pb-[18px] font-mono text-[11.5px] text-[#999]">
+      {/* Breadcrumb — pt-28 clears the 64px fixed nav with real breathing room above the text, not just exact contact */}
+      <div className="max-w-[1040px] mx-auto px-5 sm:px-8 pt-28 pb-[18px] font-mono text-[11.5px] text-[#999]">
         <Link href="/" className="hover:text-[#2C73FF]">Home</Link>
         <span className="mx-1.5">/</span>
         <Link href="/transfers" className="hover:text-[#2C73FF]">Transfers</Link>

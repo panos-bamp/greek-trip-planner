@@ -32,8 +32,8 @@ export default function TransferSpoke({ page }: Props) {
     <>
       {/* Breadcrumb — carries the hub↔spoke hierarchy since the URL itself
           is flat (see the URL-structure decision earlier in this project).
-          pt-[82px] clears the fixed 64px nav, matching the hub template fix. */}
-      <div className="max-w-[1120px] mx-auto px-5 sm:px-8 pt-[82px] pb-[18px] font-mono text-[11px] text-[#999]">
+          pt-28 clears the 64px fixed nav with real breathing room above the text. */}
+      <div className="max-w-[1120px] mx-auto px-5 sm:px-8 pt-28 pb-[18px] font-mono text-[11px] text-[#999]">
         <Link href="/" className="hover:text-[#2C73FF]">Home</Link>
         <span className="mx-1.5">/</span>
         <Link href="/transfers" className="hover:text-[#2C73FF]">Transfers</Link>
