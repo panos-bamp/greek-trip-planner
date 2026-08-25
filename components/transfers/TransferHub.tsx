@@ -71,10 +71,8 @@ export default async function TransferHub({ page }: Props) {
 
   return (
     <>
-      {/* Breadcrumb — pt-16 is the MINIMUM that works: it's the exact fixed-nav height (64px).
-          Anything less and the breadcrumb renders behind the nav, invisible on screen even
-          though it's present in the DOM (confirmed — this happened at pt-[18px]). */}
-      <div className="max-w-[1040px] mx-auto px-5 sm:px-8 pt-16 pb-[18px] font-mono text-[11.5px] text-[#999]">
+      {/* Breadcrumb — pt-[72px] clears the 64px fixed nav with 8px of visible breathing room */}
+      <div className="max-w-[1040px] mx-auto px-5 sm:px-8 pt-[72px] pb-[18px] font-mono text-[11.5px] text-[#999]">
         <Link href="/" className="hover:text-[#2C73FF]">Home</Link>
         <span className="mx-1.5">/</span>
         <Link href="/transfers" className="hover:text-[#2C73FF]">Transfers</Link>
