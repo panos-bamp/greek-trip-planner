@@ -1,0 +1,259 @@
+// components/transfers/TransferHub.tsx
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { PortableText } from '@portabletext/react'
+import { ChevronRight, Sparkles } from 'lucide-react'
+import { urlFor } from '@/sanity/lib/image'
+import portableTextComponents from '@/components/portableTextComponents'
+import AffiliateDisclosure from '@/components/affiliate/AffiliateDisclosure'
+import BookingOptions from './BookingOptions'
+
+const CHECKLIST = [
+  { title: 'Licensed operator', text: 'Registered and legally permitted to run transfers in Greece.' },
+  { title: 'Fixed price, no surge', text: "What you're quoted is what you pay." },
+  { title: 'Flight-tracked pickup', text: 'Delays monitored automatically, free waiting time.' },
+  { title: 'English-speaking driver', text: 'No language gap on arrival.' },
+  { title: 'Insured vehicle', text: 'Verified coverage on every trip.' },
+  { title: 'Free cancellation', text: 'Plans change — cancel at no cost.' },
+]
+
+const TYPE_LABELS: Record<string, { tag: string; class: string }> = {
+  airport: { tag: 'Airport', class: 'text-[#FF5635]' },
+  port: { tag: 'Port', class: 'text-[#FF5635]' },
+  intercity: { tag: 'Day trip', class: 'text-[#2C73FF]' },
+  vip: { tag: 'VIP', class: 'text-[#2C73FF]' },
+  helicopter: { tag: 'Helicopter', class: 'text-[#2C73FF]' },
+  boat: { tag: 'Boat', class: 'text-[#2C73FF]' },
+}
+
+interface Props {
+  page: any // shaped by transferPageQuery in app/transfers/[slug]/page.tsx
+}
+
+export default function TransferHub({ page }: Props) {
+  const vipSpoke = page.spokes?.find((s: any) => s.transferType?.includes('vip'))
+  const regularSpokes = page.spokes?.filter((s: any) => s !== vipSpoke) || []
+
+  return (
+    <>
+      {/* Breadcrumb */}
+      <div className="max-w-[1040px] mx-auto px-5 sm:px-8 py-[18px] font-mono text-[11.5px] text-[#999]">
+        <Link href="/" className="hover:text-[#2C73FF]">Home</Link>
+        <span className="mx-1.5">/</span>
+        <Link href="/transfers" className="hover:text-[#2C73FF]">Transfers</Link>
+        <span className="mx-1.5">/</span>
+        <span className="text-[#180204]">{page.title}</span>
+      </div>
+
+      {/* Hero — light, editorial. Deliberately not another dark board hero
+          (that's the /transfers index signature) and deliberately not a
+          full-bleed photo (this page's job is transactional, not
+          aspirational — see reasoning in the design discussion). */}
+      <section className="bg-[#FAF6F3] pb-11">
+        <div className="max-w-[1040px] mx-auto px-5 sm:px-8 grid grid-cols-1 md:grid-cols-[1fr_220px] gap-8 items-start">
+          <div>
+            <div className="inline-flex items-center gap-2 bg-white border border-[#E6DAD1] rounded-full px-3 py-[5px] font-mono text-[10.5px] uppercase tracking-wide text-[#888] mb-[18px]">
+              <span className="w-[5px] h-[5px] rounded-full bg-[#FF5635]" />
+              HUB · {page.destination?.toUpperCase()}
+              <span className="text-[#E6DAD1]">·</span>
+              <span className="text-[#2C73FF]">Fixed-price</span>
+            </div>
+            <h1 className="font-serif text-[32px] sm:text-[38px] leading-[1.15] mb-3.5 max-w-2xl">{page.title}</h1>
+            {page.excerpt && (
+              <p className="text-base text-[#555] max-w-xl leading-relaxed mb-7">{page.excerpt}</p>
+            )}
+            <div className="flex flex-wrap border border-[#E6DAD1] rounded-xl overflow-hidden bg-white">
+              {page.priceRangeEUR && (
+                <div className="flex-1 min-w-[130px] px-[22px] py-4 border-r border-[#E6DAD1] last:border-r-0">
+                  <div className="font-mono text-[10px] uppercase tracking-wide text-[#999] mb-1">Price range</div>
+                  <div className="font-mono text-base font-medium">{page.priceRangeEUR}</div>
+                </div>
+              )}
+              {page.durationLabel && (
+                <div className="flex-1 min-w-[130px] px-[22px] py-4 border-r border-[#E6DAD1] last:border-r-0">
+                  <div className="font-mono text-[10px] uppercase tracking-wide text-[#999] mb-1">Duration</div>
+                  <div className="font-mono text-base font-medium">{page.durationLabel}</div>
+                </div>
+              )}
+              <div className="flex-1 min-w-[130px] px-[22px] py-4">
+                <div className="font-mono text-[10px] uppercase tracking-wide text-[#999] mb-1">Updated</div>
+                <div className="font-mono text-base font-medium">
+                  {page.updatedAt ? new Date(page.updatedAt).getFullYear() : new Date(page.publishedAt).getFullYear()}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {page.mainImage?.asset?.url ? (
+            <div className="rounded-2xl overflow-hidden border border-[#E6DAD1] aspect-[4/5] relative hidden md:block">
+              <Image
+                src={urlFor(page.mainImage).width(440).height(550).url()}
+                alt={page.mainImage?.alt || page.title}
+                fill
+                className="object-cover"
+              />
+            </div>
+          ) : null}
+        </div>
+      </section>
+
+      {/* Body — intro paragraph + any comparison table (as htmlEmbed) is
+          authored here in Sanity, reusing the exact same portable text
+          renderer as /blog (comparison tables use the site's existing
+          htmlEmbed + html-embed-table-styles.css pattern, not a new
+          schema field). */}
+      {page.body && (
+        <section className="py-10">
+          <div className="max-w-[1040px] mx-auto px-5 sm:px-8 prose-blog">
+            <PortableText value={page.body} components={portableTextComponents} />
+          </div>
+        </section>
+      )}
+
+      {page.showAffiliateDisclosure !== false && (
+        <div className="max-w-[1040px] mx-auto px-5 sm:px-8 mb-10">
+          <AffiliateDisclosure />
+        </div>
+      )}
+
+      {/* Vetted checklist — full-width band, shared copy across every hub.
+          Attribution: Panagiotis, the site's designated Transfer &
+          Logistics Specialist — not the generic founder byline. */}
+      <div className="bg-[#F3E4DE] py-14">
+        <div className="max-w-[1040px] mx-auto px-5 sm:px-8">
+          <div className="flex justify-between items-end flex-wrap gap-3.5 mb-8 pl-[18px] border-l-4 border-[#5C2A2E]">
+            <h2 className="font-serif text-2xl text-[#180204]">How we choose every transfer partner</h2>
+            <p className="text-xs text-[#7A5457] whitespace-nowrap">
+              📊 <strong className="text-[#5C2A2E]">Panagiotis</strong> · Transfer & Logistics Specialist
+            </p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-7 gap-y-5">
+            {CHECKLIST.map((item) => (
+              <div key={item.title} className="flex items-start gap-2.5">
+                <span className="w-5 h-5 rounded-full bg-[#5C2A2E] flex items-center justify-center flex-shrink-0 mt-px text-white text-[10px]">✓</span>
+                <span className="text-[13.5px] text-[#180204] leading-snug">
+                  <strong className="block font-bold">{item.title}</strong>
+                  {item.text}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Booking options */}
+      {page.bookingUrl && (
+        <section className="py-11">
+          <div className="max-w-[1040px] mx-auto px-5 sm:px-8">
+            <span className="block font-mono text-[11px] tracking-wide uppercase text-[#2C73FF] mb-2">Book now</span>
+            <h2 className="font-serif text-2xl mb-5">Book your {page.destination} transfer</h2>
+            <BookingOptions
+              routeLabel={page.primaryRouteLabel || page.title}
+              bookingUrl={page.bookingUrl}
+              price={page.priceRangeEUR?.split('–')[0] || page.priceRangeEUR || '—'}
+              variant="hub"
+              localOperators={page.localOperators}
+            />
+          </div>
+        </section>
+      )}
+
+      {/* Spoke links */}
+      {regularSpokes.length > 0 && (
+        <section className="py-11 border-t border-[#E6DAD1]">
+          <div className="max-w-[1040px] mx-auto px-5 sm:px-8">
+            <span className="block font-mono text-[11px] tracking-wide uppercase text-[#2C73FF] mb-2">More routes</span>
+            <h2 className="font-serif text-2xl mb-2">Need a different route?</h2>
+            <p className="text-[15px] text-[#555] max-w-xl mb-6">
+              {page.destination} connects to more than just your hotel — here&apos;s every route we cover.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3.5">
+              {regularSpokes.map((spoke: any) => {
+                const typeTag = TYPE_LABELS[spoke.transferType?.[0]] || TYPE_LABELS.airport
+                return (
+                  <Link
+                    key={spoke.slug}
+                    href={`/transfers/${spoke.slug}`}
+                    className="border border-[#E6DAD1] rounded-xl px-[18px] py-4 hover:border-[#2C73FF] transition-colors block"
+                  >
+                    <span className={`block font-mono text-[9.5px] uppercase tracking-wide mb-1.5 ${typeTag.class}`}>
+                      {typeTag.tag}
+                    </span>
+                    <h4 className="font-bold text-[13.5px] text-[#180204] mb-1">{spoke.title}</h4>
+                    <div className="font-mono text-[11px] text-[#999]">
+                      {spoke.priceRangeEUR} {spoke.durationLabel && `· ${spoke.durationLabel}`}
+                    </div>
+                  </Link>
+                )
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* VIP callout — only if this hub has a VIP-tagged spoke */}
+      {vipSpoke && (
+        <section className="py-11 border-t border-[#E6DAD1]">
+          <div className="max-w-[1040px] mx-auto px-5 sm:px-8">
+            <div className="bg-[#180204] rounded-2xl p-8 flex justify-between items-center flex-wrap gap-5">
+              <div>
+                <h3 className="font-serif text-xl text-white mb-1.5 flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-[#FF5635]" /> Traveling in style?
+                </h3>
+                <p className="text-white/60 text-[13.5px] max-w-md">
+                  VIP transfers and executive service for arrivals that need to make an impression.
+                </p>
+              </div>
+              <Link href={`/transfers/${vipSpoke.slug}`} className="bg-[#FF5635] text-white px-6 py-3 rounded-full text-[13px] font-semibold whitespace-nowrap">
+                See VIP options →
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* FAQ */}
+      {page.faqSchema?.enabled && page.faqSchema?.faqs?.length > 0 && (
+        <section className="py-11 border-t border-[#E6DAD1]">
+          <div className="max-w-[1040px] mx-auto px-5 sm:px-8">
+            <span className="block font-mono text-[11px] tracking-wide uppercase text-[#2C73FF] mb-2">FAQ</span>
+            <h2 className="font-serif text-2xl mb-5">Before you book</h2>
+            {page.faqSchema.faqs.map((faq: any, i: number) => (
+              <details key={i} className="group border-b border-[#E6DAD1] py-4 border-l-2 border-l-transparent open:border-l-[#2C73FF] open:pl-3.5 transition-all">
+                <summary className="font-semibold text-[14.5px] cursor-pointer list-none flex justify-between items-center">
+                  {faq.question}
+                  <ChevronRight className="w-4 h-4 text-[#2C73FF] group-open:rotate-90 transition-transform flex-shrink-0 ml-3" />
+                </summary>
+                <p className="mt-2.5 text-[13.5px] text-[#666] leading-relaxed max-w-xl">{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+      )}
+
+      {/* Explore other destinations */}
+      {page.otherHubs?.length > 0 && (
+        <section className="py-11 border-t border-[#E6DAD1]">
+          <div className="max-w-[1040px] mx-auto px-5 sm:px-8">
+            <h2 className="font-sans font-bold text-lg mb-4">Explore other destinations</h2>
+            <div className="flex flex-wrap gap-3">
+              {page.otherHubs.map((hub: any) => (
+                <Link
+                  key={hub.slug}
+                  href={`/transfers/${hub.slug}`}
+                  className="bg-[#EBF1FF] border border-[#EBF1FF] text-[#003DAB] rounded-full px-[18px] py-[9px] text-[12.5px] font-semibold hover:bg-[#2C73FF] hover:text-white hover:border-[#2C73FF] transition-colors"
+                >
+                  {hub.destination} Transfer →
+                </Link>
+              ))}
+              <Link href="/transfers" className="border border-[#E6DAD1] rounded-full px-[18px] py-[9px] text-[12.5px] font-semibold hover:border-[#2C73FF] hover:text-[#2C73FF] transition-colors">
+                All Transfers →
+              </Link>
+            </div>
+          </div>
+        </section>
+      )}
+    </>
+  )
+}
