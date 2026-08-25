@@ -7,7 +7,6 @@ import { ChevronRight, Sparkles, ArrowRight } from 'lucide-react'
 import { urlFor } from '@/sanity/lib/image'
 import { client } from '@/sanity/lib/client'
 import { portableTextComponents } from '@/components/portableTextComponents'
-import AffiliateDisclosure from '@/components/affiliate/AffiliateDisclosure'
 import BookingOptions from './BookingOptions'
 
 // The shared portableTextComponents does not currently register a renderer
@@ -21,7 +20,7 @@ const transferBodyComponents = {
     ...(portableTextComponents as any).types,
     htmlEmbed: ({ value }: any) => (
       <div
-        className="html-embed-container overflow-x-auto my-6"
+        className="html-embed-container overflow-x-auto max-w-[680px] my-6"
         dangerouslySetInnerHTML={{ __html: value.html }}
       />
     ),
@@ -72,8 +71,8 @@ export default async function TransferHub({ page }: Props) {
 
   return (
     <>
-      {/* Breadcrumb — pt-[82px] = 64px fixed-nav height + the original 18px padding, matches /blog's pt-16 pattern */}
-      <div className="max-w-[1040px] mx-auto px-5 sm:px-8 pt-[82px] pb-[18px] font-mono text-[11.5px] text-[#999]">
+      {/* Breadcrumb — pt-16 clears the fixed 64px nav exactly, matching /blog's convention */}
+      <div className="max-w-[1040px] mx-auto px-5 sm:px-8 pt-16 pb-[18px] font-mono text-[11.5px] text-[#999]">
         <Link href="/" className="hover:text-[#2C73FF]">Home</Link>
         <span className="mx-1.5">/</span>
         <Link href="/transfers" className="hover:text-[#2C73FF]">Transfers</Link>
@@ -85,7 +84,7 @@ export default async function TransferHub({ page }: Props) {
           (that's the /transfers index signature) and deliberately not a
           full-bleed photo (this page's job is transactional, not
           aspirational — see reasoning in the design discussion). */}
-      <section className="bg-[#FAF6F3] pb-11">
+      <section className="bg-[#FAF6F3] pt-8 pb-11">
         <div className="max-w-[1040px] mx-auto px-5 sm:px-8 grid grid-cols-1 md:grid-cols-[1fr_220px] gap-8 items-start">
           <div>
             <div className="inline-flex items-center gap-2 bg-white border border-[#E6DAD1] rounded-full px-3 py-[5px] font-mono text-[10.5px] uppercase tracking-wide text-[#888] mb-[18px]">
@@ -151,11 +150,7 @@ export default async function TransferHub({ page }: Props) {
         </section>
       )}
 
-      {page.showAffiliateDisclosure !== false && (
-        <div className="max-w-[1040px] mx-auto px-5 sm:px-8 mb-10">
-          <AffiliateDisclosure />
-        </div>
-      )}
+      {/* Affiliate disclosure moved to after the booking section — see below */}
 
       {/* Vetted checklist — full-width band, shared copy across every hub.
           Attribution: Panagiotis, the site's designated Transfer &
@@ -197,6 +192,23 @@ export default async function TransferHub({ page }: Props) {
             />
           </div>
         </section>
+      )}
+
+      {/* Affiliate disclosure — exact copy from the live /blog/paxos-travel-guide
+          article, not the generic AffiliateDisclosure component (its default
+          text reads differently — "helps support our site" vs. this more
+          specific, trust-building version actually used on published posts).
+          Styling here is an approximation; couldn't inspect that component's
+          actual CSS from a page fetch, so verify the visual match in Studio. */}
+      {page.bookingUrl && (
+        <div className="max-w-[1040px] mx-auto px-5 sm:px-8 mb-2">
+          <div className="flex items-start gap-2.5 bg-[#F7F4F1] border border-[#E6DAD1] rounded-xl px-4 py-3.5 max-w-[680px]">
+            <span className="text-base leading-none mt-0.5 flex-shrink-0">ℹ️</span>
+            <p className="text-[12.5px] text-[#666] leading-relaxed">
+              <strong className="text-[#180204] font-semibold">Affiliate disclosure:</strong> Some links in this article are affiliate links. If you book or buy through them, we may earn a small commission — at no extra cost to you. We only recommend services we genuinely trust and that we'd use ourselves for a trip to Greece.
+            </p>
+          </div>
+        </div>
       )}
 
       {/* Spoke links */}

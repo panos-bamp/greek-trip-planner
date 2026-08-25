@@ -14,7 +14,7 @@ const transferBodyComponents = {
     ...(portableTextComponents as any).types,
     htmlEmbed: ({ value }: any) => (
       <div
-        className="html-embed-container overflow-x-auto my-5"
+        className="html-embed-container overflow-x-auto max-w-[560px] my-5"
         dangerouslySetInnerHTML={{ __html: value.html }}
       />
     ),
@@ -151,14 +151,23 @@ export default function TransferSpoke({ page }: Props) {
         {/* Sticky booking panel — top-[88px] = 64px fixed nav + 24px gap, so it doesn't stick under the header */}
         <div className="md:sticky md:top-[88px]">
           {page.bookingUrl ? (
-            <BookingOptions
-              routeLabel={page.routeFrom && page.routeTo ? `${page.routeFrom} → ${page.routeTo}` : page.title}
-              bookingUrl={page.bookingUrl}
-              price={page.priceRangeEUR?.split('–')[0] || page.priceRangeEUR || '—'}
-              priceNote="fixed, one-way"
-              variant="spoke"
-              localOperators={page.localOperators}
-            />
+            <>
+              <BookingOptions
+                routeLabel={page.routeFrom && page.routeTo ? `${page.routeFrom} → ${page.routeTo}` : page.title}
+                bookingUrl={page.bookingUrl}
+                price={page.priceRangeEUR?.split('–')[0] || page.priceRangeEUR || '—'}
+                priceNote="fixed, one-way"
+                variant="spoke"
+                localOperators={page.localOperators}
+              />
+              {/* Same real disclosure copy as the hub template — see note there */}
+              <div className="flex items-start gap-2 bg-[#F7F4F1] border border-[#E6DAD1] rounded-xl px-3.5 py-3 mt-3">
+                <span className="text-sm leading-none mt-0.5 flex-shrink-0">ℹ️</span>
+                <p className="text-[11.5px] text-[#666] leading-relaxed">
+                  <strong className="text-[#180204] font-semibold">Affiliate disclosure:</strong> Some links here are affiliate links — booking through them may earn us a small commission at no extra cost to you. We only recommend services we'd genuinely use ourselves.
+                </p>
+              </div>
+            </>
           ) : (
             <div className="border border-dashed border-[#E6DAD1] rounded-2xl p-5 text-center text-[#bbb] font-mono text-[11px]">
               No booking link set for this route yet
