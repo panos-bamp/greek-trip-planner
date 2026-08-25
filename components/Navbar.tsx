@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { ArrowRight, X, Compass, BookOpen, BarChart3, Users, Sparkles, ChevronDown, MapPin, Map, Mail, Bookmark } from 'lucide-react'
+import { ArrowRight, X, Compass, BookOpen, BarChart3, Car, Sparkles, ChevronDown, MapPin, Map, Mail, Bookmark } from 'lucide-react'
 
 const topDestinations = [
   { name: 'Athens',    slug: 'athens',    emoji: '🏛️', desc: 'History & culture' },
@@ -19,7 +19,7 @@ const navLinks = [
   { href: '/destinations', label: 'Destinations', icon: Map,         desc: '133 destinations across Greece' },
   { href: '/blog',         label: 'Blog',         icon: BookOpen,    desc: '133 destination guides by local experts' },
   { href: '/insights',     label: 'Insights',     icon: BarChart3,   desc: 'Greece tourism data & analysis' },
-  { href: '/about',        label: 'About',        icon: Users,       desc: 'Meet the 5 Greeks behind the planner' },
+  { href: '/transfers',    label: 'Transfers',    icon: Car,         desc: 'Airport, port & intercity transfer guides' },
   { href: '/contact',      label: 'Contact',      icon: Mail,        desc: 'Get in touch with Panos' },
   { href: '/my-trips',     label: 'My Trips',     icon: Bookmark,    desc: 'Your saved Greek trip itineraries' },
 ]
@@ -193,7 +193,7 @@ export default function Navbar() {
             {/* Destinations — with dropdown */}
             <DestinationsDropdown isActive={isActive('/destinations')} />
 
-            {/* Blog, Insights, About, Contact */}
+            {/* Blog, Insights, Transfers, Contact */}
             {navLinks
               .filter((l) => !['how-it-works', 'destinations', 'my-trips'].some((s) => l.href.includes(s)))
               .map((link) => (

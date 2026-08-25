@@ -56,6 +56,12 @@ export default function Footer() {
               Insights
             </Link>
             <Link
+              href="/transfers"
+              className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans"
+            >
+              Transfers
+            </Link>
+            <Link
               href="/about"
               className="text-white/60 hover:text-[#FF5635] transition-colors text-sm font-sans"
             >
