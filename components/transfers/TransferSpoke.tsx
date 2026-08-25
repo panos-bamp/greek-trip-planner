@@ -80,16 +80,17 @@ export default function TransferSpoke({ page }: Props) {
             )}
           </div>
 
-          {/* Body — short, practical content authored in Sanity. No
-              comparison table expected here (that's a hub-level device) —
-              spokes stay lean by design. */}
+          {/* Body — short, practical content authored in Sanity. Typography
+              matches the hub exactly (headings/paragraphs/lists) — no
+              separate smaller scale for spokes; only the page layout
+              differs, not the prose styling. */}
           {page.body && (
             <div
               className="max-w-[560px] mb-2
-                [&_h2]:font-serif [&_h2]:text-xl [&_h2]:text-[#180204] [&_h2]:mt-7 [&_h2]:mb-3 [&_h2]:first:mt-0
-                [&_p]:text-[14px] [&_p]:text-[#444] [&_p]:leading-[1.7] [&_p]:mb-3.5
-                [&_ul]:mb-3.5 [&_ul]:pl-5 [&_ul]:space-y-1 [&_ul]:list-disc
-                [&_li]:text-[14px] [&_li]:text-[#444] [&_li]:leading-[1.7]"
+                [&_h2]:font-serif [&_h2]:text-[22px] [&_h2]:sm:text-2xl [&_h2]:text-[#180204] [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:first:mt-0
+                [&_p]:text-[15px] [&_p]:text-[#444] [&_p]:leading-[1.7] [&_p]:mb-4
+                [&_ul]:mb-5 [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ul]:list-disc
+                [&_li]:text-[15px] [&_li]:text-[#444] [&_li]:leading-[1.7]"
             >
               <PortableText value={page.body} components={transferBodyComponents} />
             </div>
@@ -155,7 +156,7 @@ export default function TransferSpoke({ page }: Props) {
               <BookingOptions
                 routeLabel={page.routeFrom && page.routeTo ? `${page.routeFrom} → ${page.routeTo}` : page.title}
                 bookingUrl={page.bookingUrl}
-                price={page.priceRangeEUR?.split('–')[0] || page.priceRangeEUR || '—'}
+                price={page.priceRangeEUR || '—'}
                 priceNote="fixed, one-way"
                 variant="spoke"
                 localOperators={page.localOperators}

@@ -186,7 +186,7 @@ export default async function TransferHub({ page }: Props) {
             <BookingOptions
               routeLabel={page.primaryRouteLabel || page.title}
               bookingUrl={page.bookingUrl}
-              price={page.priceRangeEUR?.split('–')[0] || page.priceRangeEUR || '—'}
+              price={page.priceRangeEUR || '—'}
               variant="hub"
               localOperators={page.localOperators}
             />
