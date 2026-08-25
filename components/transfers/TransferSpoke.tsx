@@ -32,8 +32,9 @@ export default function TransferSpoke({ page }: Props) {
     <>
       {/* Breadcrumb — carries the hub↔spoke hierarchy since the URL itself
           is flat (see the URL-structure decision earlier in this project).
-          pt-[18px]/pb-[18px]: WARNING — 18px top is less than the 64px fixed nav height, likely renders under the nav again. Set per explicit request. */}
-      <div className="max-w-[1120px] mx-auto px-5 sm:px-8 pt-[18px] pb-[18px] font-mono text-[11px] text-[#999]">
+          pt-16 is the MINIMUM that works: exact fixed-nav height (64px).
+          Anything less renders behind the nav, invisible despite being in the DOM. */}
+      <div className="max-w-[1120px] mx-auto px-5 sm:px-8 pt-16 pb-[18px] font-mono text-[11px] text-[#999]">
         <Link href="/" className="hover:text-[#2C73FF]">Home</Link>
         <span className="mx-1.5">/</span>
         <Link href="/transfers" className="hover:text-[#2C73FF]">Transfers</Link>
