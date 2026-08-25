@@ -35,14 +35,16 @@ export default function BookingOptions({
 }: BookingOptionsProps) {
   const maxLocalSlots = variant === 'hub' ? 2 : 1
   const shownOperators = localOperators.slice(0, maxLocalSlots)
-  const emptySlots = Math.max(0, (localOperators.length === 0 ? 1 : 0), maxLocalSlots - shownOperators.length)
-  // Show exactly one placeholder while no operators exist yet, regardless
-  // of maxLocalSlots — no need to show 2 empty ghost cards on hub pages.
-  const showPlaceholder = localOperators.length === 0
+  const totalCards = 1 + shownOperators.length
 
+  // Grid only kicks in once there's actually more than one card to show —
+  // otherwise a lone Welcome Pickups card in a 2-column grid leaves an
+  // awkward empty half. Single card gets a sensible max-width instead.
   const containerClass =
     variant === 'hub'
-      ? 'grid grid-cols-1 sm:grid-cols-2 gap-4'
+      ? totalCards > 1
+        ? 'grid grid-cols-1 sm:grid-cols-2 gap-4'
+        : 'max-w-md'
       : 'flex flex-col gap-3'
 
   return (
@@ -73,7 +75,9 @@ export default function BookingOptions({
         </a>
       </div>
 
-      {/* Real local operators, once any exist */}
+      {/* Real local operators, once any exist — no placeholder card while
+          the list is empty; a single Welcome Pickups card reads as
+          intentional, not unfinished. */}
       {shownOperators.map((op) => (
         <div key={op.name} className="border border-[#E6DAD1] rounded-2xl p-5 bg-white">
           <div className="flex items-center justify-between mb-2">
@@ -93,13 +97,6 @@ export default function BookingOptions({
           </a>
         </div>
       ))}
-
-      {/* Placeholder — remove this branch once the first local operator ships */}
-      {showPlaceholder && (
-        <div className="border border-dashed border-[#E6DAD1] rounded-2xl flex items-center justify-center text-center text-[#bbb] font-mono text-[11px] p-5 min-h-[140px]">
-          Local operator slot —<br />added once partnership is live
-        </div>
-      )}
     </div>
   )
 }

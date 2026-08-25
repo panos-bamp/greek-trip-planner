@@ -3,11 +3,30 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
-import { ChevronRight, Sparkles } from 'lucide-react'
+import { ChevronRight, Sparkles, ArrowRight } from 'lucide-react'
 import { urlFor } from '@/sanity/lib/image'
+import { client } from '@/sanity/lib/client'
 import { portableTextComponents } from '@/components/portableTextComponents'
 import AffiliateDisclosure from '@/components/affiliate/AffiliateDisclosure'
 import BookingOptions from './BookingOptions'
+
+// The shared portableTextComponents does not currently register a renderer
+// for the "htmlEmbed" block type (confirmed from the live page — comparison
+// tables were rendering as "Unknown block type" and hidden entirely). This
+// merges in a local handler without touching the shared file, since it's
+// unclear whether /blog depends on a different behavior there.
+const transferBodyComponents = {
+  ...portableTextComponents,
+  types: {
+    ...(portableTextComponents as any).types,
+    htmlEmbed: ({ value }: any) => (
+      <div
+        className="html-embed-container overflow-x-auto my-6"
+        dangerouslySetInnerHTML={{ __html: value.html }}
+      />
+    ),
+  },
+}
 
 const CHECKLIST = [
   { title: 'Licensed operator', text: 'Registered and legally permitted to run transfers in Greece.' },
@@ -31,14 +50,30 @@ interface Props {
   page: any // shaped by transferPageQuery in app/transfers/[slug]/page.tsx
 }
 
-export default function TransferHub({ page }: Props) {
+export default async function TransferHub({ page }: Props) {
   const vipSpoke = page.spokes?.find((s: any) => s.transferType?.includes('vip'))
   const regularSpokes = page.spokes?.filter((s: any) => s !== vipSpoke) || []
 
+  // Destination-specific related articles (e.g. for Athens: the Athens
+  // travel guide, things to do in Athens) — not the generic sitewide pair
+  // used on /transfers itself. Matches on title/slug containing the
+  // destination name since there's no confirmed shared category field.
+  let relatedPosts: any[] = []
+  try {
+    relatedPosts = await client.fetch(
+      `*[_type == "post" && (slug.current match $pattern || title match $pattern)] | order(publishedAt desc)[0...2]{
+        title, slug, excerpt, mainImage{asset->{url}, alt}
+      }`,
+      { pattern: `*${page.destination}*` }
+    )
+  } catch (error) {
+    console.error('Error fetching related posts for transfer hub:', error)
+  }
+
   return (
     <>
-      {/* Breadcrumb */}
-      <div className="max-w-[1040px] mx-auto px-5 sm:px-8 py-[18px] font-mono text-[11.5px] text-[#999]">
+      {/* Breadcrumb — pt-[82px] = 64px fixed-nav height + the original 18px padding, matches /blog's pt-16 pattern */}
+      <div className="max-w-[1040px] mx-auto px-5 sm:px-8 pt-[82px] pb-[18px] font-mono text-[11.5px] text-[#999]">
         <Link href="/" className="hover:text-[#2C73FF]">Home</Link>
         <span className="mx-1.5">/</span>
         <Link href="/transfers" className="hover:text-[#2C73FF]">Transfers</Link>
@@ -98,15 +133,20 @@ export default function TransferHub({ page }: Props) {
         </div>
       </section>
 
-      {/* Body — intro paragraph + any comparison table (as htmlEmbed) is
-          authored here in Sanity, reusing the exact same portable text
-          renderer as /blog (comparison tables use the site's existing
-          htmlEmbed + html-embed-table-styles.css pattern, not a new
-          schema field). */}
+      {/* Body — intro paragraph + comparison tables (as htmlEmbed) authored
+          in Sanity. Typography classes are explicit here rather than relying
+          on a "prose-blog" wrapper class, since that class doesn't appear to
+          exist/apply — the live page rendered raw, unstyled h2/p tags. */}
       {page.body && (
         <section className="py-10">
-          <div className="max-w-[1040px] mx-auto px-5 sm:px-8 prose-blog">
-            <PortableText value={page.body} components={portableTextComponents} />
+          <div
+            className="max-w-[1040px] mx-auto px-5 sm:px-8
+              [&_h2]:font-serif [&_h2]:text-[22px] [&_h2]:sm:text-2xl [&_h2]:text-[#180204] [&_h2]:mt-10 [&_h2]:mb-4 [&_h2]:first:mt-0
+              [&_p]:text-[15px] [&_p]:text-[#444] [&_p]:leading-[1.7] [&_p]:mb-4 [&_p]:max-w-[680px]
+              [&_ul]:mb-5 [&_ul]:pl-5 [&_ul]:space-y-1.5 [&_ul]:list-disc
+              [&_li]:text-[15px] [&_li]:text-[#444] [&_li]:leading-[1.7]"
+          >
+            <PortableText value={page.body} components={transferBodyComponents} />
           </div>
         </section>
       )}
@@ -254,6 +294,59 @@ export default function TransferHub({ page }: Props) {
           </div>
         </section>
       )}
+      {/* Continue planning — 2 destination-specific articles, not the
+          generic sitewide pair used on /transfers itself */}
+      {relatedPosts.length > 0 && (
+        <section className="py-11 border-t border-[#E6DAD1] bg-[#FAF6F3]">
+          <div className="max-w-[1040px] mx-auto px-5 sm:px-8">
+            <span className="block font-mono text-[11px] tracking-wide uppercase text-[#2C73FF] mb-2">Beyond the transfer</span>
+            <h2 className="font-serif text-2xl mb-6">Continue planning your {page.destination} trip</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {relatedPosts.map((post: any) => (
+                <Link
+                  key={post.slug.current}
+                  href={`/blog/${post.slug.current}`}
+                  className="relative rounded-2xl overflow-hidden block aspect-[16/10] group"
+                >
+                  {post.mainImage?.asset?.url && (
+                    <Image
+                      src={post.mainImage.asset.url}
+                      alt={post.mainImage.alt || post.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/85 via-[#180204]/15 to-transparent" />
+                  <div className="absolute left-0 right-0 bottom-0 p-5 z-10">
+                    <span className="font-mono text-[10px] tracking-wide uppercase text-[#FFE0DA] block mb-1">Guide</span>
+                    <h3 className="text-white font-serif text-lg">{post.title}</h3>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Cross-link CTA — matches the /transfers index page pattern */}
+      <section className="bg-white border-t border-[#E6DAD1]">
+        <div className="max-w-[1040px] mx-auto px-5 sm:px-8 py-14">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div>
+              <h2 className="text-2xl text-[#180204] mb-2">Planning More Than the Transfer?</h2>
+              <p className="text-[#180204]/55 font-sans">Let our AI trip planner build the rest of your {page.destination} itinerary in minutes.</p>
+            </div>
+            <div className="flex gap-3 flex-shrink-0">
+              <Link href="/transfers" className="bg-[#FAF6F3] border border-[#E6DAD1] text-[#180204] hover:border-[#FF5635]/30 hover:text-[#FF5635] px-6 py-3 rounded-full text-sm font-sans font-semibold transition-all">
+                All Transfers
+              </Link>
+              <Link href="/ai-trip-planner" className="btn-accent px-6 py-3 rounded-full text-sm font-semibold inline-flex items-center gap-2">
+                Plan My Trip <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   )
 }

@@ -6,6 +6,21 @@ import { ArrowLeft, ChevronRight } from 'lucide-react'
 import { portableTextComponents } from '@/components/portableTextComponents'
 import BookingOptions from './BookingOptions'
 
+// Same fix as TransferHub — the shared components object doesn't register
+// a renderer for "htmlEmbed", confirmed from the live page output.
+const transferBodyComponents = {
+  ...portableTextComponents,
+  types: {
+    ...(portableTextComponents as any).types,
+    htmlEmbed: ({ value }: any) => (
+      <div
+        className="html-embed-container overflow-x-auto my-5"
+        dangerouslySetInnerHTML={{ __html: value.html }}
+      />
+    ),
+  },
+}
+
 interface Props {
   page: any // shaped by transferPageQuery in app/transfers/[slug]/page.tsx
 }
@@ -16,8 +31,9 @@ export default function TransferSpoke({ page }: Props) {
   return (
     <>
       {/* Breadcrumb — carries the hub↔spoke hierarchy since the URL itself
-          is flat (see the URL-structure decision earlier in this project) */}
-      <div className="max-w-[1120px] mx-auto px-5 sm:px-8 py-[18px] font-mono text-[11px] text-[#999]">
+          is flat (see the URL-structure decision earlier in this project).
+          pt-[82px] clears the fixed 64px nav, matching the hub template fix. */}
+      <div className="max-w-[1120px] mx-auto px-5 sm:px-8 pt-[82px] pb-[18px] font-mono text-[11px] text-[#999]">
         <Link href="/" className="hover:text-[#2C73FF]">Home</Link>
         <span className="mx-1.5">/</span>
         <Link href="/transfers" className="hover:text-[#2C73FF]">Transfers</Link>
@@ -68,8 +84,14 @@ export default function TransferSpoke({ page }: Props) {
               comparison table expected here (that's a hub-level device) —
               spokes stay lean by design. */}
           {page.body && (
-            <div className="prose-blog max-w-[560px] mb-2">
-              <PortableText value={page.body} components={portableTextComponents} />
+            <div
+              className="max-w-[560px] mb-2
+                [&_h2]:font-serif [&_h2]:text-xl [&_h2]:text-[#180204] [&_h2]:mt-7 [&_h2]:mb-3 [&_h2]:first:mt-0
+                [&_p]:text-[14px] [&_p]:text-[#444] [&_p]:leading-[1.7] [&_p]:mb-3.5
+                [&_ul]:mb-3.5 [&_ul]:pl-5 [&_ul]:space-y-1 [&_ul]:list-disc
+                [&_li]:text-[14px] [&_li]:text-[#444] [&_li]:leading-[1.7]"
+            >
+              <PortableText value={page.body} components={transferBodyComponents} />
             </div>
           )}
 
@@ -126,8 +148,8 @@ export default function TransferSpoke({ page }: Props) {
           </div>
         </div>
 
-        {/* Sticky booking panel */}
-        <div className="md:sticky md:top-6">
+        {/* Sticky booking panel — top-[88px] = 64px fixed nav + 24px gap, so it doesn't stick under the header */}
+        <div className="md:sticky md:top-[88px]">
           {page.bookingUrl ? (
             <BookingOptions
               routeLabel={page.routeFrom && page.routeTo ? `${page.routeFrom} → ${page.routeTo}` : page.title}
