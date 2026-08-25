@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
 import { ChevronRight, Sparkles } from 'lucide-react'
 import { urlFor } from '@/sanity/lib/image'
-import portableTextComponents from '@/components/portableTextComponents'
+import { portableTextComponents } from '@/components/portableTextComponents'
 import AffiliateDisclosure from '@/components/affiliate/AffiliateDisclosure'
 import BookingOptions from './BookingOptions'
 

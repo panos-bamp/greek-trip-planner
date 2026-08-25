@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
 import { ArrowLeft, ChevronRight } from 'lucide-react'
-import portableTextComponents from '@/components/portableTextComponents'
+import { portableTextComponents } from '@/components/portableTextComponents'
 import BookingOptions from './BookingOptions'
 
 interface Props {
