@@ -59,6 +59,7 @@ export default defineType({
           {title: 'Athens', value: 'athens'},
           {title: 'Santorini', value: 'santorini'},
           {title: 'Mykonos', value: 'mykonos'},
+          {title: 'Crete', value: 'crete'},
           {title: 'Heraklion', value: 'heraklion'},
           {title: 'Chania', value: 'chania'},
           {title: 'Rethymno', value: 'rethymno'},
