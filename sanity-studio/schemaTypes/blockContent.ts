@@ -97,6 +97,7 @@ export default defineType({
               {title: 'CC BY-SA 2.0', value: 'CC BY-SA 2.0'},
               {title: 'CC BY 2.0',    value: 'CC BY 2.0'},
               {title: 'Public Domain', value: 'Public Domain'},
+              {title: 'Pexels License', value: 'Pexels License'},
             ],
           },
         },
