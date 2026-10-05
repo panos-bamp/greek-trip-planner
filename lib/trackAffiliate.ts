@@ -24,6 +24,7 @@ export type AffiliatePartner =
   | 'ferryscanner'
   | 'simlocal'
   | 'awin'
+  | 'explore_share'
   | 'travelpayouts'
   | 'unknown';
 
@@ -86,6 +87,7 @@ export function getPartnerName(url: string): AffiliatePartner {
   if (url.includes('airhelp.com'))        return 'airhelp';
   if (url.includes('ekta.life'))          return 'ekta';
   if (url.includes('nordvpn.com'))        return 'nordvpn';
+  if (url.includes('explore-share.com'))  return 'explore_share';
 
   return 'unknown';
 }

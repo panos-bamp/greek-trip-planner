@@ -90,7 +90,8 @@ export default async function RootLayout({
                 'discovercars.com', 'welcomepickups.com', 'airalo.com',
                 'yesim.app', 'klook.com', 'agoda.com', 'kiwi.com',
                 'airhelp.com', 'ekta.life', 'nordvpn.com',
-                'ferryhopper.com'
+                'ferryhopper.com',
+                'explore-share.com'                    // Guided hiking trips (UTM affiliate)
               ];
 
               // Partners whose links must NEVER pass PageRank (nofollow).
@@ -173,6 +174,7 @@ export default async function RootLayout({
                 if (href.indexOf('ekta.life')          !== -1) return 'ekta';
                 if (href.indexOf('nordvpn.com')        !== -1) return 'nordvpn';
                 if (href.indexOf('ferryhopper.com')    !== -1) return 'ferryhopper';
+                if (href.indexOf('explore-share.com')  !== -1) return 'explore_share';
 
                 return 'unknown';
               }

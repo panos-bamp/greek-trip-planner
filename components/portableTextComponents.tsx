@@ -46,6 +46,7 @@ const AFFILIATE_DOMAINS = [
   'nordvpn.com',
   // Non-Travelpayouts affiliate partners
   'ferryhopper.com',
+  'explore-share.com',  // Guided hiking/mountain trips (UTM-tracked affiliate)
 ]
 
 function isAffiliateLink(href: string): boolean {
