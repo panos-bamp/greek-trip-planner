@@ -92,27 +92,8 @@ export default function Footer() {
               © {currentYear} Greek Trip Planner. All rights reserved.
             </p>
             <div className="flex items-center gap-4">
-              <a
-                href="https://traveltourismdirectory.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white/40 hover:text-white/60 transition-colors text-sm font-sans"
-              >
-                Travel and Tourism Directory
-              </a>
-              <a
-                href="https://bookmarktravel.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src="https://bookmarktravel.com/images/bookmarktravel-234.jpg"
-                  alt="Bookmark Travel"
-                  width={117}
-                  height={20}
-                  className="opacity-50 hover:opacity-80 transition-opacity"
-                />
-              </a>
+              <a href="https://portugaltriplanner.me/" target="_blank" rel="noopener" className="text-white/40 hover:text-white/60 transition-colors text-sm font-sans">Portugal Trip Planner</a>
+              <a href="https://www.uniquegreektours.com/" target="_blank" rel="noopener" className="text-white/40 hover:text-white/60 transition-colors text-sm font-sans">Unique Greek Tours</a>
             </div>
           </div>
         </div>

@@ -652,10 +652,8 @@ export default async function InsightArticlePage({ params }: { params: Promise<{
             <div className="border-t border-white/10 w-full pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
               <p className="text-white/40 text-sm font-sans">&copy; 2026 Greek Trip Planner. All rights reserved.</p>
               <div className="flex items-center gap-4">
-                <a href="https://traveltourismdirectory.com/" className="text-white/40 hover:text-white/60 transition-colors text-sm font-sans" target="_blank" rel="noopener noreferrer">Travel and Tourism Directory</a>
-                <a href="https://bookmarktravel.com/" target="_blank" rel="noopener noreferrer">
-                  <Image src="https://bookmarktravel.com/images/bookmarktravel-234.jpg" alt="Bookmark Travel" width={117} height={20} className="opacity-50 hover:opacity-80 transition-opacity" unoptimized />
-                </a>
+                <a href="https://portugaltriplanner.me/" target="_blank" rel="noopener" className="text-white/40 hover:text-white/60 transition-colors text-sm font-sans">Portugal Trip Planner</a>
+                <a href="https://www.uniquegreektours.com/" target="_blank" rel="noopener" className="text-white/40 hover:text-white/60 transition-colors text-sm font-sans">Unique Greek Tours</a>
               </div>
             </div>
           </div>

@@ -411,27 +411,8 @@ export default function FeaturesPage() {
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               <p className="text-white/60 text-sm">© 2024 Greek Trip Planner. All rights reserved.</p>
               <div className="flex items-center gap-6">
-                <a 
-                  href="https://traveltourismdirectory.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-white/80 hover:text-white transition text-sm"
-                >
-                  Travel and Tourism Directory
-                </a>
-                <a 
-                  href="https://bookmarktravel.com/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  <img 
-                    src="https://bookmarktravel.com/images/bookmarktravel-234.jpg" 
-                    alt="Bookmark Travel" 
-                    width="234" 
-                    height="39" 
-                    className="h-auto"
-                  />
-                </a>
+                <a href="https://portugaltriplanner.me/" target="_blank" rel="noopener" className="text-white/80 hover:text-white transition text-sm">Portugal Trip Planner</a>
+                <a href="https://www.uniquegreektours.com/" target="_blank" rel="noopener" className="text-white/80 hover:text-white transition text-sm">Unique Greek Tours</a>
               </div>
             </div>
           </div>
