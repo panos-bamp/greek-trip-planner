@@ -13,6 +13,8 @@ const REDIRECTED_BLOG_SLUGS = new Set<string>([
   'best-greek-islands-cruise-guide',
   'best-greek-islands-for-families',
   'trip-to-mykonos-greece', // → /blog/mykonos-travel-guide
+  'things-to-do-in-pelion', // → /blog/pelion-travel-guide
+  'things-to-do-in-symi', // → /blog/symi-travel-guide (still published in Sanity)
 ])
 
 // ─── Sanity fetchers ───────────────────────────────────────────────────────────
@@ -45,12 +47,27 @@ async function getInsights(): Promise<Array<{ slug: string; updatedAt: string }>
   }
 }
 
+async function getTransferPages(): Promise<Array<{ slug: string; updatedAt: string }>> {
+  try {
+    return await client.fetch(`
+      *[_type == "transferPage" && defined(slug.current)] | order(_updatedAt desc) {
+        "slug": slug.current,
+        "updatedAt": _updatedAt
+      }
+    `)
+  } catch (error) {
+    console.error('[sitemap] Failed to fetch transfer pages:', error)
+    return []
+  }
+}
+
 // ─── Sitemap ───────────────────────────────────────────────────────────────────
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [blogPosts, insights] = await Promise.all([
+  const [blogPosts, insights, transferPages] = await Promise.all([
     getBlogPosts(),
     getInsights(),
+    getTransferPages(),
   ])
 
   // ── Static pages ────────────────────────────────────────────────────────────
@@ -78,6 +95,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: 'weekly',
       priority: 0.8,
+    },
+    {
+      url: `${BASE_URL}/transfers`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.7,
     },
     {
       url: `${BASE_URL}/how-it-works`,
@@ -113,9 +136,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.7,
   }))
 
+  // ── /transfers/[slug] pages ──────────────────────────────────────────────────
+  const transferEntries: MetadataRoute.Sitemap = transferPages.map((page) => ({
+    url: `${BASE_URL}/transfers/${page.slug}`,
+    lastModified: new Date(page.updatedAt),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
+  }))
+
   return [
     ...staticPages,
     ...blogEntries,
     ...insightEntries,
+    ...transferEntries,
   ]
 }
