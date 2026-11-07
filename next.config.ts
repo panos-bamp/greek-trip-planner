@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Greece migration (trip-planner-HQ launches/greece-switch-checklist.md, E5b). After the switch, greektriplanner.me
+  // is served by the shared engine, which forwards the AI planner and tools to this app. Setting ASSET_PREFIX to
+  // "/legacy-assets" on this Vercel project moves this app's /_next files under that path so they don't clash with
+  // the engine's. Unset (today): no change at all.
+  ...(process.env.ASSET_PREFIX ? { assetPrefix: process.env.ASSET_PREFIX } : {}),
   // Prevent Next.js 15+ from bundling Puppeteer + Chromium into the serverless
   // function code. These packages ship native binaries that must be loaded from
   // node_modules at runtime; bundling them causes the classic "libnss3.so:
