@@ -145,12 +145,12 @@ export default function DiscoverCarsCard({
       <div className="px-6 pt-5 pb-2 flex items-center justify-between gap-3">
         <div className="flex items-center gap-2">
           <span className="text-2xl flex-shrink-0" aria-hidden="true">🚗</span>
-          <p className="text-[11px] font-bold tracking-wider uppercase m-0 text-[#180204]/50"
+          <p className="text-[11px] font-bold tracking-wider uppercase m-0 text-[color:var(--p-ink)]/50"
             style={{ letterSpacing: '0.08em' }}>
             Car Rental
           </p>
         </div>
-        <span className="text-[11px] text-[#180204]/40">
+        <span className="text-[11px] text-[color:var(--p-ink)]/40">
           via DiscoverCars
         </span>
       </div>
@@ -158,12 +158,12 @@ export default function DiscoverCarsCard({
       {/* Headline + body */}
       <div className="px-6 pb-5">
         <h3
-          className="text-[20px] text-[#180204] m-0 mb-2 leading-tight"
-          style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+          className="text-[20px] text-[color:var(--p-ink)] m-0 mb-2 leading-tight"
+          style={{ fontFamily: "var(--p-serif)" }}
         >
           {copy.headline}
         </h3>
-        <p className="text-[14px] text-[#180204]/70 m-0 leading-relaxed mb-4">
+        <p className="text-[14px] text-[color:var(--p-ink)]/70 m-0 leading-relaxed mb-4">
           {copy.subhead}
         </p>
 
@@ -175,7 +175,7 @@ export default function DiscoverCarsCard({
               className="text-[11px] px-2.5 py-1 rounded-full"
               style={{
                 background: '#FAF6F3',
-                color: '#180204',
+                color: 'var(--p-ink)',
                 border: '1px solid #E6DAD1',
               }}
             >
@@ -191,7 +191,7 @@ export default function DiscoverCarsCard({
           rel="noopener noreferrer sponsored"
           className="inline-flex items-center gap-2 px-5 py-3 rounded-full font-semibold text-[14px] transition-all hover:shadow-md"
           style={{
-            background: '#FF5635',
+            background: 'var(--p-accent)',
             color: '#FFFFFF',
           }}
         >

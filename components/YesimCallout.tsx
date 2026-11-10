@@ -38,18 +38,18 @@ export default function YesimCallout() {
       </div>
 
       <div className="flex-1 min-w-0">
-        <p className="text-[12px] font-bold tracking-wider uppercase m-0 mb-1 text-[#2C73FF]"
+        <p className="text-[12px] font-bold tracking-wider uppercase m-0 mb-1 text-[color:var(--p-blue)]"
           style={{ letterSpacing: '0.06em' }}>
           Before you fly · eSIM connectivity
         </p>
-        <p className="text-[13px] text-[#180204]/75 m-0 leading-relaxed mb-2">
+        <p className="text-[13px] text-[color:var(--p-ink)]/75 m-0 leading-relaxed mb-2">
           Roaming charges in Greece add up fast. A Yesim eSIM activates instantly when you land — €5 for 1GB, €15 for unlimited week. No SIM swap, no airport queue.
         </p>
         <a
           href="https://yesim.tpx.lt/4ToQX48u"
           target="_blank"
           rel="noopener noreferrer sponsored"
-          className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-[#2C73FF] hover:underline"
+          className="inline-flex items-center gap-1.5 text-[12px] font-semibold text-[color:var(--p-blue)] hover:underline"
         >
           <span>Compare Yesim plans for Greece</span>
           <ExternalLink className="w-3 h-3" />

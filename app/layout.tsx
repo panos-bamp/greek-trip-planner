@@ -4,6 +4,7 @@ import { headers } from 'next/headers'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import { SeaStateFooter, SeaStateHeader } from '@/components/seastate/SeaStateChrome'
 
 export const metadata: Metadata = {
   title: 'AI Greek Trip Planner - Your Perfect Greece Adventure',
@@ -41,8 +42,15 @@ export default async function RootLayout({
   // print-only pages that render themselves without site chrome.
   const isPrintRoute = /\/pdf(?:\/|$|\?)/.test(pathname)
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Planner skin: requests that came through the Greek Trip Planner engine carry the cookie
+            gtp_skin=seastate; set the class before first paint so the page never flashes the old look. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(/(?:^|; )gtp_skin=seastate(?:;|$)/.test(document.cookie))document.documentElement.classList.add('seastate')}catch(e){}`,
+          }}
+        />
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-R61V7TG5HF"
           strategy="afterInteractive"
@@ -208,15 +216,21 @@ export default async function RootLayout({
       </head>
       <body className="antialiased">
         {!isPrintRoute && (
-          <div className="site-navbar-wrapper">
-            <Navbar />
-          </div>
+          <>
+            <SeaStateHeader />
+            <div className="site-navbar-wrapper">
+              <Navbar />
+            </div>
+          </>
         )}
         {children}
         {!isPrintRoute && (
-          <div className="site-footer-wrapper">
-            <Footer />
-          </div>
+          <>
+            <div className="site-footer-wrapper">
+              <Footer />
+            </div>
+            <SeaStateFooter />
+          </>
         )}
       </body>
     </html>

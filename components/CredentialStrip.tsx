@@ -43,14 +43,14 @@ export default function CredentialStrip({ userData }: CredentialStripProps) {
       </div>
 
       <div className="flex-1 min-w-0">
-        <p className="text-[12px] font-bold tracking-wider uppercase m-0 mb-1 text-[#FF5635]"
+        <p className="text-[12px] font-bold tracking-wider uppercase m-0 mb-1 text-[color:var(--p-accent-text)]"
           style={{ letterSpacing: '0.06em' }}>
           {firstName ? `${firstName}, this route is reviewed by Greek experts` : 'Reviewed by Greek travel experts'}
         </p>
-        <p className="text-[13px] text-[#180204]/70 m-0 leading-relaxed">
+        <p className="text-[13px] text-[color:var(--p-ink)]/70 m-0 leading-relaxed">
           Curated by{' '}
-          <span className="font-semibold text-[#180204]">Vaggelis</span> (Certified Greek Tourist Guide) and{' '}
-          <span className="font-semibold text-[#180204]">Panos</span> (Founder, Greek Trip Planner) — using a database of 133 destinations and field-tested operators.
+          <span className="font-semibold text-[color:var(--p-ink)]">Vaggelis</span> (Certified Greek Tourist Guide) and{' '}
+          <span className="font-semibold text-[color:var(--p-ink)]">Panos</span> (Founder, Greek Trip Planner) — using a database of 133 destinations and field-tested operators.
         </p>
       </div>
     </div>

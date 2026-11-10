@@ -214,12 +214,12 @@ export default function GuidesCornerInline({
   return (
     <div
       className="my-8 rounded-2xl overflow-hidden border border-[#E0D8D3] shadow-sm"
-      style={{ background: '#FAF6F3', borderLeft: '5px solid #FF5635' }}
+      style={{ background: 'var(--p-ground)', borderLeft: '5px solid var(--p-action)' }}
     >
       {/* Header strip — Guide's Corner label */}
       <div className="px-6 pt-5 pb-1">
         <p
-          className="text-[11px] font-bold tracking-wider uppercase text-[#FF5635] m-0"
+          className="text-[11px] font-bold tracking-wider uppercase text-[color:var(--p-accent-text)] m-0"
           style={{ letterSpacing: '0.08em' }}
         >
           Guide's Corner
@@ -229,9 +229,9 @@ export default function GuidesCornerInline({
       {/* Quote block */}
       <div className="px-6 py-4">
         <div
-          className="bg-white rounded-r-lg px-5 py-4 border-l-4 border-[#FF5635]"
+          className="bg-white rounded-r-lg px-5 py-4 border-l-4 border-[color:var(--p-accent)]"
         >
-          <p className="text-[15px] text-[#180204] leading-relaxed italic m-0">
+          <p className="text-[15px] text-[color:var(--p-ink)] leading-relaxed italic m-0">
             "{quote}"
           </p>
         </div>
@@ -253,7 +253,7 @@ export default function GuidesCornerInline({
 
           <div className="flex-1 min-w-0">
             {/* Primary signature: Vaggelis */}
-            <p className="text-[14px] font-bold text-[#180204] m-0 leading-tight">
+            <p className="text-[14px] font-bold text-[color:var(--p-ink)] m-0 leading-tight">
               Vaggelis
             </p>
             <p className="text-[12px] text-[#888] m-0 mt-0.5 leading-tight">
@@ -266,7 +266,7 @@ export default function GuidesCornerInline({
               style={{ borderTop: '1px solid #E0D8D3' }}
             >
               Route reviewed with{' '}
-              <span className="font-semibold text-[#180204]">Panos</span>
+              <span className="font-semibold text-[color:var(--p-ink)]">Panos</span>
               <span className="opacity-70"> · Founder, Greek Trip Planner</span>
             </p>
           </div>

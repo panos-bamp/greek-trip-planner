@@ -73,27 +73,27 @@ export default function MyTripsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#FAF6F3]">
+    <div className="min-h-screen bg-[color:var(--p-ground)]">
       {/* Header */}
-      <header className="bg-white border-b border-[#E6DAD1] sticky top-0 z-50">
+      <header className="bg-white border-b border-[color:var(--p-line)] sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
               onClick={() => router.push('/')}
-              className="p-2 hover:bg-[#FAF6F3] rounded-xl transition-colors"
+              className="p-2 hover:bg-[color:var(--p-ground)] rounded-xl transition-colors"
               aria-label="Back to home"
             >
-              <ArrowLeft className="w-5 h-5 text-[#180204]/60" />
+              <ArrowLeft className="w-5 h-5 text-[color:var(--p-ink)]/60" />
             </button>
             <Link href="/" className="flex items-center">
               <Image src="/logo.png" alt="Greek Trip Planner" width={60} height={18} />
             </Link>
-            <div className="hidden sm:block h-5 w-px bg-[#E6DAD1] mx-1" />
+            <div className="hidden sm:block h-5 w-px bg-[color:var(--p-line)] mx-1" />
             <div className="hidden sm:flex items-center gap-2">
-              <Bookmark className="w-4 h-4 text-[#FF5635]" />
+              <Bookmark className="w-4 h-4 text-[color:var(--p-accent-text)]" />
               <h1
-                className="text-sm font-semibold text-[#180204]"
-                style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+                className="text-sm font-semibold text-[color:var(--p-ink)]"
+                style={{ fontFamily: "var(--p-serif)" }}
               >
                 My Trips
               </h1>
@@ -102,7 +102,7 @@ export default function MyTripsPage() {
 
           <Link
             href="/ai-trip-planner"
-            className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#FF5635] text-white rounded-full text-xs font-semibold hover:bg-[#E03A1A] transition"
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-[color:var(--p-action)] text-[color:var(--p-on-action)] rounded-full text-xs font-semibold hover:bg-[color:var(--p-action-hover)] transition"
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>New trip</span>
@@ -114,35 +114,35 @@ export default function MyTripsPage() {
         {/* Page title */}
         <div className="mb-8 md:mb-10">
           <h2
-            className="text-3xl md:text-4xl text-[#180204] leading-tight"
-            style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+            className="text-3xl md:text-4xl text-[color:var(--p-ink)] leading-tight"
+            style={{ fontFamily: "var(--p-serif)" }}
           >
             Your saved trips
           </h2>
-          <p className="text-[15px] text-[#180204]/60 mt-2 leading-relaxed">
+          <p className="text-[15px] text-[color:var(--p-ink)]/60 mt-2 leading-relaxed">
             Every itinerary you save is listed here. Saved to this device only for now.
           </p>
         </div>
 
         {/* Empty state */}
         {isLoaded && trips.length === 0 && (
-          <div className="bg-white border border-[#E6DAD1] rounded-2xl p-8 md:p-12 text-center">
-            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[#FAF6F3] mb-4">
-              <Bookmark className="w-6 h-6 text-[#FF5635]" />
+          <div className="bg-white border border-[color:var(--p-line)] rounded-2xl p-8 md:p-12 text-center">
+            <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-[color:var(--p-ground)] mb-4">
+              <Bookmark className="w-6 h-6 text-[color:var(--p-accent-text)]" />
             </div>
             <h3
-              className="text-xl text-[#180204] mb-2"
-              style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+              className="text-xl text-[color:var(--p-ink)] mb-2"
+              style={{ fontFamily: "var(--p-serif)" }}
             >
               No saved trips yet
             </h3>
-            <p className="text-sm text-[#180204]/60 mb-6 max-w-md mx-auto leading-relaxed">
-              Generate a Greek trip itinerary and hit the <span className="font-semibold text-[#180204]">Save</span> button
+            <p className="text-sm text-[color:var(--p-ink)]/60 mb-6 max-w-md mx-auto leading-relaxed">
+              Generate a Greek trip itinerary and hit the <span className="font-semibold text-[color:var(--p-ink)]">Save</span> button
               on the results page to see it here.
             </p>
             <Link
               href="/ai-trip-planner"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[#FF5635] text-white rounded-full font-semibold text-sm hover:bg-[#E03A1A] transition"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[color:var(--p-action)] text-[color:var(--p-on-action)] rounded-full font-semibold text-sm hover:bg-[color:var(--p-action-hover)] transition"
             >
               <Sparkles className="w-4 h-4" />
               Plan my Greek trip
@@ -163,10 +163,10 @@ export default function MyTripsPage() {
         {!isLoaded && (
           <div className="space-y-4">
             {[1, 2].map((n) => (
-              <div key={n} className="bg-white border border-[#E6DAD1] rounded-2xl p-6 animate-pulse">
-                <div className="h-4 w-40 bg-[#FAF6F3] rounded mb-3" />
-                <div className="h-3 w-full max-w-md bg-[#FAF6F3] rounded mb-2" />
-                <div className="h-3 w-3/4 bg-[#FAF6F3] rounded" />
+              <div key={n} className="bg-white border border-[color:var(--p-line)] rounded-2xl p-6 animate-pulse">
+                <div className="h-4 w-40 bg-[color:var(--p-ground)] rounded mb-3" />
+                <div className="h-3 w-full max-w-md bg-[color:var(--p-ground)] rounded mb-2" />
+                <div className="h-3 w-3/4 bg-[color:var(--p-ground)] rounded" />
               </div>
             ))}
           </div>
@@ -187,22 +187,22 @@ function TripCard({ trip, onRemove }: { trip: TripMeta; onRemove: () => void }) 
     : `${trip.duration || ''}-Day Greek Trip`.trim()
 
   return (
-    <div className="bg-white border border-[#E6DAD1] rounded-2xl p-5 md:p-6 hover:shadow-md transition-shadow group">
+    <div className="bg-white border border-[color:var(--p-line)] rounded-2xl p-5 md:p-6 hover:shadow-md transition-shadow group">
       <div className="flex items-start justify-between gap-4 mb-3">
         <div className="flex-1 min-w-0">
           <h3
-            className="text-lg text-[#180204] leading-snug"
-            style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}
+            className="text-lg text-[color:var(--p-ink)] leading-snug"
+            style={{ fontFamily: "var(--p-serif)" }}
           >
             {title || 'Your Greek Trip'}
           </h3>
-          <p className="text-[11px] text-[#180204]/40 mt-0.5">
+          <p className="text-[11px] text-[color:var(--p-ink)]/40 mt-0.5">
             Saved {savedDate}
           </p>
         </div>
         <button
           onClick={onRemove}
-          className="p-1.5 text-[#180204]/30 hover:text-[#FF5635] hover:bg-[#FAF6F3] rounded-lg transition opacity-0 group-hover:opacity-100 focus:opacity-100"
+          className="p-1.5 text-[color:var(--p-ink)]/30 hover:text-[color:var(--p-accent-text)] hover:bg-[color:var(--p-ground)] rounded-lg transition opacity-0 group-hover:opacity-100 focus:opacity-100"
           aria-label="Remove from My Trips"
           title="Remove from My Trips"
         >
@@ -213,8 +213,8 @@ function TripCard({ trip, onRemove }: { trip: TripMeta; onRemove: () => void }) 
       {/* Route preview */}
       {trip.route && (
         <div className="flex items-start gap-2 mb-4">
-          <MapPin className="w-3.5 h-3.5 text-[#FF5635] mt-1 flex-shrink-0" />
-          <p className="text-sm text-[#180204]/80 leading-relaxed line-clamp-2">
+          <MapPin className="w-3.5 h-3.5 text-[color:var(--p-accent-text)] mt-1 flex-shrink-0" />
+          <p className="text-sm text-[color:var(--p-ink)]/80 leading-relaxed line-clamp-2">
             {trip.route}
           </p>
         </div>
@@ -223,25 +223,25 @@ function TripCard({ trip, onRemove }: { trip: TripMeta; onRemove: () => void }) 
       {/* Meta chips */}
       <div className="flex flex-wrap gap-2 mb-4">
         {trip.duration && (
-          <span className="inline-flex items-center gap-1 text-[11px] text-[#180204]/60 bg-[#FAF6F3] rounded-full px-2.5 py-1">
+          <span className="inline-flex items-center gap-1 text-[11px] text-[color:var(--p-ink)]/60 bg-[color:var(--p-ground)] rounded-full px-2.5 py-1">
             <Calendar className="w-3 h-3" />
             {trip.duration} days
           </span>
         )}
         {trip.travelWith && (
-          <span className="inline-flex items-center gap-1 text-[11px] text-[#180204]/60 bg-[#FAF6F3] rounded-full px-2.5 py-1">
+          <span className="inline-flex items-center gap-1 text-[11px] text-[color:var(--p-ink)]/60 bg-[color:var(--p-ground)] rounded-full px-2.5 py-1">
             <Users className="w-3 h-3" />
             {trip.travelWith}
           </span>
         )}
         {trip.budget && (
-          <span className="inline-flex items-center gap-1 text-[11px] text-[#180204]/60 bg-[#FAF6F3] rounded-full px-2.5 py-1">
+          <span className="inline-flex items-center gap-1 text-[11px] text-[color:var(--p-ink)]/60 bg-[color:var(--p-ground)] rounded-full px-2.5 py-1">
             <Euro className="w-3 h-3" />
             €{trip.budget}/day
           </span>
         )}
         {trip.month && (
-          <span className="inline-flex items-center gap-1 text-[11px] text-[#180204]/60 bg-[#FAF6F3] rounded-full px-2.5 py-1">
+          <span className="inline-flex items-center gap-1 text-[11px] text-[color:var(--p-ink)]/60 bg-[color:var(--p-ground)] rounded-full px-2.5 py-1">
             {trip.month}
           </span>
         )}
@@ -250,7 +250,7 @@ function TripCard({ trip, onRemove }: { trip: TripMeta; onRemove: () => void }) 
       {/* CTA */}
       <Link
         href={`/results/${trip.id}`}
-        className="inline-flex items-center gap-1.5 px-4 py-2 bg-[#180204] text-white rounded-full text-xs font-semibold hover:bg-[#180204]/90 transition"
+        className="inline-flex items-center gap-1.5 px-4 py-2 bg-[color:var(--p-ink)] text-white rounded-full text-xs font-semibold hover:bg-[color:var(--p-ink)]/90 transition"
       >
         Open itinerary
         <span aria-hidden="true">→</span>
