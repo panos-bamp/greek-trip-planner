@@ -291,15 +291,15 @@ export default function ResultsPage() {
   /* ─── Loading State ─── */
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-[#FAF6F3] flex items-center justify-center">
+      <div className="min-h-screen bg-[color:var(--p-ground)] flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 rounded-full bg-[#FF5635]/10 flex items-center justify-center mx-auto mb-6 animate-pulse">
-            <Compass className="w-8 h-8 text-[#FF5635] animate-spin" />
+          <div className="w-16 h-16 rounded-full bg-[color:var(--p-accent)]/10 flex items-center justify-center mx-auto mb-6 animate-pulse">
+            <Compass className="w-8 h-8 text-[color:var(--p-accent-text)] animate-spin" />
           </div>
-          <h2 className="text-2xl text-[#180204] mb-2" style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
+          <h2 className="text-2xl text-[color:var(--p-ink)] mb-2" style={{ fontFamily: "var(--p-serif)" }}>
             Creating your itinerary…
           </h2>
-          <p className="text-[#180204]/50 text-sm">Our AI is crafting something special</p>
+          <p className="text-[color:var(--p-ink)]/50 text-sm">Our AI is crafting something special</p>
         </div>
       </div>
     )
@@ -308,19 +308,19 @@ export default function ResultsPage() {
   /* ─── No Itinerary ─── */
   if (!itinerary) {
     return (
-      <div className="min-h-screen bg-[#FAF6F3] flex items-center justify-center p-4">
-        <div className="bg-white rounded-2xl p-10 text-center max-w-md shadow-lg border border-[#E6DAD1]">
-          <div className="w-16 h-16 rounded-full bg-[#FF5635]/10 flex items-center justify-center mx-auto mb-6">
-            <Sparkles className="w-8 h-8 text-[#FF5635]" />
+      <div className="min-h-screen bg-[color:var(--p-ground)] flex items-center justify-center p-4">
+        <div className="bg-white rounded-2xl p-10 text-center max-w-md shadow-lg border border-[color:var(--p-line)]">
+          <div className="w-16 h-16 rounded-full bg-[color:var(--p-accent)]/10 flex items-center justify-center mx-auto mb-6">
+            <Sparkles className="w-8 h-8 text-[color:var(--p-accent-text)]" />
           </div>
-          <h2 className="text-2xl text-[#180204] mb-3" style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
+          <h2 className="text-2xl text-[color:var(--p-ink)] mb-3" style={{ fontFamily: "var(--p-serif)" }}>
             Generating Your Itinerary…
           </h2>
-          <p className="text-[#180204]/50 text-sm mb-6 leading-relaxed">
+          <p className="text-[color:var(--p-ink)]/50 text-sm mb-6 leading-relaxed">
             This might take a moment. The AI is creating your personalized Greece adventure.
           </p>
           <button onClick={() => router.push('/quiz')}
-            className="px-8 py-3 bg-[#FF5635] text-white rounded-full font-semibold text-sm hover:bg-[#E03A1A] transition-all shadow-md shadow-[#FF5635]/20">
+            className="px-8 py-3 bg-[color:var(--p-action)] text-[color:var(--p-on-action)] rounded-full font-semibold text-sm hover:bg-[color:var(--p-action-hover)] transition-all shadow-md shadow-[color:var(--p-accent)]/20">
             Start Over
           </button>
         </div>
@@ -403,7 +403,7 @@ export default function ResultsPage() {
     // Step 3: render tokens
     return tokens.map((tok, idx) => {
       if (tok.kind === 'bold') {
-        return <strong key={idx} className="font-semibold text-[#180204]">{tok.value}</strong>
+        return <strong key={idx} className="font-semibold text-[color:var(--p-ink)]">{tok.value}</strong>
       }
       if (tok.kind === 'link') {
         const url = tok.url
@@ -425,7 +425,7 @@ export default function ResultsPage() {
         if (isGYG) {
           return (
             <a key={idx} href={url} target="_blank" rel="noopener noreferrer nofollow"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#FF5533]/8 text-[#FF5533] rounded-lg text-xs font-semibold hover:bg-[#FF5533]/15 transition-colors mt-1.5 max-w-full">
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[color:var(--p-accent)]/8 text-[color:var(--p-accent)] rounded-lg text-xs font-semibold hover:bg-[color:var(--p-accent)]/15 transition-colors mt-1.5 max-w-full">
               <span>🎟️</span>
               <span className="truncate">{linkText}</span>
               <ExternalLink className="w-3 h-3 flex-shrink-0" />
@@ -443,7 +443,7 @@ export default function ResultsPage() {
               href={url}
               target="_blank"
               rel="noopener noreferrer sponsored"
-              className="inline text-[#2C73FF] font-semibold hover:text-[#180204] underline underline-offset-2 decoration-[#2C73FF]/40 hover:decoration-[#180204]/60 transition-colors"
+              className="inline text-[color:var(--p-blue)] font-semibold hover:text-[color:var(--p-ink)] underline underline-offset-2 decoration-[color:var(--p-blue)]/40 hover:decoration-[color:var(--p-ink)]/60 transition-colors"
             >
               {linkText}
               <span className="ml-1 text-[10px] opacity-70" aria-hidden="true">⛴️</span>
@@ -453,7 +453,7 @@ export default function ResultsPage() {
         // Travel guide / generic link
         return (
           <a key={idx} href={url} target="_blank" rel="noopener noreferrer"
-            className="text-[#2C73FF] font-medium hover:text-[#FF5635] underline underline-offset-2 decoration-[#2C73FF]/30 hover:decoration-[#FF5635]/50 transition-colors">
+            className="text-[color:var(--p-blue)] font-medium hover:text-[color:var(--p-accent-text)] underline underline-offset-2 decoration-[color:var(--p-blue)]/30 hover:decoration-[color:var(--p-accent)]/50 transition-colors">
             {linkText}
           </a>
         )
@@ -492,7 +492,7 @@ export default function ResultsPage() {
         >
           {/* Decorative flourish — subtle top-left ornament */}
           <div
-            className="absolute top-3 left-1/2 -translate-x-1/2 text-[#FF5635]/40 text-lg"
+            className="absolute top-3 left-1/2 -translate-x-1/2 text-[color:var(--p-accent-text)]/40 text-lg"
             aria-hidden="true"
             style={{ fontFamily: 'Georgia, serif', letterSpacing: '0.5em' }}
           >
@@ -501,8 +501,8 @@ export default function ResultsPage() {
 
           {/* The sign-off itself — same styling as before, just centered inside the bookend */}
           <p
-            className="text-xl md:text-2xl font-bold text-[#180204] leading-snug mt-2 mb-5 md:mb-6"
-            style={{ fontFamily: "'DM Serif Display', Georgia, serif", fontStyle: 'normal' }}
+            className="text-xl md:text-2xl font-bold text-[color:var(--p-ink)] leading-snug mt-2 mb-5 md:mb-6"
+            style={{ fontFamily: "var(--p-serif)", fontStyle: 'normal' }}
           >
             {signoffMatch[1]}
           </p>
@@ -510,7 +510,7 @@ export default function ResultsPage() {
           {/* Emotional bookend — the "take it with you" moment */}
           <div className="max-w-md mx-auto">
             <p
-              className="text-[13px] md:text-sm text-[#180204]/60 leading-relaxed mb-5"
+              className="text-[13px] md:text-sm text-[color:var(--p-ink)]/60 leading-relaxed mb-5"
               style={{ fontStyle: 'italic' }}
             >
               Take your trip with you — offline, on the plane, in a taverna with no signal.
@@ -523,8 +523,8 @@ export default function ResultsPage() {
                 disabled={isPdfLoading}
                 className={`inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-all ${
                   isPdfLoading
-                    ? 'bg-[#FF5635]/60 text-white cursor-wait'
-                    : 'bg-[#FF5635] text-white hover:bg-[#E03A1A] hover:shadow-lg hover:scale-[1.02]'
+                    ? 'bg-[color:var(--p-accent)]/60 text-white cursor-wait'
+                    : 'bg-[color:var(--p-action)] text-[color:var(--p-on-action)] hover:bg-[color:var(--p-action-hover)] hover:shadow-lg hover:scale-[1.02]'
                 }`}
                 aria-label={isPdfLoading ? 'Generating PDF' : 'Download itinerary as PDF'}
                 aria-busy={isPdfLoading}
@@ -548,7 +548,7 @@ export default function ResultsPage() {
               {/* Secondary — Share */}
               <button
                 onClick={handleShare}
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium text-[#180204]/70 hover:text-[#FF5635] hover:bg-[#FAF6F3] transition-all"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full text-sm font-medium text-[color:var(--p-ink)]/70 hover:text-[color:var(--p-accent-text)] hover:bg-[color:var(--p-ground)] transition-all"
                 aria-label="Share this itinerary"
               >
                 <Share2 className="w-4 h-4" />
@@ -563,7 +563,7 @@ export default function ResultsPage() {
     // H1 — Main title
     if (line.startsWith('# ')) {
       return (
-        <h1 key={index} className="text-3xl text-[#180204] mb-4 leading-tight" style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
+        <h1 key={index} className="text-3xl text-[color:var(--p-ink)] mb-4 leading-tight" style={{ fontFamily: "var(--p-serif)" }}>
           {line.replace('# ', '')}
         </h1>
       )
@@ -572,7 +572,7 @@ export default function ResultsPage() {
     // H2 — Section headers
     if (line.startsWith('## ')) {
       return (
-        <h2 key={index} className="text-xl text-[#180204] mt-10 mb-4 pb-2 border-b border-[#E6DAD1] flex items-center gap-2" style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
+        <h2 key={index} className="text-xl text-[color:var(--p-ink)] mt-10 mb-4 pb-2 border-b border-[color:var(--p-line)] flex items-center gap-2" style={{ fontFamily: "var(--p-serif)" }}>
           <span>{line.replace('## ', '')}</span>
         </h2>
       )
@@ -582,10 +582,10 @@ export default function ResultsPage() {
     if (line.startsWith('### ')) {
       return (
         <h3 key={index} id={dayNumber ? `day-${dayNumber}` : undefined}
-          className="mt-8 mb-4 p-4 rounded-xl flex items-center gap-3 border-l-4 border-[#FF5635]"
-          style={{ background: 'linear-gradient(135deg, #FF5635 0%, #FF846C 100%)' }}>
+          className="mt-8 mb-4 p-4 rounded-xl flex items-center gap-3 border-l-4 border-[color:var(--p-accent)]"
+          style={{ background: 'var(--p-grad-1)' }}>
           <MapPin className="w-5 h-5 text-white flex-shrink-0" />
-          <span className="text-lg font-semibold text-white" style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
+          <span className="text-lg font-semibold text-white" style={{ fontFamily: "var(--p-serif)" }}>
             {line.replace('### ', '')}
           </span>
         </h3>
@@ -599,7 +599,7 @@ export default function ResultsPage() {
           <span className="text-xl flex-shrink-0 mt-0.5">🌅</span>
           <div className="flex-1">
             <span className="text-xs font-bold text-amber-700 uppercase tracking-wider">Morning</span>
-            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed">{renderInlineLinks(line.replace('**Morning:**', '').trim())}</p>
+            <p className="text-sm text-[color:var(--p-ink)]/80 mt-0.5 leading-relaxed">{renderInlineLinks(line.replace('**Morning:**', '').trim())}</p>
           </div>
         </div>
       )
@@ -610,7 +610,7 @@ export default function ResultsPage() {
           <span className="text-xl flex-shrink-0 mt-0.5">☀️</span>
           <div className="flex-1">
             <span className="text-xs font-bold text-sky-700 uppercase tracking-wider">Afternoon</span>
-            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed">{renderInlineLinks(line.replace('**Afternoon:**', '').trim())}</p>
+            <p className="text-sm text-[color:var(--p-ink)]/80 mt-0.5 leading-relaxed">{renderInlineLinks(line.replace('**Afternoon:**', '').trim())}</p>
           </div>
         </div>
       )
@@ -621,7 +621,7 @@ export default function ResultsPage() {
           <span className="text-xl flex-shrink-0 mt-0.5">🌙</span>
           <div className="flex-1">
             <span className="text-xs font-bold text-violet-700 uppercase tracking-wider">Evening</span>
-            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed">{renderInlineLinks(line.replace('**Evening:**', '').trim())}</p>
+            <p className="text-sm text-[color:var(--p-ink)]/80 mt-0.5 leading-relaxed">{renderInlineLinks(line.replace('**Evening:**', '').trim())}</p>
           </div>
         </div>
       )
@@ -634,7 +634,7 @@ export default function ResultsPage() {
           <span className="text-xl flex-shrink-0">🏨</span>
           <div className="flex-1">
             <span className="text-xs font-bold text-emerald-700 uppercase tracking-wider">Where to Stay</span>
-            <p className="text-sm text-[#180204]/80 mt-1 leading-relaxed">{renderInlineLinks(line.replace('**Where to Stay:**', '').trim())}</p>
+            <p className="text-sm text-[color:var(--p-ink)]/80 mt-1 leading-relaxed">{renderInlineLinks(line.replace('**Where to Stay:**', '').trim())}</p>
           </div>
         </div>
       )
@@ -643,11 +643,11 @@ export default function ResultsPage() {
     // Insider Tip
     if (line.startsWith('**Insider Tip:**')) {
       return (
-        <div key={index} className="flex items-start gap-3 p-3.5 bg-[#FF5635]/5 rounded-xl border border-[#FF5635]/15">
+        <div key={index} className="flex items-start gap-3 p-3.5 bg-[color:var(--p-accent)]/5 rounded-xl border border-[color:var(--p-accent)]/15">
           <span className="text-xl flex-shrink-0">💡</span>
           <div className="flex-1">
-            <span className="text-xs font-bold text-[#FF5635] uppercase tracking-wider">Insider Tip</span>
-            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed">{renderInlineLinks(line.replace('**Insider Tip:**', '').trim())}</p>
+            <span className="text-xs font-bold text-[color:var(--p-accent-text)] uppercase tracking-wider">Insider Tip</span>
+            <p className="text-sm text-[color:var(--p-ink)]/80 mt-0.5 leading-relaxed">{renderInlineLinks(line.replace('**Insider Tip:**', '').trim())}</p>
           </div>
         </div>
       )
@@ -656,11 +656,11 @@ export default function ResultsPage() {
     // Daily Budget
     if (line.startsWith('**Daily Budget:**')) {
       return (
-        <div key={index} className="flex items-start gap-3 p-3.5 bg-[#2C73FF]/5 rounded-xl border border-[#2C73FF]/15">
+        <div key={index} className="flex items-start gap-3 p-3.5 bg-[color:var(--p-blue)]/5 rounded-xl border border-[color:var(--p-blue)]/15">
           <span className="text-xl flex-shrink-0">💰</span>
           <div className="flex-1">
-            <span className="text-xs font-bold text-[#2C73FF] uppercase tracking-wider">Daily Budget</span>
-            <p className="text-sm text-[#180204]/80 mt-0.5 leading-relaxed font-medium">{line.replace('**Daily Budget:**', '').trim()}</p>
+            <span className="text-xs font-bold text-[color:var(--p-blue)] uppercase tracking-wider">Daily Budget</span>
+            <p className="text-sm text-[color:var(--p-ink)]/80 mt-0.5 leading-relaxed font-medium">{line.replace('**Daily Budget:**', '').trim()}</p>
           </div>
         </div>
       )
@@ -669,9 +669,9 @@ export default function ResultsPage() {
     // Travel guide lines with 📖
     if (line.includes('📖')) {
       return (
-        <div key={index} className="flex items-center gap-2 p-3 rounded-xl bg-[#FAF6F3] border border-[#E6DAD1]">
+        <div key={index} className="flex items-center gap-2 p-3 rounded-xl bg-[color:var(--p-ground)] border border-[color:var(--p-line)]">
           <span className="text-lg">📖</span>
-          <span className="text-sm text-[#180204]/70">{renderInlineLinks(line.replace('📖', '').trim())}</span>
+          <span className="text-sm text-[color:var(--p-ink)]/70">{renderInlineLinks(line.replace('📖', '').trim())}</span>
         </div>
       )
     }
@@ -679,8 +679,8 @@ export default function ResultsPage() {
     // Bullet points
     if (line.startsWith('- ')) {
       return (
-        <div key={index} className="flex items-start gap-2.5 ml-1 text-sm text-[#180204]/70 leading-relaxed">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#FF5635] mt-2 flex-shrink-0" />
+        <div key={index} className="flex items-start gap-2.5 ml-1 text-sm text-[color:var(--p-ink)]/70 leading-relaxed">
+          <span className="w-1.5 h-1.5 rounded-full bg-[color:var(--p-action)] mt-2 flex-shrink-0" />
           <span>{renderInlineLinks(line.replace('- ', ''))}</span>
         </div>
       )
@@ -688,7 +688,7 @@ export default function ResultsPage() {
 
     // Regular paragraph — also parse for inline links
     if (line.trim()) {
-      return <p key={index} className="text-sm text-[#180204]/70 leading-relaxed">{renderInlineLinks(line)}</p>
+      return <p key={index} className="text-sm text-[color:var(--p-ink)]/70 leading-relaxed">{renderInlineLinks(line)}</p>
     }
 
     return null
@@ -696,21 +696,21 @@ export default function ResultsPage() {
 
   /* ─── MAIN RENDER ─── */
   return (
-    <div className="min-h-screen bg-[#FAF6F3]">
+    <div className="min-h-screen bg-[color:var(--p-ground)]">
 
       {/* ── Header ── */}
-      <header className="bg-white border-b border-[#E6DAD1] sticky top-0 z-50">
+      <header className="bg-white border-b border-[color:var(--p-line)] sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <button onClick={() => router.push('/')} className="p-2 hover:bg-[#FAF6F3] rounded-xl transition-colors">
-              <ArrowLeft className="w-5 h-5 text-[#180204]/60" />
+            <button onClick={() => router.push('/')} className="p-2 hover:bg-[color:var(--p-ground)] rounded-xl transition-colors">
+              <ArrowLeft className="w-5 h-5 text-[color:var(--p-ink)]/60" />
             </button>
             <Link href="/" className="flex items-center">
               <Image src="/logo.png" alt="Greek Trip Planner" width={60} height={18} />
             </Link>
-            <div className="hidden sm:block h-5 w-px bg-[#E6DAD1] mx-1" />
+            <div className="hidden sm:block h-5 w-px bg-[color:var(--p-line)] mx-1" />
             <div className="hidden sm:block">
-              <h1 className="text-sm font-semibold text-[#180204]" style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
+              <h1 className="text-sm font-semibold text-[color:var(--p-ink)]" style={{ fontFamily: "var(--p-serif)" }}>
                 {userData?.firstName ? `${userData.firstName}'s ` : ''}{userData?.duration || '7'}-Day Itinerary
               </h1>
             </div>
@@ -718,7 +718,7 @@ export default function ResultsPage() {
           <div className="flex items-center gap-1.5">
             <button
               onClick={handleShare}
-              className="px-3 py-2 text-xs text-[#180204]/60 hover:bg-[#FAF6F3] rounded-lg transition flex items-center gap-1.5 font-medium"
+              className="px-3 py-2 text-xs text-[color:var(--p-ink)]/60 hover:bg-[color:var(--p-ground)] rounded-lg transition flex items-center gap-1.5 font-medium"
               aria-label="Share this itinerary"
             >
               <Share2 className="w-3.5 h-3.5" /><span className="hidden md:inline">Share</span>
@@ -727,8 +727,8 @@ export default function ResultsPage() {
               onClick={handleSave}
               className={`px-3 py-2 text-xs rounded-lg transition flex items-center gap-1.5 font-medium ${
                 isSaved
-                  ? 'text-[#FF5635] bg-[#FF5635]/8 hover:bg-[#FF5635]/12'
-                  : 'text-[#180204]/60 hover:bg-[#FAF6F3]'
+                  ? 'text-[color:var(--p-accent-text)] bg-[color:var(--p-accent)]/8 hover:bg-[color:var(--p-accent)]/12'
+                  : 'text-[color:var(--p-ink)]/60 hover:bg-[color:var(--p-ground)]'
               }`}
               aria-label={isSaved ? 'Already saved' : 'Save this itinerary'}
               aria-pressed={isSaved}
@@ -739,10 +739,10 @@ export default function ResultsPage() {
             <button
               onClick={handlePdf}
               disabled={isPdfLoading}
-              className={`px-4 py-2 rounded-full transition flex items-center gap-1.5 font-semibold text-xs shadow-sm shadow-[#FF5635]/20 ${
+              className={`px-4 py-2 rounded-full transition flex items-center gap-1.5 font-semibold text-xs shadow-sm shadow-[color:var(--p-accent)]/20 ${
                 isPdfLoading
-                  ? 'bg-[#FF5635]/60 text-white cursor-wait'
-                  : 'bg-[#FF5635] text-white hover:bg-[#E03A1A]'
+                  ? 'bg-[color:var(--p-accent)]/60 text-white cursor-wait'
+                  : 'bg-[color:var(--p-action)] text-[color:var(--p-on-action)] hover:bg-[color:var(--p-action-hover)]'
               }`}
               aria-label={isPdfLoading ? 'Generating PDF' : 'Download PDF'}
               aria-busy={isPdfLoading}
@@ -790,8 +790,8 @@ export default function ResultsPage() {
           <div
             className={`px-4 py-2.5 rounded-full shadow-lg text-sm font-medium flex items-center gap-2 border ${
               toast.kind === 'success'
-                ? 'bg-white text-[#180204] border-[#E6DAD1]'
-                : 'bg-white text-[#180204]/80 border-[#E6DAD1]'
+                ? 'bg-white text-[color:var(--p-ink)] border-[color:var(--p-line)]'
+                : 'bg-white text-[color:var(--p-ink)]/80 border-[color:var(--p-line)]'
             }`}
             style={{ animation: 'gtp-toast-in 200ms ease-out' }}
           >
@@ -799,13 +799,13 @@ export default function ResultsPage() {
               <span className="text-[#22C55E]" aria-hidden="true">✓</span>
             )}
             {toast.kind === 'info' && (
-              <span className="text-[#2C73FF]" aria-hidden="true">ℹ</span>
+              <span className="text-[color:var(--p-blue)]" aria-hidden="true">ℹ</span>
             )}
             <span>{toast.message}</span>
             {toast.kind === 'success' && toast.message === 'Saved to My Trips' && (
               <Link
                 href="/my-trips"
-                className="ml-1 text-[#FF5635] hover:text-[#E03A1A] underline underline-offset-2 font-semibold"
+                className="ml-1 text-[color:var(--p-accent-text)] hover:text-[color:var(--p-accent-text)] underline underline-offset-2 font-semibold"
               >
                 View
               </Link>
@@ -822,15 +822,15 @@ export default function ResultsPage() {
 
       {/* ── Day Tabs ── */}
       {days.length > 0 && (
-        <div className="bg-white border-b border-[#E6DAD1] sticky top-[53px] z-40">
+        <div className="bg-white border-b border-[color:var(--p-line)] sticky top-[53px] z-40">
           <div className="max-w-7xl mx-auto px-4 py-2 overflow-x-auto scrollbar-hidden">
             <div className="flex gap-1.5 min-w-max">
               {days.map(day => (
                 <button key={day.number} onClick={() => setSelectedDay(day.number)}
                   className={`px-4 py-1.5 rounded-full font-semibold text-xs transition-all whitespace-nowrap ${
                     selectedDay === day.number
-                      ? 'bg-[#FF5635] text-white shadow-sm'
-                      : 'bg-[#FAF6F3] text-[#180204]/50 hover:bg-[#E6DAD1]/50 hover:text-[#180204]/70'
+                      ? 'bg-[color:var(--p-action)] text-[color:var(--p-on-action)] shadow-sm'
+                      : 'bg-[color:var(--p-ground)] text-[color:var(--p-ink)]/50 hover:bg-[color:var(--p-line)]/50 hover:text-[color:var(--p-ink)]/70'
                   }`}>
                   Day {day.number}
                 </button>
@@ -847,14 +847,14 @@ export default function ResultsPage() {
         <div className="w-full md:w-1/2">
 
           {/* Trip Overview Banner */}
-          <div className="bg-[#180204] text-white p-6">
+          <div className="bg-[color:var(--p-ink)] text-white p-6">
             <div className="max-w-2xl mx-auto">
               <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/15 rounded-full px-3 py-1 mb-4">
-                <Sparkles className="w-3 h-3 text-[#FF5635]" />
+                <Sparkles className="w-3 h-3 text-[color:var(--p-accent-text)]" />
                 <span className="text-xs font-medium text-white/80">AI-Generated Just for You</span>
               </div>
 
-              <h2 className="text-2xl text-white mb-1.5 leading-tight" style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
+              <h2 className="text-2xl text-white mb-1.5 leading-tight" style={{ fontFamily: "var(--p-serif)" }}>
                 Your Greece Itinerary
               </h2>
               <p className="text-white/50 text-sm mb-5">Personalized recommendations, insider tips & realistic timing</p>
@@ -862,22 +862,22 @@ export default function ResultsPage() {
               {/* Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                 <div className="rounded-xl p-3 bg-white/8 border border-white/10">
-                  <Calendar className="w-4 h-4 text-[#FF5635] mb-1.5" />
+                  <Calendar className="w-4 h-4 text-[color:var(--p-accent-text)] mb-1.5" />
                   <div className="text-xs text-white/40">Duration</div>
                   <div className="text-sm font-semibold text-white">{userData?.duration || '7'} days</div>
                 </div>
                 <div className="rounded-xl p-3 bg-white/8 border border-white/10">
-                  <Users className="w-4 h-4 text-[#FF5635] mb-1.5" />
+                  <Users className="w-4 h-4 text-[color:var(--p-accent-text)] mb-1.5" />
                   <div className="text-xs text-white/40">Travelers</div>
                   <div className="text-sm font-semibold text-white">{userData?.travelWith || 'Solo'}</div>
                 </div>
                 <div className="rounded-xl p-3 bg-white/8 border border-white/10">
-                  <Euro className="w-4 h-4 text-[#FF5635] mb-1.5" />
+                  <Euro className="w-4 h-4 text-[color:var(--p-accent-text)] mb-1.5" />
                   <div className="text-xs text-white/40">Budget</div>
                   <div className="text-sm font-semibold text-white">€{userData?.budget || '150'}/day</div>
                 </div>
                 <div className="rounded-xl p-3 bg-white/8 border border-white/10">
-                  <MapPin className="w-4 h-4 text-[#FF5635] mb-1.5" />
+                  <MapPin className="w-4 h-4 text-[color:var(--p-accent-text)] mb-1.5" />
                   <div className="text-xs text-white/40">Season</div>
                   <div className="text-sm font-semibold text-white">{userData?.month || 'Summer'}</div>
                 </div>
@@ -948,12 +948,12 @@ export default function ResultsPage() {
                   const node = (
                     <div
                       key={`tbl-${startIdx}`}
-                      className="my-6 overflow-x-auto border border-[#E6DAD1] rounded-xl shadow-sm"
+                      className="my-6 overflow-x-auto border border-[color:var(--p-line)] rounded-xl shadow-sm"
                       style={{ WebkitOverflowScrolling: 'touch' }}
                     >
                       <table className="w-full border-collapse text-sm" style={{ minWidth: 480 }}>
                         <thead>
-                          <tr style={{ background: '#180204' }}>
+                          <tr style={{ background: 'var(--p-ink)' }}>
                             {headers.map((h, hi) => (
                               <th
                                 key={hi}
@@ -973,7 +973,7 @@ export default function ResultsPage() {
                               <tr
                                 key={ri}
                                 style={{
-                                  background: totalRow ? '#180204' : evenRow ? '#FDFBF9' : '#FFFFFF',
+                                  background: totalRow ? 'var(--p-ink)' : evenRow ? 'var(--p-ground-2)' : '#FFFFFF',
                                   borderBottom: '1px solid #F0E8E2',
                                 }}
                               >
@@ -1073,18 +1073,18 @@ export default function ResultsPage() {
                     out.push(
                       <div
                         key={`ovcta-${idx}`}
-                        className="my-6 px-5 py-4 rounded-2xl border border-[#E6DAD1]"
+                        className="my-6 px-5 py-4 rounded-2xl border border-[color:var(--p-line)]"
                         style={{
                           background: 'linear-gradient(135deg, #FFFFFF 0%, #FAF6F3 100%)',
                         }}
                       >
                         <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
                           <div className="flex-1 min-w-0">
-                            <p className="text-[11px] font-bold tracking-wider uppercase text-[#FF5635] mb-1"
+                            <p className="text-[11px] font-bold tracking-wider uppercase text-[color:var(--p-accent-text)] mb-1"
                               style={{ letterSpacing: '0.08em' }}>
                               Keep this itinerary handy
                             </p>
-                            <p className="text-sm text-[#180204]/70 leading-relaxed m-0">
+                            <p className="text-sm text-[color:var(--p-ink)]/70 leading-relaxed m-0">
                               Download the PDF for offline reading, or send the link to whoever you're traveling with.
                             </p>
                           </div>
@@ -1094,8 +1094,8 @@ export default function ResultsPage() {
                               disabled={isPdfLoading}
                               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
                                 isPdfLoading
-                                  ? 'bg-[#FF5635]/60 text-white cursor-wait'
-                                  : 'bg-[#FF5635] text-white hover:bg-[#E03A1A] hover:shadow-md'
+                                  ? 'bg-[color:var(--p-accent)]/60 text-white cursor-wait'
+                                  : 'bg-[color:var(--p-action)] text-[color:var(--p-on-action)] hover:bg-[color:var(--p-action-hover)] hover:shadow-md'
                               }`}
                               aria-busy={isPdfLoading}
                             >
@@ -1116,7 +1116,7 @@ export default function ResultsPage() {
                             </button>
                             <button
                               onClick={handleShare}
-                              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium text-[#180204]/70 hover:text-[#FF5635] hover:bg-white transition-all border border-[#E6DAD1]"
+                              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium text-[color:var(--p-ink)]/70 hover:text-[color:var(--p-accent-text)] hover:bg-white transition-all border border-[color:var(--p-line)]"
                             >
                               <Share2 className="w-3.5 h-3.5" />
                               <span>Share</span>
@@ -1125,8 +1125,8 @@ export default function ResultsPage() {
                               onClick={handleSave}
                               className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium transition-all border ${
                                 isSaved
-                                  ? 'text-[#FF5635] bg-[#FF5635]/8 border-[#FF5635]/30'
-                                  : 'text-[#180204]/70 hover:text-[#FF5635] hover:bg-white border-[#E6DAD1]'
+                                  ? 'text-[color:var(--p-accent-text)] bg-[color:var(--p-accent)]/8 border-[color:var(--p-accent)]/30'
+                                  : 'text-[color:var(--p-ink)]/70 hover:text-[color:var(--p-accent-text)] hover:bg-white border-[color:var(--p-line)]'
                               }`}
                               aria-pressed={isSaved}
                             >
@@ -1165,8 +1165,8 @@ export default function ResultsPage() {
             </div>
 
             {/* CTA — flights primary, blog secondary */}
-            <div className="mt-12 rounded-2xl p-8 text-center text-white shadow-xl" style={{ background: 'linear-gradient(135deg, #FF5635 0%, #E03A1A 100%)' }}>
-              <h3 className="text-2xl mb-2" style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
+            <div className="mt-12 rounded-2xl p-8 text-center text-white shadow-xl" style={{ background: 'var(--p-grad-2)' }}>
+              <h3 className="text-2xl mb-2" style={{ fontFamily: "var(--p-serif)" }}>
                 Make this trip happen
               </h3>
               <p className="text-white/80 text-sm mb-6">
@@ -1177,7 +1177,7 @@ export default function ResultsPage() {
                   href="https://trip.tpx.lt/k75QcbiI"
                   target="_blank"
                   rel="noopener noreferrer sponsored"
-                  className="inline-flex items-center gap-2 px-7 py-3 bg-white text-[#FF5635] rounded-full font-bold text-sm hover:shadow-xl hover:scale-105 transition-all"
+                  className="inline-flex items-center gap-2 px-7 py-3 bg-white text-[color:var(--p-accent-text)] rounded-full font-bold text-sm hover:shadow-xl hover:scale-105 transition-all"
                 >
                   <span>✈️</span>
                   <span>Find flights to Greece</span>
@@ -1195,7 +1195,7 @@ export default function ResultsPage() {
             {/* Re-generate CTA */}
             <div className="mt-6 text-center">
               <button onClick={() => router.push('/quiz')}
-                className="text-sm text-[#180204]/40 hover:text-[#FF5635] transition-colors underline underline-offset-4 decoration-[#E6DAD1] hover:decoration-[#FF5635]">
+                className="text-sm text-[color:var(--p-ink)]/40 hover:text-[color:var(--p-accent-text)] transition-colors underline underline-offset-4 decoration-[color:var(--p-line)] hover:decoration-[color:var(--p-accent)]">
                 Not quite right? Generate a new itinerary
               </button>
             </div>

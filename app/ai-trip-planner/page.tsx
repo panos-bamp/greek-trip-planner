@@ -17,27 +17,27 @@ export const metadata = {
 
 export default function PlannerPage() {
   return (
-    <main className="min-h-screen bg-[#FAF6F3]">
+    <main className="min-h-screen bg-[color:var(--p-ground)]">
 
       {/* ===== HERO — Tool Introduction ===== */}
-      <section className="pt-28 pb-16 md:pt-36 md:pb-24 bg-[#FAF6F3]">
+      <section className="pt-28 pb-16 md:pt-36 md:pb-24 bg-[color:var(--p-ground)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
             {/* Left — Text content */}
             <div>
-              <div className="inline-flex items-center gap-2 bg-[#FF5635]/10 rounded-full px-4 py-1.5 mb-6">
-                <Sparkles className="w-4 h-4 text-[#FF5635]" />
-                <span className="text-[#FF5635] text-sm font-semibold">Free AI-Powered Tool</span>
+              <div className="inline-flex items-center gap-2 bg-[color:var(--p-accent)]/10 rounded-full px-4 py-1.5 mb-6">
+                <Sparkles className="w-4 h-4 text-[color:var(--p-accent-text)]" />
+                <span className="text-[color:var(--p-accent-text)] text-sm font-semibold">Free AI-Powered Tool</span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl text-[#180204] leading-[1.08] mb-6">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl text-[color:var(--p-ink)] leading-[1.08] mb-6">
                 Your Personal<br />
-                <span className="text-[#FF5635]">Greece Itinerary</span><br />
+                <span className="text-[color:var(--p-accent-text)]">Greece Itinerary</span><br />
                 in 3 Minutes
               </h1>
 
-              <p className="text-lg text-[#180204]/65 leading-relaxed mb-8 max-w-lg">
+              <p className="text-lg text-[color:var(--p-ink)]/65 leading-relaxed mb-8 max-w-lg">
                 Answer 13 quick questions about your travel style, regions, and budget. Our AI — powered by 133 destinations and decades of local expertise from 5 Greek tourism professionals — builds a day-by-day itinerary customized to you.
               </p>
 
@@ -48,8 +48,8 @@ export default function PlannerPage() {
                   { icon: MapPin, text: '133 destinations covered' },
                   { icon: CheckCircle, text: '100% free forever' },
                 ].map((badge) => (
-                  <div key={badge.text} className="flex items-center gap-2 text-[#180204]/60 text-sm">
-                    <badge.icon className="w-4 h-4 text-[#2C73FF]" />
+                  <div key={badge.text} className="flex items-center gap-2 text-[color:var(--p-ink)]/60 text-sm">
+                    <badge.icon className="w-4 h-4 text-[color:var(--p-blue)]" />
                     <span>{badge.text}</span>
                   </div>
                 ))}
@@ -63,9 +63,9 @@ export default function PlannerPage() {
                 >
                   Create My Itinerary <ArrowRight className="w-5 h-5" />
                 </Link>
-                <div className="flex items-center gap-2 text-sm text-[#180204]/45 pt-2">
+                <div className="flex items-center gap-2 text-sm text-[color:var(--p-ink)]/45 pt-2">
                   <span>No account needed</span>
-                  <span className="text-[#180204]/20">·</span>
+                  <span className="text-[color:var(--p-ink)]/20">·</span>
                   <span>No credit card</span>
                 </div>
               </div>
@@ -73,16 +73,16 @@ export default function PlannerPage() {
 
             {/* Right — Itinerary Preview Mockup */}
             <div className="relative">
-              <div className="bg-white rounded-3xl shadow-xl border border-[#E6DAD1] overflow-hidden">
+              <div className="bg-white rounded-3xl shadow-xl border border-[color:var(--p-line)] overflow-hidden">
                 {/* Mockup header */}
-                <div className="bg-[#180204] px-6 py-4 flex items-center justify-between">
+                <div className="bg-[color:var(--p-ink)] px-6 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Sun className="w-4 h-4 text-[#FF5635]" />
+                    <Sun className="w-4 h-4 text-[color:var(--p-accent-text)]" />
                     <span className="text-white text-sm font-semibold font-sans">Your Greece Itinerary</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#FF5635]/60" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#2C73FF]/60" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[color:var(--p-accent)]/60" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-[color:var(--p-blue)]/60" />
                     <div className="w-2.5 h-2.5 rounded-full bg-white/30" />
                   </div>
                 </div>
@@ -90,23 +90,23 @@ export default function PlannerPage() {
                 {/* Mockup itinerary content */}
                 <div className="p-6 space-y-4">
                   {/* Trip overview bar */}
-                  <div className="flex items-center justify-between text-xs font-sans text-[#180204]/50 pb-3 border-b border-[#E6DAD1]/60">
+                  <div className="flex items-center justify-between text-xs font-sans text-[color:var(--p-ink)]/50 pb-3 border-b border-[color:var(--p-line)]/60">
                     <span>10 Days · 2 Travelers · Mid-Range Budget</span>
-                    <span className="text-[#FF5635] font-semibold">AI-Generated</span>
+                    <span className="text-[color:var(--p-accent-text)] font-semibold">AI-Generated</span>
                   </div>
 
                   {/* Day 1 */}
                   <div className="flex gap-4 items-start">
                     <div className="flex flex-col items-center">
-                      <div className="w-8 h-8 bg-[#FF5635] rounded-full flex items-center justify-center text-white text-xs font-bold font-sans">1</div>
-                      <div className="w-0.5 h-12 bg-[#E6DAD1] mt-1" />
+                      <div className="w-8 h-8 bg-[color:var(--p-action)] rounded-full flex items-center justify-center text-[color:var(--p-on-action)] text-xs font-bold font-sans">1</div>
+                      <div className="w-0.5 h-12 bg-[color:var(--p-line)] mt-1" />
                     </div>
                     <div className="flex-1">
-                      <div className="text-sm font-semibold text-[#180204] font-sans">Athens — Arrival & Acropolis</div>
-                      <div className="text-xs text-[#180204]/50 font-sans mt-1">Acropolis · Plaka Walking Tour · Rooftop Dinner</div>
+                      <div className="text-sm font-semibold text-[color:var(--p-ink)] font-sans">Athens — Arrival & Acropolis</div>
+                      <div className="text-xs text-[color:var(--p-ink)]/50 font-sans mt-1">Acropolis · Plaka Walking Tour · Rooftop Dinner</div>
                       <div className="flex gap-2 mt-2">
-                        <span className="text-xs bg-[#FF5635]/8 text-[#FF5635] px-2 py-0.5 rounded-full font-sans">Culture</span>
-                        <span className="text-xs bg-[#2C73FF]/8 text-[#2C73FF] px-2 py-0.5 rounded-full font-sans">Dining</span>
+                        <span className="text-xs bg-[color:var(--p-accent)]/8 text-[color:var(--p-accent-text)] px-2 py-0.5 rounded-full font-sans">Culture</span>
+                        <span className="text-xs bg-[color:var(--p-blue)]/8 text-[color:var(--p-blue)] px-2 py-0.5 rounded-full font-sans">Dining</span>
                       </div>
                     </div>
                   </div>
@@ -114,12 +114,12 @@ export default function PlannerPage() {
                   {/* Day 2-3 */}
                   <div className="flex gap-4 items-start">
                     <div className="flex flex-col items-center">
-                      <div className="w-8 h-8 bg-[#2C73FF] rounded-full flex items-center justify-center text-white text-xs font-bold font-sans">2-3</div>
-                      <div className="w-0.5 h-12 bg-[#E6DAD1] mt-1" />
+                      <div className="w-8 h-8 bg-[color:var(--p-blue)] rounded-full flex items-center justify-center text-white text-xs font-bold font-sans">2-3</div>
+                      <div className="w-0.5 h-12 bg-[color:var(--p-line)] mt-1" />
                     </div>
                     <div className="flex-1">
-                      <div className="text-sm font-semibold text-[#180204] font-sans">Athens — Deep Exploration</div>
-                      <div className="text-xs text-[#180204]/50 font-sans mt-1">Ancient Agora · National Museum · Monastiraki</div>
+                      <div className="text-sm font-semibold text-[color:var(--p-ink)] font-sans">Athens — Deep Exploration</div>
+                      <div className="text-xs text-[color:var(--p-ink)]/50 font-sans mt-1">Ancient Agora · National Museum · Monastiraki</div>
                       <div className="flex gap-2 mt-2">
                         <span className="text-xs bg-amber-500/8 text-amber-600 px-2 py-0.5 rounded-full font-sans">History</span>
                         <span className="text-xs bg-green-500/8 text-green-600 px-2 py-0.5 rounded-full font-sans">Local Food</span>
@@ -130,21 +130,21 @@ export default function PlannerPage() {
                   {/* Day 4-6 */}
                   <div className="flex gap-4 items-start">
                     <div className="flex flex-col items-center">
-                      <div className="w-8 h-8 bg-[#180204] rounded-full flex items-center justify-center text-white text-xs font-bold font-sans">4-6</div>
-                      <div className="w-0.5 h-6 bg-[#E6DAD1] mt-1" />
+                      <div className="w-8 h-8 bg-[color:var(--p-ink)] rounded-full flex items-center justify-center text-white text-xs font-bold font-sans">4-6</div>
+                      <div className="w-0.5 h-6 bg-[color:var(--p-line)] mt-1" />
                     </div>
                     <div className="flex-1">
-                      <div className="text-sm font-semibold text-[#180204] font-sans">Santorini — Caldera & Sunsets</div>
-                      <div className="text-xs text-[#180204]/50 font-sans mt-1">Ferry from Piraeus · Oia · Wine Tasting · Beaches</div>
+                      <div className="text-sm font-semibold text-[color:var(--p-ink)] font-sans">Santorini — Caldera & Sunsets</div>
+                      <div className="text-xs text-[color:var(--p-ink)]/50 font-sans mt-1">Ferry from Piraeus · Oia · Wine Tasting · Beaches</div>
                       <div className="flex gap-2 mt-2">
                         <span className="text-xs bg-purple-500/8 text-purple-600 px-2 py-0.5 rounded-full font-sans">Romance</span>
-                        <span className="text-xs bg-[#FF5635]/8 text-[#FF5635] px-2 py-0.5 rounded-full font-sans">Adventure</span>
+                        <span className="text-xs bg-[color:var(--p-accent)]/8 text-[color:var(--p-accent-text)] px-2 py-0.5 rounded-full font-sans">Adventure</span>
                       </div>
                     </div>
                   </div>
 
                   {/* More indicator */}
-                  <div className="flex items-center gap-2 text-[#FF5635] text-sm font-sans font-medium pt-2 pl-12">
+                  <div className="flex items-center gap-2 text-[color:var(--p-accent-text)] text-sm font-sans font-medium pt-2 pl-12">
                     <span>+ Days 7-10: Naxos & Return</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </div>
@@ -152,17 +152,17 @@ export default function PlannerPage() {
               </div>
 
               {/* Floating badge */}
-              <div className="absolute -bottom-4 -right-2 sm:-right-4 bg-white rounded-2xl shadow-lg border border-[#E6DAD1] px-4 py-3 flex items-center gap-3">
+              <div className="absolute -bottom-4 -right-2 sm:-right-4 bg-white rounded-2xl shadow-lg border border-[color:var(--p-line)] px-4 py-3 flex items-center gap-3">
                 <div className="flex -space-x-1.5">
                   {['S', 'J', 'M'].map((letter, i) => (
-                    <div key={i} className="w-7 h-7 bg-[#FF5635]/10 border-2 border-white rounded-full flex items-center justify-center text-[#FF5635] text-xs font-bold font-sans">
+                    <div key={i} className="w-7 h-7 bg-[color:var(--p-accent)]/10 border-2 border-white rounded-full flex items-center justify-center text-[color:var(--p-accent-text)] text-xs font-bold font-sans">
                       {letter}
                     </div>
                   ))}
                 </div>
                 <div className="text-xs font-sans">
-                  <div className="font-semibold text-[#180204]">4.9/5 Rating</div>
-                  <div className="text-[#180204]/45">from 847 travelers</div>
+                  <div className="font-semibold text-[color:var(--p-ink)]">4.9/5 Rating</div>
+                  <div className="text-[color:var(--p-ink)]/45">from 847 travelers</div>
                 </div>
               </div>
             </div>
@@ -175,8 +175,8 @@ export default function PlannerPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="divider-accent mx-auto mb-4" />
-            <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">What You&apos;ll Get</h2>
-            <p className="text-[#180204]/60 max-w-xl mx-auto">Your AI-generated itinerary includes everything you need for the perfect Greek trip</p>
+            <h2 className="text-4xl sm:text-5xl text-[color:var(--p-ink)] mb-4">What You&apos;ll Get</h2>
+            <p className="text-[color:var(--p-ink)]/60 max-w-xl mx-auto">Your AI-generated itinerary includes everything you need for the perfect Greek trip</p>
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -185,48 +185,48 @@ export default function PlannerPage() {
                 icon: Calendar,
                 title: 'Day-by-Day Schedule',
                 desc: 'A complete daily plan with morning, afternoon, and evening activities. Realistic timing that accounts for travel between locations, meal breaks, and rest.',
-                color: '#FF5635',
+                color: 'var(--p-accent)',
               },
               {
                 icon: Ship,
                 title: 'Ferry & Transport Routes',
                 desc: 'Real ferry schedules between islands, airport transfer tips, and the most efficient routes. No more guessing logistics — we handle the connections.',
-                color: '#2C73FF',
+                color: 'var(--p-blue)',
               },
               {
                 icon: Utensils,
                 title: 'Restaurant Picks',
                 desc: 'Handpicked tavernas and restaurants where locals actually eat. From seaside fish tavernas to hidden mountain spots — authentic Greek cuisine.',
-                color: '#FF5635',
+                color: 'var(--p-accent)',
               },
               {
                 icon: Camera,
                 title: 'Hidden Gems & Tips',
                 desc: 'Secret beaches, lesser-known viewpoints, and local festivals most tourists miss. 133 destinations across all of Greece — from famous islands to villages only locals know.',
-                color: '#2C73FF',
+                color: 'var(--p-blue)',
               },
               {
                 icon: MapPin,
                 title: 'Accommodation Areas',
                 desc: 'Best neighborhoods and areas to stay in each destination, matched to your budget. Know exactly where to book for the best experience.',
-                color: '#FF5635',
+                color: 'var(--p-accent)',
               },
               {
                 icon: Compass,
                 title: 'Island-Hopping Logic',
                 desc: 'Optimized island sequences that minimize travel time and maximize experiences. The right order matters — we get it right every time.',
-                color: '#2C73FF',
+                color: 'var(--p-blue)',
               },
             ].map((item) => (
-              <div key={item.title} className="bg-[#FAF6F3] rounded-2xl p-7 card-hover group">
+              <div key={item.title} className="bg-[color:var(--p-ground)] rounded-2xl p-7 card-hover group">
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center mb-5 transition-colors duration-300"
                   style={{ backgroundColor: `${item.color}15` }}
                 >
                   <item.icon className="w-6 h-6 transition-colors duration-300" style={{ color: item.color }} />
                 </div>
-                <h3 className="text-xl text-[#180204] mb-2 font-sans font-semibold">{item.title}</h3>
-                <p className="text-[#180204]/55 text-sm leading-relaxed">{item.desc}</p>
+                <h3 className="text-xl text-[color:var(--p-ink)] mb-2 font-sans font-semibold">{item.title}</h3>
+                <p className="text-[color:var(--p-ink)]/55 text-sm leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
@@ -234,12 +234,12 @@ export default function PlannerPage() {
       </section>
 
       {/* ===== THE PROCESS — 3 Steps ===== */}
-      <section className="section-padding bg-[#FAF6F3]">
+      <section className="section-padding bg-[color:var(--p-ground)]">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="divider-accent mx-auto mb-4" />
-            <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">How It Works</h2>
-            <p className="text-[#180204]/60 max-w-xl mx-auto">From questions to your perfect itinerary — in three simple steps</p>
+            <h2 className="text-4xl sm:text-5xl text-[color:var(--p-ink)] mb-4">How It Works</h2>
+            <p className="text-[color:var(--p-ink)]/60 max-w-xl mx-auto">From questions to your perfect itinerary — in three simple steps</p>
           </div>
 
           <div className="space-y-8">
@@ -249,24 +249,24 @@ export default function PlannerPage() {
                 title: 'Tell Us About Your Trip',
                 desc: 'Answer 13 quick questions: when you\'re traveling, who you\'re with, which Greek regions excite you, your interests, budget, and travel pace. Takes about 3 minutes — like chatting with a friend who knows Greece inside out.',
                 detail: 'Questions cover: experience level, travel dates, group type, region preference (islands/mainland/both), specific regions, pace, interests, accommodation style, dining, budget, and daily rhythm.',
-                color: '#FF5635',
+                color: 'var(--p-accent)',
               },
               {
                 step: '02',
                 title: 'AI Builds Your Itinerary',
                 desc: 'Our AI combines your answers with a database of 133 Greek destinations — real ferry schedules, seasonal tips, authentic restaurant picks, and decades of on-the-ground expertise from our team of 5 Greek tourism professionals.',
                 detail: 'The AI cross-references 133 destinations across 11 regions, matches them to your preferences, and builds logistically sound routes that respect real travel times and seasonal availability.',
-                color: '#2C73FF',
+                color: 'var(--p-blue)',
               },
               {
                 step: '03',
                 title: 'Get Your Plan & Customize',
                 desc: 'Receive a complete day-by-day itinerary you can edit, share, and use. Swap activities, adjust timing, add your own discoveries. It\'s your trip — we just gave you the perfect starting point.',
                 detail: 'Your itinerary is fully editable. Save it, share it with travel companions, or use it as inspiration to build your own variation.',
-                color: '#180204',
+                color: 'var(--p-ink)',
               },
             ].map((item, i) => (
-              <div key={i} className="bg-white rounded-3xl p-8 md:p-10 border border-[#E6DAD1]/60 card-hover">
+              <div key={i} className="bg-white rounded-3xl p-8 md:p-10 border border-[color:var(--p-line)]/60 card-hover">
                 <div className="flex flex-col md:flex-row gap-6 md:gap-10 items-start">
                   {/* Step number */}
                   <div
@@ -277,9 +277,9 @@ export default function PlannerPage() {
                   </div>
                   {/* Content */}
                   <div className="flex-1">
-                    <h3 className="text-2xl sm:text-3xl text-[#180204] mb-3">{item.title}</h3>
-                    <p className="text-[#180204]/65 text-lg leading-relaxed mb-4">{item.desc}</p>
-                    <p className="text-[#180204]/45 text-sm leading-relaxed border-l-2 border-[#E6DAD1] pl-4">{item.detail}</p>
+                    <h3 className="text-2xl sm:text-3xl text-[color:var(--p-ink)] mb-3">{item.title}</h3>
+                    <p className="text-[color:var(--p-ink)]/65 text-lg leading-relaxed mb-4">{item.desc}</p>
+                    <p className="text-[color:var(--p-ink)]/45 text-sm leading-relaxed border-l-2 border-[color:var(--p-line)] pl-4">{item.detail}</p>
                   </div>
                 </div>
               </div>
@@ -294,7 +294,7 @@ export default function PlannerPage() {
             >
               Start My Itinerary Now <ArrowRight className="w-5 h-5" />
             </Link>
-            <p className="text-[#180204]/40 text-sm mt-4 font-sans">Free forever · No account needed · Results in 3 minutes</p>
+            <p className="text-[color:var(--p-ink)]/40 text-sm mt-4 font-sans">Free forever · No account needed · Results in 3 minutes</p>
           </div>
         </div>
       </section>
@@ -304,13 +304,13 @@ export default function PlannerPage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="divider-accent mx-auto mb-4" />
-            <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Why This Isn&apos;t Just Another Planner</h2>
+            <h2 className="text-4xl sm:text-5xl text-[color:var(--p-ink)] mb-4">Why This Isn&apos;t Just Another Planner</h2>
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
             {/* Left — What others do */}
-            <div className="bg-[#FAF6F3] rounded-3xl p-8 border border-[#E6DAD1]/60">
-              <h3 className="text-xl text-[#180204]/40 font-sans font-semibold mb-6">Generic AI Planners</h3>
+            <div className="bg-[color:var(--p-ground)] rounded-3xl p-8 border border-[color:var(--p-line)]/60">
+              <h3 className="text-xl text-[color:var(--p-ink)]/40 font-sans font-semibold mb-6">Generic AI Planners</h3>
               <ul className="space-y-4">
                 {[
                   'Copy-paste itineraries from travel blogs',
@@ -320,8 +320,8 @@ export default function PlannerPage() {
                   'Zero local knowledge — just internet scraping',
                   'One-size-fits-all for every traveler',
                 ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-3 text-[#180204]/45 text-sm font-sans">
-                    <span className="text-[#180204]/25 mt-0.5">✗</span>
+                  <li key={i} className="flex items-start gap-3 text-[color:var(--p-ink)]/45 text-sm font-sans">
+                    <span className="text-[color:var(--p-ink)]/25 mt-0.5">✗</span>
                     <span>{item}</span>
                   </li>
                 ))}
@@ -329,8 +329,8 @@ export default function PlannerPage() {
             </div>
 
             {/* Right — What we do */}
-            <div className="bg-[#180204] rounded-3xl p-8 text-white">
-              <h3 className="text-xl font-sans font-semibold mb-6 text-[#FF5635]">Greek Trip Planner</h3>
+            <div className="bg-[color:var(--p-ink)] rounded-3xl p-8 text-white">
+              <h3 className="text-xl font-sans font-semibold mb-6 text-[color:var(--p-accent-text)]">Greek Trip Planner</h3>
               <ul className="space-y-4">
                 {[
                   'AI built on 133 destinations across 11 regions',
@@ -341,7 +341,7 @@ export default function PlannerPage() {
                   'Personalized to YOUR style and budget',
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-white/80 text-sm font-sans">
-                    <CheckCircle className="w-4 h-4 text-[#FF5635] mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-4 h-4 text-[color:var(--p-accent-text)] mt-0.5 flex-shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -352,11 +352,11 @@ export default function PlannerPage() {
       </section>
 
       {/* ===== SOCIAL PROOF — Testimonials ===== */}
-      <section className="section-padding bg-[#FAF6F3]">
+      <section className="section-padding bg-[color:var(--p-ground)]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="divider-accent mx-auto mb-4" />
-            <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Trusted by 12,000+ Travelers</h2>
+            <h2 className="text-4xl sm:text-5xl text-[color:var(--p-ink)] mb-4">Trusted by 12,000+ Travelers</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -380,26 +380,26 @@ export default function PlannerPage() {
                 trip: '12 days, solo',
               },
             ].map((testimonial, i) => (
-              <div key={i} className="bg-white rounded-3xl p-8 border border-[#E6DAD1]/60 card-hover">
+              <div key={i} className="bg-white rounded-3xl p-8 border border-[color:var(--p-line)]/60 card-hover">
                 <div className="flex gap-1 mb-5">
                   {[...Array(5)].map((_, j) => (
-                    <Star key={j} className="w-4 h-4 text-[#FF5635] fill-[#FF5635]" />
+                    <Star key={j} className="w-4 h-4 text-[color:var(--p-accent-text)] fill-[color:var(--p-accent)]" />
                   ))}
                 </div>
-                <p className="text-[#180204]/70 leading-relaxed mb-6 font-sans italic text-sm">
+                <p className="text-[color:var(--p-ink)]/70 leading-relaxed mb-6 font-sans italic text-sm">
                   &ldquo;{testimonial.quote}&rdquo;
                 </p>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-[#FF5635]/10 rounded-full flex items-center justify-center text-[#FF5635] font-bold text-sm font-sans">
+                    <div className="w-10 h-10 bg-[color:var(--p-accent)]/10 rounded-full flex items-center justify-center text-[color:var(--p-accent-text)] font-bold text-sm font-sans">
                       {testimonial.name.charAt(0)}
                     </div>
                     <div>
-                      <div className="text-[#180204] font-semibold text-sm font-sans">{testimonial.name}</div>
-                      <div className="text-[#180204]/45 text-xs font-sans">{testimonial.location}</div>
+                      <div className="text-[color:var(--p-ink)] font-semibold text-sm font-sans">{testimonial.name}</div>
+                      <div className="text-[color:var(--p-ink)]/45 text-xs font-sans">{testimonial.location}</div>
                     </div>
                   </div>
-                  <span className="text-[#2C73FF] text-xs font-sans font-medium bg-[#2C73FF]/8 px-2 py-1 rounded-full">{testimonial.trip}</span>
+                  <span className="text-[color:var(--p-blue)] text-xs font-sans font-medium bg-[color:var(--p-blue)]/8 px-2 py-1 rounded-full">{testimonial.trip}</span>
                 </div>
               </div>
             ))}
@@ -412,7 +412,7 @@ export default function PlannerPage() {
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="divider-accent mx-auto mb-4" />
-            <h2 className="text-4xl sm:text-5xl text-[#180204] mb-4">Common Questions</h2>
+            <h2 className="text-4xl sm:text-5xl text-[color:var(--p-ink)] mb-4">Common Questions</h2>
           </div>
 
           <div className="space-y-4">
@@ -438,12 +438,12 @@ export default function PlannerPage() {
                 a: 'No problem. You can provide approximate dates or just the month and trip length. The AI will adapt its recommendations to the season — different months mean different island conditions, crowds, and pricing.',
               },
             ].map((faq, i) => (
-              <details key={i} className="group bg-[#FAF6F3] rounded-2xl border border-[#E6DAD1]/60">
-                <summary className="flex items-center justify-between cursor-pointer p-6 text-[#180204] font-sans font-semibold text-lg list-none">
+              <details key={i} className="group bg-[color:var(--p-ground)] rounded-2xl border border-[color:var(--p-line)]/60">
+                <summary className="flex items-center justify-between cursor-pointer p-6 text-[color:var(--p-ink)] font-sans font-semibold text-lg list-none">
                   {faq.q}
-                  <ChevronDown className="w-5 h-5 text-[#FF5635] group-open:rotate-180 transition-transform flex-shrink-0 ml-4" />
+                  <ChevronDown className="w-5 h-5 text-[color:var(--p-accent-text)] group-open:rotate-180 transition-transform flex-shrink-0 ml-4" />
                 </summary>
-                <div className="px-6 pb-6 text-[#180204]/65 leading-relaxed font-sans">
+                <div className="px-6 pb-6 text-[color:var(--p-ink)]/65 leading-relaxed font-sans">
                   {faq.a}
                 </div>
               </details>
@@ -461,11 +461,11 @@ export default function PlannerPage() {
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-[#180204]/70" />
+          <div className="absolute inset-0 bg-[color:var(--p-ink)]/70" />
         </div>
         <div className="relative z-10 max-w-3xl mx-auto px-4 text-center">
           <h2 className="text-4xl sm:text-5xl md:text-6xl text-white mb-6">
-            Ready to Plan Your<br /><span className="text-[#FF5635]">Greek Adventure?</span>
+            Ready to Plan Your<br /><span className="text-[color:var(--p-accent-text)]">Greek Adventure?</span>
           </h2>
           <p className="text-white/70 text-lg mb-10 max-w-xl mx-auto">
             13 questions. 3 minutes. One perfectly personalized itinerary across 133 destinations.

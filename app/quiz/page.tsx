@@ -234,20 +234,20 @@ export default function QuizPage() {
 
   /* ─── RENDER ─── */
   return (
-    <div className="h-screen flex overflow-hidden bg-[#FAF6F3]">
+    <div className="h-screen flex overflow-hidden bg-[color:var(--p-ground)]">
 
       {/* LEFT — Image */}
-      <div className="hidden lg:flex lg:w-[45%] relative overflow-hidden bg-[#180204]">
+      <div className="hidden lg:flex lg:w-[45%] relative overflow-hidden bg-[color:var(--p-ink)]">
         <div className="absolute inset-0">
           <Image src={quizImages[currentStep] || quizImages[0]} alt={`Greece — step ${currentStep + 1}`} fill className="object-cover opacity-80" priority />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#180204]/70 via-transparent to-[#180204]/30" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[color:var(--p-ink)]/70 via-transparent to-[color:var(--p-ink)]/30" />
         </div>
         <div className="relative z-10 flex flex-col justify-end p-10 pb-14">
           <div className="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-4 w-fit">
-            <MapPin className="w-3.5 h-3.5 text-[#FF5635]" />
+            <MapPin className="w-3.5 h-3.5 text-[color:var(--p-accent-text)]" />
             <span className="text-white/90 text-xs font-medium tracking-wide uppercase">133 Destinations</span>
           </div>
-          <h2 className="text-3xl text-white leading-tight mb-2" style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
+          <h2 className="text-3xl text-white leading-tight mb-2" style={{ fontFamily: "var(--p-serif)" }}>
             Your personalized<br />Greece itinerary
           </h2>
           <p className="text-white/60 text-sm max-w-xs">A trip tailored to your style, pace & interests</p>
@@ -262,19 +262,19 @@ export default function QuizPage() {
             {/* Progress */}
             <div className="mb-8">
               <div className="flex justify-between items-center mb-2">
-                <span className="text-xs text-[#180204]/40 font-medium">Step {currentStep + 1} of {questions.length}</span>
-                <span className="text-xs text-[#180204]/40 font-medium">{Math.round(progress)}%</span>
+                <span className="text-xs text-[color:var(--p-ink)]/40 font-medium">Step {currentStep + 1} of {questions.length}</span>
+                <span className="text-xs text-[color:var(--p-ink)]/40 font-medium">{Math.round(progress)}%</span>
               </div>
-              <div className="h-1 bg-[#E6DAD1] rounded-full overflow-hidden">
-                <div className="h-full transition-all duration-500 ease-out rounded-full" style={{ width: `${progress}%`, background: 'linear-gradient(90deg, #FF5635, #FF846C)' }} />
+              <div className="h-1 bg-[color:var(--p-line)] rounded-full overflow-hidden">
+                <div className="h-full transition-all duration-500 ease-out rounded-full" style={{ width: `${progress}%`, background: 'var(--p-grad-progress)' }} />
               </div>
             </div>
 
             {/* Title */}
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl text-[#180204] mb-1.5 leading-tight" style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl text-[color:var(--p-ink)] mb-1.5 leading-tight" style={{ fontFamily: "var(--p-serif)" }}>
               {currentQuestion.title}
             </h1>
-            {currentQuestion.subtitle && <p className="text-sm text-[#180204]/50 mb-8">{currentQuestion.subtitle}</p>}
+            {currentQuestion.subtitle && <p className="text-sm text-[color:var(--p-ink)]/50 mb-8">{currentQuestion.subtitle}</p>}
 
             {/* ─── QUESTION TYPES ─── */}
             <div className="space-y-6 mb-12">
@@ -283,15 +283,15 @@ export default function QuizPage() {
               {currentQuestion.type === 'basics' && (
                 <div className="space-y-6">
                   <div>
-                    <label className="block text-sm font-semibold text-[#180204] mb-2">First name</label>
-                    <input type="text" placeholder="Your name" className="w-full px-4 py-3.5 border-2 border-[#E6DAD1] rounded-xl bg-white focus:border-[#FF5635] focus:outline-none text-base transition-colors" value={answers.firstName} onChange={(e) => setAnswers({ ...answers, firstName: e.target.value })} />
+                    <label className="block text-sm font-semibold text-[color:var(--p-ink)] mb-2">First name</label>
+                    <input type="text" placeholder="Your name" className="w-full px-4 py-3.5 border-2 border-[color:var(--p-line)] rounded-xl bg-white focus:border-[color:var(--p-accent)] focus:outline-none text-base transition-colors" value={answers.firstName} onChange={(e) => setAnswers({ ...answers, firstName: e.target.value })} />
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-[#180204] mb-3">Who are you traveling with?</label>
+                    <label className="block text-sm font-semibold text-[color:var(--p-ink)] mb-3">Who are you traveling with?</label>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                       {[{ value: 'Solo', icon: '🧑' }, { value: 'Couple', icon: '💑' }, { value: 'Family', icon: '👨‍👩‍👧‍👦' }, { value: 'Friends', icon: '👯' }, { value: 'Group', icon: '🎉' }].map(opt => (
                         <button key={opt.value} onClick={() => setAnswers({ ...answers, travelWith: opt.value })}
-                          className={`px-4 py-3 rounded-xl border-2 font-medium transition-all text-sm flex items-center justify-center gap-2 ${answers.travelWith === opt.value ? 'border-[#FF5635] bg-[#FF5635] text-white shadow-md' : 'border-[#E6DAD1] text-[#180204]/70 hover:border-[#FF5635]/40 bg-white'}`}>
+                          className={`px-4 py-3 rounded-xl border-2 font-medium transition-all text-sm flex items-center justify-center gap-2 ${answers.travelWith === opt.value ? 'border-[color:var(--p-accent)] bg-[color:var(--p-action)] text-[color:var(--p-on-action)] shadow-md' : 'border-[color:var(--p-line)] text-[color:var(--p-ink)]/70 hover:border-[color:var(--p-accent)]/40 bg-white'}`}>
                           <span>{opt.icon}</span><span>{opt.value}</span>
                         </button>
                       ))}
@@ -308,14 +308,14 @@ export default function QuizPage() {
                     const isSelected = answers[field] === option.value
                     return (
                       <button key={option.value} onClick={() => setAnswers({ ...answers, [field]: option.value })}
-                        className={`w-full p-4 rounded-xl text-left transition-all border-2 flex items-start gap-4 ${isSelected ? 'border-[#FF5635] bg-[#FF5635]/5 shadow-sm' : 'border-[#E6DAD1] hover:border-[#FF5635]/30 bg-white'}`}>
+                        className={`w-full p-4 rounded-xl text-left transition-all border-2 flex items-start gap-4 ${isSelected ? 'border-[color:var(--p-accent)] bg-[color:var(--p-accent)]/5 shadow-sm' : 'border-[color:var(--p-line)] hover:border-[color:var(--p-accent)]/30 bg-white'}`}>
                         <span className="text-2xl mt-0.5 flex-shrink-0">{option.icon}</span>
                         <div className="flex-1 min-w-0">
-                          <div className={`text-base font-semibold ${isSelected ? 'text-[#FF5635]' : 'text-[#180204]'}`}>{option.label}</div>
-                          {option.subtitle && <div className="text-sm text-[#180204]/45 mt-0.5">{option.subtitle}</div>}
+                          <div className={`text-base font-semibold ${isSelected ? 'text-[color:var(--p-accent-text)]' : 'text-[color:var(--p-ink)]'}`}>{option.label}</div>
+                          {option.subtitle && <div className="text-sm text-[color:var(--p-ink)]/45 mt-0.5">{option.subtitle}</div>}
                         </div>
                         {isSelected && (
-                          <div className="w-5 h-5 rounded-full bg-[#FF5635] flex items-center justify-center flex-shrink-0 mt-1">
+                          <div className="w-5 h-5 rounded-full bg-[color:var(--p-action)] flex items-center justify-center flex-shrink-0 mt-1">
                             <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2 6L5 9L10 3" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                           </div>
                         )}
@@ -333,12 +333,12 @@ export default function QuizPage() {
                     const isSelected = (answers[field] as string[]).includes(option.value)
                     return (
                       <button key={option.value} onClick={() => toggleMulti(field, option.value)}
-                        className={`p-3 rounded-xl text-left transition-all border-2 ${isSelected ? 'border-[#FF5635] bg-[#FF5635]/5 shadow-sm' : 'border-[#E6DAD1] hover:border-[#FF5635]/30 bg-white'}`}>
+                        className={`p-3 rounded-xl text-left transition-all border-2 ${isSelected ? 'border-[color:var(--p-accent)] bg-[color:var(--p-accent)]/5 shadow-sm' : 'border-[color:var(--p-line)] hover:border-[color:var(--p-accent)]/30 bg-white'}`}>
                         <div className="flex items-center gap-2 mb-0.5">
                           {option.icon && <span className="text-lg">{option.icon}</span>}
-                          <span className={`text-sm font-semibold ${isSelected ? 'text-[#FF5635]' : 'text-[#180204]'}`}>{option.label}</span>
+                          <span className={`text-sm font-semibold ${isSelected ? 'text-[color:var(--p-accent-text)]' : 'text-[color:var(--p-ink)]'}`}>{option.label}</span>
                         </div>
-                        {option.subtitle && <p className="text-xs text-[#180204]/40 mt-0.5 leading-snug">{option.subtitle}</p>}
+                        {option.subtitle && <p className="text-xs text-[color:var(--p-ink)]/40 mt-0.5 leading-snug">{option.subtitle}</p>}
                       </button>
                     )
                   })}
@@ -350,15 +350,15 @@ export default function QuizPage() {
                 <div className="space-y-10">
                   {(currentQuestion as any).sliders.map((slider: any) => (
                     <div key={slider.id}>
-                      <p className="text-base font-medium text-[#180204] mb-5">{slider.question}</p>
+                      <p className="text-base font-medium text-[color:var(--p-ink)] mb-5">{slider.question}</p>
                       <input type="range" min="0" max="100" value={answers[slider.id as keyof Answers] as number}
                         onChange={(e) => setAnswers({ ...answers, [slider.id]: parseInt(e.target.value) })}
                         className="w-full h-2 rounded-full appearance-none cursor-pointer"
-                        style={{ background: `linear-gradient(to right, #FF5635 0%, #FF5635 ${answers[slider.id as keyof Answers]}%, #E6DAD1 ${answers[slider.id as keyof Answers]}%, #E6DAD1 100%)` }} />
+                        style={{ background: `linear-gradient(to right, var(--p-action) 0%, var(--p-action) ${answers[slider.id as keyof Answers]}%, var(--p-line) ${answers[slider.id as keyof Answers]}%, var(--p-line) 100%)` }} />
                       <div className="flex justify-between items-center mt-3">
-                        <span className="text-xs text-[#180204]/50">{slider.leftLabel}</span>
-                        <span className="text-xs text-[#180204]/30 italic">{slider.centerLabel}</span>
-                        <span className="text-xs text-[#180204]/50">{slider.rightLabel}</span>
+                        <span className="text-xs text-[color:var(--p-ink)]/50">{slider.leftLabel}</span>
+                        <span className="text-xs text-[color:var(--p-ink)]/30 italic">{slider.centerLabel}</span>
+                        <span className="text-xs text-[color:var(--p-ink)]/50">{slider.rightLabel}</span>
                       </div>
                     </div>
                   ))}
@@ -371,18 +371,18 @@ export default function QuizPage() {
                   <input type="range" min="50" max="500" step="10" value={answers.budget}
                     onChange={(e) => setAnswers({ ...answers, budget: parseInt(e.target.value) })}
                     className="w-full h-3 rounded-full appearance-none cursor-pointer mb-8"
-                    style={{ background: `linear-gradient(to right, #FF5635 0%, #FF5635 ${((answers.budget - 50) / 450) * 100}%, #E6DAD1 ${((answers.budget - 50) / 450) * 100}%, #E6DAD1 100%)` }} />
+                    style={{ background: `linear-gradient(to right, var(--p-action) 0%, var(--p-action) ${((answers.budget - 50) / 450) * 100}%, var(--p-line) ${((answers.budget - 50) / 450) * 100}%, var(--p-line) 100%)` }} />
                   <div className="text-center mb-6">
-                    <div className="text-6xl font-bold text-[#FF5635] mb-1" style={{ fontFamily: "'DM Serif Display', Georgia, serif" }}>€{answers.budget}</div>
-                    <div className="text-[#180204]/40 text-sm">per person, per day</div>
+                    <div className="text-6xl font-bold text-[color:var(--p-accent-text)] mb-1" style={{ fontFamily: "var(--p-serif)" }}>€{answers.budget}</div>
+                    <div className="text-[color:var(--p-ink)]/40 text-sm">per person, per day</div>
                   </div>
-                  <div className="flex justify-between text-xs text-[#180204]/35"><span>€50 — Budget</span><span>€500+ — Luxury</span></div>
+                  <div className="flex justify-between text-xs text-[color:var(--p-ink)]/35"><span>€50 — Budget</span><span>€500+ — Luxury</span></div>
                   <div className="mt-8 grid grid-cols-3 gap-3">
                     {[{ range: '€50–100', label: 'Backpacker', desc: 'Hostels, street food, ferries' }, { range: '€100–200', label: 'Comfortable', desc: 'Mid hotels, tavernas, tours' }, { range: '€200–500', label: 'Premium', desc: 'Boutique stays, fine dining' }].map(tier => (
-                      <div key={tier.label} className="p-3 bg-white rounded-xl border border-[#E6DAD1] text-center">
-                        <div className="text-sm font-bold text-[#FF5635]">{tier.range}</div>
-                        <div className="text-xs font-semibold text-[#180204] mt-1">{tier.label}</div>
-                        <div className="text-xs text-[#180204]/40 mt-0.5">{tier.desc}</div>
+                      <div key={tier.label} className="p-3 bg-white rounded-xl border border-[color:var(--p-line)] text-center">
+                        <div className="text-sm font-bold text-[color:var(--p-accent-text)]">{tier.range}</div>
+                        <div className="text-xs font-semibold text-[color:var(--p-ink)] mt-1">{tier.label}</div>
+                        <div className="text-xs text-[color:var(--p-ink)]/40 mt-0.5">{tier.desc}</div>
                       </div>
                     ))}
                   </div>
@@ -392,13 +392,13 @@ export default function QuizPage() {
           </div>
 
           {/* Bottom Nav */}
-          <div className="sticky bottom-0 bg-white/95 backdrop-blur-sm border-t border-[#E6DAD1] p-5 sm:p-6 lg:p-8">
+          <div className="sticky bottom-0 bg-white/95 backdrop-blur-sm border-t border-[color:var(--p-line)] p-5 sm:p-6 lg:p-8">
             <div className="max-w-2xl mx-auto flex justify-between items-center">
-              <button onClick={handleBack} className="flex items-center gap-2 text-[#180204]/50 hover:text-[#FF5635] font-medium transition text-sm">
+              <button onClick={handleBack} className="flex items-center gap-2 text-[color:var(--p-ink)]/50 hover:text-[color:var(--p-accent-text)] font-medium transition text-sm">
                 <ArrowLeft className="w-4 h-4" /><span>{currentStep > 0 ? 'Back' : 'Home'}</span>
               </button>
               <button onClick={handleNext} disabled={isGenerating}
-                className="px-8 sm:px-10 py-3.5 bg-[#FF5635] text-white rounded-full font-bold text-sm hover:bg-[#E03A1A] transition-all disabled:opacity-50 flex items-center gap-2 shadow-lg shadow-[#FF5635]/20 hover:shadow-xl hover:shadow-[#FF5635]/30">
+                className="px-8 sm:px-10 py-3.5 bg-[color:var(--p-action)] text-[color:var(--p-on-action)] rounded-full font-bold text-sm hover:bg-[color:var(--p-action-hover)] transition-all disabled:opacity-50 flex items-center gap-2 shadow-lg shadow-[color:var(--p-accent)]/20 hover:shadow-xl hover:shadow-[color:var(--p-accent)]/30">
                 {isGenerating ? (<><Loader2 className="w-4 h-4 animate-spin" /><span>Creating your trip…</span></>) :
                   currentStep === questions.length - 1 ? (<><Sparkles className="w-4 h-4" /><span>Generate My Itinerary</span></>) :
                   (<><span>Continue</span><ArrowRight className="w-4 h-4" /></>)}
@@ -409,8 +409,8 @@ export default function QuizPage() {
       </div>
 
       <style jsx>{`
-        input[type='range']::-webkit-slider-thumb { appearance: none; width: 22px; height: 22px; border-radius: 50%; background: #FF5635; cursor: pointer; box-shadow: 0 2px 8px rgba(255,86,53,0.35); border: 3px solid white; }
-        input[type='range']::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: #FF5635; cursor: pointer; box-shadow: 0 2px 8px rgba(255,86,53,0.35); border: 3px solid white; }
+        input[type='range']::-webkit-slider-thumb { appearance: none; width: 22px; height: 22px; border-radius: 50%; background: var(--p-action); cursor: pointer; box-shadow: 0 2px 8px color-mix(in srgb, var(--p-action) 35%, transparent); border: 3px solid white; }
+        input[type='range']::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--p-action); cursor: pointer; box-shadow: 0 2px 8px color-mix(in srgb, var(--p-action) 35%, transparent); border: 3px solid white; }
       `}</style>
     </div>
   )
